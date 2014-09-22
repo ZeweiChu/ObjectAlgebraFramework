@@ -1,0 +1,3 @@
+com.zewei.annotation.processor.TransformProcessor
+com.zewei.annotation.processor.QueryProcessor
+com.zewei.annotation.processor.AlgebraProcessor
