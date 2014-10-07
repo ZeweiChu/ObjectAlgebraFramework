@@ -2,12 +2,14 @@ package test;
 
 
 import generic.G_Stm;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import monoid.StringMonoid;
 import transform.StmAlgTransform;
 import transform.StmRename;
 import trees.StmAlg;
-import library.StringMonoid;
 
 public class StmTest {
 	static <Stm, Exp, Var, Typ> Stm exp(StmAlg<Stm, Exp, Typ> alg){
