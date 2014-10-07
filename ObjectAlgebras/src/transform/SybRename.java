@@ -1,6 +1,6 @@
 package transform;
 
-import generic.G_Person;
+import generic.*;
 import trees.SybAlg;
 
 public interface SybRename extends SybAlgTransform {

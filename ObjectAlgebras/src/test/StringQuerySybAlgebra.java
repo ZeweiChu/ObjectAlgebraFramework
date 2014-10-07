@@ -10,8 +10,7 @@ public class StringQuerySybAlgebra extends QuerySybAlg<String>{
 	}
 
 	@Override
-	public
-	 String P(String name, String address){
+	public String P(String name, String address){
 		return name;
 	}
 }
