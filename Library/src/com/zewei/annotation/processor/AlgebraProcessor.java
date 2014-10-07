@@ -4,28 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Filer;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.ExecutableType;
-import javax.lang.model.type.IntersectionType;
-import javax.lang.model.type.NoType;
-import javax.lang.model.type.NullType;
-import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
-import javax.lang.model.type.TypeVisitor;
-import javax.lang.model.type.UnionType;
-import javax.lang.model.type.WildcardType;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(value={"com.zewei.annotation.processor.Algebra"})
@@ -49,17 +31,20 @@ public class AlgebraProcessor extends AbstractProcessor{
 		JavaFileObject jfo = null;
 		for (Element element: env.getElementsAnnotatedWith(Algebra.class)){			
 			
-			// codes for generic transform
+			// Avoid infinite loop.
 			if (element.getSimpleName().toString().startsWith("G_")){
 				continue;
 			}
 
+			// Initialization.
 			TypeMirror tm = element.asType();
-			String message = tm.accept(new DeclaredTypeVisitor(), element);
-			String typeArguments = "<" + message + ">";
-			String[] lTypeArgs = toList(message);
+			String typeArgs = tm.accept(new DeclaredTypeVisitor(), element);
+			String typeArguments = "<" + typeArgs + ">";
+			String[] lTypeArgs = toList(typeArgs);
+			algName = element.getSimpleName().toString();
 			
-			//create generic classes G_
+			
+			// Create generic classes "G_***".
 			folder = "generic";
 			for (String s: lTypeArgs){
 				classContent = createGenericClass(folder, s, typeArguments, element);
@@ -71,7 +56,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 				}
 			}
 			
-			//create transform classes _Transform
+			// Create transform classes "***Transform".
 			folder = "transform";
 			classContent = createTransformClass(folder, element, lTypeArgs, typeArguments);
 			jfo = null;
@@ -83,33 +68,9 @@ public class AlgebraProcessor extends AbstractProcessor{
 			}
 			
 			
-			// codes for generic query
-			algName = element.getSimpleName().toString();
-			String typeArgs = tm.accept(new DeclaredTypeVisitor(), element);
-			lTypeArgs = toList(typeArgs);
-
+			// Create query classes "Query***".
 			folder = "query";
-
-			classContent = "";
-			classContent +=  "package " + folder + ";\n"
-					+ "import library.Monoid;\n"
-					+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n" 
-					+ "public class Query" + algName + "<R> implements " + algName + "<";
-			for (int i = 0; i < lTypeArgs.length; i++){
-				classContent += "R";
-				if (i < lTypeArgs.length-1) classContent += ",";
-			}
-			classContent += ">{\n" + 
-			" private Monoid<R> m;\n public Query" + algName + "(Monoid<R> m){\n  this.m = m;\n }\n";
-			
-			List<? extends Element> le = element.getEnclosedElements();
-			for (Element e: le){
-				String methodName = e.getSimpleName().toString();
-				String[] args = {methodName, typeArgs};
-				classContent += e.asType().accept(new QueryExecutableTypeVisitor(), args);
-			}
-			classContent += "}";
-			
+			classContent = createQueryClass(folder, element, lTypeArgs, typeArgs);
 			jfo = null;
 			try{
 				jfo = filer.createSourceFile(folder + "/Query" + algName, element);
@@ -117,6 +78,18 @@ public class AlgebraProcessor extends AbstractProcessor{
 			}catch(IOException ioe){
 				ioe.printStackTrace();
 			}
+			
+			// Create combinator classes "Combine***".
+			folder = "query";
+			classContent = createCombinatorClass(folder, element, typeArgs);
+			jfo = null;
+			try{
+				jfo = filer.createSourceFile(folder + "/Combine" + algName, element);
+				jfo.openWriter().append(classContent).close();
+			}catch(IOException ioe){
+				ioe.printStackTrace();
+			}
+			
 		}
 		return true;
 		
@@ -130,255 +103,26 @@ public class AlgebraProcessor extends AbstractProcessor{
 	public SourceVersion getSupportedSourceVersion(){
 		return SourceVersion.latestSupported();
 	}
-
-
-	public class DeclaredTypeVisitor implements TypeVisitor<String, Element>{
-
-		@Override
-		public String visitDeclared(DeclaredType t, Element p) {
-			String res = t.getTypeArguments().toString().replace(" ", "");
-			int len = res.length();
-			res = res.substring(1, len-1);
-			return res;
-		}
-
-		@Override
-		public String visit(TypeMirror t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visit(TypeMirror t) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitPrimitive(PrimitiveType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitNull(NullType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitArray(ArrayType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitError(ErrorType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitTypeVariable(TypeVariable t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitWildcard(WildcardType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitNoType(NoType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitUnknown(TypeMirror t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitUnion(UnionType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		@Override
-		public String visitIntersection(IntersectionType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitExecutable(ExecutableType t, Element p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	}
-	
-	public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>{
-		int arrayContains(String[] ls, String s){
-			int i = 0;
-			for (String ts: ls){
-				if (s.contains(ts)) return i;
-				i++;
-			}
-			return -1;
-		}
-		
-		@Override
-		public String visitExecutable(ExecutableType t, String[] p) {
-			String methodName = p[0];
-			String[] lTypeArgs = p[1].split(",");
-			
-			List<? extends TypeMirror> lp = t.getParameterTypes();
-			String returnType = t.getReturnType().toString();
-			
-			String res = " public ";
-			
-			
-			int flag = arrayContains(lTypeArgs, returnType);
-			if (flag != -1 && returnType.contains("java.util.List"))	res += "java.util.List<R> ";
-			else if (flag != -1) res +=  " R ";
-			else res += returnType + " ";
-			
-			res += methodName + "(";
-			
-			
-			for (int i = 0; i < lp.size(); ++i){
-				flag = arrayContains(lTypeArgs, lp.get(i).toString());
-				if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	res += "java.util.List<R> p" + i;
-				else if (flag != -1) res +=  "R p" + i;
-				else res += lp.get(i).toString() + " p" + i;
-				if (i < lp.size()-1) res += ",";
-			}
-			
-			res += "){\n";
-			res += "  R res = m.empty();\n";
-			for (int i = 0; i < lp.size(); ++i){
-				flag = arrayContains(lTypeArgs, lp.get(i).toString());
-				if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	res += "  res = m.join(res, m.fold(p" + i + "));\n";
-				else if (flag != -1)	res += "  res = m.join(res, p" + i + ");\n";
-			}
-			res += "  return res;\n";
-			res += " }\n";
-			return res;
-		}
-
-		@Override
-		public String visit(TypeMirror t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visit(TypeMirror t) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitPrimitive(PrimitiveType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitNull(NullType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitArray(ArrayType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitDeclared(DeclaredType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitError(ErrorType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitTypeVariable(TypeVariable t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitWildcard(WildcardType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitNoType(NoType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitUnknown(TypeMirror t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitUnion(UnionType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitIntersection(IntersectionType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	}
 	
 	String createGenericClass(String folder, String className, String typeArguments, Element element){
-		return "package " + folder + ";\n"
-				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n"
-				+ "public interface G_" + className + "{\n" +
-				"  " + typeArguments + " " + className + " accept(" + element.getSimpleName() + typeArguments + " alg);\n}";
+		return "package " + folder + ";\n\n"
+				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n"
+				+ "public interface G_" + className + " {\n" +
+				"\t" + typeArguments + " " + className + " accept(" + element.getSimpleName() + typeArguments + " alg);\n}";
 	}
 	
 	String createTransformClass(String folder, Element element, String[] lTypeArgs, String typeArguments){
 		List<? extends Element> le = element.getEnclosedElements();
 		String className = element.getSimpleName() + "Transform";
-		String classContent = "package " + folder + ";\n";
+		String classContent = "package " + folder + ";\n\n";
 		classContent += "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n";
-		classContent += "import generic.*;\n";
+		classContent += "import generic.*;\n\n";
 		classContent += "public interface " + className + " extends " + element.getSimpleName() + "<";
 		for (int i = 0; i < lTypeArgs.length; ++i){
 			classContent += "G_" + lTypeArgs[i];
 			if (i < lTypeArgs.length-1) classContent += ", ";
 		}
-		classContent += ">{\n";
+		classContent += "> {\n";
 				
 		for (Element e: le){
 			String[] args = {e.getSimpleName().toString(), typeArguments, element.getSimpleName().toString()};
@@ -387,146 +131,55 @@ public class AlgebraProcessor extends AbstractProcessor{
 		classContent += "}";
 		return classContent;
 	}
-
 	
-	public class TransformExecutableTypeVisitor implements TypeVisitor<String, String[]>{
-		@Override
-		public String visitExecutable(ExecutableType t, String[] p) {
-			List<? extends TypeMirror> lp = t.getParameterTypes();
-			String[] lTypeArgs = p[1].substring(1, p[1].length()-1).split(",");
-			String res = " @Override\n" 
-						+ " default G_" + t.getReturnType() + " " + p[0] + "(";
-			for (int i = 0; i < lp.size(); ++i){
-				boolean flag = false;
-				if (p[1].contains(lp.get(i).toString())) res += "G_";
-				else {
-					for (String s: lTypeArgs){
-						if (lp.get(i).toString().contains(s)){
-							res += lp.get(i).toString().replace(s, "G_"+s);
-							flag = true;
-							break;
-						}
-					}
-				}
-				if (flag == false) res += lp.get(i).toString();
-				res += " p" + i;
-				if (i < lp.size()-1) res += ", ";
-			}
-			res += "){\n";
-			res += "  return new G_" + t.getReturnType() + "(){\n"
-					+ "   @Override\n"
-					+ "   public " + p[1] + " " + t.getReturnType() + " accept(" + p[2] + p[1] + " alg){\n";
-			
-			for (int i = 0; i < lp.size(); ++i){
-				for (String s: lTypeArgs){
-					if (lp.get(i).toString().contains(s) && lp.get(i).toString().contains("java.util.List")){
-						//dirty trick for lists
-						res += "    java.util.List<" + s + "> gp" + i + " = new java.util.ArrayList<" + s + ">();\n";
-						res += "    for (G_" + s + " s: p" + i + "){\n"
-								+ "     gp" + i + ".add(s.accept(alg));\n"
-								+ "    }\n";
-						break;
-					}
-				}
-			}
-			res += "    return alg." + p[0] + "(";
-			for (int i = 0; i < lp.size(); ++i){
-				boolean flag = false;
-				for (String s: lTypeArgs){
-					if (lp.get(i).toString().contains(s) && lp.get(i).toString().contains("java.util.List")){
-						res += "gp" + i;
-						flag = true;
-						break;
-					}
-				}
-				if (flag == false) {
-					res += "p" + i;
-					if (p[1].contains(lp.get(i).toString())) res +=".accept(alg)";
-				}
-				if (i < lp.size()-1) res += ", ";
-			}
-			res += ");\n" 
-					+"   }\n";
-			res += "  };\n }\n";
-			return res;
+	String createQueryClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
+		String algName = element.getSimpleName().toString();
+		String classContent = "package " + folder + ";\n\n"
+				+ "import library.Monoid;\n"
+				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n" 
+				+ "public class Query" + algName + "<R> implements " + algName + "<";
+		for (int i = 0; i < lTypeArgs.length; i++){
+			classContent += "R";
+			if (i < lTypeArgs.length-1) classContent += ",";
 		}
-
-		@Override
-		public String visit(TypeMirror t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
+		classContent += "> {\n" + 
+				"\tprivate Monoid<R> m;\n\tpublic Monoid<R> m() { return m; }\n\tpublic Query" + algName + "(Monoid<R> m) {\n\t\tthis.m = m;\n\t}\n";
+		List<? extends Element> le = element.getEnclosedElements();
+		for (Element e: le){
+			String methodName = e.getSimpleName().toString();
+			String[] args = {methodName, typeArgs};
+			classContent += e.asType().accept(new QueryExecutableTypeVisitor(), args);
 		}
-
-		@Override
-		public String visit(TypeMirror t) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitPrimitive(PrimitiveType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitNull(NullType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitArray(ArrayType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitDeclared(DeclaredType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitError(ErrorType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitTypeVariable(TypeVariable t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitWildcard(WildcardType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitNoType(NoType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitUnknown(TypeMirror t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitUnion(UnionType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String visitIntersection(IntersectionType t, String[] p) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		classContent += "}";
+		return classContent;
 	}
+	
+	String createCombinatorClass(String folder, Element element, String typeArgs) {
+		String algName = element.getSimpleName().toString();
+		String className = "Combine" + algName;
+		String queryName = "Query" + algName;
+		String classContent = "package " + folder + ";\n\n"
+				+ "import java.util.ArrayList;\n"
+				+ "import java.util.List;\n"
+				+ "import library.Pair;\n"
+				+ "import library.PairMonoid;\n\n"
+				+ "public class " + className + "<A, B> extends " + queryName + "<Pair<A, B>> {\n\n"
+				+ "\tprivate " + queryName + "<A> q1;\n\tprivate " + queryName + "<B> q2;\n\n"
+				+ "\tpublic " + className + "(" + queryName + "<A> query1, " + queryName + "<B> query2) {\n"
+				+ "\t\tsuper(new PairMonoid<A, B>(query1.m(), query2.m()));\n\t\tq1 = query1;\n\t\tq2 = query2;\n\t}\n\n"
+				+ "\tPair<List<A>, List<B>> getPairList(List<Pair<A, B>> l) {\n"
+				+ "\t\tList<A> l1 = (List<A>)new ArrayList<A>();\n"
+				+ "\t\tList<B> l2 = (List<B>)new ArrayList<B>();\n"
+				+ "\t\tfor (Pair<A, B> element : l) {\n\t\t\tl1.add(element.a());\n\t\t\tl2.add(element.b());\n\t\t}\n"
+				+ "\t\treturn new Pair<List<A>, List<B>>(l1, l2);\n\t}\n\n";
+		List<? extends Element> le = element.getEnclosedElements();
+		for (Element e: le) {
+			String methodName = e.getSimpleName().toString();
+			String[] args = {methodName, typeArgs};
+			classContent += e.asType().accept(new CombinatorTypeVisitor(), args);
+		}
+		classContent += "}";
+		return classContent;
+	}
+
 }
