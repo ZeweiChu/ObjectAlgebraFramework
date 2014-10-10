@@ -1,0 +1,42 @@
+\section{Transformations}\label{retroimp}
+
+Here's an example of using code that gets imported from the code repository:
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=23-38]{../src/finalcode/Retroactive.java} % APPLY:linerange=RETROACTIVE
+\vspace{-.1in}
+\caption{A retroactive implementation of printing for arithmetic expressions.\label{retroactive}}
+\end{figure}
+
+The way the code gets imported from the repository is as follows:
+
+\begin{itemize}
+
+\item We annotate the code in the repository with comments like: ``//BEGIN\_RETROACTIVE''
+  and ``//END\_RETROACTIVE''.
+
+\item We change the latex code (i.e. this file) so that
+  ``APPLY:linerange='' points to the right label. In this case, the
+  label is ``RETROACTIVE''.
+
+\item We run the ruby script ``computePositions.rb'' using ``ruby
+  computePositions.rb'' in the command line.
+
+\item Finally we run ``pdflatex paper.tex'' and see if everything
+  worked as expected.
+
+\end{itemize}
+
+Some more examples of code:
+
+\begin{lstlisting}[numbers=none]
+Exp exp = new Add(new Lit(3), new Lit(4));
+\end{lstlisting}
+
+\noindent we would abstract uses of the constructors as follows:
+
+\begin{lstlisting}[numbers=none] 
+<A> A exp(IntAlg<A> v) {
+  return v.add(v.lit(3), v.lit(4));
+}
+\end{lstlisting}
