@@ -4,5 +4,8 @@ package expDemo1;
  * implement without object algebras
  */
 public interface Exp {
-	Value eval();
+	Value query();
+	
+	//for subst
+	Exp subst(String v, Exp e);
 }

@@ -1,5 +1,8 @@
 package expDemo1;
 
-public interface Value {
+import java.util.List;
 
+public interface Value {
+	Integer getInt();
+	List<String> getStringList();
 }
