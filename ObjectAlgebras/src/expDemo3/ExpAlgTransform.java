@@ -1,9 +1,6 @@
-package expDemo2;
+package expDemo3;
 
-import trees.ExpAlg;
-import generic.*;
-
-public interface ExpAlgTransform2 extends ExpAlg<G_Exp> {
+public interface ExpAlgTransform extends ExpAlg<G_Exp> {
 	@Override
 	default G_Exp Add(G_Exp e1, G_Exp e2) {
 		return new G_Exp() {

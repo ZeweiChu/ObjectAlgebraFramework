@@ -1,13 +1,14 @@
-package expDemo2;
+package expDemo4;
 
+import transform.ExpAlgTransform;
 import trees.ExpAlg;
 import generic.G_Exp;
 
-public class SubstVarsTransform2 implements ExpAlgTransform2{
+public class SubstVarsTransform implements ExpAlgTransform{
 	private String s;
 	private G_Exp gExp; 
 	
-	public SubstVarsTransform2(String s, G_Exp gExp){
+	public SubstVarsTransform(String s, G_Exp gExp){
 		this.s = s;
 		this.gExp = gExp;
 	}

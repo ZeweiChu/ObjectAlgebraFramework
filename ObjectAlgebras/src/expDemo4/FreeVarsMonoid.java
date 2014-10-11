@@ -1,8 +1,8 @@
-package expDemo3;
+package expDemo4;
 
 import library.Monoid;
 
-public class StringArrayMonoid3 implements Monoid<String[]>{
+public class FreeVarsMonoid implements Monoid<String[]>{
 
 	@Override
 	public String[] empty() {
