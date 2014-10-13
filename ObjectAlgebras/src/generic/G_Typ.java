@@ -1,5 +1,7 @@
 package generic;
+
 import trees.StmAlg;
-public interface G_Typ{
-  <Stm,Exp,Typ> Typ accept(StmAlg<Stm,Exp,Typ> alg);
+
+public interface G_Typ {
+	<Stm,EExp,Typ> Typ accept(StmAlg<Stm,EExp,Typ> alg);
 }

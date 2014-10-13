@@ -21,20 +21,20 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 		String[] lTypeArgs = p[1].split(",");
 		List<? extends TypeMirror> lp = t.getParameterTypes();
 		int flag;
-		
-		String res = "\tpublic Pair<A, B> " + methodName + "(";
+		int returnType = arrayContains(lTypeArgs, t.getReturnType().toString());
+		String res = "\tpublic Pair<A" + returnType + ", B" + returnType + "> " + methodName + "(";
 		String resPart1 = "";
 		String resPart2 = "";
 		
 		for (int i = 0; i < lp.size(); ++i){
 			flag = arrayContains(lTypeArgs, lp.get(i).toString());
 			if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	{
-				res += "List<Pair<A, B>> p" + i;
+				res += "List<Pair<A" + flag + ", B" + flag + ">> p" + i;
 				resPart1 += "getPairList(p" + i + ").a()";
 				resPart2 += "getPairList(p" + i + ").b()";
 			}
 			else if (flag != -1) {
-				res +=  "Pair<A, B> p" + i;
+				res +=  "Pair<A" + flag + ", B" + flag + "> p" + i;
 				resPart1 += "p" + i + ".a()";
 				resPart2 += "p" + i + ".b()";
 			}
@@ -50,9 +50,9 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 			}
 		}
 		
-		res += ") {\n\t\treturn new Pair<A, B>(q1." + methodName + "(";
+		res += ") {\n\t\treturn new Pair<A" + returnType + ", B" + returnType + ">(alg1." + methodName + "(";
 		res += resPart1;
-		res += "), q2." + methodName + "(";
+		res += "), alg2." + methodName + "(";
 		res += resPart2;		
 		res += "));\n\t}\n\n";
 		

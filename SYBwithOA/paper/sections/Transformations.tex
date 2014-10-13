@@ -1,0 +1,23 @@
+\section{Transformations}\label{sec:transformations}
+\label{retroimp}
+
+Generic classes with accept methods
+\begin{lstlisting}[numbers=none] 
+public interface G_Exp {
+	<Exp> Exp accept(ExpAlg<Exp> alg);
+}
+\end{lstlisting}
+
+Generic Transformation by hand with acceptor interface
+\begin{figure}[tb]
+\lstinputlisting[linerange=4-32]{../src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
+\vspace{-.1in}
+\caption{Generic Transformation by hand with acceptor interface\label{sec:transformations}}
+\end{figure}
+
+Substitute Variables Transformation
+\begin{figure}[tb]
+\lstinputlisting[linerange=4-22]{../src/expDemo3/SubstVarsTransform.java} % APPLY:linerange=SUBSTVARS_TRANSFORM
+\vspace{-.1in}
+\caption{Substitute Variables Transformation\label{sec:transformations}}
+\end{figure}

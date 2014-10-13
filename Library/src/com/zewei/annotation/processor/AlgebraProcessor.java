@@ -157,17 +157,32 @@ public class AlgebraProcessor extends AbstractProcessor{
 	String createCombinatorClass(String folder, Element element, String typeArgs) {
 		String algName = element.getSimpleName().toString();
 		String className = "Combine" + algName;
-		String queryName = "Query" + algName;
+		int typeNum = toList(typeArgs).length;
+		String alg1 = "";
+		String alg2 = "";
+		for (int i = 0; i < typeNum; i++) {
+			if (i > 0) {
+				alg1 += ", ";
+				alg2 += ", ";
+			}
+			alg1 += "A" + i;
+			alg2 += "B" + i;
+		}
 		String classContent = "package " + folder + ";\n\n"
 				+ "import java.util.ArrayList;\n"
 				+ "import java.util.List;\n"
 				+ "import library.Pair;\n"
-				+ "import library.PairMonoid;\n\n"
-				+ "public class " + className + "<A, B> extends " + queryName + "<Pair<A, B>> {\n\n"
-				+ "\tprivate " + queryName + "<A> q1;\n\tprivate " + queryName + "<B> q2;\n\n"
-				+ "\tpublic " + className + "(" + queryName + "<A> query1, " + queryName + "<B> query2) {\n"
-				+ "\t\tsuper(new PairMonoid<A, B>(query1.m(), query2.m()));\n\t\tq1 = query1;\n\t\tq2 = query2;\n\t}\n\n"
-				+ "\tPair<List<A>, List<B>> getPairList(List<Pair<A, B>> l) {\n"
+				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n" 
+				+ "public class " + className + "<" + alg1 + ", " + alg2 + ">\n\timplements " + algName + "<";
+		for (int i = 0; i < typeNum; i++) {
+			if (i > 0) classContent += ", ";
+			classContent += "Pair<A" + i + ", B" + i + ">";
+		}
+		classContent += "> {\n\n"
+				+ "\tprivate " + algName + "<" + alg1 + "> alg1;\n\tprivate " + algName + "<" + alg2 + "> alg2;\n\n"
+				+ "\tpublic " + className + "(" + algName + "<" + alg1 + "> _alg1, " + algName + "<" + alg2 + "> _alg2) {\n"
+				+ "\t\talg1 = _alg1;\n\t\talg2 = _alg2;\n\t}\n\n"
+				+ "\tprivate <A, B> Pair<List<A>, List<B>> getPairList(List<Pair<A, B>> l) {\n"
 				+ "\t\tList<A> l1 = (List<A>)new ArrayList<A>();\n"
 				+ "\t\tList<B> l2 = (List<B>)new ArrayList<B>();\n"
 				+ "\t\tfor (Pair<A, B> element : l) {\n\t\t\tl1.add(element.a());\n\t\t\tl2.add(element.b());\n\t\t}\n"
