@@ -14,6 +14,6 @@ public interface SybAlg<Company, Dept, SubUnit, Employee, Person, Salary>{
   public SubUnit DU(Dept dept);
   public Employee E(Person p, Salary s);
   public Person P(String name, String address);
-  public Salary S(double salary);
+  public Salary S(float salary);
 }
 //END_SYB_TREE

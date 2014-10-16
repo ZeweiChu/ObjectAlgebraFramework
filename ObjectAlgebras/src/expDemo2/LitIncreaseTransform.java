@@ -1,5 +1,6 @@
 package expDemo2;
 
+//BEGIN_TRANSFORM
 public class LitIncreaseTransform implements ExpAlg<G_Exp>{
 	@Override
 	public G_Exp Add(G_Exp e1, G_Exp e2) {
@@ -29,3 +30,4 @@ public class LitIncreaseTransform implements ExpAlg<G_Exp>{
 		};
 	}
 }
+//END_TRANSFORM

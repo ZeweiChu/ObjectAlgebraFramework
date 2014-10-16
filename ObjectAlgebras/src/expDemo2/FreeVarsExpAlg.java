@@ -1,5 +1,6 @@
 package expDemo2;
 
+//BEGIN_QUERY
 public interface FreeVarsExpAlg extends ExpAlg<String[]>{
 	@Override
 	default String[] Var(String s){
@@ -19,3 +20,4 @@ public interface FreeVarsExpAlg extends ExpAlg<String[]>{
 		return res;
 	}
 }
+//END_QUERY
