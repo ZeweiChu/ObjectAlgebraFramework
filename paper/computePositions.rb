@@ -39,10 +39,10 @@ fileloc = {}
 beginpos = {}
 endpos = {}
 
-Dir['../src/*.java'].each do |file| 
+Dir['../ObjectAlgebras/src/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
-Dir['../src/*/*.java'].each do |file| 
+Dir['../ObjectAlgebras/src/*/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
 
@@ -55,3 +55,11 @@ Dir['*.tex'].each do |file|
   FileUtils.cp(tempname, file)
 end
 
+Dir['./sections/*.tex'].each do |file| 
+  #temp = Tempfile.new('compute_positions')
+  tempname = "footempfile.txt"
+  temp = File.new(tempname, "w")
+  process(File.new(file, "r"), temp, beginpos, endpos, fileloc)
+  FileUtils.cp(file, "#{file}-old")
+  FileUtils.cp(tempname, file)
+end

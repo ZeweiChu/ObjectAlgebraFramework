@@ -1,9 +1,0 @@
-\section{Overview}\label{subsec:backgound}
-
-Here's an example of using code directly in the paper: 
-
-\begin{figure}[tb]
-\lstinputlisting[linerange=8-17]{../src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
-\vspace{-.1in}
-\caption{A retroactive implementation of printing for arithmetic expressions.\label{retroactive}}
-\end{figure}
