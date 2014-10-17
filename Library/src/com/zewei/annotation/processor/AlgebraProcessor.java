@@ -106,16 +106,20 @@ public class AlgebraProcessor extends AbstractProcessor{
 	
 	String createGenericClass(String folder, String className, String typeArguments, Element element){
 		return "package " + folder + ";\n\n"
-				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n"
+				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n"
 				+ "public interface G_" + className + " {\n" +
 				"\t" + typeArguments + " " + className + " accept(" + element.getSimpleName() + typeArguments + " alg);\n}";
+	}
+	
+	private String getPackage(Element element) {
+		return ((PackageElement)element.getEnclosingElement()).getQualifiedName().toString();
 	}
 	
 	String createTransformClass(String folder, Element element, String[] lTypeArgs, String typeArguments){
 		List<? extends Element> le = element.getEnclosedElements();
 		String className = element.getSimpleName() + "Transform";
 		String classContent = "package " + folder + ";\n\n";
-		classContent += "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n";
+		classContent += "import " + getPackage(element) + "." + element.getSimpleName() + ";\n";
 		classContent += "import generic.*;\n\n";
 		classContent += "public interface " + className + " extends " + element.getSimpleName() + "<";
 		for (int i = 0; i < lTypeArgs.length; ++i){
@@ -136,7 +140,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 		String algName = element.getSimpleName().toString();
 		String classContent = "package " + folder + ";\n\n"
 				+ "import library.Monoid;\n"
-				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n" 
+				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
 				+ "public class Query" + algName + "<R> implements " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++){
 			classContent += "R";
@@ -172,7 +176,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 				+ "import java.util.ArrayList;\n"
 				+ "import java.util.List;\n"
 				+ "import library.Pair;\n"
-				+ "import " + element.getEnclosingElement().getSimpleName() + "." + element.getSimpleName() + ";\n\n" 
+				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
 				+ "public class " + className + "<" + alg1 + ", " + alg2 + ">\n\timplements " + algName + "<";
 		for (int i = 0; i < typeNum; i++) {
 			if (i > 0) classContent += ", ";
