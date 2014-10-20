@@ -9,7 +9,7 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 	int arrayContains(String[] ls, String s){
 		int i = 0;
 		for (String ts: ls){
-			if (s.contains(ts)) return i;
+			if (s.equals(ts)) return i;
 			i++;
 		}
 		return -1;
@@ -19,30 +19,48 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 	public String visitExecutable(ExecutableType t, String[] p) {
 		String methodName = p[0];
 		String[] lTypeArgs = p[1].split(",");
+		String[] lListTypeArgs = new String[lTypeArgs.length];
+		for (int i = 0; i < lTypeArgs.length; ++i){
+			lListTypeArgs[i] = "java.util.List<" + lTypeArgs[i] + ">";
+		}
+		
 		List<? extends TypeMirror> lp = t.getParameterTypes();
-		int flag;
 		int returnType = arrayContains(lTypeArgs, t.getReturnType().toString());
 		String res = "\tpublic Pair<A" + returnType + ", B" + returnType + "> " + methodName + "(";
 		String resPart1 = "";
 		String resPart2 = "";
 		
 		for (int i = 0; i < lp.size(); ++i){
-			flag = arrayContains(lTypeArgs, lp.get(i).toString());
-			if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	{
-				res += "List<Pair<A" + flag + ", B" + flag + ">> p" + i;
+			int pos = arrayContains(lListTypeArgs, lp.get(i).toString());
+			if (pos != -1){
+				res += "List<Pair<A" + pos + ", B" + pos + ">> p" + i;
 				resPart1 += "getPairList(p" + i + ").a()";
 				resPart2 += "getPairList(p" + i + ").b()";
-			}
-			else if (flag != -1) {
-				res +=  "Pair<A" + flag + ", B" + flag + "> p" + i;
-				resPart1 += "p" + i + ".a()";
-				resPart2 += "p" + i + ".b()";
-			}
-			else {
-				res += lp.get(i).toString() + " p" + i;
-				resPart1 += "p" + i;
-				resPart2 += "p" + i;
-			}
+			} else {
+				pos = arrayContains(lTypeArgs, lp.get(i).toString());
+				if (pos != -1){
+					res +=  "Pair<A" + pos + ", B" + pos + "> p" + i;
+					resPart1 += "p" + i + ".a()";
+					resPart2 += "p" + i + ".b()";					
+				} else {
+					res += lp.get(i).toString() + " p" + i;
+					resPart1 += "p" + i;
+					resPart2 += "p" + i;
+				}
+			} 
+			
+//			flag = arrayContains(lTypeArgs, lp.get(i).toString());
+//			if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	{
+//				res += "List<Pair<A" + flag + ", B" + flag + ">> p" + i;
+//				resPart1 += "getPairList(p" + i + ").a()";
+//				resPart2 += "getPairList(p" + i + ").b()";
+//			}
+//			else if (flag != -1) {
+//				res +=  "Pair<A" + flag + ", B" + flag + "> p" + i;
+//				resPart1 += "p" + i + ".a()";
+//				resPart2 += "p" + i + ".b()";
+//			}
+			
 			if (i < lp.size()-1) {
 				res += ", ";
 				resPart1 += ", ";
