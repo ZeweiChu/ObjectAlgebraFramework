@@ -3,10 +3,10 @@ package _syb;
 import java.util.Collections;
 import java.util.Set;
 
-import query.QueryIExpAlg;
+import query.IExpAlgQuery;
 import library.Monoid;
 
-public class FreeVars extends QueryIExpAlg<Set<String>>{
+public class FreeVars extends IExpAlgQuery<Set<String>>{
 
 	public FreeVars(Monoid<Set<String>> m) {
 		super(m);

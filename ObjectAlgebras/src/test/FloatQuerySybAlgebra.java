@@ -1,9 +1,9 @@
 package test;
 
+import query.SybAlgQuery;
 import library.Monoid;
-import query.QuerySybAlg;
 
-public class FloatQuerySybAlgebra extends QuerySybAlg<Float> {
+public class FloatQuerySybAlgebra extends SybAlgQuery<Float> {
 
 	public FloatQuerySybAlgebra(Monoid<Float> m) {
 		super(m);

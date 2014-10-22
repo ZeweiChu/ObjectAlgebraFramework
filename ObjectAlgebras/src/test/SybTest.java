@@ -1,11 +1,6 @@
 package test;
 
-import generic.G_Company;
-import generic.G_Dept;
-import generic.G_Employee;
-import generic.G_Person;
-import generic.G_Salary;
-import generic.G_SubUnit;
+import generic.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +51,8 @@ public class SybTest {
 		System.out.println("Result 2: (Total salary)\n\n" + genCom(dQuery) + "\n");
 		
 		SybAlgTransform transform = new SybAlgTransform(){};
-		G_Company gComRename = genCom(transform).accept(new SybRename(){}).accept(new SybRename(){}).accept(new SybRename(){});
-		G_Company gComIncSalary = genCom(transform).accept(new SybIncSalary(){});
+		G_SybAlg_Company gComRename = genCom(transform).accept(new SybRename(){}).accept(new SybRename(){}).accept(new SybRename(){});
+		G_SybAlg_Company gComIncSalary = genCom(transform).accept(new SybIncSalary(){});
 		
 		System.out.println("Result 3: (Renaming)\n\n" + gComRename.accept(sQuery) + "\n");
 		System.out.println("Result 4: (Increasing salary)\n\n" + gComIncSalary.accept(dQuery) + "\n");
@@ -68,11 +63,11 @@ public class SybTest {
 			);
 		System.out.println("Result 5: (All names, total salary)\n\nPair element1 = " + result.a() + "\nPair element2 = " + result.b() + "\n");
 		
-		Pair<G_Company, G_Company> gComTrans = genCom(
-				new CombineSybAlg<G_Company, G_Dept, G_SubUnit, G_Employee, G_Person, G_Salary, G_Company, G_Dept, G_SubUnit, G_Employee, G_Person, G_Salary>
+		Pair<G_SybAlg_Company, G_SybAlg_Company> gComTrans = genCom(
+				new CombineSybAlg<G_SybAlg_Company, G_SybAlg_Dept, G_SybAlg_SubUnit, G_SybAlg_Employee, G_SybAlg_Person, G_SybAlg_Salary, G_SybAlg_Company, G_SybAlg_Dept, G_SybAlg_SubUnit, G_SybAlg_Employee, G_SybAlg_Person, G_SybAlg_Salary>
 					(transform, transform)
 			);
-		gComTrans = new Pair<G_Company, G_Company>(
+		gComTrans = new Pair<G_SybAlg_Company, G_SybAlg_Company>(
 				gComTrans.a().accept(new SybRename(){}).accept(new SybRename(){}).accept(new SybRename(){}), 
 				gComTrans.b().accept(new SybIncSalary(){})
 			);

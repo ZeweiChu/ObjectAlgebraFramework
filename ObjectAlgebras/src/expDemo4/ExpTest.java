@@ -1,6 +1,6 @@
 package expDemo4;
 
-import generic.G_Exp;
+import generic.G_ExpAlg_Exp;
 import transform.ExpAlgTransform;
 import trees.ExpAlg;
 
@@ -21,7 +21,7 @@ public class ExpTest {
 	
 	public static void main(String[] args) {
 		
-		G_Exp gExp = genExp(new ExpAlgTransform(){});
+		G_ExpAlg_Exp gExp = genExp(new ExpAlgTransform(){});
 		SubstVarsTransform substVars = new SubstVarsTransform("var1", genSubst(new ExpAlgTransform(){}));
 		
 		FreeVarsQueryExpAlg alg = new FreeVarsQueryExpAlg(new FreeVarsMonoid());

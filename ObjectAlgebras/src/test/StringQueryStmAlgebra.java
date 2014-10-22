@@ -1,8 +1,8 @@
 package test;
 
 import library.Monoid;
-import query.QueryStmAlg;
-public class StringQueryStmAlgebra extends QueryStmAlg<String>{
+import query.StmAlgQuery;
+public class StringQueryStmAlgebra extends StmAlgQuery<String>{
 	
 	public StringQueryStmAlgebra(Monoid<String> m) {
 		super(m);

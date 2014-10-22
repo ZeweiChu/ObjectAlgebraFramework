@@ -1,18 +1,20 @@
 \section{Transformations}\label{sec:transformations}
 \label{retroimp}
 
-Generic classes with accept methods
-\begin{lstlisting}[numbers=none] 
-public interface G_Exp {
-	<Exp> Exp accept(ExpAlg<Exp> alg);
-}
-\end{lstlisting}
+Before writing generic transformation interfaces, we first introduce \emph{generic visitable interface} as Figure~\ref{generic_visitable}. Implementing the generic visitable interface allows the user to construct objects from the passed in algebra. 
+\begin{figure}[tb]
+\lstinputlisting[linerange=3-5]{../ObjectAlgebras/src/expDemo2/G_Exp.java} % APPLY:linerange=GENERIC_VISITABLE
+\vspace{-.1in}
+\caption{Generic Visitable Interface\label{sec:transformations}}
+\label{generic_visitable}
+\end{figure}
 
-Generic Transformation by hand with acceptor interface
+The generic transform class is constructed by inheriting from the \emph{Object Algebra Interface} with \emph{Generic Visitable Interfaces} as Figure~\ref{generic_transform}. 
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-32]{../ObjectAlgebras/src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
 \vspace{-.1in}
 \caption{Generic Transformation by hand with acceptor interface\label{sec:transformations}}
+\label{generic_transform}
 \end{figure}
 
 Substitute Variables Transformation

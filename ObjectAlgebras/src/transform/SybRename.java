@@ -5,8 +5,8 @@ import trees.SybAlg;
 
 public interface SybRename extends SybAlgTransform {
 	@Override
-	default G_Person P(String name, String address) {
-		return new G_Person() {
+	default G_SybAlg_Person P(String name, String address) {
+		return new G_SybAlg_Person() {
 			@Override
 			public <Company, Dept, SubUnit, Employee, Person, Salary> Person accept(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
 				return alg.P("_" + name, address);

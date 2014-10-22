@@ -1,7 +1,8 @@
 package test;
 
 
-import generic.G_Stm;
+
+import generic.G_StmAlg_Stm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class StmTest {
 
 	public static void main(String[] args){
 		StringQueryStmAlgebra stringQueryStmAlgebra = new StringQueryStmAlgebra(new StringMonoid()){};
-		G_Stm gStm = exp(new StmAlgTransform(){});
+		G_StmAlg_Stm gStm = exp(new StmAlgTransform(){});
 		System.out.println(gStm.accept(new StmRename(){}).accept(stringQueryStmAlgebra));
 		
 		System.out.println(exp(stringQueryStmAlgebra));

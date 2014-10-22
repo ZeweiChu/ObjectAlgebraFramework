@@ -1,8 +1,8 @@
 package expDemo4;
+import query.ExpAlgQuery;
 import library.Monoid;
-import query.QueryExpAlg;
 
-public class FreeVarsQueryExpAlg extends QueryExpAlg<String[]>{
+public class FreeVarsQueryExpAlg extends ExpAlgQuery<String[]>{
 
 	public FreeVarsQueryExpAlg(Monoid<String[]> m) {
 		super(m);

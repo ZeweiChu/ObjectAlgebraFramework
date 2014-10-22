@@ -24,13 +24,13 @@ public class TransformExecutableTypeVisitor implements TypeVisitor<String, Strin
 		}
 		
 		String res = "\t@Override\n" 
-					+ "\tdefault G_" + t.getReturnType() + " " + p[0] + "(";
+					+ "\tdefault G_" + p[2] + "_" + t.getReturnType() + " " + p[0] + "(";
 		for (int i = 0; i < lp.size(); ++i){
 			//boolean flag = false;
 			if (arrayContains(lListTypeArgs, lp.get(i).toString()) != -1){
-				res += lp.get(i).toString().replaceAll("java.util.List<", "java.util.List<G_");
+				res += lp.get(i).toString().replaceAll("java.util.List<", "java.util.List<G_" + p[2] + "_");
 			} else if (arrayContains(lTypeArgs, lp.get(i).toString()) != -1){
-				res += "G_" + lp.get(i);
+				res += "G_" + p[2] + "_" + lp.get(i);
 			} else {
 				res += lp.get(i).toString();
 			}
@@ -50,7 +50,7 @@ public class TransformExecutableTypeVisitor implements TypeVisitor<String, Strin
 			if (i < lp.size()-1) res += ", ";
 		}
 		res += ") {\n";
-		res += "\t\treturn new G_" + t.getReturnType() + "() {\n"
+		res += "\t\treturn new G_" + p[2] + "_" + t.getReturnType() + "() {\n"
 				+ "\t\t\t@Override\n"
 				+ "\t\t\tpublic " + p[1] + " " + t.getReturnType() + " accept(" + p[2] + p[1] + " alg) {\n";
 		
@@ -58,7 +58,7 @@ public class TransformExecutableTypeVisitor implements TypeVisitor<String, Strin
 			int pos = arrayContains(lListTypeArgs, lp.get(i).toString());
 			if (pos != -1){
 				res += "\t\t\t\tjava.util.List<" + lTypeArgs[pos] + "> gp" + i + " = new java.util.ArrayList<" + lTypeArgs[pos] + ">();\n";
-				res += "\t\t\t\tfor (G_" + lTypeArgs[pos] + " s: p" + i + ") {\n"
+				res += "\t\t\t\tfor (G_" + p[2] + "_" + lTypeArgs[pos] + " s: p" + i + ") {\n"
 						+ "\t\t\t\t\tgp" + i + ".add(s.accept(alg));\n"
 						+ "\t\t\t\t}\n";
 			}

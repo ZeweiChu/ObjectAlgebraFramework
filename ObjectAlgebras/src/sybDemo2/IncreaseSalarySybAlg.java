@@ -3,12 +3,6 @@ package sybDemo2;
 import java.util.ArrayList;
 import java.util.List;
 
-import generic.G_Company;
-import generic.G_Dept;
-import generic.G_Employee;
-import generic.G_Person;
-import generic.G_Salary;
-import generic.G_SubUnit;
 import trees.SybAlg;
 
 public class IncreaseSalarySybAlg implements SybAlg<G_Company, G_Dept, G_SubUnit, G_Employee, G_Person, G_Salary>{

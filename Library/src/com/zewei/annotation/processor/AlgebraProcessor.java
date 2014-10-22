@@ -44,19 +44,19 @@ public class AlgebraProcessor extends AbstractProcessor{
 			algName = element.getSimpleName().toString();
 			
 			
-			// Create generic classes "G_***".
+			// Create generic classes "G_AlgName_***".
 			folder = "generic";
 			for (String s: lTypeArgs){
 				classContent = createGenericClass(folder, s, typeArguments, element);
 				try{
-					jfo = filer.createSourceFile(folder + "/" + "G_" + s, element);
+					jfo = filer.createSourceFile(folder + "/" + "G_" + element.getSimpleName() + "_"+ s, element);
 					jfo.openWriter().append(classContent).close();
 				}catch(IOException ioe){
 					ioe.printStackTrace();
 				}
 			}
 			
-			// Create transform classes "***Transform".
+			// Create transform classes "AlgNameTransform".
 			folder = "transform";
 			classContent = createTransformClass(folder, element, lTypeArgs, typeArguments);
 			jfo = null;
@@ -68,12 +68,12 @@ public class AlgebraProcessor extends AbstractProcessor{
 			}
 			
 			
-			// Create query classes "Query***".
+		// Create query classes "AlgNameQuery".
 			folder = "query";
 			classContent = createQueryClass(folder, element, lTypeArgs, typeArgs);
 			jfo = null;
 			try{
-				jfo = filer.createSourceFile(folder + "/Query" + algName, element);
+				jfo = filer.createSourceFile(folder + "/" + algName + "Query", element);
 				jfo.openWriter().append(classContent).close();
 			}catch(IOException ioe){
 				ioe.printStackTrace();
@@ -107,7 +107,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 	String createGenericClass(String folder, String className, String typeArguments, Element element){
 		return "package " + folder + ";\n\n"
 				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n"
-				+ "public interface G_" + className + " {\n" +
+				+ "public interface G_" + element.getSimpleName() + "_" + className + " {\n" +
 				"\t" + typeArguments + " " + className + " accept(" + element.getSimpleName() + typeArguments + " alg);\n}";
 	}
 	
@@ -123,7 +123,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 		classContent += "import generic.*;\n\n";
 		classContent += "public interface " + className + " extends " + element.getSimpleName() + "<";
 		for (int i = 0; i < lTypeArgs.length; ++i){
-			classContent += "G_" + lTypeArgs[i];
+			classContent += "G_" + element.getSimpleName() + "_" + lTypeArgs[i];
 			if (i < lTypeArgs.length-1) classContent += ", ";
 		}
 		classContent += "> {\n";
@@ -141,13 +141,13 @@ public class AlgebraProcessor extends AbstractProcessor{
 		String classContent = "package " + folder + ";\n\n"
 				+ "import library.Monoid;\n"
 				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
-				+ "public class Query" + algName + "<R> implements " + algName + "<";
+				+ "public class " + algName + "Query<R> implements " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++){
 			classContent += "R";
 			if (i < lTypeArgs.length-1) classContent += ",";
 		}
 		classContent += "> {\n" + 
-				"\tprivate Monoid<R> m;\n\tpublic Monoid<R> m() { return m; }\n\tpublic Query" + algName + "(Monoid<R> m) {\n\t\tthis.m = m;\n\t}\n";
+				"\tprivate Monoid<R> m;\n\tpublic Monoid<R> m() { return m; }\n\tpublic " + algName + "Query(Monoid<R> m) {\n\t\tthis.m = m;\n\t}\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();

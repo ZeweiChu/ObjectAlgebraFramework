@@ -1,7 +1,7 @@
 
 \section{Overview}\label{subsec:backgound}
 
-We begin by reconsider the company structure problem raised by \cite{ralf03syb}. A company is divided into departments which in turn have a manager, and consists of a collection of sub-units. A unit is either a single employee or a department. Both managers and ordinary employees are persons receiving a salary. An common OOP programmer may organize the codes like: 
+We begin by reconsider the company structure problem raised by \cite{ralf03syb}. A company is divided into departments which in turn have a manager, and consists of a collection of sub-units. A unit is either a single employee or a department. Both managers and ordinary employees are persons receiving a salary. A common OOP programmer may organize the code like: 
 
 \begin{lstlisting}[numbers=none]
 public class Company {
@@ -13,7 +13,7 @@ public class Salary {
 	public Salary(float salary){this.salary = salary;}
 } 
 \end{lstlisting}
-Similarly codes may be applied to Department, Employee, etc. Now consider adding two operations to our company structure: query the salary bill for the whole company and increase the salary for the each employee by 10\%. One may decide adding two more functions to all the classes, which is: 
+Similar code may be applied to Department, Employee, etc. Now consider adding two operations to our company structure: query the salary bill for the whole company and increase the salary for the each employee by 10\%. One may decide adding two more methods to all the classes, which is: 
 \begin{lstlisting}[numbers=none]
 public class Company {
 	public float salaryBill(){
@@ -30,10 +30,7 @@ public class Salary {
 	public void increaseSalary(){this.salary *= 1.1;}
 }
 \end{lstlisting}
-
-
-
-This way of OOP style representation of tree structures can become cumbersome and inflexible due to the hard relationship between classes. For example, adding a new operation such as pretty printing of the company structure requires a lot of changes on the existing codes and violates the no modification rule. One can solve this problem by coding with object algebras as Figure~\ref{syb_tree}: 
+This way of OOP style representation of tree structures can become cumbersome and inflexible due to the bound relationship between classes. For example, adding a new operation such as pretty printing of the company structure requires a lot of changes on the existing code and violates the no modification rule. One can solve this problem by coding with object algebras as Figure~\ref{syb_tree}: 
 \begin{figure}[tb]
 \lstinputlisting[linerange=10-18]{../ObjectAlgebras/src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
 \vspace{-.1in}
@@ -86,6 +83,6 @@ public class IncreaseSalarySybAlg implements SybAlg<G_Company, G_Dept, G_SubUnit
 }
 \end{lstlisting}
 
-However, although we solved the problem of extensibility with object algebra, these traversal codes become so long and most of the time we are writing boilerplate routine traversal codes. The only code we are really interested in is the Salary S(Float salary) function for salary. It will be great if those boilerplate codes can be generated automatically every time we want to traversal the tree structure. 
+However, although we solved the problem of extensibility with object algebras, the traversal code become so long and most of the time we are writing boilerplate routine code, which is to pass call the methods of its child leaves. The only code we are really interested in is the Salary S(Float salary) method to return the salary. It will be great if the boilerplate code can be generated automatically every time we want to traverse the tree structure. 
 
-Motivated by this problem of generating generic codes for tree structure traversals, more specifically, queries and transformations in object algebras, we designed an object algebra framework with great features. We introduce monoids in queries and generic visitable interfaces in transformations, and write generic query and transformation which can be easily inherited by real cases of queries and transformations. Furthermore, even the generic query and transformation codes can be generated automatically by adding an ``$@$Algebra'' annotation. 
+Motivated by this problem of generating generic code for tree structure traversals, more specifically, queries and transformations in object algebras, we designed an object algebra framework with great features. We introduce monoids in queries and generic visitable interfaces in transformations, and write generic query and transformation which can be easily inherited by real cases of queries and transformations. Furthermore, even the generic query and transformation code can be generated automatically by adding an ``$@$Algebra'' annotation. 

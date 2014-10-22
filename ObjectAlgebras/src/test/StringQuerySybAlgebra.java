@@ -1,9 +1,9 @@
 package test;
 
 import library.Monoid;
-import query.QuerySybAlg;
+import query.SybAlgQuery;
 
-public class StringQuerySybAlgebra extends QuerySybAlg<String>{
+public class StringQuerySybAlgebra extends SybAlgQuery<String>{
 	public StringQuerySybAlgebra(Monoid<String> m) {
 		super(m);
 		// TODO Auto-generated constructor stub
