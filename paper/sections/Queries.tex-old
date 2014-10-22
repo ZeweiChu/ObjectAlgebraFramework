@@ -21,7 +21,7 @@ Free Variables Monoid
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-18]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
 \vspace{-.1in}
-\caption{Free Variables Monoid\label{sec:queries}}
+\caption{Free Variables Monoid}
 \end{figure}
 
 
@@ -29,12 +29,12 @@ Generic Query by hand with Monoid
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-24]{../ObjectAlgebras/src/expDemo3/QueryExpAlg.java} % APPLY:linerange=GENERIC_QUERY
 \vspace{-.1in}
-\caption{Generic Query by hand with Monoid\label{sec:queries}}
+\caption{Generic Query by hand with Monoid}
 \end{figure}
 
 Free Vars Query
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/FreeVarsQueryExpAlg.java} % APPLY:linerange=FREEVARS_QUERY
 \vspace{-.1in}
-\caption{Free Vars Query\label{sec:queries}}
+\caption{Free Vars Query}
 \end{figure}

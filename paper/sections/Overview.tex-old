@@ -1,5 +1,5 @@
 
-\section{Overview}\label{subsec:backgound}
+\section{Overview}\label{subsec:overview}
 
 We begin by reconsider the company structure problem raised by \cite{ralf03syb}. A company is divided into departments which in turn have a manager, and consists of a collection of sub-units. A unit is either a single employee or a department. Both managers and ordinary employees are persons receiving a salary. A common OOP programmer may organize the code like: 
 

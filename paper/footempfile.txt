@@ -9,7 +9,7 @@ Before writing generic transformation interfaces, we first introduce \emph{gener
 \label{generic_visitable}
 \end{figure}
 
-The generic transform class is constructed by inheriting from the \emph{Object Algebra Interface} with \emph{Generic Visitable Interfaces} as Figure~\ref{generic_transform}. 
+The generic transform interface is constructed by inheriting from the \emph{Object Algebra Interface} with \emph{Generic Visitable Interfaces} as Figure~\ref{generic_transform}. Note that the returned \emph{Generic Visitable Interface} will contain all the information for the tree structure. 
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-32]{../ObjectAlgebras/src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
 \vspace{-.1in}
@@ -17,9 +17,10 @@ The generic transform class is constructed by inheriting from the \emph{Object A
 \label{generic_transform}
 \end{figure}
 
-Substitute Variables Transformation
+Now to create a specific transformation, e.g., substitute one variable with another name, it can be easily implemented by inheriting from the generic transform interface with the implementation of interesting cases. Here only the method G\_Exp Var(String ss) needs to be overridden as Figure~\ref{substvars_transform}. 
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-22]{../ObjectAlgebras/src/expDemo3/SubstVarsTransform.java} % APPLY:linerange=SUBSTVARS_TRANSFORM
 \vspace{-.1in}
 \caption{Substitute Variables Transformation\label{sec:transformations}}
+\label{substvars_transform}
 \end{figure}
