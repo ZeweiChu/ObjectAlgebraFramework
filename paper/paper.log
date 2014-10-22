@@ -1,7 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  16 OCT 2014 20:18
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  22 OCT 2014 15:20
 entering extended mode
 **paper.tex
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\paper.tex
+
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\paper.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,7 +14,8 @@ german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\llncs.cls
+
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\llncs.cls
 Document Class: llncs 2010/07/12 v2.17 
  LaTeX document class for Lecture Notes in Computer Science
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -691,7 +693,8 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 LaTeX Warning: Unused global option(s):
     [preprint].
 
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\paper.aux
+
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\paper.aux
 
 LaTeX Warning: Label `sec:queries' multiply defined.
 
@@ -756,17 +759,17 @@ File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
 (Font)              scaled to size 7.65005pt on input line 86.
 
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Introduction.
-tex)
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Overview.tex
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Introduction.tex)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Overview.tex
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
 (Font)              scaled to size 8.50006pt on input line 6.
 LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
 (Font)              Font shape `T1/fvm/b/n' tried instead on input line 7.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 (Font)              scaled to size 7.65005pt on input line 7.
-
-[1
+ [1
 Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
@@ -778,43 +781,48 @@ Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\trees\Syb
-Alg.java) [2])
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Queries.tex
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\
-FreeVarsMonoid.java)
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\
-QueryExpAlg.java)
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\
-FreeVarsQueryExpAlg.java)) [3]
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Transformatio
-ns.tex
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\
-ExpAlgTransform.java)
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\
-SubstVarsTransform.java))
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Framework.tex
-) (C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Other.tex
-[4])
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/CaseStudy.tex
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\trees\SybAlg.java) [2])
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Queries.tex
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\expDemo3\FreeVarsMonoid.java)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\expDemo3\QueryExpAlg.java)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\expDemo3\FreeVarsQueryExpAlg.java)) [3]
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Transformations.tex
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\expDemo3\ExpAlgTransform.java)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\expDemo3\SubstVarsTransform.java))
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Framework.tex)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Other.tex [4])
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+CaseStudy.tex)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+RelatedWork.tex)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
+Conclusion.tex [5])
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\paper.bbl
+) [6] [7]
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\paper.aux
 )
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/RelatedWork.t
-ex)
-(C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\sections/Conclusion.te
-x [5]) (C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\paper.bbl)
-[6] [7] (C:\Users\jasonchuzewei\git\ObjectAlgebraFramework\paper\paper.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
  13909 strings out of 493921
- 229221 string characters out of 3147257
+ 229793 string characters out of 3147257
  521352 words of memory out of 3000000
  16839 multiletter control sequences out of 15000+200000
  19395 words of font info for 55 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 41i,6n,72p,592b,1512s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,6n,72p,590b,1512s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{C:/Pro
 gram Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts
@@ -827,7 +835,7 @@ type1/public/cm-super/sfrm0700.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/cm-super/sfrm0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-su
 per/sfrm1000.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfti1
 000.pfb>
-Output written on paper.pdf (7 pages, 175076 bytes).
+Output written on paper.pdf (7 pages, 176676 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -1,7 +1,7 @@
 \section{Transformations}\label{sec:transformations}
 \label{retroimp}
 
-Generic classes with accept methods
+Before writing generic transformation interfaces, we first introduce \emph{generic visitable interface}
 \begin{lstlisting}[numbers=none] 
 public interface G_Exp {
 	<Exp> Exp accept(ExpAlg<Exp> alg);
