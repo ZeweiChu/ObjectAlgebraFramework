@@ -34,13 +34,13 @@ public class StmtFormat implements IStmtAlg<IFormatWithPrecedence, IFormat> {
 
 	@Override
 	public IFormat question(final String id, final String label, final Type type) {
-		return box.H(1,box.L(id),box.L(label),box.L(type.toString()));
+		return box.H(1,box.L(id),box.L("\"" + label + "\""),box.L(type.toString()));
 	}
 
 	@Override
 	public IFormat question(final String id, final String label, final Type type,
 			final IFormatWithPrecedence exp) {
-		return 	box.H(1,box.L(id),box.L(label),box.L(type.toString()), box.L("="), box.H(0, box.L("("), exp, box.L(")")));
+		return 	box.H(1,box.L(id),box.L("\"" + label + "\""),box.L(type.toString()), box.L("="), box.H(0, box.L("("), exp, box.L(")")));
 	}
 
 }

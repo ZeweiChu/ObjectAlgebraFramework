@@ -4,15 +4,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
-import monoids.MapMonoid;
+import library.Monoid;
+import library.Pair;
 import monoids.SetMonoid;
 import noa.Builder;
 import noa.Union;
-import library.Monoid;
-import library.Pair;
 import ql_obj_alg.check.types.Type;
 import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IAllAlg;
