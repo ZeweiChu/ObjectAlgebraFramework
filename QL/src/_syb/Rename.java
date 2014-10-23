@@ -35,6 +35,10 @@ public class Rename {
 		return newName;
 	}
 	
+	
+	// TODO: turn into one class that implements both IExpAlgTransform, 
+	// IStmtAlgTransformManySorted and IFormAlgTransformManySorted.
+	
 	static class RenameExp implements IExpAlgTransform {
 
 		private final Map<String, String> renaming;
