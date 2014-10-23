@@ -4,8 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Library"/>
-	<classpathentry kind="lib" path="/naked-object-algebras/lib/antlr-4.2.2-complete.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/naked-object-algebras"/>
 	<classpathentry kind="lib" path="lib/Library.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/naked-object-algebras-syb"/>
+	<classpathentry kind="lib" path="/naked-object-algebras-syb/lib/antlr-4.2.2-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
