@@ -3,6 +3,7 @@ package sybDemo2;
 import java.util.List;
 import trees.SybAlg;
 
+//BEGIN_QUERY_SALARY
 public class SalaryQuerySybAlg implements SybAlg<Float,Float,Float,Float,Float,Float> {
 	public Float C(List<Float> depts){
 		Float r = 0f;
@@ -30,3 +31,4 @@ public class SalaryQuerySybAlg implements SybAlg<Float,Float,Float,Float,Float,F
 		return salary;
 	}
 }
+//END_QUERY_SALARY
