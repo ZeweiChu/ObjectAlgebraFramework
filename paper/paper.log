@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  29 OCT 2014 19:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  29 OCT 2014 21:20
 entering extended mode
 **paper.tex
 
@@ -781,7 +781,7 @@ Introduction.tex)
 Overview.tex <Company.jpg, id=4, 565.11125pt x 464.73625pt>
 File: Company.jpg Graphic file (type jpg)
  <use Company.jpg>
-Package pdftex.def Info: Company.jpg used on input line 8.
+Package pdftex.def Info: Company.jpg used on input line 6.
 (pdftex.def)             Requested size: 256.0748pt x 210.59018pt.
 
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
@@ -790,7 +790,9 @@ LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
 (Font)              Font shape `T1/fvm/b/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 (Font)              scaled to size 7.65005pt on input line 6.
-) [1
+)
+(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
+src\sybDemo1\Salary.java) [1
 Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
@@ -805,11 +807,12 @@ Non-PDF special ignored!{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C
 :/Users/jasonchuzewei/Documents/GitHub/ObjectAlgebraFramework/paper/Company.jpg
 >]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
-src\sybDemo1\Salary.java)
-(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\trees\SybAlg.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\sybDemo2\SalaryQuerySybAlg.java)
+Underfull \vbox (badness 1983) has occurred while \output is active []
+
+ [2]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\sybDemo2\G_Company.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
@@ -817,9 +820,9 @@ src\sybDemo2\G_Salary.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\sybDemo2\IncreaseSalarySybAlg.java)
 
-LaTeX Warning: Float too large for page by 143.29945pt on input line 64.
+LaTeX Warning: Float too large for page by 143.29945pt on input line 62.
 
-[2]
+[3]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\test\FloatQuerySybAlgebra.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
@@ -838,19 +841,19 @@ src\expDemo3\FreeVarsQueryExpAlg.java))
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
 Transformations.tex
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
-src\expDemo3\G_Exp.java) [3]
+src\expDemo3\G_Exp.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
-src\expDemo3\ExpAlgTransform.java)
+src\expDemo3\ExpAlgTransform.java) [4]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
-src\expDemo3\SubstVarsTransform.java)) [4]
+src\expDemo3\SubstVarsTransform.java))
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
 Framework.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
 Other.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
-CaseStudy.tex [5])
+CaseStudy.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
-RelatedWork.tex)
+RelatedWork.tex [5])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
 Conclusion.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\paper.bbl
@@ -864,7 +867,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  14032 strings out of 493921
  233624 string characters out of 3147257
- 791243 words of memory out of 3000000
+ 729243 words of memory out of 3000000
  16918 multiletter control sequences out of 15000+200000
  19694 words of font info for 56 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
@@ -881,7 +884,7 @@ type1/public/cm-super/sfrm0700.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/cm-super/sfrm0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-su
 per/sfrm1000.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfti1
 000.pfb>
-Output written on paper.pdf (10 pages, 226186 bytes).
+Output written on paper.pdf (10 pages, 226616 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
