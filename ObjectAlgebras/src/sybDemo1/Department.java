@@ -4,9 +4,11 @@ import java.util.List;
 
 public class Department {
 	private String name;
+	private Employee manager;
 	private List<SubUnit> subUnits;
-	public Department(String name, List<SubUnit> subUnits){
+	public Department(String name, List<SubUnit> subUnits, Employee manager){
 		this.name = name;
+		this.manager = manager;
 		this.subUnits = subUnits;
 	}
 	public Float salaryBill(){
