@@ -9,18 +9,22 @@ import noa.Builder;
 import ql_obj_alg.box.IFormat;
 import ql_obj_alg.format.Format;
 import ql_obj_alg.format.IFormatWithPrecedence;
+import ql_obj_alg.format.UnlessFormat;
 import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
-import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.syntax.IUnlessAlg;
 
 public class TestDesugarUnless {
 	
+	static class FormatWithUnless extends Format implements UnlessFormat {
+		
+	}
+	
 	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, FormAlgId<IFormatWithPrecedence, IFormat, IFormat> {
-		private Format algebra;
+		private FormatWithUnless algebra;
 
-		public Desugar(Format f) {
+		public Desugar(FormatWithUnless f) {
 			this.algebra = f;
 		}
 		@Override
@@ -29,7 +33,7 @@ public class TestDesugarUnless {
 		}
 
 		@Override
-		public IStmtAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
+		public IUnlessAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
 			return algebra;
 		}
 
@@ -38,17 +42,13 @@ public class TestDesugarUnless {
 			return algebra;
 		}
 
-		@Override
-		public IUnlessAlg<IFormatWithPrecedence, IFormat> unlessAlg() {
-			return this; // NB!!!
-		}
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
 				"resources/inputfiles/test.QL"));
 
-		Format algebra = new Format();
+		FormatWithUnless algebra = new FormatWithUnless();
 		IFormat pp = builder.build(new Desugar(algebra));
 		
 		StringWriter w = new StringWriter();
