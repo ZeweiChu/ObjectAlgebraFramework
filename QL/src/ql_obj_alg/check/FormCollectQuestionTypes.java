@@ -4,11 +4,11 @@ import java.util.List;
 
 import ql_obj_alg.syntax.IFormAlg;
 
-public class FormCollectQuestionTypes implements
+public interface  FormCollectQuestionTypes extends
 		IFormAlg<Object, ICollect, ICollect> {
 
 	@Override
-	public ICollect form(final String id, final List<ICollect> statements) {
+	default ICollect form(final String id, final List<ICollect> statements) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
 				for (ICollect stmt : statements) {

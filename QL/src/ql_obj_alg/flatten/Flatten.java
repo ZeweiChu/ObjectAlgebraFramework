@@ -6,43 +6,59 @@ import java.util.Collections;
 import java.util.List;
 
 import noa.Builder;
-import noa.Union;
+import ql_obj_alg.box.BoxAlg;
+import ql_obj_alg.box.FormatBox;
 import ql_obj_alg.box.IFormat;
 import ql_obj_alg.check.types.Type;
 import ql_obj_alg.format.ExprFormat;
 import ql_obj_alg.format.ExprPrecedence;
-import ql_obj_alg.format.FormFormat;
+import ql_obj_alg.format.Format;
 import ql_obj_alg.format.IFormatWithPrecedence;
-import ql_obj_alg.format.StmtFormat;
+import ql_obj_alg.format.IPrecedence;
 import ql_obj_alg.parse.TheParser;
-import ql_obj_alg.syntax.IAllAlg;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.util.GenerateBinarySearchForm;
 
-public class Flatten<E, S, F, EA extends IExpAlg<E>, SA extends IStmtAlg<E, S>, FA extends IFormAlg<E, S, F>> 
-	implements IStmtAlg<E, IFlatten<E, S>>, IFormAlg<E, IFlatten<E, S>, F> {
+public class Flatten<E, S, F>  implements 
+	IStmtAlg<E, IFlatten<E, S>>, IFormAlg<E, IFlatten<E, S>, F> {
 
-	private EA exp;
-	private SA stmt;
-	private FA form;
+	private IExpAlg<E> exp;
+	private IStmtAlg<E, S> stmt;
+	private IFormAlg<E, S, F> form;
 
+	// a little clunky here, but ok.
+	static class FlattenFormat extends Flatten<IFormatWithPrecedence, IFormat, IFormat> implements ExprFormat {
+		
+		public FlattenFormat(IExpAlg<IFormatWithPrecedence> exp, IStmtAlg<IFormatWithPrecedence, IFormat> stmt,
+				IFormAlg<IFormatWithPrecedence, IFormat, IFormat> form) {
+			super(exp, stmt, form);
+		}
+
+		private final BoxAlg<IFormat> box = new FormatBox();
+		private final IExpAlg<IPrecedence> prec = new ExprPrecedence();
+		
+		
+		@Override
+		public BoxAlg<IFormat> box() {
+			return box;
+		}
+
+		@Override
+		public IExpAlg<IPrecedence> prec() {
+			return prec;
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		GenerateBinarySearchForm gen = new GenerateBinarySearchForm(1, 10, 9);
-		IExpAlg<IFormatWithPrecedence> expFormat = new ExprFormat<>(new ExprPrecedence());
-		StmtFormat stmtFormat = new StmtFormat();
-		FormFormat formFormat = new FormFormat();
-		Flatten<IFormatWithPrecedence, IFormat, IFormat, 
-				IExpAlg<IFormatWithPrecedence>, 
-				IStmtAlg<IFormatWithPrecedence, IFormat>, 
-				IFormAlg<IFormatWithPrecedence, IFormat, IFormat>> flatten = new Flatten<
-				IFormatWithPrecedence, IFormat, IFormat,
-				IExpAlg<IFormatWithPrecedence>, IStmtAlg<IFormatWithPrecedence, IFormat>, IFormAlg<IFormatWithPrecedence, IFormat, IFormat>
-				>(expFormat, stmtFormat, formFormat);
+		Format format = new Format();
+		FlattenFormat flatten = new FlattenFormat(format, format, format);
 		for (String src: gen) {
 			Builder build = TheParser.parse(src);
-			IFormat f = build.build(Union.union(IAllAlg.class, flatten, expFormat));
+			IFormat f = build.build(flatten);
 			StringWriter writer = new StringWriter();
 			f.format(0, false, writer);
 			System.out.println(writer.toString());
@@ -50,7 +66,7 @@ public class Flatten<E, S, F, EA extends IExpAlg<E>, SA extends IStmtAlg<E, S>, 
 		}
 	}
 	
-	public Flatten(EA exp, SA stmt, FA form) {
+	public Flatten(IExpAlg<E> exp, IStmtAlg<E, S> stmt, IFormAlg<E, S, F> form) {
 		this.exp = exp;
 		this.stmt = stmt;
 		this.form = form;

@@ -9,10 +9,10 @@ import ql_obj_alg.eval.values.VString;
 import ql_obj_alg.eval.values.Value;
 import ql_obj_alg.syntax.IExpAlg;
 
-public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
+public interface ExprEvaluator extends IExpAlg<IDepsAndEvalE>{
 
 	@Override
-	public IDepsAndEvalE lit(final int x) {
+	default IDepsAndEvalE lit(final int x) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -27,7 +27,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE bool(final boolean b) {
+	default IDepsAndEvalE bool(final boolean b) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -42,7 +42,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE string(final String s) {
+	default IDepsAndEvalE string(final String s) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -57,7 +57,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE var(final String varName) {
+	default IDepsAndEvalE var(final String varName) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -74,7 +74,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE mul(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE mul(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -91,7 +91,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE div(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE div(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -108,7 +108,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE add(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE add(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -125,7 +125,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE sub(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE sub(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -142,7 +142,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE eq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE eq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -159,7 +159,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE neq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE neq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -176,7 +176,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE lt(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE lt(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -193,7 +193,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE leq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE leq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -210,7 +210,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE gt(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE gt(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -227,7 +227,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE geq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE geq(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -244,7 +244,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE not(final IDepsAndEvalE exp) {
+	default IDepsAndEvalE not(final IDepsAndEvalE exp) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -260,7 +260,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE and(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE and(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -277,7 +277,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE or(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
+	default IDepsAndEvalE or(final IDepsAndEvalE lhs, final IDepsAndEvalE rhs) {
 		return new IDepsAndEvalE(){
 			@Override
 			public Value eval(ValueEnvironment valEnv) {
@@ -293,7 +293,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 		};
 	}
 
-	public static List<String> unionLists(List<String> list1, List<String> list2){
+	static List<String> unionLists(List<String> list1, List<String> list2){
 		List<String> newList = new ArrayList<String>();
 		newList.addAll(list1);
 		newList.addAll(list2);
@@ -301,7 +301,7 @@ public class ExprEvaluator implements IExpAlg<IDepsAndEvalE>{
 	}
 
 	@Override
-	public IDepsAndEvalE bracket(IDepsAndEvalE e) {
+	default IDepsAndEvalE bracket(IDepsAndEvalE e) {
 		return new IDepsAndEvalE() {
 			
 			@Override

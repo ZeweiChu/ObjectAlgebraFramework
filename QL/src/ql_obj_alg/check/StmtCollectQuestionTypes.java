@@ -7,11 +7,10 @@ import ql_obj_alg.check.types.Type;
 import ql_obj_alg.check.warnings.DuplicateLabelWarning;
 import ql_obj_alg.syntax.IStmtAlg;
 
-public class StmtCollectQuestionTypes implements
-		IStmtAlg<Object,ICollect> {
+public interface StmtCollectQuestionTypes<E> extends IStmtAlg<E,ICollect> {
 	
 	@Override
-	public ICollect iff(final Object cond, final List<ICollect> statements) {
+	default ICollect iff(final E cond, final List<ICollect> statements) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
 				for(ICollect stmt : statements)
@@ -21,7 +20,7 @@ public class StmtCollectQuestionTypes implements
 	}
 
 	@Override
-	public ICollect iffelse(final Object cond, final List<ICollect> statementsIf,
+	default ICollect iffelse(final E cond, final List<ICollect> statementsIf,
 			final List<ICollect> statementsElse) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
@@ -34,7 +33,7 @@ public class StmtCollectQuestionTypes implements
 	}
 
 	@Override
-	public ICollect question(final String id, final String label, final Type type) {
+	default ICollect question(final String id, final String label, final Type type) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
 				if(typeEnv.isDefined(id)){
@@ -53,8 +52,8 @@ public class StmtCollectQuestionTypes implements
 	}
 
 	@Override
-	public ICollect question(final String id, final String label, final Type type,
-			final Object exp) {
+	default ICollect question(final String id, final String label, final Type type,
+			final E exp) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv,ErrorReporting report){
 				question(id,label,type).collect(typeEnv, report);

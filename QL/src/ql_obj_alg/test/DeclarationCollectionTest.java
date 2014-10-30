@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ql_obj_alg.check.CollectTypeEnv;
 import ql_obj_alg.check.ErrorReporting;
 import ql_obj_alg.check.FormCollectQuestionTypes;
 import ql_obj_alg.check.FormTypeChecker;
@@ -16,6 +17,7 @@ import ql_obj_alg.check.ICollect;
 import ql_obj_alg.check.ITypeCheck;
 import ql_obj_alg.check.StmtCollectQuestionTypes;
 import ql_obj_alg.check.StmtTypeChecker;
+import ql_obj_alg.check.TypeChecker;
 import ql_obj_alg.check.TypeEnvironment;
 import ql_obj_alg.check.errors.DuplicateQuestionError;
 import ql_obj_alg.check.errors.GenError;
@@ -29,8 +31,7 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class DeclarationCollectionTest extends TestCase{
 
-	FormCollectQuestionTypes fcd;
-	StmtCollectQuestionTypes scd;
+	CollectTypeEnv fcd;
 	ErrorReporting report;
 	TypeEnvironment tenv;
 	GenError expectedError;
@@ -39,28 +40,13 @@ public class DeclarationCollectionTest extends TestCase{
 
 	@Before
 	public void setUp() throws Exception {
-		fcd = new FormCollectQuestionTypes();
-		scd = new StmtCollectQuestionTypes();
+		fcd = new CollectTypeEnv();
 		tenv = new TypeEnvironment();
 		report = new ErrorReporting();
 		expectedError = null;
 		expectedWarning = null;
 	}
 
-	@Test @Ignore
-	public void testDuplicates() {
-		
-		ICollect forms = duplicateQuestionInForm(fcd,scd);
-		
-		forms.collect(tenv, report);
-			
-		assertEquals(1,report.numberOfErrors());
-		
-		expectedError = new DuplicateQuestionError(question);
-	
-		assertTrue(report.containsError(expectedError));		
-	}
-	
 	private <E,S,F> F duplicateQuestionInForm(IFormAlg<E,S,F> f, IStmtAlg<E,S> s){
 
 		List<S> questions = new ArrayList<S>();
@@ -74,7 +60,7 @@ public class DeclarationCollectionTest extends TestCase{
 	@Test
 	public void testCollectoion() {
 		
-		ICollect forms = collection(fcd,scd);
+		ICollect forms = collection(fcd,fcd);
 		
 		forms.collect(tenv, report);
 			
@@ -99,11 +85,12 @@ public class DeclarationCollectionTest extends TestCase{
 	
 	@Test
 	public void testDuplicateLabels() {
-		ICollect collector = duplicateLabels(new FormCollectQuestionTypes(),new StmtCollectQuestionTypes());
+		ICollect collector = duplicateLabels(fcd, fcd);
 
 		collector.collect(tenv,report);
 		
-		ITypeCheck form = duplicateLabels(new FormTypeChecker(),new StmtTypeChecker());
+		TypeChecker tc = new TypeChecker();
+		ITypeCheck form = duplicateLabels(tc, tc);
 		form.check(tenv, report);
 
 		assertEquals(1, report.numberOfWarnings());

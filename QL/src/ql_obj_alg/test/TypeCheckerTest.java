@@ -10,18 +10,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ql_obj_alg.check.CollectTypeEnv;
 import ql_obj_alg.check.ErrorReporting;
-import ql_obj_alg.check.ExprTypeChecker;
-import ql_obj_alg.check.FormCollectQuestionTypes;
-import ql_obj_alg.check.FormTypeChecker;
 import ql_obj_alg.check.ICollect;
 import ql_obj_alg.check.ITypeCheck;
-import ql_obj_alg.check.StmtCollectQuestionTypes;
-import ql_obj_alg.check.StmtTypeChecker;
+import ql_obj_alg.check.TypeChecker;
 import ql_obj_alg.check.TypeEnvironment;
 import ql_obj_alg.check.errors.ConflictingTypeError;
 import ql_obj_alg.check.errors.GenError;
-import ql_obj_alg.check.errors.UndefinedQuestionError;
 import ql_obj_alg.check.errors.UnexpectedTypeError;
 import ql_obj_alg.check.errors.UnexpectedTypeInBinaryOpError;
 import ql_obj_alg.check.types.TBoolean;
@@ -47,24 +43,6 @@ public class TypeCheckerTest {
 
 	
 	
-	@Test @Ignore
-	public void testUndefinedVariable() {
-		ICollect collector = undefinedVariable(new FormCollectQuestionTypes(),new StmtCollectQuestionTypes(),null);
-
-		collector.collect(tenv,report);
-		
-		ITypeCheck form = undefinedVariable(new FormTypeChecker(),new StmtTypeChecker(),new ExprTypeChecker());
-		form.check(tenv, report);
-
-		assertEquals(0, report.numberOfWarnings());
-				
-		assertEquals(1,report.numberOfErrors());
-		
-		expectedError = new UndefinedQuestionError("undefined");
-
-		assertTrue(report.containsError(expectedError));
-	}
-	
 	private static <E,S,F> F undefinedVariable(IFormAlg<E,S,F> f, IStmtAlg<E,S> s, IExpAlg<E> e){
 		E exp = null;
 		if(e != null)
@@ -79,11 +57,13 @@ public class TypeCheckerTest {
 	@Test @Ignore
 	public void testWrongTypeInAdd() {
 
-		ICollect collector = wrongTypeInAdd(new FormCollectQuestionTypes(),new StmtCollectQuestionTypes(),null);
+		CollectTypeEnv coll = new CollectTypeEnv();
+		TypeChecker tc = new TypeChecker();
+		ICollect collector = wrongTypeInAdd(coll, coll,null);
 
 		collector.collect(tenv,report);
 		
-		ITypeCheck form = wrongTypeInAdd(new FormTypeChecker(),new StmtTypeChecker(),new ExprTypeChecker());
+		ITypeCheck form = wrongTypeInAdd(tc, tc, tc);
 		form.check(tenv, report);
 
 		assertEquals(0, report.numberOfWarnings());
@@ -109,11 +89,13 @@ public class TypeCheckerTest {
 	@Test @Ignore
 	public void testIncompatibleTypeInEquals() {
 		
-		ICollect collector = incompatibleTypeInEquals(new FormCollectQuestionTypes(),new StmtCollectQuestionTypes(),null);
+		CollectTypeEnv coll = new CollectTypeEnv();
+		TypeChecker tc = new TypeChecker();
+		ICollect collector = incompatibleTypeInEquals(coll, coll, null);
 
 		collector.collect(tenv,report);
 		
-		ITypeCheck form = incompatibleTypeInEquals(new FormTypeChecker(),new StmtTypeChecker(),new ExprTypeChecker());
+		ITypeCheck form = incompatibleTypeInEquals(tc, tc, tc);
 		form.check(tenv, report);
 
 		assertEquals(0, report.numberOfWarnings());
@@ -138,12 +120,13 @@ public class TypeCheckerTest {
 	
 	@Test
 	public void testWrongTypeInCondition() {
-
-		ICollect collector = wrongTypeInCondition(new FormCollectQuestionTypes(),new StmtCollectQuestionTypes(),null);
+		CollectTypeEnv coll = new CollectTypeEnv();
+		TypeChecker tc = new TypeChecker();
+		ICollect collector = wrongTypeInCondition(coll, coll, null);
 
 		collector.collect(tenv,report);
 		
-		ITypeCheck form = wrongTypeInCondition(new FormTypeChecker(),new StmtTypeChecker(),new ExprTypeChecker());
+		ITypeCheck form = wrongTypeInCondition(tc, tc, tc);
 		form.check(tenv, report);
 
 		assertEquals(0, report.numberOfWarnings());

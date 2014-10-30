@@ -1,47 +1,24 @@
 package ql_obj_alg.format;
 
-import java.util.List;
-
+import ql_obj_alg.box.BoxAlg;
+import ql_obj_alg.box.FormatBox;
 import ql_obj_alg.box.IFormat;
-import ql_obj_alg.check.types.Type;
 import ql_obj_alg.syntax.IAllAlg;
+import ql_obj_alg.syntax.IExpAlg;
 
-public class Format  extends ExprFormat<ExprPrecedence> implements IAllAlg<IFormatWithPrecedence, IFormat, IFormat> {
-
-	private FormFormat formatForm;
-	private StmtFormat formatStmt;
-
-	public Format(FormFormat formatForm, StmtFormat formatStmt, ExprPrecedence myPrec) {
-		super(myPrec);
-		this.formatForm = formatForm;
-		this.formatStmt = formatStmt;
+public class Format implements ExprFormat, StmtFormat, FormFormat, IAllAlg<IFormatWithPrecedence, IFormat, IFormat> {
+	private final BoxAlg<IFormat> box = new FormatBox();
+	private final IExpAlg<IPrecedence> prec = new ExprPrecedence();
+	
+	
+	@Override
+	public BoxAlg<IFormat> box() {
+		return box;
 	}
 
 	@Override
-	public IFormat iff(IFormatWithPrecedence cond, List<IFormat> statements) {
-		return formatStmt.iff(cond, statements);
-	}
-
-	@Override
-	public IFormat iffelse(IFormatWithPrecedence cond,
-			List<IFormat> statementsIf, List<IFormat> statementsElse) {
-		return formatStmt.iffelse(cond, statementsIf, statementsElse);
-	}
-
-	@Override
-	public IFormat question(String id, String label, Type type) {
-		return formatStmt.question(id, label, type);
-	}
-
-	@Override
-	public IFormat question(String id, String label, Type type,
-			IFormatWithPrecedence exp) {
-		return formatStmt.question(id, label, type, exp);
-	}
-
-	@Override
-	public IFormat form(String id, List<IFormat> statements) {
-		return formatForm.form(id, statements);
+	public IExpAlg<IPrecedence> prec() {
+		return prec;
 	}
 
 }

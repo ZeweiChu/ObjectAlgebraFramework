@@ -12,6 +12,7 @@ import noa.Builder;
 import noa.NoOp;
 import noa.Union;
 import ql_obj_alg.box.IFormat;
+import ql_obj_alg.check.CollectTypeEnv;
 import ql_obj_alg.check.ErrorReporting;
 import ql_obj_alg.check.ExprTypeChecker;
 import ql_obj_alg.check.FormCollectQuestionTypes;
@@ -21,6 +22,7 @@ import ql_obj_alg.check.IExpType;
 import ql_obj_alg.check.ITypeCheck;
 import ql_obj_alg.check.StmtCollectQuestionTypes;
 import ql_obj_alg.check.StmtTypeChecker;
+import ql_obj_alg.check.TypeChecker;
 import ql_obj_alg.check.TypeEnvironment;
 import ql_obj_alg.cycles.ExprDependencies;
 import ql_obj_alg.cycles.FormDependencies;
@@ -28,19 +30,12 @@ import ql_obj_alg.cycles.IDependencyGraph;
 import ql_obj_alg.cycles.IDetectCycle;
 import ql_obj_alg.cycles.IExpDependency;
 import ql_obj_alg.cycles.StmtDependencies;
-import ql_obj_alg.eval.ExprEvaluator;
-import ql_obj_alg.eval.IDepsAndEvalE;
 import ql_obj_alg.eval.ValueEnvironment;
-import ql_obj_alg.format.ExprFormat;
-import ql_obj_alg.format.ExprPrecedence;
-import ql_obj_alg.format.FormFormat;
-import ql_obj_alg.format.StmtFormat;
+import ql_obj_alg.format.Format;
 import ql_obj_alg.parse.TheParser;
-import ql_obj_alg.render.FormUI;
-import ql_obj_alg.render.IRender;
 import ql_obj_alg.render.IRenderForm;
 import ql_obj_alg.render.Registry;
-import ql_obj_alg.render.StmtUI;
+import ql_obj_alg.render.Render;
 import ql_obj_alg.syntax.IAllAlg;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
@@ -92,11 +87,7 @@ public class Main {
 
    
 	private void printForm() {
-		FormFormat fFormat = new FormFormat();
-		StmtFormat sFormat = new StmtFormat();
-		ExprPrecedence prec = new ExprPrecedence();
-		ExprFormat<ExprPrecedence> eFormat = new ExprFormat<ExprPrecedence>(prec);
-		IFormat printingForm = builder.build(Union.union(IAllAlg.class, fFormat, sFormat, eFormat));
+		IFormat printingForm = builder.build(new Format());
 		StringWriter w = new StringWriter();
 		printingForm.format(0, false, w);
 		System.out.println(w);
@@ -110,12 +101,7 @@ public class Main {
 	void prettyPrint(InputStream input, StringWriter output) throws IOException {
 		IAllAlg recorder = recorder(IAllAlg.class);
 		Builder builder = (Builder) parse(input, recorder);
-		FormFormat formatForm = new FormFormat();
-		StmtFormat formatStmt = new StmtFormat();
-		ExprPrecedence prec = new ExprPrecedence();
-		ExprFormat<ExprPrecedence> formatExpr = new ExprFormat<>(prec);
-		IAllAlg all = Union.union(IAllAlg.class, formatForm, formatStmt, formatExpr);
-		IFormat printableForm = builder.build(all);
+		IFormat printableForm = builder.build(new Format());
 		printableForm.format(0, false, output);
 	}
 
@@ -131,9 +117,7 @@ public class Main {
 	
 	private boolean typeCheckerForm(ErrorReporting report) {
 		TypeEnvironment typeEnv = new TypeEnvironment();
-		IFormAlg<Object,ICollect,ICollect> collectForm = new FormCollectQuestionTypes();
-		IStmtAlg<Object,ICollect> collectStmt = new StmtCollectQuestionTypes();
-		collectQuestions(report, typeEnv, collectForm, collectStmt, NoOp.noOp(IExpAlg.class));
+		collectQuestions(report, typeEnv, new CollectTypeEnv(), NoOp.noOp(IExpAlg.class));
 		checkTypes(report, typeEnv);
 		checkCyclicDependencies(report);
 		return report.numberOfErrors() == 0;
@@ -153,10 +137,7 @@ public class Main {
 
 	private void checkTypes(ErrorReporting report,
 			TypeEnvironment typeEnv) {
-		IFormAlg<IExpType,ITypeCheck,ITypeCheck> typeCheckForm = new FormTypeChecker();
-		IStmtAlg<IExpType,ITypeCheck> typeCheckStmt = new StmtTypeChecker();
-		IExpAlg<IExpType> typeCheckExpr = new ExprTypeChecker();
-		checkTypes(report, typeEnv, typeCheckForm, typeCheckStmt, typeCheckExpr);
+		checkTypes(report, typeEnv, new TypeChecker());
 	}
 
 	protected void checkTypes(ErrorReporting report,
@@ -172,17 +153,13 @@ public class Main {
 	}
 	
 	private void runUI(ErrorReporting errorReport){
-		IExpAlg<IDepsAndEvalE> expAlg = new ExprEvaluator();
-		IStmtAlg<IDepsAndEvalE,IRender> stmtAlg = new StmtUI<IExpAlg<IDepsAndEvalE>>(expAlg);
-		IFormAlg<IDepsAndEvalE,IRender,IRenderForm> formAlg = new FormUI<IExpAlg<IDepsAndEvalE>>(expAlg);
-
 		ValueEnvironment valEnv = new ValueEnvironment();
 		Registry registry = new Registry();
-		createUI(valEnv, registry, expAlg, stmtAlg, formAlg);
+		createUI(valEnv, registry, new Render());
 	}
 
-	protected void createUI(ValueEnvironment valEnv, Registry registry, Object ...algebras) {
-		this.<IRenderForm>buildUsing(algebras).render(valEnv, registry);
+	protected void createUI(ValueEnvironment valEnv, Registry registry, Render render) {
+		this.<IRenderForm>buildUsing(render).render(valEnv, registry);
 	}
 
 	

@@ -13,10 +13,10 @@ import ql_obj_alg.check.types.TString;
 import ql_obj_alg.check.types.Type;
 import ql_obj_alg.syntax.IExpAlg;
 
-public class ExprTypeChecker implements IExpAlg<IExpType>{
+public interface ExprTypeChecker extends IExpAlg<IExpType>{
 
 	@Override
-	public IExpType lit(int x) {
+	default IExpType lit(int x) {
 		return new IExpType(){
 			@Override
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report) {
@@ -26,7 +26,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType bool(boolean b) {
+	default IExpType bool(boolean b) {
 		return new IExpType(){
 			@Override
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report) {
@@ -36,7 +36,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType string(String s) {
+	default IExpType string(String s) {
 		return new IExpType(){
 			@Override
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report) {
@@ -46,7 +46,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType var(final String varName) {
+	default IExpType var(final String varName) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type t = typeEnv.getType(varName);
@@ -59,7 +59,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType mul(final IExpType lhs,final IExpType rhs) {
+	default IExpType mul(final IExpType lhs,final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report);
@@ -74,7 +74,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType div(final IExpType lhs, final IExpType rhs) {
+	default IExpType div(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -89,7 +89,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType add(final IExpType lhs, final IExpType rhs) {
+	default IExpType add(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -104,7 +104,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType sub(final IExpType lhs, final IExpType rhs) {
+	default IExpType sub(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -119,7 +119,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType eq(final IExpType lhs, final IExpType rhs) {
+	default IExpType eq(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -134,7 +134,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType neq(final IExpType lhs, final IExpType rhs) {
+	default IExpType neq(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -149,7 +149,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType lt(final IExpType lhs, final IExpType rhs) {
+	default IExpType lt(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -164,7 +164,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType leq(final IExpType lhs, final IExpType rhs) {
+	default IExpType leq(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -179,7 +179,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType gt(final IExpType lhs, final IExpType rhs) {
+	default IExpType gt(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -194,7 +194,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType geq(final IExpType lhs, final IExpType rhs) {
+	default IExpType geq(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -210,7 +210,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 
 
 	@Override
-	public IExpType not(final IExpType a) {
+	default IExpType not(final IExpType a) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type t = a.type(typeEnv, report); 
@@ -224,7 +224,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType and(final IExpType lhs, final IExpType rhs) {
+	default IExpType and(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -239,7 +239,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType or(final IExpType lhs, final IExpType rhs) {
+	default IExpType or(final IExpType lhs, final IExpType rhs) {
 		return new IExpType(){
 			public Type type(TypeEnvironment typeEnv, ErrorReporting report){
 				Type typeLhs = lhs.type(typeEnv, report); 
@@ -254,7 +254,7 @@ public class ExprTypeChecker implements IExpAlg<IExpType>{
 	}
 
 	@Override
-	public IExpType bracket(IExpType e) {
+	default IExpType bracket(IExpType e) {
 		return new IExpType() {
 			
 			@Override

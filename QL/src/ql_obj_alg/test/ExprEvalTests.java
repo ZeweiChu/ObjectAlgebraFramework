@@ -21,7 +21,7 @@ public class ExprEvalTests {
 	ValueEnvironment valEnv;
 	@Before
 	public void SetUp(){
-		exprEval = new ExprEvaluator();
+		exprEval = new ExprEvaluator() {};
 		valEnv = new ValueEnvironment();
 	}
 	@Test
