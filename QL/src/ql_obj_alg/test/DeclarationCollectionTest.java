@@ -6,20 +6,14 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ql_obj_alg.check.CollectTypeEnv;
 import ql_obj_alg.check.ErrorReporting;
-import ql_obj_alg.check.FormCollectQuestionTypes;
-import ql_obj_alg.check.FormTypeChecker;
 import ql_obj_alg.check.ICollect;
 import ql_obj_alg.check.ITypeCheck;
-import ql_obj_alg.check.StmtCollectQuestionTypes;
-import ql_obj_alg.check.StmtTypeChecker;
 import ql_obj_alg.check.TypeChecker;
 import ql_obj_alg.check.TypeEnvironment;
-import ql_obj_alg.check.errors.DuplicateQuestionError;
 import ql_obj_alg.check.errors.GenError;
 import ql_obj_alg.check.types.TBoolean;
 import ql_obj_alg.check.types.TInteger;
