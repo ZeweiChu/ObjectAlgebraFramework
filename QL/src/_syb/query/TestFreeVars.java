@@ -3,6 +3,7 @@ package _syb.query;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import library.Monoid;
@@ -24,6 +25,16 @@ public class TestFreeVars {
 		});
 		
 		System.out.println(fv);
+		
+		// The following does not work because FreeVars decides over which Monoid
+		// to query (Sets). If monoids have a unit, we could abstract over that and
+		// compute free vars using lists, or ints, or whatever monoid.
+//		List<String> ls = builder.build(new FreeVars() {
+//			@Override
+//			public Monoid<List<String>> m() {
+//				return new ListMonoid<>();
+//			}
+//		});
 
 	}
 	

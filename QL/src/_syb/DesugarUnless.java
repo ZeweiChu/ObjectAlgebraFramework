@@ -7,12 +7,13 @@ import java.util.List;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.syntax.IUnlessAlg;
+import transform.IExpAlgTransform;
 
 public class DesugarUnless {
 	
-	static class Desugar implements IUnlessAlgTransformManySorted {
+	interface Desugar extends IUnlessAlgTransformManySorted, IStmtAlgTransformManySorted, IExpAlgTransform {
 		@Override
-		public G_IUnlessAlg_S unless(G_IExpAlg_E p0, List<G_IUnlessAlg_S> p1) {
+		default G_IUnlessAlg_S unless(G_IExpAlg_E p0, List<G_IUnlessAlg_S> p1) {
 			return new G_IUnlessAlg_S() {
 				
 				@Override

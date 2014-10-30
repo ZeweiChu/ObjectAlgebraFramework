@@ -16,33 +16,40 @@ import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.syntax.IUnlessAlg;
 
 public class TestDesugarUnless {
+	
+	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, FormAlgId<IFormatWithPrecedence, IFormat, IFormat> {
+		private Format algebra;
+
+		public Desugar(Format f) {
+			this.algebra = f;
+		}
+		@Override
+		public IExpAlg<IFormatWithPrecedence> alg() {
+			return algebra;
+		}
+
+		@Override
+		public IStmtAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
+			return algebra;
+		}
+
+		@Override
+		public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> formAlg() {
+			return algebra;
+		}
+
+		@Override
+		public IUnlessAlg<IFormatWithPrecedence, IFormat> unlessAlg() {
+			return this; // NB!!!
+		}
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
 				"resources/inputfiles/test.QL"));
 
 		Format algebra = new Format();
-		IFormat pp = builder.build(new DesugarUnless<IFormatWithPrecedence, IFormat, IFormat>() {
-
-			@Override
-			public IExpAlg<IFormatWithPrecedence> alg() {
-				return algebra;
-			}
-
-			@Override
-			public IStmtAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> formAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IUnlessAlg<IFormatWithPrecedence, IFormat> unlessAlg() {
-				return this; // NB!!!
-			}
-		});
+		IFormat pp = builder.build(new Desugar(algebra));
 		
 		StringWriter w = new StringWriter();
 		pp.format(0, true, w);
