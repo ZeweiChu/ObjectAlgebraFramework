@@ -18,6 +18,7 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class TestRenameVariable {
 
+	@SuppressWarnings("serial")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
 				"resources/inputfiles/test.QL"));

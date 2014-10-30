@@ -38,7 +38,7 @@ public interface ExprFormat extends IExpAlg<IFormatWithPrecedence> {
 	}
 	
 	static IFormat unary(BoxAlg<IFormat> box, IFormatWithPrecedence l, String op, IPrecedence myPrec) {
-		return box.H(1,box.L(op), parens(box, myPrec, l));
+		return box.H(0,box.L(op), parens(box, myPrec, l));
 	}
 
 
