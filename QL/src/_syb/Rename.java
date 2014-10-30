@@ -31,10 +31,8 @@ public class Rename {
 	}
 	
 	
-	// TODO: turn into one class that implements both IExpAlgTransform, 
-	// IStmtAlgTransformManySorted and IFormAlgTransformManySorted.
 	
-	interface RenameExp extends IExpAlgTransform {
+	interface Renamer extends IExpAlgTransform, IStmtAlgTransformManySorted, IFormAlgTransformManySorted {
 
 		Map<String, String> renaming();
 
@@ -49,10 +47,6 @@ public class Rename {
 			};
 		}
 		
-	}
-	
-	interface RenameStmt extends IStmtAlgTransformManySorted {
-		Map<String, String> renaming();
 
 		@Override
 		default G_IStmtAlg_S question(String p0, String p1, Type p2) {
@@ -88,7 +82,7 @@ public class Rename {
 		}};
 				
 
-		class Trafo implements RenameExp, RenameStmt, IFormAlgTransformManySorted {
+		class Trafo implements Renamer {
 			
 			@Override
 			public Map<String, String> renaming() {

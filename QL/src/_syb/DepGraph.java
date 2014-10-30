@@ -30,11 +30,10 @@ public class DepGraph {
 	 * So currently, it is not very structure-shy... 
 	 */
 	
-	static class Deps extends IStmtAlgQueryManySorted<Set<String>, Pair<Set<String>, Set<Pair<String,String>>>> {
+	interface Deps extends IStmtAlgQueryManySorted<Set<String>, Pair<Set<String>, Set<Pair<String,String>>>> {
 
-		public Deps(Monoid<Pair<Set<String>, Set<Pair<String, String>>>> m) {
-			super(m);
-		}
+		Monoid<Pair<Set<String>, Set<Pair<String, String>>>> m();
+		
 		
 		@Override
 		public Pair<Set<String>, Set<Pair<String, String>>> iff(Set<String> cond, List<Pair<Set<String>, Set<Pair<String, String>>>> then) {
