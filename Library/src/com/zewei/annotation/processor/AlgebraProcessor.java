@@ -12,7 +12,7 @@ import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(value={"com.zewei.annotation.processor.Algebra"})
 @SupportedSourceVersion(SourceVersion.RELEASE_6)
-public class AlgebraProcessor extends AbstractProcessor{
+public class AlgebraProcessor extends AbstractProcessor {
 
 	private Filer filer;
 	
@@ -29,46 +29,49 @@ public class AlgebraProcessor extends AbstractProcessor{
 		String classContent = null;
 		String algName;
 		JavaFileObject jfo = null;
-		for (Element element: env.getElementsAnnotatedWith(Algebra.class)){			
+		for (Element element: env.getElementsAnnotatedWith(Algebra.class)) {			
 			
 			// Avoid infinite loop.
-			if (element.getSimpleName().toString().startsWith("G_")){
+			if (element.getSimpleName().toString().startsWith("G_")) {
 				continue;
 			}
 
 			// Initialization.
 			TypeMirror tm = element.asType();
 			String typeArgs = tm.accept(new DeclaredTypeVisitor(), element);
-			String typeArguments = "<" + typeArgs + ">";
 			String[] lTypeArgs = toList(typeArgs);
 			algName = element.getSimpleName().toString();
 			
-			
-			// Create generic classes "G_AlgName_***".
-			folder = "generic";
-			for (String s: lTypeArgs){
-				classContent = createGenericClass(folder, s, typeArguments, element);
-				try{
-					jfo = filer.createSourceFile(folder + "/" + "G_" + element.getSimpleName() + "_"+ s, element);
-					jfo.openWriter().append(classContent).close();
-				}catch(IOException ioe){
-					ioe.printStackTrace();
-				}
-			}
+			// Attention!
+			// Currently the program only supports algebras with arguments of the methods to be:
+			// (1) Simple types. "String / int / float / ...".
+			// (2) List<R>, where R must be one of the generic types.
 			
 			// Create transform classes "AlgNameTransform".
 			folder = "transform";
-			classContent = createTransformClass(folder, element, lTypeArgs, typeArguments);
+			classContent = createTransformClass(folder, element, lTypeArgs, typeArgs);
 			jfo = null;
-			try{
-				jfo = filer.createSourceFile(folder + "/" + element.getSimpleName()+"Transform", element);
+			try {
+				jfo = filer.createSourceFile(folder + "/" + algName +"Transform", element);
 				jfo.openWriter().append(classContent).close();
-			}catch(IOException ioe){
+			} catch(IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
+			// Create transform classes "G_AlgNameTransform".
+			folder = "transform";
+			classContent = createSubstTransformClass(folder, element, lTypeArgs, typeArgs);
+			jfo = null;
+			try {
+				jfo = filer.createSourceFile(folder + "/G_" + algName +"Transform", element);
+				jfo.openWriter().append(classContent).close();
+			} catch(IOException ioe) {
 				ioe.printStackTrace();
 			}
 			
 			
-		// Create query classes "AlgNameQuery".
+		    // Create query classes "AlgNameQuery".
+			// One issue here. Using "java.util.List" instead of "List".
 			folder = "query";
 			classContent = createQueryClass(folder, element, lTypeArgs, typeArgs);
 			jfo = null;
@@ -79,8 +82,19 @@ public class AlgebraProcessor extends AbstractProcessor{
 				ioe.printStackTrace();
 			}
 			
-			// Create combinator classes "Combine***".
+			// Create query classes "G_AlgNameQuery".
 			folder = "query";
+			classContent = createGeneralQueryClass(folder, element, lTypeArgs, typeArgs);
+			jfo = null;
+			try{
+				jfo = filer.createSourceFile(folder + "/G_" + algName + "Query", element);
+				jfo.openWriter().append(classContent).close();
+			}catch(IOException ioe){
+				ioe.printStackTrace();
+			}
+			
+			// Create combinator classes "CombineAlgName".
+			folder = "combinator";
 			classContent = createCombinatorClass(folder, element, typeArgs);
 			jfo = null;
 			try{
@@ -91,8 +105,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 			}
 			
 		}
-		return true;
-		
+		return true;		
 	}
 	
 	private String[] toList(String message) {
@@ -104,33 +117,62 @@ public class AlgebraProcessor extends AbstractProcessor{
 		return SourceVersion.latestSupported();
 	}
 	
-	String createGenericClass(String folder, String className, String typeArguments, Element element){
-		return "package " + folder + ";\n\n"
-				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n"
-				+ "public interface G_" + element.getSimpleName() + "_" + className + " {\n" +
-				"\t" + typeArguments + " " + className + " accept(" + element.getSimpleName() + typeArguments + " alg);\n}";
-	}
-	
 	private String getPackage(Element element) {
 		return ((PackageElement)element.getEnclosingElement()).getQualifiedName().toString();
 	}
 	
-	String createTransformClass(String folder, Element element, String[] lTypeArgs, String typeArguments){
+	String createTransformClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
 		List<? extends Element> le = element.getEnclosedElements();
-		String className = element.getSimpleName() + "Transform";
+		String algName = element.getSimpleName().toString();
+		String className = algName + "Transform";
 		String classContent = "package " + folder + ";\n\n";
-		classContent += "import " + getPackage(element) + "." + element.getSimpleName() + ";\n";
-		classContent += "import generic.*;\n\n";
-		classContent += "public interface " + className + " extends " + element.getSimpleName() + "<";
-		for (int i = 0; i < lTypeArgs.length; ++i){
-			classContent += "G_" + element.getSimpleName() + "_" + lTypeArgs[i];
-			if (i < lTypeArgs.length-1) classContent += ", ";
+		String typeArguments = "<";
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			typeArguments += "A" + i;
+			if (i < lTypeArgs.length - 1) typeArguments += ", ";
 		}
-		classContent += "> {\n";
-				
+		typeArguments += ">";
+		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
+		classContent += "public class " + className + typeArguments + " implements " + algName + typeArguments + " {\n\n";
+		classContent += "\tpublic " + algName + typeArguments + " alg;\n\n";
+		classContent += "\tpublic " + className + "(" + algName + typeArguments + " alg) { this.alg = alg; }\n\n";					
 		for (Element e: le){
-			String[] args = {e.getSimpleName().toString(), typeArguments, element.getSimpleName().toString()};
+			String methodName = e.getSimpleName().toString();
+			String[] args = {methodName, typeArgs};
 			classContent += e.asType().accept(new TransformExecutableTypeVisitor(), args);
+		}
+		classContent += "}";
+		return classContent;
+	}
+	
+	String createSubstTransformClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
+		String algName = element.getSimpleName().toString();
+		String className = "G_" + algName + "Transform";
+		String argument = algName + "<";
+		String classContent = "package transform;\n\n";
+		classContent += "import library.Subst;\nimport java.util.List;\nimport java.util.ArrayList;\n";
+		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
+		classContent += "public class " + className + "<A, B> implements " + algName + "<";
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			classContent += "Subst<A, B>";
+			argument += "A";
+			if (i < lTypeArgs.length - 1) {
+				classContent += ", ";
+				argument += ", ";
+			}
+		}
+		argument += "> alg";
+		classContent += "> {\n\n\tpublic " + argument + ";\n\n\tpublic " + className + "(" + argument + ") { this.alg = alg; }\n\n";
+		classContent += "\tpublic List<A> substList(List<Subst<A, B>> list, B acc) {\n";
+		classContent += "\t\tList<A> res = new ArrayList<A>();\n";
+		classContent += "\t\tfor (Subst<A, B> i : list)\n";
+		classContent += "\t\t\tres.add(i.subst(acc));\n";
+		classContent += "\t\treturn res;\n\t}\n\n";
+		List<? extends Element> le = element.getEnclosedElements();
+		for (Element e: le){
+			String methodName = e.getSimpleName().toString();
+			String[] args = {methodName, typeArgs};
+			classContent += e.asType().accept(new SubstTransformTypeVisitor(), args);
 		}
 		classContent += "}";
 		return classContent;
@@ -139,20 +181,58 @@ public class AlgebraProcessor extends AbstractProcessor{
 	String createQueryClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
 		String algName = element.getSimpleName().toString();
 		String classContent = "package " + folder + ";\n\n"
+				+ "import java.util.List;\n"
 				+ "import library.Monoid;\n"
 				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
 				+ "public class " + algName + "Query<R> implements " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++){
 			classContent += "R";
-			if (i < lTypeArgs.length-1) classContent += ",";
+			if (i < lTypeArgs.length-1) classContent += ", ";
 		}
-		classContent += "> {\n" + 
-				"\tprivate Monoid<R> m;\n\tpublic Monoid<R> m() { return m; }\n\tpublic " + algName + "Query(Monoid<R> m) {\n\t\tthis.m = m;\n\t}\n";
+		classContent += "> {\n\n" + 
+				"\tprivate Monoid<R> m;\n\n\tpublic " + algName + "Query(Monoid<R> m) { this.m = m; }\n\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();
 			String[] args = {methodName, typeArgs};
 			classContent += e.asType().accept(new QueryExecutableTypeVisitor(), args);
+		}
+		classContent += "}";
+		return classContent;
+	}
+	
+	String createGeneralQueryClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
+		String algName = element.getSimpleName().toString();
+		String typeArguments = "<";
+		String[] monoidList = new String[lTypeArgs.length];
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			typeArguments += "A" + i;
+			if (i < lTypeArgs.length - 1) typeArguments += ", ";
+			monoidList[i] = "Monoid<A" + i + "> m" + i;
+		}
+		typeArguments += ">";
+		String classContent = "package " + folder + ";\n\n"
+				+ "import library.Monoid;\n"
+				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
+				+ "public class G_" + algName + "Query" + typeArguments + " implements " + algName + typeArguments + " {\n\n";
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			classContent += "\tprivate " + monoidList[i] + ";\n";
+		}
+		classContent += "\n\tpublic G_" + algName + "Query("; 
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			classContent += monoidList[i];
+			if (i < lTypeArgs.length - 1) classContent += ", ";
+		}
+		classContent += ") {\n";
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			classContent += "\t\tthis.m" + i + " = m" + i + ";\n";
+		}
+		classContent += "\t}\n\n";
+		List<? extends Element> le = element.getEnclosedElements();
+		for (Element e: le){
+			String methodName = e.getSimpleName().toString();
+			String[] args = {methodName, typeArgs};
+			classContent += e.asType().accept(new GeneralQueryTypeVisitor(), args);
 		}
 		classContent += "}";
 		return classContent;
@@ -183,7 +263,7 @@ public class AlgebraProcessor extends AbstractProcessor{
 			classContent += "Pair<A" + i + ", B" + i + ">";
 		}
 		classContent += "> {\n\n"
-				+ "\tprivate " + algName + "<" + alg1 + "> alg1;\n\tprivate " + algName + "<" + alg2 + "> alg2;\n\n"
+				+ "\tpublic " + algName + "<" + alg1 + "> alg1;\n\tpublic " + algName + "<" + alg2 + "> alg2;\n\n"
 				+ "\tpublic " + className + "(" + algName + "<" + alg1 + "> _alg1, " + algName + "<" + alg2 + "> _alg2) {\n"
 				+ "\t\talg1 = _alg1;\n\t\talg2 = _alg2;\n\t}\n\n"
 				+ "\tprivate <A, B> Pair<List<A>, List<B>> getPairList(List<Pair<A, B>> l) {\n"

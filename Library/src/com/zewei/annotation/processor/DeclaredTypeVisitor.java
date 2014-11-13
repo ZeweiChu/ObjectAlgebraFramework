@@ -3,7 +3,7 @@ package com.zewei.annotation.processor;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.*;
 
-public class DeclaredTypeVisitor implements TypeVisitor<String, Element>{
+public class DeclaredTypeVisitor implements TypeVisitor<String, Element> {
 
 	@Override
 	public String visitDeclared(DeclaredType t, Element p) {

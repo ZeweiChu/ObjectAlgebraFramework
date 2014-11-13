@@ -1,7 +1,5 @@
 package expDemo4;
 
-import generic.G_ExpAlg_Exp;
-import transform.ExpAlgTransform;
 import trees.ExpAlg;
 
 /*Using our framework (that is generic queries and transformations are automatically generated). 
@@ -11,26 +9,33 @@ import trees.ExpAlg;
  */
 public class ExpTest {
 
-	static <Exp> Exp genExp(ExpAlg<Exp> alg){
+	static <Exp> Exp genExp(ExpAlg<Exp> alg) {
 		return alg.Add(alg.Add(alg.Lit(2), alg.Var("var1")),alg.Add(alg.Add(alg.Var("var2"), alg.Var("var3")), alg.Lit(5)));
 	}
 	
-	static <Exp> Exp genSubst(ExpAlg<Exp> alg){
-		return alg.Var("Var4");
+	static ExpAlg<String[]> genSubst(ExpAlg<String[]> alg) {
+		SubstVarsTransform subst = new SubstVarsTransform(alg, "var1", "var4");
+		for (int i = 0; i < 3; i++)
+			subst = new SubstVarsTransform(subst, "var1", "var4");
+		return subst;
+	}
+	
+	static ExpAlg<Integer> genLitInc(ExpAlg<Integer> alg) {
+		LitIncreaseTransform subst = new LitIncreaseTransform(alg);
+		for (int i = 0; i < 2; i++)
+			subst = new LitIncreaseTransform(subst);
+		return subst;
 	}
 	
 	public static void main(String[] args) {
 		
-		G_ExpAlg_Exp gExp = genExp(new ExpAlgTransform(){});
-		SubstVarsTransform substVars = new SubstVarsTransform("var1", genSubst(new ExpAlgTransform(){}));
+		FreeVarsQueryExpAlg sQuery = new FreeVarsQueryExpAlg(new FreeVarsMonoid());
+		LitQueryExpAlg iQuery = new LitQueryExpAlg(new LitMonoid());
 		
-		FreeVarsQueryExpAlg alg = new FreeVarsQueryExpAlg(new FreeVarsMonoid());
-		String[] res = gExp.accept(substVars).accept(substVars).accept(substVars).accept(substVars).accept(alg);
-		for (String s: res) System.out.println(s);
+		String[] strRes = genExp(genSubst(sQuery));
+		for (String s: strRes) System.out.println(s);
 		
-		LitIncreaseTransform litIncreaseTransform = new LitIncreaseTransform();
-		LitQueryExpAlg litQueryExpAlg = new LitQueryExpAlg(new LitMonoid());
-		Integer intRes = gExp.accept(litIncreaseTransform).accept(litIncreaseTransform).accept(litIncreaseTransform).accept(litQueryExpAlg);
+		Integer intRes = genExp(genLitInc(iQuery));
 		System.out.println("Total Value: " + intRes);
 		
 	}

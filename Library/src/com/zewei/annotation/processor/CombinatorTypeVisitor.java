@@ -6,7 +6,7 @@ import javax.lang.model.type.*;
 
 public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 
-	int arrayContains(String[] ls, String s){
+	int arrayContains(String[] ls, String s) {
 		int i = 0;
 		for (String ts: ls){
 			if (s.equals(ts)) return i;
@@ -30,7 +30,7 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 		String resPart1 = "";
 		String resPart2 = "";
 		
-		for (int i = 0; i < lp.size(); ++i){
+		for (int i = 0; i < lp.size(); ++i) {
 			int pos = arrayContains(lListTypeArgs, lp.get(i).toString());
 			if (pos != -1){
 				res += "List<Pair<A" + pos + ", B" + pos + ">> p" + i;
@@ -48,18 +48,6 @@ public class CombinatorTypeVisitor implements TypeVisitor<String, String[]> {
 					resPart2 += "p" + i;
 				}
 			} 
-			
-//			flag = arrayContains(lTypeArgs, lp.get(i).toString());
-//			if (flag != -1 && lp.get(i).toString().contains("java.util.List"))	{
-//				res += "List<Pair<A" + flag + ", B" + flag + ">> p" + i;
-//				resPart1 += "getPairList(p" + i + ").a()";
-//				resPart2 += "getPairList(p" + i + ").b()";
-//			}
-//			else if (flag != -1) {
-//				res +=  "Pair<A" + flag + ", B" + flag + "> p" + i;
-//				resPart1 += "p" + i + ".a()";
-//				resPart2 += "p" + i + ".b()";
-//			}
 			
 			if (i < lp.size()-1) {
 				res += ", ";

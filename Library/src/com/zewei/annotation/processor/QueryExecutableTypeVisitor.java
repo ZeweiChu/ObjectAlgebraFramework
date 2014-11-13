@@ -3,11 +3,11 @@ package com.zewei.annotation.processor;
 import java.util.List;
 import javax.lang.model.type.*;
 
-public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>{
-	int arrayContains(String[] ls, String s){
+public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]> {
+	
+	int arrayContains(String[] ls, String s) {
 		int i = 0;
-		for (String ts: ls){
-			//if (s.contains(ts)) return i;
+		for (String ts: ls) {
 			if (s.equals(ts)) return i;
 			i++;
 		}
@@ -40,7 +40,7 @@ public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>
 		for (int i = 0; i < lp.size(); ++i){
 			// contains a list of type variables
 			if (arrayContains(lListTypeArgs, lp.get(i).toString()) != -1){
-				res += "java.util.List<R> p" + i;
+				res += "List<R> p" + i;
 			} else if (arrayContains(lTypeArgs, lp.get(i).toString()) != -1){
 				res += "R p" + i;
 			} else {
@@ -60,7 +60,7 @@ public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>
 			}
 		}
 		res += "\t\treturn res;\n";
-		res += "\t}\n";
+		res += "\t}\n\n";
 		return res;
 	}
 

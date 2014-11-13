@@ -1,9 +1,6 @@
-/CombineSybAlg.java
-/QuerySybAlg.java
-/CombineExpAlg.java
-/QueryExpAlg.java
-/CombineStmAlg.java
-/QueryStmAlg.java
 /ExpAlgQuery.java
 /StmAlgQuery.java
 /SybAlgQuery.java
+/G_ExpAlgQuery.java
+/G_StmAlgQuery.java
+/G_SybAlgQuery.java
