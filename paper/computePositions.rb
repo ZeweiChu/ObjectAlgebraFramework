@@ -7,7 +7,7 @@ def scan(fileName, beginpos, endpos, fileloc)
   counter = 1
   while (line = file.gets)
     if line =~ /BEGIN_(\w+)/
-      throw "Symbol '#{$1}' already defined" if fileloc[$1]
+      throw "Symbol '#{$1}' already defined " + fileName if fileloc[$1]
       fileloc[$1] = fileName
       beginpos[$1] = counter+1
       puts "BEGIN #{$1}: #{beginpos[$1]}"

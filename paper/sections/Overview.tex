@@ -9,7 +9,7 @@ We start by considering the company structure introduced in Figure~\ref{company_
 
 \subsection{Object Oriented Solution}
 
-A very natural Object-Oriented way to model the company structure is as illustrated in Figure~\ref{oop_company} and Figure~\ref{oop_salary}. Similar code can be applied to Department, Employee, SubUnit and Person. A Company contains a list of Departments. each Department is managed by an Employee as the manager and contains a list of SubUnits. The SubUnit can be either a department or an Employee. An Employee is a Person with the Salary Information. 
+A very natural Object-Oriented way to model the company structure is as illustrated in Figure~\ref{oop_company} and Figure~\ref{oop_salary}. Similar code can be applied to Department, Employee, SubUnit and Person. A Company comprises a list of Departments. Each Department is managed by an Employee as the manager and contains a list of SubUnits. The SubUnit can be either a department or an Employee. An Employee is a Person with the Salary Information. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=6-17]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
@@ -46,61 +46,46 @@ public class SalaryQuerySybAlg implements SybAlg<Float,Float,Float,Float,Float,F
 		for (Float f: depts) r += f;
 		return r;
 	}
-	//... The code for Department, Employee, SubUnit and Person are omitted here.
+	...
 	public Float S(float salary){
 		return salary;
 	}
 }
 \end{lstlisting}
 
-Increasing Salary is trickier. We need the visitable classes to help reconstruct the tree structures of the Company with increased salary. 
+While IncreaseSalary can be realized as: 
 \begin{lstlisting}[numbers=none]
-public interface G_Company {
-	<Company,Dept,SubUnit,Employee,Person,Salary> Company accept(SybAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg);
-}
-public interface G_Salary {
-	<Company,Dept,SubUnit,Employee,Person,Salary> Salary accept(SybAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg);
-}
-public class IncreaseSalarySybAlg implements SybAlg<G_Company, G_Dept, G_SubUnit, G_Employee, G_Person, G_Salary>{
-	public  G_Company C(List<G_Dept> p0) {
-		return new G_Company() {
-			public <Company,Dept,SubUnit,Employee,Person,Salary> Company accept(SybAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg) {
-				List<Dept> gp0 = new ArrayList<Dept>();
-				for (G_Dept s: p0) {
-					gp0.add(s.accept(alg));
-				}
-				return alg.C(gp0);
-			}
-		};
+public class IncreaseSalarySybAlg implements SybAlg<Float, Float, Float, Float, Float, Float> {
+	public SybAlg<Float, Float, Float, Float, Float, Float> alg;
+	public IncreaseSalarySybAlg(SybAlg<Float, Float, Float, Float, Float, Float> alg) { this.alg = alg; }
+	public Float C(List<Float> depts) {
+		return alg.C(depts);
 	}
-	//... The code for Department, Employee, SubUnit and Person are omitted here.
-	public  G_Salary S(float p0) {
-		return new G_Salary() {
-			public <Company,Dept,SubUnit,Employee,Person,Salary> Salary accept(SybAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg) {
-				return alg.S(1.1f*p0);
-			}
-		};
+	...
+	public Float S(float salary) {
+		return alg.S(salary*1.1f);
 	}
 }
 \end{lstlisting}
+An increase salary algebra is used to raise the salary for each employee based on a given algebra. 
 
 However, although we solved the problem of extensibility with object algebras, the traversal code become so long and most of the time we are writing boilerplate routine code, which is to call the methods of its child leaves. The only code we are really interested in is the Salary S(Float salary) method to return or to increase the salary. It will be great if the boilerplate code can be generated automatically every time we want to traverse the tree structure. 
 
 \subsection{Object Algebra Framework}
-Motivated by this problem of generating generic code for tree structure traversals, more specifically, queries and transformations in object algebras, we introduce monoids in queries and generic visitable interfaces in transformations, and write generic query and transformation which can be easily inherited by real cases of queries and transformations. Furthermore, we designed an object algebra framework with great features. With our framework, even the generic query and transformation code can be generated automatically by adding an ``$@$Algebra'' annotation. 
+Motivated by this problem of writing generic code for tree structure traversals, we introduce generic queries and transformations for Object Algebras, which can be easily inherited by real cases of queries and transformations. Furthermore, we designed an object algebra framework with great features. With our framework, even the generic query and transformation code can be generated automatically by adding an ``$@$Algebra'' annotation. 
 
 Now with our Object Algebra Framework, the code we need to write for Salary Bill and Increase Salary will be much shorter. A Generic query code will be as short as Figure~\ref{query_with_oaframework}. 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-12]{../ObjectAlgebras/src/test/FloatQuerySybAlgebra.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/example_SybAlg/FloatQuery.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Query Salary Class with Object Algebra Framework}
 \label{query_with_oaframework}
 \end{figure}
 Transformation code will be like Figure~\ref{transform_with_oaframework}
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/transform/SybIncSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/example_SybAlg/IncSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Increase Salary Class with Object Algebra Framework}
 \label{transform_with_oaframework}
 \end{figure}
-The classes SybAlgQuery<R>, SybAlgTransform and G\_SybAlg\_Salary are all generated by the framework automatically. 
+The classes SybAlgQuery<R>, SybAlgTransform<R,R,R,R,R,R> are generated by the framework automatically. 

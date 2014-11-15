@@ -3,7 +3,6 @@ package example_SybAlg;
 import transform.SybAlgTransform;
 import trees.SybAlg;
 
-//BEGIN_TRANSFORM_WITH_OAFRAMEWORK
 public class Rename extends SybAlgTransform<String, String, String, String, String, String> {
 
 	public Rename(SybAlg<String, String, String, String, String, String> alg) {
@@ -15,4 +14,3 @@ public class Rename extends SybAlgTransform<String, String, String, String, Stri
 	}
 
 }
-//END_TRANSFORM_WITH_OAFRAMEWORK
