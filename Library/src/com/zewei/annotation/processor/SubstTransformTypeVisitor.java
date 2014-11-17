@@ -42,8 +42,8 @@ public class SubstTransformTypeVisitor implements TypeVisitor<String, String[]> 
 				returnValue += ", ";
 			}
 		}
-		String res = "\t@Override\n\tpublic Subst<A, B> " + p[0] + "(" + argument + ") {\n";
-		res += "\t\treturn acc -> alg." + p[0] + "(" + returnValue + ");\n\t}\n\n";
+		String res = "\t@Override\n\tdefault Subst<A, B> " + p[0] + "(" + argument + ") {\n";
+		res += "\t\treturn acc -> " + p[2] + "()." + p[0] + "(" + returnValue + ");\n\t}\n\n";
 		return res;
 	}
 	

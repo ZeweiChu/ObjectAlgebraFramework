@@ -124,6 +124,7 @@ public class AlgebraProcessor extends AbstractProcessor {
 	String createTransformClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
 		List<? extends Element> le = element.getEnclosedElements();
 		String algName = element.getSimpleName().toString();
+		String algNameLower = algName.substring(0, 1).toLowerCase() + algName.substring(1);
 		String className = algName + "Transform";
 		String classContent = "package " + folder + ";\n\n";
 		String typeArguments = "<";
@@ -133,12 +134,11 @@ public class AlgebraProcessor extends AbstractProcessor {
 		}
 		typeArguments += ">";
 		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
-		classContent += "public class " + className + typeArguments + " implements " + algName + typeArguments + " {\n\n";
-		classContent += "\tpublic " + algName + typeArguments + " alg;\n\n";
-		classContent += "\tpublic " + className + "(" + algName + typeArguments + " alg) { this.alg = alg; }\n\n";					
+		classContent += "public interface " + className + typeArguments + " extends " + algName + typeArguments + " {\n\n";
+		classContent += "\t" + algName + typeArguments + " " + algNameLower + "();\n\n";				
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();
-			String[] args = {methodName, typeArgs};
+			String[] args = {methodName, typeArgs, algNameLower};
 			classContent += e.asType().accept(new TransformExecutableTypeVisitor(), args);
 		}
 		classContent += "}";
@@ -147,12 +147,13 @@ public class AlgebraProcessor extends AbstractProcessor {
 	
 	String createSubstTransformClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
 		String algName = element.getSimpleName().toString();
+		String algNameLower = algName.substring(0, 1).toLowerCase() + algName.substring(1);
 		String className = "G_" + algName + "Transform";
 		String argument = algName + "<";
 		String classContent = "package transform;\n\n";
 		classContent += "import library.Subst;\nimport java.util.List;\nimport java.util.ArrayList;\n";
 		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
-		classContent += "public class " + className + "<A, B> implements " + algName + "<";
+		classContent += "public interface " + className + "<A, B> extends " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++) {
 			classContent += "Subst<A, B>";
 			argument += "A";
@@ -161,9 +162,9 @@ public class AlgebraProcessor extends AbstractProcessor {
 				argument += ", ";
 			}
 		}
-		argument += "> alg";
-		classContent += "> {\n\n\tpublic " + argument + ";\n\n\tpublic " + className + "(" + argument + ") { this.alg = alg; }\n\n";
-		classContent += "\tpublic List<A> substList(List<Subst<A, B>> list, B acc) {\n";
+		argument += "> " + algNameLower;
+		classContent += "> {\n\n\t" + argument + "();\n\n";
+		classContent += "\tdefault List<A> substList(List<Subst<A, B>> list, B acc) {\n";
 		classContent += "\t\tList<A> res = new ArrayList<A>();\n";
 		classContent += "\t\tfor (Subst<A, B> i : list)\n";
 		classContent += "\t\t\tres.add(i.subst(acc));\n";
@@ -171,7 +172,7 @@ public class AlgebraProcessor extends AbstractProcessor {
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();
-			String[] args = {methodName, typeArgs};
+			String[] args = {methodName, typeArgs, algNameLower};
 			classContent += e.asType().accept(new SubstTransformTypeVisitor(), args);
 		}
 		classContent += "}";

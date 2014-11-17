@@ -20,7 +20,7 @@ public class TransformExecutableTypeVisitor implements TypeVisitor<String, Strin
 		List<? extends TypeMirror> lp = t.getParameterTypes();
 		String[] lTypeArgs = p[1].split(",");
 		String args = "";
-		String res = "\t@Override\n\tpublic A" + arrayContains(lTypeArgs, t.getReturnType().toString()) + " ";
+		String res = "\t@Override\n\tdefault A" + arrayContains(lTypeArgs, t.getReturnType().toString()) + " ";
 		res += p[0] + "(";
 		for (int i = 0; i < lp.size(); i++) {
 			String realType = lp.get(i).toString();
@@ -43,7 +43,7 @@ public class TransformExecutableTypeVisitor implements TypeVisitor<String, Strin
 			}
 		}
 		res += ") {\n";
-		res += "\t\treturn alg." + p[0] + "(" + args + ");\n";
+		res += "\t\treturn " + p[2] + "()." + p[0] + "(" + args + ");\n";
 		res += "\t}\n\n";
 		return res;
 	}
