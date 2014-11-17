@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  15 NOV 2014 22:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  16 NOV 2014 22:54
 entering extended mode
 **paper.tex
 
@@ -855,15 +855,12 @@ src\expDemo3\ExpAlgTransform.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebras\
 src\expDemo3\SubstVarsTransform.java)) [7]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
-Framework.tex [8]
-Overfull \hbox (49.43607pt too wide) in paragraph at lines 26--27
-[]\T1/cmr/m/n/10 Here the au-to-mat-i-cally gen-er-ated Ex-pAl-gQuery, Ex-pAl-g
-Trans-form and G_ExpAlg_Exp
- []
+Framework.tex
+Underfull \vbox (badness 1107) has occurred while \output is active []
 
-) [9]
+ [8])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
-Other.tex)
+Other.tex [9])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
 CaseStudy.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\paper\sections/
@@ -882,13 +879,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13996 strings out of 493921
- 231831 string characters out of 3147257
+ 13990 strings out of 493921
+ 231765 string characters out of 3147257
  467243 words of memory out of 3000000
- 16903 multiletter control sequences out of 15000+200000
+ 16897 multiletter control sequences out of 15000+200000
  20470 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 41i,6n,72p,756b,1563s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,6n,72p,654b,1563s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{C:/Pro
 gram Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/font
@@ -902,7 +899,7 @@ blic/cm-super/sfrm0600.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-s
 uper/sfrm0700.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm
 0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1000.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on paper.pdf (10 pages, 251460 bytes).
+Output written on paper.pdf (10 pages, 252396 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
