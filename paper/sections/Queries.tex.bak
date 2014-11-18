@@ -90,8 +90,8 @@ public class FreeVarsMonoid implements Monoid<String[]> {
 But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, the query algebra will be like:
 
 \begin{lstlisting}[numbers=none]
-public class FreeVarsExpAlg extends QueryExpAlg<String[]> {
-    public FreeVarsExpAlg(Monoid<String[]> m) {super(m);}
+public class FreeVarsQueryExpAlg extends QueryExpAlg<String[]> {
+    public FreeVarsQueryExpAlg(Monoid<String[]> m) {super(m);}
     public String[] Var(String s) {return new String[]{s};}
 }
 \end{lstlisting}
