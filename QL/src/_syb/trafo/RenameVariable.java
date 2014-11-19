@@ -3,8 +3,11 @@ package _syb.trafo;
 import java.util.Map;
 
 import ql_obj_alg.check.types.Type;
+import transform.IExpAlgTransform;
+import transform.IFormAlgTransform;
+import transform.IStmtAlgTransform;
 
-public interface RenameVariable<E, S, F> extends ExpAlgId<E>, StmtAlgId<E, S>, FormAlgId<E, S, F> {
+public interface RenameVariable<E, S, F> extends IExpAlgTransform<E>, IStmtAlgTransform<E, S>, IFormAlgTransform<E, S, F> {
 	default String rename(String old) {
 		String newName = old;
 		if (renaming().containsKey(old)) {
@@ -18,17 +21,17 @@ public interface RenameVariable<E, S, F> extends ExpAlgId<E>, StmtAlgId<E, S>, F
 	
 	@Override 
 	default E var(String varName) {
-		return alg().var(rename(varName));
+		return iExpAlg().var(rename(varName));
 	}
 	
 	@Override 
 	default S question(String id,String label,Type type) {
-		return stmtAlg().question(rename(id), label, type);
+		return iStmtAlg().question(rename(id), label, type);
 	}
 	
 	@Override 
 	default S question(String id,String label,Type type,E exp) {
-		return stmtAlg().question(rename(id), label, type, exp);
+		return iStmtAlg().question(rename(id), label, type, exp);
 	}
 	
 }

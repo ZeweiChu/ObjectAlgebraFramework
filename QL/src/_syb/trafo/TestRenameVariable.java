@@ -34,17 +34,17 @@ public class TestRenameVariable {
 		IFormat pp = builder.build(new RenameVariable<IFormatWithPrecedence, IFormat, IFormat>() {
 
 			@Override
-			public IExpAlg<IFormatWithPrecedence> alg() {
+			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
 				return algebra;
 			}
 
 			@Override
-			public IStmtAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
+			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
 				return algebra;
 			}
 
 			@Override
-			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> formAlg() {
+			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
 				return algebra;
 			}
 

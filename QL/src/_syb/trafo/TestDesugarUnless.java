@@ -15,7 +15,9 @@ import ql_obj_alg.format.UnlessFormat;
 import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
+import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.syntax.IUnlessAlg;
+import transform.IFormAlgTransform;
 
 public class TestDesugarUnless {
 	
@@ -23,27 +25,31 @@ public class TestDesugarUnless {
 		
 	}
 	
-	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, FormAlgId<IFormatWithPrecedence, IFormat, IFormat> {
+	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
 		private FormatWithUnless algebra;
 
 		public Desugar(FormatWithUnless f) {
 			this.algebra = f;
 		}
 		@Override
-		public IExpAlg<IFormatWithPrecedence> alg() {
+		public IExpAlg<IFormatWithPrecedence> iExpAlg() {
 			return algebra;
 		}
 
 		@Override
-		public IUnlessAlg<IFormatWithPrecedence, IFormat> stmtAlg() {
+		public IUnlessAlg<IFormatWithPrecedence, IFormat> iUnlessAlg() {
 			return algebra;
 		}
 
 		@Override
-		public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> formAlg() {
+		public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
 			return algebra;
 		}
 
+		@Override
+		public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
+			return algebra;
+		}
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {

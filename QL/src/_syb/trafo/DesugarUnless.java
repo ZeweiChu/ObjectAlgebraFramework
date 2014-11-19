@@ -2,7 +2,11 @@ package _syb.trafo;
 
 import java.util.List;
 
-public interface DesugarUnless<E, S> extends IExpAlgTransform {
+import transform.IExpAlgTransform;
+import transform.IStmtAlgTransform;
+import transform.IUnlessAlgTransform;
+
+public interface DesugarUnless<E, S> extends IUnlessAlgTransform<E, S>, IStmtAlgTransform<E, S>, IExpAlgTransform<E> {
 	@Override 
 	default S unless(E cond, List<S> body) {
 		return iff(not(cond), body);
