@@ -18,7 +18,17 @@ public class TestFreeVars {
 		
 		Set<String> fv = builder.build(new FreeVars() {
 			@Override
-			public Monoid<Set<String>> m() {
+			public Monoid<Set<String>> mE() {
+				return new SetMonoid<>();
+			}
+			
+			@Override
+			public Monoid<Set<String>> mF() {
+				return new SetMonoid<>();
+			}
+			
+			@Override
+			public Monoid<Set<String>> mS() {
 				return new SetMonoid<>();
 			}
 		});
