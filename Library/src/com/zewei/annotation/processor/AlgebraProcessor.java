@@ -209,26 +209,26 @@ public class AlgebraProcessor extends AbstractProcessor {
 		for (int i = 0; i < lTypeArgs.length; i++) {
 			typeArguments += "A" + i;
 			if (i < lTypeArgs.length - 1) typeArguments += ", ";
-			monoidList[i] = "Monoid<A" + i + "> m" + i;
+			monoidList[i] = "Monoid<A" + i + "> m" + lTypeArgs[i] + "()"; // + i;
 		}
 		typeArguments += ">";
 		String classContent = "package " + folder + ";\n\n"
 				+ "import library.Monoid;\n"
 				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
-				+ "public class G_" + algName + "Query" + typeArguments + " implements " + algName + typeArguments + " {\n\n";
+				+ "public interface G_" + algName + "Query" + typeArguments + " extends " + algName + typeArguments + " {\n\n";
 		for (int i = 0; i < lTypeArgs.length; i++) {
-			classContent += "\tprivate " + monoidList[i] + ";\n";
+			classContent += "\t" + monoidList[i] + ";\n";
 		}
-		classContent += "\n\tpublic G_" + algName + "Query("; 
-		for (int i = 0; i < lTypeArgs.length; i++) {
-			classContent += monoidList[i];
-			if (i < lTypeArgs.length - 1) classContent += ", ";
-		}
-		classContent += ") {\n";
-		for (int i = 0; i < lTypeArgs.length; i++) {
-			classContent += "\t\tthis.m" + i + " = m" + i + ";\n";
-		}
-		classContent += "\t}\n\n";
+//		classContent += "\n\tpublic G_" + algName + "Query("; 
+//		for (int i = 0; i < lTypeArgs.length; i++) {
+//			classContent += monoidList[i];
+//			if (i < lTypeArgs.length - 1) classContent += ", ";
+//		}
+//		classContent += ") {\n";
+//		for (int i = 0; i < lTypeArgs.length; i++) {
+//			classContent += "\t\tthis.m" + i + " = m" + i + ";\n";
+//		}
+//		classContent += "\t}\n\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();

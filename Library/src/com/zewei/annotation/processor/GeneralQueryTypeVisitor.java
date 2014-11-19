@@ -20,8 +20,9 @@ public class GeneralQueryTypeVisitor implements TypeVisitor<String, String[]> {
 		List<? extends TypeMirror> lp = t.getParameterTypes();
 		String[] lTypeArgs = p[1].split(",");
 		int monoid = arrayContains(lTypeArgs, t.getReturnType().toString());
+		
 		int[] flag = new int[lp.size()];
-		String res = "\t@Override\n\tpublic A" + monoid + " ";
+		String res = "\t@Override\n\tdefault A" + monoid + " ";
 		res += p[0] + "(";
 		for (int i = 0; i < lp.size(); i++) {
 			String realType = lp.get(i).toString();
@@ -43,11 +44,11 @@ public class GeneralQueryTypeVisitor implements TypeVisitor<String, String[]> {
 			if (i < lp.size() - 1) res += ", ";
 		}
 		res += ") {\n";
-		res += "\t\tA" + monoid + " res = m" + monoid + ".empty();\n";
+		res += "\t\tA" + monoid + " res = m" + lTypeArgs[monoid] + "().empty();\n";
 		for (int i = 0; i < lp.size(); i++) {
 			if (flag[i] > 0) {
-				res += "\t\tres = m" + monoid + ".join(res, ";
-				if (flag[i] > 1) res += "m" + monoid + ".fold(p" + i + ")";
+				res += "\t\tres = m" + lTypeArgs[monoid] + "().join(res, ";
+				if (flag[i] > 1) res += "m" + lTypeArgs[monoid] + "().fold(p" + i + ")";
 				else res += "p" + i;
 				res += ");\n";
 			}
