@@ -6,34 +6,36 @@ import java.io.IOException;
 import java.util.Set;
 
 import library.Monoid;
+import library.Pair;
 import monoids.SetMonoid;
 import noa.Builder;
 import ql_obj_alg.parse.TheParser;
 
-public class TestFreeVars {
+public class TestDepGraph {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
 				"resources/inputfiles/test.QL"));
 		
-		Set<String> fv = builder.build(new FreeVars() {
+		Set<Pair<String,String>> deps = builder.build(new DepGraph() {
+			
 			@Override
 			public Monoid<Set<String>> mE() {
 				return new SetMonoid<>();
 			}
 			
 			@Override
-			public Monoid<Set<String>> mF() {
+			public Monoid<Set<Pair<String,String>>> mF() {
 				return new SetMonoid<>();
 			}
 			
 			@Override
-			public Monoid<Set<String>> mS() {
+			public Monoid<Set<Pair<String,String>>> mS() {
 				return new SetMonoid<>();
 			}
 		});
 		
-		System.out.println(fv);
+		System.out.println(deps);
 	}
 	
 }
