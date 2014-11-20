@@ -52,7 +52,7 @@ public class TestSubstitution {
 	}
 	
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E build(Alg alg) {
-		return alg.Lambda("x", alg.Add(alg.Lit(3), alg.Add(alg.Var("y"), alg.Lambda("y", alg.Var("y")))));
+		return alg.Lambda("x", alg.Add(alg.Add(alg.Lit(3), alg.Add(alg.Var("x"), alg.Lambda("x", alg.Var("y")))), alg.Add(alg.Var("y"), alg.Lambda("y", alg.Var("y")))));
 	}
 	
 	public static void main(String[] args) {
@@ -63,6 +63,14 @@ public class TestSubstitution {
 		
 		Subst<Supplier<String>> x = build(doit);
 		Supplier<String> printer = x.subst("y", print.Var("x"), Collections.singleton("x"), Collections.emptyMap());
+		System.out.println("[y := x]: " + printer.get());
+		
+		
+		org = build(print);
+		System.out.println("Original: " + org.get());
+		
+		x = build(doit);
+		printer = x.subst("y", print.Lambda("x", print.Var("x")), Collections.emptySet(), Collections.emptyMap());
 		System.out.println("[y := x]: " + printer.get());
 	}
 	
