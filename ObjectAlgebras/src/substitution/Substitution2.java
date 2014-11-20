@@ -10,7 +10,11 @@ import trees.LamAlg;
 
 
 interface Subst<Exp> {
-	Exp subst(String x, Exp e, Set<String> fv, Map<String,String> ren);
+	Exp subst(String x, // the variable to be substituted
+			  Exp e, // the resulting expression
+			  Set<String> fv, // the set of free variables of e
+			  Map<String,String> ren // a rename mapping to rename uses of variables
+			  );
 }
 
 
@@ -27,6 +31,11 @@ public interface Substitution2<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp
 				return e;
 			}
 			if (ren.containsKey(s)) {
+				// only rename here.
+				// example:
+				// \x. y [y->x]
+				// \y. (y [y -> x]) with ren = (x: y)
+				// \y. x (NOT: \y. y)
 				return expAlg().Var(ren.get(s));
 			}
 			return expAlg().Var(s);
