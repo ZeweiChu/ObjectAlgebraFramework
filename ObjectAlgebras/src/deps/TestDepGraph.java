@@ -10,24 +10,15 @@ import monoid.SetMonoid;
 
 public class TestDepGraph {
 
-	
 	static class DoIt implements DepGraph {
-		private Monoid<Set<String>> mexp;
-		private Monoid<Set<Pair<String, String>>> mstat;
-
-		public DoIt() {
-			this.mexp = new SetMonoid<>();
-			this.mstat = new SetMonoid<>();
-		}
-
 		@Override
 		public Monoid<Set<String>> mExp() {
-			return mexp;
+			return new SetMonoid<>();
 		}
 		
 		@Override
 		public Monoid<Set<Pair<String, String>>> mStat() {
-			return mstat;
+			return new SetMonoid<>();
 		}
 	}
 
