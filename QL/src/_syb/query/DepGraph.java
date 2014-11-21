@@ -38,24 +38,12 @@ public interface DepGraph extends
 	
 	@Override
 	default Set<Pair<String, String>> iff(Set<String> p0, java.util.List<Set<Pair<String,String>>> p1) {
-		return iffelse(p0, p1, Collections.emptyList());
+		return mS().fold(p1);
 	}
 
 	@Override
 	default Set<Pair<String, String>> iffelse(Set<String> p0, java.util.List<Set<Pair<String,String>>> p1, java.util.List<Set<Pair<String,String>>> p2) {
-		Set<Pair<String,String>> deps = new HashSet<>(); //mS().empty();
-		deps = mS().join(deps, mS().fold(p1));
-		deps = mS().join(deps, mS().fold(p2));
-		for (String x: p0) {
-			for (List<Set<Pair<String, String>>> l: Arrays.asList(p1, p2)) {
-				for (Set<Pair<String, String>> s: l) {
-					for (Pair<String,String> p: s) {
-						deps.add(new Pair<>(p.a(), x));
-					}
-				}
-			}
-		}
-		return deps;
+		return mS().join(mS().fold(p1), mS().fold(p2));
 	}
 
 }

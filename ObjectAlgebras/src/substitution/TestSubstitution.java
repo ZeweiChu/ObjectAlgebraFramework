@@ -1,6 +1,7 @@
 package substitution;
 
 import java.util.Collections;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import trees.ExpAlg;
@@ -58,11 +59,16 @@ public class TestSubstitution {
 	public static void main(String[] args) {
 		Doit doit = new Doit();
 		Print print = new Print();
+		FreeVars fv = new FreeVars();
+		
 		Supplier<String> org = build(print);
 		System.out.println("Original: " + org.get());
 		
 		Subst<Supplier<String>> x = build(doit);
-		Supplier<String> printer = x.subst("y", print.Var("x"), Collections.singleton("x"), Collections.emptyMap());
+		Supplier<String> exp = print.Var("x");
+		Set<String> fvs = fv.Var("x");
+		System.out.println(fvs);
+		Supplier<String> printer = x.subst("y", exp, fvs, Collections.emptyMap());
 		System.out.println("[y := x]: " + printer.get());
 		
 		
@@ -70,7 +76,10 @@ public class TestSubstitution {
 		System.out.println("Original: " + org.get());
 		
 		x = build(doit);
-		printer = x.subst("y", print.Lambda("x", print.Var("x")), Collections.emptySet(), Collections.emptyMap());
+		exp = print.Lambda("x", print.Var("x"));
+		fvs = fv.Lambda("x", fv.Var("x"));
+		System.out.println(fvs);
+		printer = x.subst("y", exp, fvs, Collections.emptyMap());
 		System.out.println("[y := x]: " + printer.get());
 	}
 	
