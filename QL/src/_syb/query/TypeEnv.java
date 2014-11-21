@@ -15,7 +15,6 @@ public interface TypeEnv extends IFormAlgQuery<Map<String,Type>>, IStmtAlgQuery<
 		return Collections.singletonMap(p0, p2);
 	}
 	
-	
 	@Override 
 	default Map<String, Type> question(String p0,String p1,Type p2,Map<String, Type> p3) {
 		return Collections.singletonMap(p0, p2);
