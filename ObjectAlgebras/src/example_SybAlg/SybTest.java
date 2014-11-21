@@ -65,7 +65,7 @@ public class SybTest {
 		System.out.println("Result 6: (Renaming, increasing salary)\n\nPair element1 = " + result2.a() + "\nPair element2 = " + result2.b() + "\n");
 	
 		Rename2 rename2 = new Rename2(sQuery);
-		System.out.println("Result 7: (Renaming2)\n\n" + genCom(rename2).subst("-"));
+		System.out.println("Result 7: (Renaming2)\n\n" + genCom(rename2).apply("-"));
 		
 	}
 	

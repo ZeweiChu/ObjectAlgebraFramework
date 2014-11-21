@@ -151,12 +151,12 @@ public class AlgebraProcessor extends AbstractProcessor {
 		String className = "G_" + algName + "Transform";
 		String argument = algName + "<";
 		String classContent = "package transform;\n\n";
-		classContent += "import library.Subst;\nimport java.util.List;\nimport java.util.ArrayList;\n";
+		classContent += "import java.util.function.Function;\nimport java.util.List;\nimport java.util.ArrayList;\n";
 		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
 		classContent += "public interface " + className + "<A, B> extends " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++) {
-			classContent += "Subst<A, B>";
-			argument += "A";
+			classContent += "Function<A, B>";
+			argument += "B";
 			if (i < lTypeArgs.length - 1) {
 				classContent += ", ";
 				argument += ", ";
@@ -164,10 +164,10 @@ public class AlgebraProcessor extends AbstractProcessor {
 		}
 		argument += "> " + algNameLower;
 		classContent += "> {\n\n\t" + argument + "();\n\n";
-		classContent += "\tdefault List<A> substList(List<Subst<A, B>> list, B acc) {\n";
-		classContent += "\t\tList<A> res = new ArrayList<A>();\n";
-		classContent += "\t\tfor (Subst<A, B> i : list)\n";
-		classContent += "\t\t\tres.add(i.subst(acc));\n";
+		classContent += "\tdefault List<B> substList(List<Function<A, B>> list, A acc) {\n";
+		classContent += "\t\tList<B> res = new ArrayList<B>();\n";
+		classContent += "\t\tfor (Function<A, B> i : list)\n";
+		classContent += "\t\t\tres.add(i.apply(acc));\n";
 		classContent += "\t\treturn res;\n\t}\n\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){

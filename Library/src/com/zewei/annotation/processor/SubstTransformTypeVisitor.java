@@ -27,11 +27,11 @@ public class SubstTransformTypeVisitor implements TypeVisitor<String, String[]> 
 		String returnValue = "";
 		for (int i = 0; i < lp.size(); i++) {
 			if (arrayContains(lListTypeArgs, lp.get(i).toString()) != -1) {
-				argument += "List<Subst<A, B>>";
+				argument += "List<Function<A, B>>";
 				returnValue += "substList(p" + i + ", acc)";
 			} else if (arrayContains(lTypeArgs, lp.get(i).toString()) != -1) {
-				argument += "Subst<A, B>";
-				returnValue += "p" + i + ".subst(acc)";
+				argument += "Function<A, B>";
+				returnValue += "p" + i + ".apply(acc)";
 			} else {
 				argument += lp.get(i).toString();
 				returnValue += "p" + i;
@@ -42,7 +42,7 @@ public class SubstTransformTypeVisitor implements TypeVisitor<String, String[]> 
 				returnValue += ", ";
 			}
 		}
-		String res = "\t@Override\n\tdefault Subst<A, B> " + p[0] + "(" + argument + ") {\n";
+		String res = "\t@Override\n\tdefault Function<A, B> " + p[0] + "(" + argument + ") {\n";
 		res += "\t\treturn acc -> " + p[2] + "()." + p[0] + "(" + returnValue + ");\n\t}\n\n";
 		return res;
 	}
