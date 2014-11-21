@@ -3,13 +3,9 @@ package expDemo4;
 import query.ExpAlgQuery;
 import library.Monoid;
 
-public class LitQueryExpAlg extends ExpAlgQuery<Integer>{
-
-	public LitQueryExpAlg(Monoid<Integer> m) {
-		super(m);
-	}
-
-	public Integer Lit(int i){
-		return i;
-	}
+public class LitQueryExpAlg implements ExpAlgQuery<Integer> {
+	private Monoid<Integer> m;
+	public LitQueryExpAlg(Monoid<Integer> m) {this.m = m;}
+	public Monoid<Integer> m() {return m;}
+	public Integer Lit(int i) {return i;}
 }

@@ -182,16 +182,15 @@ public class AlgebraProcessor extends AbstractProcessor {
 	String createQueryClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
 		String algName = element.getSimpleName().toString();
 		String classContent = "package " + folder + ";\n\n"
-				+ "import java.util.List;\n"
 				+ "import library.Monoid;\n"
 				+ "import " + getPackage(element) + "." + element.getSimpleName() + ";\n\n" 
-				+ "public class " + algName + "Query<R> implements " + algName + "<";
+				+ "public interface " + algName + "Query<R> extends " + algName + "<";
 		for (int i = 0; i < lTypeArgs.length; i++){
 			classContent += "R";
 			if (i < lTypeArgs.length-1) classContent += ", ";
 		}
 		classContent += "> {\n\n" + 
-				"\tprivate Monoid<R> m;\n\n\tpublic " + algName + "Query(Monoid<R> m) { this.m = m; }\n\n";
+				"\tMonoid<R> m();\n\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();
@@ -219,16 +218,7 @@ public class AlgebraProcessor extends AbstractProcessor {
 		for (int i = 0; i < lTypeArgs.length; i++) {
 			classContent += "\t" + monoidList[i] + ";\n";
 		}
-//		classContent += "\n\tpublic G_" + algName + "Query("; 
-//		for (int i = 0; i < lTypeArgs.length; i++) {
-//			classContent += monoidList[i];
-//			if (i < lTypeArgs.length - 1) classContent += ", ";
-//		}
-//		classContent += ") {\n";
-//		for (int i = 0; i < lTypeArgs.length; i++) {
-//			classContent += "\t\tthis.m" + i + " = m" + i + ";\n";
-//		}
-//		classContent += "\t}\n\n";
+		classContent += "\n";
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();

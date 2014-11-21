@@ -3,15 +3,9 @@ package example_SybAlg;
 import library.Monoid;
 import query.SybAlgQuery;
 
-public class StringQuery extends SybAlgQuery<String> {
-
-	public StringQuery(Monoid<String> m) {
-		super(m);
-	}
-	
-	@Override
-	public String P(String name, String address) {
-		return name;
-	}
-
+public class StringQuery implements SybAlgQuery<String> {
+	private Monoid<String> m;
+	public StringQuery(Monoid<String> m) {this.m = m;}
+	public Monoid<String> m() {return m;}
+	public String P(String name, String address) {return name;}
 }

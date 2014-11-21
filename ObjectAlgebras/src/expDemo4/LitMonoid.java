@@ -2,7 +2,7 @@ package expDemo4;
 
 import library.Monoid;
 
-public class LitMonoid implements Monoid<Integer>{
+public class LitMonoid implements Monoid<Integer> {
 	
 	@Override
 	public Integer empty() {

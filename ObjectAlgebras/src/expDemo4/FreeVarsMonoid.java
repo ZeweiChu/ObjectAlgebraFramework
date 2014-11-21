@@ -2,7 +2,7 @@ package expDemo4;
 
 import library.Monoid;
 
-public class FreeVarsMonoid implements Monoid<String[]>{
+public class FreeVarsMonoid implements Monoid<String[]> {
 
 	@Override
 	public String[] empty() {

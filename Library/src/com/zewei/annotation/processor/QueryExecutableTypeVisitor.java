@@ -26,8 +26,9 @@ public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>
 		List<? extends TypeMirror> lp = t.getParameterTypes();
 		String returnType = t.getReturnType().toString();
 		
-		String res = "\tpublic ";
+		String res = "\tdefault ";
 		
+		// Make sense.?
 		if (arrayContains(lListTypeArgs, returnType) != -1){
 			res += "java.util.List<R> ";
 		} else if (arrayContains(lTypeArgs, returnType) != -1){
@@ -40,7 +41,7 @@ public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>
 		for (int i = 0; i < lp.size(); ++i){
 			// contains a list of type variables
 			if (arrayContains(lListTypeArgs, lp.get(i).toString()) != -1){
-				res += "List<R> p" + i;
+				res += "java.util.List<R> p" + i;
 			} else if (arrayContains(lTypeArgs, lp.get(i).toString()) != -1){
 				res += "R p" + i;
 			} else {
@@ -50,13 +51,13 @@ public class QueryExecutableTypeVisitor implements TypeVisitor<String, String[]>
 		}
 		
 		res += ") {\n";
-		res += "\t\tR res = m.empty();\n";
+		res += "\t\tR res = m().empty();\n";
 		for (int i = 0; i < lp.size(); ++i){
 			if (arrayContains(lListTypeArgs, lp.get(i).toString()) != -1){
-				res += "\t\tres = m.join(res, m.fold(p" + i + "));\n";
+				res += "\t\tres = m().join(res, m().fold(p" + i + "));\n";
 			}
 			else if (arrayContains(lTypeArgs, lp.get(i).toString()) != -1){
-				res += "\t\tres = m.join(res, p" + i + ");\n";
+				res += "\t\tres = m().join(res, p" + i + ");\n";
 			}
 		}
 		res += "\t\treturn res;\n";
