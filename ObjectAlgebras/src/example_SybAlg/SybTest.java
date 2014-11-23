@@ -32,12 +32,12 @@ public class SybTest {
 	static <Company, Dept, SubUnit, Employee, Person, Salary> Company 
 		genCom(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
 		
-		List<SubUnit> s = (List<SubUnit>)new ArrayList<SubUnit>();
+		List<SubUnit> s = new ArrayList<SubUnit>();
 		s.add(alg.PU(joost(alg)));
 		s.add(alg.PU(marlow(alg)));
-		List<Dept> d = (List<Dept>)new ArrayList<Dept>();
+		List<Dept> d = new ArrayList<Dept>();
 		d.add(alg.D("Research", ralf(alg), s));
-		d.add(alg.D("Strategy", blair(alg), (List<SubUnit>)new ArrayList<SubUnit>()));
+		d.add(alg.D("Strategy", blair(alg), new ArrayList<SubUnit>()));
 		return alg.C(d);
 	
 	}

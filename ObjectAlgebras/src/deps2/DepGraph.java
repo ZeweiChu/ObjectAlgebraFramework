@@ -10,7 +10,9 @@ import query.G_StatAlgQuery;
 
 //BEGIN_DEPS2
 public interface DepGraph extends G_ExpAlgQuery<Set<String>>, G_StatAlgQuery<Set<String>, Set<Pair<String,String>>> {
+	@Override
 	default Set<String> Var(String p0) {return Collections.singleton(p0);}
+	@Override
 	default Set<Pair<String, String>> Assign(String p0,Set<String> p1) {
 		Set<Pair<String,String>> deps = new HashSet<>();
 		for (String x: p1) {

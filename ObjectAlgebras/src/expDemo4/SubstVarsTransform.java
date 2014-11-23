@@ -11,7 +11,9 @@ class SubstVarsTransform implements ExpAlgTransform<String[]> {
 		this.s1 = s1;
 		this.s2 = s2;
 	}
+	@Override
 	public ExpAlg<String[]> expAlg() {return alg;}
+	@Override
 	public String[] Var(String p0) {
 		if (p0.equals(s1)) return alg.Var(s2);
 		return alg.Var(p0);
