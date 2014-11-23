@@ -90,13 +90,13 @@ public class FreeVarsMonoid implements Monoid<String[]> {
 But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, the query algebra will be like:
 
 \begin{lstlisting}[numbers=none]
-public class FreeVarsQueryExpAlg extends QueryExpAlg<String[]> {
-    public FreeVarsQueryExpAlg(Monoid<String[]> m) {super(m);}
+public class FreeVarsExpAlg extends QueryExpAlg<String[]> {
+    public FreeVarsExpAlg(Monoid<String[]> m) {super(m);}
     public String[] Var(String s) {return new String[]{s};}
 }
 \end{lstlisting}
 
-When the class FreeVarsQueryExpAlg is used, an object of the FreeVarsMonoid should be created and traversed to the constructor. As we can see, it is needless for a user to address the traversals in a data structure. Nothing but a monoid is required together with a few methods being overwritten. And furthermore, a monoid can usually be shared among query algebras with the same data type. 
+When the class FreeVarsQueryExpAlg is used, an object of the FreeVarsMonoid should be created and traversed to the constructor. As we can see, it is needless for a user to address the traversals in a data structure. Nothing but a monoid is required together with a few methods being overwritten. And furthermore, a monoid can usually be shared among query algebras with the same data type.
 
 
 

@@ -117,6 +117,8 @@ This is the abstract ...
 
 \input{sections/Queries.tex}
 
+\input{sections/GeneralizedQueries.tex}
+
 \input{sections/Transformations.tex}
 
 \input{sections/Framework.tex}
