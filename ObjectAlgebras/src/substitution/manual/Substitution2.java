@@ -1,4 +1,4 @@
-package substitution;
+package substitution.manual;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +8,10 @@ import java.util.Set;
 import trees.ExpAlg;
 import trees.LamAlg;
 
+/*
+ * This is the clean, manual implementation, i.e. without "args" objects.
+ * But with boilerplate, because G_..transform only supports a single argument.
+ */
 
 interface Subst<Exp> {
 	Exp subst(String x, // the variable to be substituted

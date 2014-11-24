@@ -1,4 +1,4 @@
-package substitution;
+package substitution.util;
 
 import java.util.Collections;
 import java.util.HashSet;
