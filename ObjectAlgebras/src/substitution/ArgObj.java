@@ -26,4 +26,8 @@ public class ArgObj {
 		return new ArgObj(m);
 	}
 	
+	@Override
+	public String toString() {
+		return args.toString();
+	}
 }

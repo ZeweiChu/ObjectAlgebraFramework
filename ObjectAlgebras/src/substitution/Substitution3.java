@@ -1,7 +1,9 @@
 package substitution;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -29,11 +31,21 @@ public interface Substitution3<Exp> extends G_ExpAlgTransform<ArgObj, Exp>, G_La
 	LamAlg<Exp> lamAlg();
 	
 	
+	@Override 
+	default List<Exp> substList(List<Function<ArgObj, Exp>> list,ArgObj acc) {
+		List<Exp> res = new ArrayList<Exp>();
+		for (Function<ArgObj, Exp> i : list)
+			res.add(i.apply(acc));
+		return res;
+	}
+	
 	@Override
 	default Function<ArgObj, Exp> Var(String s) {
 		return (args) -> {
 			if (s.equals(args.get("x"))) {
-				return args.get("e");
+				Exp r = args.get("e");
+				//System.out.println("r = " + r);
+				return r;
 			}
 			if (((Map<String,String>)args.get("ren")).containsKey(s)) {
 				return expAlg().Var(((Map<String,String>)args.get("ren")).get(s));
@@ -54,9 +66,15 @@ public interface Substitution3<Exp> extends G_ExpAlgTransform<ArgObj, Exp>, G_La
 			if (((Set<String>)args.get("fv")).contains(x)) {
 				// rename the lambda
 				String z = fresh(x, args.get("fv"));
-				Map<String,String> ren = new HashMap<String,String>(args.get("ren"));
+				Map<String,String> ren = new HashMap<String,String>(((Map<String,String>)args.get("ren")));
 				ren.put(x, z);
-				return lamAlg().Lambda(z, e.apply(args.set("ren",  ren)));
+				ArgObj newArgs = args.set("ren",  ren);
+				//System.out.println("ARGS = " + newArgs);
+				Exp newExp = e.apply(newArgs);
+				//System.out.println("NEW = " + newExp);
+				Exp res = lamAlg().Lambda(z, newExp);
+				//System.out.println("new result = " + res);
+				return res;
 			}
 			return lamAlg().Lambda(x, e.apply(args));
 		};
