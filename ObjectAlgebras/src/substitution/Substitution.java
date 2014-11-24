@@ -1,6 +1,5 @@
 package substitution;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -10,49 +9,6 @@ import java.util.function.Function;
 
 import transform.G_ExpAlgTransform;
 import transform.G_LamAlgTransform;
-import trees.ExpAlg;
-import trees.LamAlg;
-
-
-
-//interface Subst<Exp> {
-//	Exp subst(String x, // the variable to be substituted
-//			  Exp e, // the resulting expression
-//			  Set<String> fv, // the set of free variables of e
-//			  Map<String,String> ren // a rename mapping to rename uses of variables
-//			  );
-//}
-
-class SubstArgs<Exp> {
-	public final Exp e;
-	public final String x;
-	public final Set<String> fv;
-	public final Map<String, String> ren;
-
-	SubstArgs(Exp e, String x, Set<String> fv, Map<String,String> ren) {
-		this.e = e;
-		this.x = x;
-		this.fv = fv;
-		this.ren = ren;
-	}
-	
-	public SubstArgs<Exp> setE(Exp e) {
-		return new SubstArgs<Exp>(e, x, fv, ren);
-	}
-	
-	public SubstArgs<Exp> setX(String x) {
-		return new SubstArgs<Exp>(e, x, fv, ren);
-	}
-	
-	public SubstArgs<Exp> setFV(Set<String> fv) {
-		return new SubstArgs<Exp>(e, x, fv, ren);
-	}
-	
-	public SubstArgs<Exp> setRen(Map<String,String> ren) {
-		return new SubstArgs<Exp>(e, x, fv, ren);
-	}
-	
-}
 
 
 @SuppressWarnings("serial")
@@ -81,14 +37,17 @@ public interface Substitution<Exp> extends G_ExpAlgTransform<SubstArgs<Exp>, Exp
 			
 			if (args.fv.contains(x)) {
 				String z = fresh(x, args.fv);
-				Map<String,String> ren = new HashMap<String,String>(args.ren) {{
-					put(x, z);
-				}};
-				return lamAlg().Lambda(z, e.apply(args.setRen(ren)));
+				return lamAlg().Lambda(z, e.apply(args.setRen(rename(args.ren, x, z))));
 			}
 			
 			return lamAlg().Lambda(x, e.apply(args));
 		};
+	}
+	
+	static Map<String,String> rename(Map<String, String> ren, String x, String z) {
+		return new HashMap<String,String>(ren) {{
+			put(x, z);
+		}};
 	}
 	
 	static String fresh(String x, Set<String> fv) {

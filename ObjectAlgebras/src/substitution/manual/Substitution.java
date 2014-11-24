@@ -22,7 +22,7 @@ interface Subst<Exp> {
 }
 
 
-public interface Substitution2<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>> {
+public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>> {
 
 	ExpAlg<Exp> expAlg();
 	LamAlg<Exp> lamAlg();
