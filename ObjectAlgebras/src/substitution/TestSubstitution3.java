@@ -54,8 +54,39 @@ public class TestSubstitution3 {
 		}
 	}
 	
-	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E build(Alg alg) {
+	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E buildSrc(Alg alg) {
 		return alg.Lambda("x", alg.Add(alg.Add(alg.Lit(3), alg.Add(alg.Var("x"), alg.Lambda("x", alg.Var("y")))), alg.Add(alg.Var("y"), alg.Lambda("y", alg.Var("y")))));
+	}
+	
+	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E replacement1(Alg alg) {
+		return alg.Var("x");
+	}
+
+	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E replacement2(Alg alg) {
+		return alg.Lambda("x", alg.Var("x"));
+	}
+
+	static void example(Set<String> fvs, Supplier<String> org, Function<SubstArgs<Supplier<String>>, Supplier<String>> src, Supplier<String> repl) {
+		System.out.println("Original: " + org.get());
+		SubstArgs<Supplier<String>> args = new SubstArgs<Supplier<String>>(repl, "y", fvs, Collections.emptyMap());
+		Supplier<String> printer = src.apply(args);
+		System.out.println("[y := x]: " + printer.get());
+	}
+	
+	static void example1(Doit doit, Print print, FreeVars fv) {
+		Supplier<String> org = buildSrc(print);
+		Function<SubstArgs<Supplier<String>>, Supplier<String>> src = buildSrc(doit);
+		Supplier<String> exp = replacement1(print);
+		Set<String> fvs = replacement1(fv);
+		example(fvs, org, src, exp);
+	}
+	
+	static void example2(Doit doit, Print print, FreeVars fv) {
+		Supplier<String> org = buildSrc(print);
+		Function<SubstArgs<Supplier<String>>, Supplier<String>> src = buildSrc(doit);
+		Supplier<String> exp = replacement2(print);
+		Set<String> fvs = replacement2(fv);
+		example(fvs, org, src, exp);
 	}
 	
 	public static void main(String[] args_) {
@@ -63,27 +94,8 @@ public class TestSubstitution3 {
 		Print print = new Print();
 		FreeVars fv = new FreeVars();
 		
-		Supplier<String> org = build(print);
-		System.out.println("Original: " + org.get());
-		
-		Function<ArgObj, Supplier<String>> x = build(doit);
-		Supplier<String> exp = print.Var("x");
-		Set<String> fvs = fv.Var("x");
-		System.out.println(fvs);
-		ArgObj args = new ArgObj().set("x", "y").set("e", exp).set("fv", fvs).set("ren", Collections.emptyMap());
-		Supplier<String> printer = x.apply(args);
-		System.out.println("[y := x]: " + printer.get());
-		
-		
-		org = build(print);
-		System.out.println("Original: " + org.get());
-		
-		x = build(doit);
-		exp = print.Lambda("x", print.Var("x"));
-		fvs = fv.Lambda("x", fv.Var("x"));
-		System.out.println(fvs);
-		printer = x.apply(args.set("fv", fvs));
-		System.out.println("[y := x]: " + printer.get());
+		example1(doit, print, fv);
+		example2(doit, print, fv);
 	}
 	
 }

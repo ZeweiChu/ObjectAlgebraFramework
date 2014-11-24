@@ -23,58 +23,77 @@ import trees.LamAlg;
 //			  );
 //}
 
+class SubstArgs<Exp> {
+	public final Exp e;
+	public final String x;
+	public final Set<String> fv;
+	public final Map<String, String> ren;
 
-@SuppressWarnings("unchecked")
-public interface Substitution3<Exp> extends G_ExpAlgTransform<ArgObj, Exp>, G_LamAlgTransform<ArgObj, Exp> {
+	SubstArgs(Exp e, String x, Set<String> fv, Map<String,String> ren) {
+		this.e = e;
+		this.x = x;
+		this.fv = fv;
+		this.ren = ren;
+	}
+	
+	public SubstArgs<Exp> setE(Exp e) {
+		return new SubstArgs<Exp>(e, x, fv, ren);
+	}
+	
+	public SubstArgs<Exp> setX(String x) {
+		return new SubstArgs<Exp>(e, x, fv, ren);
+	}
+	
+	public SubstArgs<Exp> setFV(Set<String> fv) {
+		return new SubstArgs<Exp>(e, x, fv, ren);
+	}
+	
+	public SubstArgs<Exp> setRen(Map<String,String> ren) {
+		return new SubstArgs<Exp>(e, x, fv, ren);
+	}
+	
+}
 
+
+@SuppressWarnings("serial")
+public interface Substitution3<Exp> extends G_ExpAlgTransform<SubstArgs<Exp>, Exp>, G_LamAlgTransform<SubstArgs<Exp>, Exp> {
 	ExpAlg<Exp> expAlg();
 	LamAlg<Exp> lamAlg();
 	
-	
 	@Override 
-	default List<Exp> substList(List<Function<ArgObj, Exp>> list,ArgObj acc) {
-		List<Exp> res = new ArrayList<Exp>();
-		for (Function<ArgObj, Exp> i : list)
-			res.add(i.apply(acc));
-		return res;
+	default List<Exp> substList(List<Function<SubstArgs<Exp>, Exp>> list,SubstArgs<Exp> acc) {
+		return null; // not used here
 	}
 	
 	@Override
-	default Function<ArgObj, Exp> Var(String s) {
+	default Function<SubstArgs<Exp>, Exp> Var(String s) {
 		return (args) -> {
-			if (s.equals(args.get("x"))) {
-				Exp r = args.get("e");
-				//System.out.println("r = " + r);
-				return r;
+			if (s.equals(args.x)) {
+				return args.e;
 			}
-			if (((Map<String,String>)args.get("ren")).containsKey(s)) {
-				return expAlg().Var(((Map<String,String>)args.get("ren")).get(s));
+			if (args.ren.containsKey(s)) {
+				return expAlg().Var(args.ren.get(s));
 			}
 			return expAlg().Var(s);
 		};
 	}
 	
 	@Override
-	default Function<ArgObj,Exp> Lambda(String x, Function<ArgObj,Exp> e) {
+	default Function<SubstArgs<Exp>,Exp> Lambda(String x, Function<SubstArgs<Exp>,Exp> e) {
 		return (args) -> {
-			if (x.equals(args.get("x"))) {
+			if (x.equals(args.x)) {
 				// don't subtitute == substitute with itself.
-				return lamAlg().Lambda(x, e.apply(args.set("e", expAlg().Var(x)).set("fv", Collections.emptySet())));
+				return lamAlg().Lambda(x, e.apply(args.setE(expAlg().Var(x)).setFV(Collections.emptySet())));
 			}
 			
 			
-			if (((Set<String>)args.get("fv")).contains(x)) {
+			if (args.fv.contains(x)) {
 				// rename the lambda
-				String z = fresh(x, args.get("fv"));
-				Map<String,String> ren = new HashMap<String,String>(((Map<String,String>)args.get("ren")));
-				ren.put(x, z);
-				ArgObj newArgs = args.set("ren",  ren);
-				//System.out.println("ARGS = " + newArgs);
-				Exp newExp = e.apply(newArgs);
-				//System.out.println("NEW = " + newExp);
-				Exp res = lamAlg().Lambda(z, newExp);
-				//System.out.println("new result = " + res);
-				return res;
+				String z = fresh(x, args.fv);
+				Map<String,String> ren = new HashMap<String,String>(args.ren) {{
+					put(x, z);
+				}};
+				return lamAlg().Lambda(z, e.apply(args.setRen(ren)));
 			}
 			return lamAlg().Lambda(x, e.apply(args));
 		};
