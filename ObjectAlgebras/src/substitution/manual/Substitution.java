@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 import trees.ExpAlg;
 import trees.LamAlg;
@@ -26,7 +27,7 @@ public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>
 
 	ExpAlg<Exp> expAlg();
 	LamAlg<Exp> lamAlg();
-	
+
 	
 	@Override
 	default Subst<Exp> Var(String s) {

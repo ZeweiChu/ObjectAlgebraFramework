@@ -1,10 +1,14 @@
 package substitution;
 
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import org.junit.Test;
 
 import substitution.util.FreeVars;
 import substitution.util.Print;
@@ -29,6 +33,7 @@ public class TestSubstitution {
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E buildSrc(Alg alg) {
 		return alg.Lambda("x", alg.Add(alg.Add(alg.Lit(3), alg.Add(alg.Var("x"), alg.Lambda("x", alg.Var("y")))), alg.Add(alg.Var("y"), alg.Lambda("y", alg.Var("y")))));
 	}
+	
 	
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E replacement1(Alg alg) {
 		return alg.Var("x");
@@ -61,13 +66,55 @@ public class TestSubstitution {
 		example(fvs, org, src, exp);
 	}
 	
+	
+	
 	public static void main(String[] args_) {
 		Doit doit = new Doit();
 		Print print = new Print();
-		FreeVars fv = new FreeVars();
-		
+		FreeVars fv = new FreeVars();		
 		example1(doit, print, fv);
 		example2(doit, print, fv);
 	}
 	
+	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E bruno(Alg alg) {
+		//(\x . \y . \x . x + y) [y -> x]
+		return alg.Lambda("x", alg.Lambda("y", alg.Lambda("x", alg.Add(alg.Var("x"), alg.Var("y")))));
+	}
+	
+	
+	@Test
+	public void faultyExample() {
+		Doit doit = new Doit();
+		Print print = new Print();
+		FreeVars fv = new FreeVars();
+		
+		Function<SubstArgs<Supplier<String>>, Supplier<String>> src = bruno(doit);
+		
+		//(\x . \y . \x . x + y) [y -> x]
+		Supplier<String> exp = print.Var("x");
+		Set<String> fvs = fv.Var("x");
+		
+		SubstArgs<Supplier<String>> args = new SubstArgs<Supplier<String>>(exp, "y", fvs, Collections.emptyMap());
+		Supplier<String> printer = src.apply(args);
+		//            (lambda (x)  (lambda (y) (lambda (x) (+ x y))))
+		assertEquals("(lambda (x_) (lambda (y) (lambda (x) (+ x y))))", printer.get());
+	}
+	
+	@Test
+	public void example1() {
+		
+		Doit doit = new Doit();
+		Print print = new Print();
+		FreeVars fv = new FreeVars();
+		
+		Function<SubstArgs<Supplier<String>>, Supplier<String>> src = buildSrc(doit);
+		Supplier<String> exp = replacement1(print);
+		Set<String> fvs = replacement1(fv);
+
+		SubstArgs<Supplier<String>> args = new SubstArgs<Supplier<String>>(exp, "y", fvs, Collections.emptyMap());
+		Supplier<String> printer = src.apply(args);
+		
+		//            (lambda (x)  (+ (+ 3 (+ x  (lambda (x)  y))) (+ y (lambda (y) y)))) [ y -> x ]
+		assertEquals("(lambda (x_) (+ (+ 3 (+ x_ (lambda (x_) x))) (+ x (lambda (y) y))))", printer.get());
+	}
 }
