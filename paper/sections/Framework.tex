@@ -1,6 +1,6 @@
 \section{Object Algebras Framework}
 
-Generic queries and transformations can help users write tree structure traversal code with more extensibility and flexibility. However, writing the generic query and transformation interfaces is still painful experience. It will be even better if the boilerplate code for tree structures can be generated automatically. If we pay more attention to our generic query and transformation classes, without much difficulty we can find that the query and transform code structures for all \emph{Object Algebra Interfaces} are quite similar. Therefore we can make this code generation process automatic. 
+Generic queries and transformations can help users write tree structure traversal code with more extensibility and flexibility. However, writing the generic query and transformation interfaces is still painful experience itself. It will be even better if the boilerplate code for tree structures can be generated automatically. If we pay more attention to our 4 query and transformation interfaces, without much difficulty we can find that the query and transform code structures for all \emph{Object Algebra Interfaces} share much similarity. Therefore we can make this code generation process automatic. 
 
 To address this problem, we provide an \emph{Object Algebra Framework}, which utilizes \emph{Java Annotation} to generate generic query and transformation interfaces based on the \emph{Object Algebra Interface}. as illustrated below: 
 \begin{lstlisting}[numbers=none] 
@@ -17,10 +17,12 @@ With the annotation "$@$Algebra", the framework will generate the boilerplate co
  .1 src/.
  .2 query/.
  .3 ExpAlgQuery.
+ .3 G\_ExpAlgQuery.
  .2 transform/.
  .3 ExpAlgTransform.
+ .3 G\_ExpAlgTransform.
 }
 
-Here the automatically generated ExpAlgQuery, ExpAlgTransform are exactly the same code as we discussed in Section~\ref{sec:queries} and Section~\ref{sec:transformations}. Furthermore, the monoid interface is also included in the \emph{Object Algebra Framework}.
+Here the automatically generated ExpAlgQuery, G\_ExpAlgQuery, ExpAlgTransform and G\_ExpAlgTransform are exactly the same code as we discussed in the previous sections. Furthermore, the monoid interface is also included in the \emph{Object Algebra Framework}.
 
-Hence when programming with query, the programmer can skip the intermediate steps such as constructing generic queries and transformations, but only focus on rewriting the interesting cases. For instance, in our ExpAlg example, to implement FreeVars algebra, we can simply override the Exp Var(String s) method of ExpAlgQuery class to return variable name, and provide the specific monoid needed, which in this case will be a String List monoid. While the SubstVars algebra can be realized by overriding the Exp Var(String s) method of ExpAlgTransform interface, which substitutes variable names as specified. 
+Hence when programming with query and transformations, the programmer can skip the intermediate steps such as constructing generic queries and transformations, but only focus on rewriting the interesting cases. For instance, in our ExpAlg example, to implement FreeVars algebra, we can simply override the Exp Var(String s) method of ExpAlgQuery class to return variable name, and provide the specific monoid needed, which in this case will be a String List monoid. While the SubstVars algebra can be realized by overriding the Exp Var(String s) method of ExpAlgTransform interface, which substitutes variable names as specified. 
