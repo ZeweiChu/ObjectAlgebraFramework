@@ -6,8 +6,6 @@ import trees.SybAlg;
 public class Rename implements SybAlgTransform<String, String, String, String, String, String> {
 	private SybAlg<String, String, String, String, String, String> alg;
 	public Rename(SybAlg<String, String, String, String, String, String> alg) {this.alg = alg;}
-	@Override
 	public SybAlg<String, String, String, String, String, String> sybAlg() {return alg;}
-	@Override
 	public String P(String name, String address) {return alg.P("_" + name, address);}
 }

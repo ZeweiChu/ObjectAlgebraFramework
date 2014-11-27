@@ -3,8 +3,6 @@ package example_SybAlg;
 import java.util.ArrayList;
 import java.util.List;
 import library.Pair;
-import monoid.FloatMonoid;
-import monoid.StringMonoid;
 import trees.SybAlg;
 
 public class SybTest {
@@ -44,8 +42,8 @@ public class SybTest {
 	
 	public static void main(String[] args) {
 		
-		StringQuery sQuery = new StringQuery(new StringMonoid());
-		FloatQuery fQuery = new FloatQuery(new FloatMonoid());
+		StringQuery sQuery = new StringQuery();
+		FloatQuery fQuery = new FloatQuery();
 		
 		System.out.println("Result 1: (All names)\n\n" + genCom(sQuery) + "\n");
 		System.out.println("Result 2: (Total salary)\n\n" + genCom(fQuery) + "\n");

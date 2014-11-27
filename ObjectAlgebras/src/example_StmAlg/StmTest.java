@@ -2,7 +2,6 @@ package example_StmAlg;
 
 import java.util.ArrayList;
 import java.util.List;
-import monoid.StringMonoid;
 import trees.StmAlg;
 
 public class StmTest {
@@ -29,7 +28,7 @@ public class StmTest {
 	}
 
 	public static void main(String[] args) {
-		StringQuery sQuery = new StringQuery(new StringMonoid());
+		StringQuery sQuery = new StringQuery();
 		Rename rename = new Rename(sQuery);
 		System.out.println(exp(sQuery));
 		System.out.println(exp(rename));
