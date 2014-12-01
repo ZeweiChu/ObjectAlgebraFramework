@@ -2,6 +2,21 @@
 
 Static types can be quite helpful when dealing with complex structures.
 
+Existing work: 
+
+dynamic approaches: they can offer adaptivity and 
+structure shyness, but lack type-safety.
+
+static approaches: No fully type-safe approach that we know 
+of for Java. Some approaches that rely on reflection and/or casts.
+But these can have run-time type-errors and performance can be 
+quite bad. 
+Some static type-safe in the functional programming community, 
+but cannot be easily ported to Java (rely on sophisticated type 
+system features; target algebraic datatypes; ...). Moreover 
+(with a few exceptions) most approaches do not offer extensibility. 
+
+
 Our technique has the following properties:
 
 \begin{itemize}
