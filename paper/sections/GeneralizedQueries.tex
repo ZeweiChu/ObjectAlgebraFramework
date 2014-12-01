@@ -14,7 +14,7 @@ A simple example of generalized queries could be to construct the dependency gra
 Now think about constructing the dependency graph from a statement. For $Assign(String x, Exp e)$ method, the variable $x$ will depend on all variables appear in the Expression $x$. As for $Seq(Stat s1, Stat s2)$, it is nothing but merge the dependency list appear at both statement dependency lists. A simple implementation of constructing a dependency graph with return type $Set<Pair<String, String>>$ is shown in Figure~\ref{deps1}. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
+\lstinputlisting[linerange=12-32]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
 \vspace{-.1in}
 \caption{Dependency Graph}
 \label{deps1}
@@ -65,7 +65,7 @@ As shown by the above code, we introduced two monoids, mExp and mStat, to help q
 Now that we have the Generalized queries with various monoids, it is time to focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=12-20]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
+\lstinputlisting[linerange=12-22]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
 \vspace{-.1in}
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}

@@ -1,5 +1,5 @@
 #require 'tempfile'
-require 'FileUtils'
+require 'fileutils'
 
 # Example 1 - Read File and close
 def scan(fileName, beginpos, endpos, fileloc)

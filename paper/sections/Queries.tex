@@ -60,7 +60,7 @@ public interface Monoid<R> {
 The interface of a monoid is defined above. Intuitively, the join() method implies how we gather the information from substructures during merging, and the empty() is just an indicator of ``no information''. Hence now we are able to write a ``generic traversal'' manually based on monoids as follows:
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=4-24]{../ObjectAlgebras/src/expDemo3/QueryExpAlg.java} % APPLY:linerange=GENERIC_QUERY
+\lstinputlisting[linerange=4-27]{../ObjectAlgebras/src/expDemo3/QueryExpAlg.java} % APPLY:linerange=GENERIC_QUERY
 \vspace{-.1in}
 \caption{Generic Query by hand with Monoid}
 \end{figure}
@@ -133,7 +133,7 @@ Generic Query by hand with Monoid
 
 Free Vars Query
 \begin{figure}[tb]
-\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/FreeVarsQueryExpAlg.java} % APPLY:linerange=FREEVARS_QUERY
+\lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo3/FreeVarsQueryExpAlg.java} % APPLY:linerange=FREEVARS_QUERY
 \vspace{-.1in}
 \caption{Free Vars Query}
 \end{figure}
