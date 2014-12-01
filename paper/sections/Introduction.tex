@@ -1,5 +1,31 @@
 \section{Introduction}
 
+Static types can be quite helpful when dealing with complex structures.
+
+Our technique has the following properties:
+
+\begin{itemize}
+
+\item {\bf Adaptivity and structure shyness:}
+
+\item {\bf Simple and general:} Works for any structure that can be expressed 
+as a (multi-sorted) object algebras. This includes complex OO hierarquies
+or AST for large languages. 
+
+\item {\bf Works in plain Java:} There is no need for a new tool or language. 
+The approach is library based and uses only Java annotations. 
+
+\item {\bf Type-safe reuse:}   All reuse is type-safe. No run-time
+  casts are needed for generic traversal code or for user-defined 
+  traversal code. 
+
+\item {\bf Extensibility:} The approach inherits type-safe
+  extensibility from object algebras. Therefore it is possible to
+  reuse traversal code in structures that are extended with additional
+  constructors.
+
+\end{itemize}
+
 Traversing complex data structures typically requires large amounts of
 tedious boilerplate code. For some operations most of the code simply
 walks the structure, and only a small portion of the code implements
@@ -68,7 +94,7 @@ In summary, the contributions of this paper are:
 
 \item {\bf Design patterns for generic traversals.} We provide a set of design 
 patterns for various types of traversals using object algebras. These include: 
-\emph{queries}, \emph{transformations}
+\emph{queries}, \emph{transformations},
 \emph{generalized queries} and \emph{generalized transformations}.
 
 \item {\bf Shy: a Java framework for eliminating boilerplate code.} We have implemented 
