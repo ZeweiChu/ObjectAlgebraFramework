@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.7.29)  30 NOV 2014 21:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.7.29)  1 DEC 2014 01:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -688,18 +688,18 @@ LaTeX Warning: Unused global option(s):
 (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count189
@@ -759,26 +759,26 @@ e
 ))
 ABD: EveryShipout initializing macros
 \c@lstlisting=\count195
-LaTeX Font Info:    Try loading font information for U+stmry on input line 86.
+LaTeX Font Info:    Try loading font information for U+stmry on input line 89.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Try loading font information for U+msa on input line 86.
+LaTeX Font Info:    Try loading font information for U+msa on input line 89.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 86.
+LaTeX Font Info:    Try loading font information for U+msb on input line 89.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for T1+fvm on input line 86.
+LaTeX Font Info:    Try loading font information for T1+fvm on input line 89.
 
 (/usr/share/texlive/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 7.65005pt on input line 86.
+(Font)              scaled to size 7.65005pt on input line 89.
 
 (./sections/Introduction.tex) (./sections/Overview.tex
 <Company.jpg, id=4, 572.1375pt x 392.46625pt>
@@ -792,7 +792,8 @@ LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
 (Font)              Font shape `T1/fvm/b/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 (Font)              scaled to size 7.65005pt on input line 6.
-) [1
+)
+(../ObjectAlgebras/src/sybDemo1/Salary.java) [1
 Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
@@ -803,13 +804,14 @@ Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
 Non-PDF special ignored!
-Non-PDF special ignored!{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./
-Company.jpg>] (../ObjectAlgebras/src/sybDemo1/Salary.java)
+Non-PDF special ignored!{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 (../ObjectAlgebras/src/trees/SybAlg.java)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./Company.jpg>]
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
 (Font)              scaled to size 8.50006pt on input line 42.
- [2] [3]
-(../ObjectAlgebras/src/example_SybAlg/FloatQuery.java)
+ [3] (../ObjectAlgebras/src/example_SybAlg/FloatQuery.java)
 (../ObjectAlgebras/src/example_SybAlg/IncSalary.java)) (./sections/Queries.tex
 Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
@@ -820,19 +822,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
 
-
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 40--41
 
  []
 
-[5] (../ObjectAlgebras/src/expDemo3/QueryExpAlg.java) [6]
+(../ObjectAlgebras/src/expDemo3/QueryExpAlg.java) [6]
 Overfull \hbox (5.62732pt too wide) in paragraph at lines 99--100
 []\T1/cmr/m/n/10 When the class Free-Vars-Query-Ex-pAlg is used, an ob-ject of 
 the Free-VarsMonoid
  []
 
-) (./sections/GeneralizedQueries.tex (../ObjectAlgebras/src/trees/StatAlg.java)
-(../ObjectAlgebras/src/deps1/DepGraph.java) [7]
+) (./sections/GeneralizedQueries.tex [7]
+(../ObjectAlgebras/src/trees/StatAlg.java)
+(../ObjectAlgebras/src/deps1/DepGraph.java)
 Overfull \hbox (38.11865pt too wide) in paragraph at lines 26--27
 \T1/cmr/m/n/10 in 4.1[] share a lot of sim-i-lar-i-ties. Meth-ods like $\OML/cm
 m/m/it/10 Add\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Expe\OT1/cmr/m/n/10 1\OML/cmm/m/
@@ -841,58 +844,59 @@ r/m/n/10 (\OML/cmm/m/it/10 Stats\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; Stats\OT1/c
 mr/m/n/10 2)$
  []
 
-[8] (../ObjectAlgebras/src/deps2/DepGraph.java))
+[8] (../ObjectAlgebras/src/deps2/DepGraph.java)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9])
 (./sections/Transformations.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
-[9]
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
 
-[10]
+
 Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
-[11]) (./sections/Framework.tex) [12] (./sections/Other.tex)
-(./sections/CaseStudy.tex) (./sections/RelatedWork.tex)
+[11]) (./sections/Framework.tex [12]) (./sections/Other.tex)
+(./sections/CaseStudy.tex) (./sections/RelatedWork.tex [13])
 (./sections/Conclusion.tex) (./paper.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 5.
 
-) [13] (./paper.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) [14] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 14386 strings out of 495028
- 234381 string characters out of 6181497
- 457147 words of memory out of 5000000
- 17184 multiletter control sequences out of 15000+600000
- 20470 words of font info for 57 fonts, out of 8000000 for 9000
+ 14392 strings out of 495028
+ 234431 string characters out of 6181497
+ 472146 words of memory out of 5000000
+ 17188 multiletter control sequences out of 15000+600000
+ 21831 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 41i,6n,72p,730b,1563s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk>{/usr/sha
-re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/bruno/.texmf-var/font
-s/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour
-/jknappen/ec/ecbx1200.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecbx0900.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.
-600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </ho
-me/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/bruno/.t
-exmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/bruno/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecbx1440.600pk></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/b
-era/fvmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/bera/fvmr8a.pf
-b>
-Output written on paper.pdf (13 pages, 173237 bytes).
+ 41i,6n,72p,730b,1562s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti
+1000.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/b
+runo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/bruno/.texmf
+-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/bruno/.texmf-var/fonts/
+pk/ljfour/jknappen/ec/eccc0900.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/j
+knappen/ec/ecti0900.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecbx0900.600pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.60
+0pk> </home/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home
+/bruno/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/bruno/.tex
+mf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/bruno/.texmf-var/font
+s/pk/ljfour/jknappen/ec/ecbx1440.600pk></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ber
+a/fvmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb>
+
+Output written on paper.pdf (14 pages, 183167 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
+ 434 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
