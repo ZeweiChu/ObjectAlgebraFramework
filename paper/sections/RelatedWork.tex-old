@@ -1,11 +1,5 @@
 \section{Related Work}\label{sec:related}
 
-\textbf{Object Algebras. } B. Oliveira and W. Cook proposed Object Algebra as a solution to Expression Problem. 
+\textit{Object Algebras}. Oliveira provided an interesting solution to Expression Problem based on Object Algebras. It is lightweight in terms of required language features without sacrificing extensibility. However, when applying Object Algebras in rich tree structures, boilerplates are hard to avoid, hence motivated our work. 
 
-\textbf{Scrap Your Boilerplate. } R. Lammel and S. P. Jones presented a design pattern to traverse data structure of recursive data types in haskell. Such programs usually have much "`boilerplate"' code as we have in our object algebra tree structures. 
-
-\textbf{Visitor Combinators. } J. Visser introduced vistor combinators to compose new visitors from given ones. 
-
-\textbf{Almost Compositional Functions. }
-
-\textbf{text}
+\textit{Tree structures traversals}. Lammel's Scrap your Boilerplate series introduced a practical design pattern for generic programming in tree structures, which inspired our work of scrapping boilerplates in Object Algebras. Bringert introduced useful compositional functions to help construct final results in the paper A Pattern for Almost Compositional Functions. J. Visser introduced vistor combinators for traversal control in visitor pattern in his paper Visitor Pattern and Traversal Control. The paper dealing with Large Bananas proposed a polytypic programming approach for generalized and basic folds. These fold algebras scale up applications involving large systems of mutually recursive datatypes. 

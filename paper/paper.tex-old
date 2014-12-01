@@ -55,7 +55,10 @@ keywordstyle=\ttfamily\bfseries,
 \newcommand{\authornote}[3]{{\color{#2} {\sc #1}: #3}}
 \newcommand\jason[1]{\authornote{jason}{green}{#1}}
 \newcommand\haoyuan[1]{\authornote{haoyuan}{red}{#1}}
-\newcommand\bruno[1]{\authornote{haoyuan}{blue}{#1}}
+\newcommand\bruno[1]{\authornote{bruno}{red}{#1}}
+
+\newcommand\name{{\bf Shy}~}
+\newcommand\Name{{\bf Shy}}
 
 \newcommand{\hl}[1]{\textcolor{red}{#1}}
 
@@ -87,7 +90,67 @@ $^{\textrm{2}}$ The University of Hong Kong\\
 
 \begin{abstract}
 
-This is the abstract ...
+Traversing complex data structures typically requires large amounts of
+tedious boilerplate code. For some operations most of the code simply
+walks the structure, and only a small portion of the code implements
+the functionality that motivated the traversal in the first place.
+This paper present a type-safe Java framework called \name that
+removes much of this boilerplate code. In \name \emph{object algebras}
+are used to describe complex data structures. Using Java annotations
+generic boilerplate code is generated for various types of traversals,
+including queries and transformations. Then programmers can inherit
+the generic traversal code to focus only on writing the interesting
+parts of the traversals. Consequentely, the amount of code that
+programmers need to write is significantly smaller, and traversals
+using the \name framework are also much more \emph{structure
+  shy}. That is, since traversals have less type-specific code they
+become much more adaptive to future changes in the data structure.
+%An additional benefit of \name is that traversal code can be easily 
+%reused by extensions of the 
+To prove the effectiveness of the approach, we employeed \name 
+on the implementation of a domain-specific questionaire 
+language. Our results show that for a large number of traversals 
+there was a significant reduction in the amount of user-defined code.
+\bruno{Say something more about extensibility and type-safety!}
+
+\begin{comment}
+
+Static types are useful to distinguish between different kinds
+of nodes in a structure and to prevent misuses. The
+distinction between different types of nodes also means that code for
+dealing with each type of node is needed. However, in large structures, 
+such as the Abstract Syntax Tree (AST) of a programming language, 
+the amount of required code can be a problem. For some operations, 
+which traverse large structures, most of the code amounts to recursively 
+delegating the traversal to the child nodes. Only for some nodes 
+of the structure the code needs to do something different. Still 
+the programmer needs to diligently and tediously write the error-prone 
+traversal code for all nodes.
+
+In this paper we present a framework 
+
+This approach works well for many operations,
+which need different (and non-trivial) code for each different type 
+of node 
+
+%Unfortunately, for some operations the interesting 
+
+%%In large structures, 
+%%such as the Abstract Syntax Tree (AST) of a programming language, 
+%%the code required to traverse the whole structure is proportionaly large.
+
+
+The problem is particularly prominent 
+in statically typed languages, where the typing discipline 
+enforces strict distinctions between different cases 
+
+Operations that traverse complex structures often require large and 
+tedious amounts of boilerplate code. In those operations there are 
+typically a few 
+
+A pervasive problem in programming occurs when large tree tr
+
+\end{comment}
 
 \end{abstract}
 
