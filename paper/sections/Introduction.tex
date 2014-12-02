@@ -1,23 +1,53 @@
 \section{Introduction}
 
-Static types can be quite helpful when dealing with complex structures.
+Static types are helpful to deal with complex structures having
+multiple different kinds of nodes. With static types it is easy to
+distinghish between different kinds of nodes, and to ensure that each
+kind of node has an appropriate piece of code that deals with it. This
+can prevent a large class of run-time errors that would otherwise
+occur. 
 
-Existing work: 
+%For example static types prevent errors that would arize from
+%applying the code intended for a certain kind of node to another kind
+%of node. Static types can also ensure that all nodes are dealt with by
+%an appropriate piece of code.
 
-dynamic approaches: they can offer adaptivity and 
-structure shyness, but lack type-safety.
+However certain operations are mostly \emph{structure
+  shy}~\cite{}\bruno{Who invented the term structure-shy? Alcino
+  Cunha?}. That is the code for most of the nodes is similar and
+essentially walks the structure.  Only for a small portion of nodes
+the code for the core functionality that motivated the
+traversal in the first place will be different.  Unfortunately,
+structure shy operations suffer from the static typing discipline,
+because the type distinctions between different kinds of nodes leads
+to significant boilerplate code.
 
-static approaches: No fully type-safe approach that we know 
-of for Java. Some approaches that rely on reflection and/or casts.
-But these can have run-time type-errors and performance can be 
-quite bad. 
-Some static type-safe in the functional programming community, 
-but cannot be easily ported to Java (rely on sophisticated type 
-system features; target algebraic datatypes; ...). Moreover 
-(with a few exceptions) most approaches do not offer extensibility. 
+In languages that support some kind of reflection it is easy to
+capture the code walks a structure once and for all. Then a programmer
+only needs to define the code to deal with the nodes that are not
+structure shy. This approach has important benefits. Firstly the user
+has to write much less code, also removing the possibility of silly
+errors in the code walking the structure. Secondly the code becomes
+much more adaptive to changes: if structural changes occur only in the
+structure shy cases, then the user-defined code remains unchanged.
 
+However this is usually done at the cost of type-safety.  Most
+approach use some form of dynamic reflection \ldots and it usually
+incurs on significant performance penalties. \bruno{Mention a few
+  approaches}
 
-Our technique has the following properties:
+This paper present a type-safe Java framework called \name that allows
+users to define \emph{type-safe structure-shy operations}.  In \name
+\emph{object algebras} are used to describe complex data
+structures. Using Java annotations generic boilerplate code is
+generated for various types of traversals, including queries and
+transformations. Programmers can then inherit the generic traversal
+code to focus only on writing the interesting parts of the
+traversals. Consequentely, the amount of code that programmers need to
+write is significantly smaller, and traversals using the \name
+framework are also much more \emph{structure shy}.
+
+Our approach has the following properties:
 
 \begin{itemize}
 
@@ -44,23 +74,6 @@ The approach is library based and uses only Java annotations.
 Moreover our approach should apply to any OO language with support 
 for generics and annotations (for example: Scala, .Net?).
 
-Traversing complex data structures typically requires large amounts of
-tedious boilerplate code. For some operations most of the code simply
-walks the structure, and only a small portion of the code implements
-the functionality that motivated the traversal in the first place.
-This paper present a type-safe Java framework called \name that
-removes much of this boilerplate code. In \name \emph{object algebras}
-are used to describe complex data structures. Using Java annotations
-generic boilerplate code is generated for various types of traversals,
-including queries and transformations. Then programmers can inherit
-the generic traversal code to focus only on writing the interesting
-parts of the traversals. Consequentely, the amount of code that
-programmers need to write is significantly smaller, and traversals
-using the \name framework are also much more \emph{structure
-  shy}. That is, since traversals have less type-specific code they
-become much more adaptive to future changes in the data structure.
-%An additional benefit of \name is that traversal code can be easily 
-%reused by extensions of the 
 To prove the effectiveness of the approach, we employeed \name 
 on the implementation of a domain-specific questionaire 
 language. Our results show that for a large number of traversals 
@@ -68,6 +81,20 @@ there was a significant reduction in the amount of user-defined code.
 \bruno{Say something more about extensibility and type-safety!}
 
 \begin{comment}
+
+Existing work: 
+
+dynamic approaches: they can offer adaptivity and 
+structure shyness, but lack type-safety.
+
+static approaches: No fully type-safe approach that we know 
+of for Java. Some approaches that rely on reflection and/or casts.
+But these can have run-time type-errors and performance can be 
+quite bad. 
+Some static type-safe in the functional programming community, 
+but cannot be easily ported to Java (rely on sophisticated type 
+system features; target algebraic datatypes; ...). Moreover 
+(with a few exceptions) most approaches do not offer extensibility. 
 
 Static types are useful to distinguish between different kinds
 of nodes in a structure and to prevent misuses. The
