@@ -30,7 +30,7 @@ public class SubstTransformTypeVisitor implements TypeVisitor<String, String[]> 
 			int argumentType = -1;
 			if ((argumentType = arrayContains(lListTypeArgs, lp.get(i).toString())) != -1) {
 				argument += "List<Function<A, B" + argumentType + ">>";
-				returnValue += "substList(p" + i + ", acc)";
+				returnValue += "substList" + p[3] + "(p" + i + ", acc)";
 			} else if ((argumentType = arrayContains(lTypeArgs, lp.get(i).toString())) != -1) {
 				argument += "Function<A, B" + argumentType + ">";
 				returnValue += "p" + i + ".apply(acc)";

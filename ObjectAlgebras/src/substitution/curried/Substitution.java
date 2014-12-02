@@ -19,12 +19,6 @@ public interface Substitution<Exp> extends
 	G_ExpAlgTransform<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>, 
 	G_LamAlgTransform<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>> {
 	
-	@Override 
-	default List<Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>> substList(List<Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>> list, String acc) {
-		return null; // not used here, but overridden to avoid duplicate default method error.
-	}
-	
-	
 	ExpAlg<Exp> myExpAlg();
 	LamAlg<Exp> myLamAlg();
 	
@@ -43,7 +37,8 @@ public interface Substitution<Exp> extends
 	default Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>  Lambda(String x, Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>  e) {
 		return (y) -> (e2) -> (fv) -> (ren)  -> {
 			if (x.equals(y)) {
-				return lamAlg().Lambda(x, e.apply(x).apply(myExpAlg().Var(x)).apply(Collections.emptySet()).apply(ren)).apply(e).apply(fv).apply(ren);
+				return null;
+				//return lamAlg().Lambda(x, e.apply(x).apply(myExpAlg().Var(x)).apply(Collections.emptySet()).apply(ren)).apply(e).apply(fv).apply(ren);
 			}
 			
 			if (fv.contains(x)) {

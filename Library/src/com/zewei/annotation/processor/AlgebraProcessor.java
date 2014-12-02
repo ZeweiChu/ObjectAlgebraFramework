@@ -163,7 +163,7 @@ public class AlgebraProcessor extends AbstractProcessor {
 			classContent += "Function<A, B" + i + ">";
 		}
 		classContent += "> {\n\n\t" + algName +  "<" + argument + "> " + algNameLower + "();\n\n";
-		classContent += "\tdefault <B> List<B> substList(List<Function<A, B>> list, A acc) {\n";
+		classContent += "\tdefault <B> List<B> substList" + algName + "(List<Function<A, B>> list, A acc) {\n";
 		classContent += "\t\tList<B> res = new ArrayList<B>();\n";
 		classContent += "\t\tfor (Function<A, B> i : list)\n";
 		classContent += "\t\t\tres.add(i.apply(acc));\n";
@@ -171,7 +171,7 @@ public class AlgebraProcessor extends AbstractProcessor {
 		List<? extends Element> le = element.getEnclosedElements();
 		for (Element e: le){
 			String methodName = e.getSimpleName().toString();
-			String[] args = {methodName, typeArgs, algNameLower};
+			String[] args = {methodName, typeArgs, algNameLower, algName};
 			classContent += e.asType().accept(new SubstTransformTypeVisitor(), args);
 		}
 		classContent += "}";
