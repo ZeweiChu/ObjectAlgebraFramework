@@ -2,7 +2,6 @@ package substitution;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -13,10 +12,6 @@ import transform.G_LamAlgTransform;
 
 @SuppressWarnings("serial")
 public interface Substitution<Exp> extends G_ExpAlgTransform<SubstArgs<Exp>, Exp>, G_LamAlgTransform<SubstArgs<Exp>, Exp> {
-	@Override 
-	default List<Exp> substList(List<Function<SubstArgs<Exp>, Exp>> list,SubstArgs<Exp> acc) {
-		return null; // not used here, but overridden to avoid duplicate default method error.
-	}
 	
 	@Override
 	default Function<SubstArgs<Exp>, Exp> Var(String s) {
