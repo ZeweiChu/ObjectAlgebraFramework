@@ -1,10 +1,24 @@
 \section{Queries}\label{sec:queries}
 
-As a specific type of object algebras, queries allow users to define new operations handling a user-defined data structure. A \textit{query algebra} is a class implementing an object algebra interface by a top-down traversal throughout the hierarchy. It is something supporting the program to gather information from the substructures of a data type recursively, and make a response at the root node to the query.\\
+As a specific type of object algebras, queries allow users to define
+new operations handling a user-defined data structure\bruno{This
+  definition of queries is just too broad. A query is an operation
+  that traverses a structure and computes some aggregate value. Please
+look at papers like Syb to see how they describe queries and transformations}. A \textit{query
+  algebra} is a class implementing an object algebra interface by a
+top-down traversal throughout the hierarchy. It is something
+supporting the program to gather information from the substructures of
+a data type recursively, and make a response at the root node to the
+query.\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
+A normal paragraph is created by having an empty line, not by using
+``$\backslash\backslash$". The ``$\backslash\backslash$" command is only for forcing a new line.}
 
 \subsection{FreeVars: a simple query algebra}\label{subsec:freevars}
 
-An example is shown here to discuss about query algebras in a clearer way. The object algebra interface is related to an expression, where it can be treated as a literal, a string or composed of two smaller ones. Specifically, the structure is defined as follows:
+An example is shown here to discuss about query algebras in a clearer
+way. The object algebra interface is related to an expression, where
+it can be treated as a numeric literal, a variable or the addition of
+two expressions. Specifically, the structure is defined as follows:
 
 \begin{lstlisting}[numbers=none]
 public interface ExpAlg<Exp> {
@@ -12,9 +26,17 @@ public interface ExpAlg<Exp> {
     Exp Lit(int i);
     Exp Add(Exp e1, Exp e2);
 }
-\end{lstlisting}
+\end{lstlisting}\bruno{Don't copy the code! Use the code from the
+  repository directly via the ruby script! The same applies to the
+  other pieces of code in the rest of the paper.}
 
-Based on the interface above, a query might be raised on collecting all the names of free variables defined in an expression. More precisely, an array of strings would be used to store the names of those variables. In that case, a $Var(s)$ would simply return an one-element array of $s$, and a $Lit(i)$ corresponds to an empty set, whereas two arrays would be merged into one if we are combining two expressions with the $Add()$ method.\\
+Based on the interface above, a query might be raised on collecting
+all the names of free variables defined in an expression. More
+precisely, an array of strings would be used to store the names of
+those variables. In that case, a $Var(s)$ would simply return an
+one-element array of $s$, and a $Lit(i)$ corresponds to an empty set,
+whereas two arrays would be merged into one if we are combining two
+expressions with the $Add()$ method.
 
 Generally speaking, it is natural to deal with the traversal in an algebra-based approach like this:
 
@@ -35,13 +57,23 @@ public interface FreeVarsExpAlg extends ExpAlg<String[]> {
         return res;
     }
 }
-\end{lstlisting}
+\end{lstlisting}\bruno{put code in a figure, add a caption and refer
+  to the figure in the text.}
 
-Information on our query is collected by traversal and passed on to a higher-level structure. Nonetheless, a programmer has to write a lot of boring code handling the traversals, and it could be even worse for a more complicated data structure. Moreover, it is a query-based approach: you still have to write a bunch of similar stuff with a different query raised, for instance, a pretty printer.\\
+Information on our query is collected by traversal and passed on to a
+higher-level structure. Nonetheless, a programmer has to write a lot
+of boring code handling the traversals, and it could be even worse for
+a more complicated data structure. Moreover, it is a query-based
+approach: you still have to write a bunch of similar stuff with a
+different query raised, for instance, a pretty printer.
 
 \subsection{Generic query algebra with a monoid}\label{subsec:genericquery}
 
-Queries are so similar actually: a user has to indicate the rules in which the program may address cases on primitive types and ``append'' the information. With these two issues, everything becomes simple in the traversal. Hence we introduce the concept of monoid and generic traversal here in our query algebras.
+Queries are so similar actually: a user has to indicate the rules in
+which the program may address cases on primitive types and ``append''
+the information. With these two issues, everything becomes simple in
+the traversal. Hence we introduce the concept of monoid and generic
+traversal here in our query algebras.
 
 \begin{lstlisting}[numbers=none]
 public interface Monoid<R> {
@@ -57,7 +89,13 @@ public interface Monoid<R> {
 }
 \end{lstlisting}
 
-The interface of a monoid is defined above. Intuitively, the join() method implies how we gather the information from substructures during merging, and the empty() is just an indicator of ``no information''. Hence now we are able to write a ``generic traversal'' manually based on monoids as follows:
+The interface of a monoid is defined above. Intuitively, the join()
+method implies how we gather the information from substructures during
+merging, and the empty() is just an indicator of ``no
+information''. Hence now we are able to write a ``generic traversal''
+manually based on monoids as follows:\bruno{As you can see, nothing
+  follows! Please refer to the figure instead and briefly explain the
+  code in the figure.}
 
 \begin{figure}[!htbp]
 \lstinputlisting[linerange=4-27]{../ObjectAlgebras/src/expDemo3/QueryExpAlg.java} % APPLY:linerange=GENERIC_QUERY
@@ -85,7 +123,8 @@ public class FreeVarsMonoid implements Monoid<String[]> {
         return res;
     }
 }
-\end{lstlisting}
+\end{lstlisting}\bruno{Is an array the best structure to use here?
+  Wouldn't a vector or list be better? The simpler the code is, the better.}
 
 But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, the query algebra will be like:
 
@@ -119,7 +158,8 @@ public interface Monoid<R> {
     	return res;
     }
 }
-\end{lstlisting}
+\end{lstlisting}\bruno{Don't copy the code into this file! Please refer to the
+  code in the implementation directly using the ruby script.}
 
 Free Variables Monoid
 \begin{figure}[tb]
