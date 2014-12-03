@@ -63,12 +63,8 @@ public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>
 				return lamAlg().Lambda(z, e.subst(y, to, fv, ren));
 			}
 			
-			// default, x captures any x in ren, so remove it
-// the following is unneeded because anything in dom(rename) is
-// is a binder which is in fv; so if x is would be in dom(rename)
-// it would also be in fv, - hence the previous case would apply.
-//			ren = new HashMap<>(ren);
-//			ren.remove(x);
+			ren = new HashMap<>(ren);
+			ren.remove(x);
 			return lamAlg().Lambda(x, e.subst(y, to, fv, ren));
 		};
 	}
