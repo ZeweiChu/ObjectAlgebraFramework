@@ -2,7 +2,9 @@ package _ast;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
+import library.Pair;
 import ql_obj_alg.check.types.Type;
 
 public abstract class Question extends Stmt {
@@ -22,4 +24,9 @@ public abstract class Question extends Stmt {
 		return Collections.singletonMap(id, type);
 	}
 
+	@Override
+	public Set<Pair<String, String>> controlDeps() {
+		return Collections.singleton(new Pair<>(id, ""));
+	}
+	
 }
