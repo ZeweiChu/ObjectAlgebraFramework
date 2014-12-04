@@ -1,6 +1,8 @@
 package _ast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Form {
 
@@ -12,4 +14,11 @@ public class Form {
 		this.body = statements;
 	}
 
+	public Form rename(Map<String, String> ren) {
+		List<Stmt> newBody = new ArrayList<>();
+		for (Stmt s: body) {
+			newBody.add(s.rename(ren));
+		}
+		return new Form(id, newBody);
+	}
 }

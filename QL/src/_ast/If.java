@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ql_obj_alg.check.types.Type;
+
 public class If extends Conditional {
 
 	public If(Exp cond, List<Stmt> statements) {
@@ -18,5 +20,7 @@ public class If extends Conditional {
 		}
 		return new If(cond.rename(ren), body);
 	}
+
+	
 
 }

@@ -1,8 +1,11 @@
 package _ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import ql_obj_alg.check.types.Type;
 
 public class IfElse extends Conditional {
 
@@ -24,6 +27,16 @@ public class IfElse extends Conditional {
 			elseBody.add(s.rename(ren));
 		}
 		return new IfElse(cond.rename(ren), body, elseBody);
+	}
+	
+	@Override
+	public Map<String, Type> typeEnv() {
+		Map<String,Type> tenv = new HashMap<String, Type>();
+		tenv.putAll(super.typeEnv());
+		for (Stmt s: els) {
+			tenv.putAll(s.typeEnv());
+		}
+		return tenv;
 	}
 
 }
