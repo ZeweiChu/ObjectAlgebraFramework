@@ -2,12 +2,22 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
+\bibitem{bjorn08acf}
+Bjorn~Bringert, A.R.: A pattern for almost compositional functions. Journal of
+  Functional Programming  18,  567--598 (September 2008)
+
+\bibitem{ralf00banana}
+Ralf~Lammel, Joost~Visser, J.K.: Dealing with large bananas (2000)
+
 \bibitem{ralf03syb}
-ralf Lammel, S.P.J.: Scrap your boilerplate: A practical design pattern for
+Ralf~Lammel, S.P.J.: Scrap your boilerplate: A practical design pattern for
   generic programming. In: TLDI'03 (2003)
 
 \bibitem{bruno12oa}
 Bruno C.~d. S.~Oliveira, W.R.C.: Extensibility for the masses, practical
   extensibility with object algebras. In: ECOOP'12 (2004)
+
+\bibitem{visser01visitor}
+Visser, J.: Visitor combination and traversal control. In: OOPSLA '01 (2001)
 
 \end{thebibliography}

@@ -2,7 +2,7 @@
 The previous section discusses simple queries of merging the same type. However, queries can be with different types when various type parameters are passed to the \textit{Object Algebra Interface}. Such generalized version of queries are applicable in more cases and the queries in the previous section is a special case of it. 
 
 \subsection{Dependency Graph: Query different types}\label{subsec:depGraph}
-A simple example of generalized queries could be to construct the dependency graph of a program. Let us first extend our simple ExpAlg to a more generalized language StatAlg by adding Statements as in Figure~\ref{statalg}. 
+A simple example of generalized queries could be to construct the dependency graph of a program. Let us first extend our simple ExpAlg to a more generalized language StatAlg by adding Statements as in Fig.~\ref{statalg}. Two more statements, sequence and assign operation, are added to our statement language. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
@@ -11,7 +11,7 @@ A simple example of generalized queries could be to construct the dependency gra
 \label{statalg}
 \end{figure}
 
-Now think about constructing the dependency graph from a statement. For $Assign(String x, Exp e)$ method, the variable $x$ will depend on all variables appear in the Expression $x$. As for $Seq(Stat s1, Stat s2)$, it is nothing but merge the dependency list appear at both statement dependency lists. A simple implementation of constructing a dependency graph with return type $Set<Pair<String, String>>$ is shown in Figure~\ref{deps1}. 
+Now think about constructing the dependency graph from a statement. For \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appear in the Expression \lstinline{x}. As for \lstinline{Seq(Stat s1, Stat s2)}, it is nothing but merge the dependency list appear at both statement dependency lists. A simple implementation of constructing a dependency graph with return type \lstinline{Set<Pair<String, String>>} is shown in Fig.~\ref{deps1}. Here \lstinline{Var(String p0)} is the source where variable are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that all variable in p1 are dependent on variable p0. Other methods only congregate same type of variables to larger collections. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
@@ -20,11 +20,12 @@ Now think about constructing the dependency graph from a statement. For $Assign(
 \label{deps1}
 \end{figure}
 
-Similar to what we have discussed in \ref{sec:queries}, the traversal code contains too much boilerplates and it is natural to simplify this kind of traversal code in some way. 
+Similar to what we have discussed in \ref{sec:queries}, the traversal code contains boilerplates and it is natural to simplify this kind of traversal code in a similar way. 
 
 \subsection{Generalized Queries with Monoids}\label{subsec:generalizedQuery}
-The generalized queries such as constructing the dependency graph as discussed in \ref{subsec:depGraph} share a lot of similarities. Methods like $Add(Exp e1, Exp e2)$ and $Seq(Stat s1, Stat s2)$ can be easily implemented with the help of Monoids, but since generalized queries contain different type arguments, different monoids shall be specified to merge elements with corresponding types. 
+The generalized queries such as constructing the dependency graph as discussed in \ref{subsec:depGraph} share a lot of similarities. Methods like \lstinline{Add(Exp e1, Exp e2)} and \lstinline{Seq(Stat s1, Stat s2)} can be easily implemented with the help of Monoids, but since generalized queries contain different type arguments, different monoids shall be specified to merge elements with corresponding types. 
 
+\jason{This is not a good example as \lstinline{mExp()} in G\_StatAlgQuery is not actually used.}
 \begin{lstlisting}[numbers=none]
 public interface G_StatAlgQuery<A0, A1> extends StatAlg<A0, A1> {
 	Monoid<A0> mExp();
@@ -58,11 +59,11 @@ public interface G_ExpAlgQuery<A0> extends ExpAlg<A0> {
 	}
 }
 \end{lstlisting}
-
+\jason{I should explain more of the code, specifically, how various monoids work together and build large tree structures. What is the algorithm of defining default implementation in constructor methods With various typed arguments.}
 As shown by the above code, we introduced two monoids, mExp and mStat, to help query the desired dependency graph. 
 
 \subsection{Dependency Graph with Generalized Query Algebra}\label{subsec:DepGraphWithGeneralizedQuery}
-Now that we have the Generalized queries with various monoids, it is time to focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
+Now that we have the Generalized queries with various monoids, we can focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=12-20]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
@@ -71,14 +72,13 @@ Now that we have the Generalized queries with various monoids, it is time to foc
 \label{deps2}
 \end{figure}
 
-Figure~\ref{deps2} shows the code of constructing dependency graph with generalized queries. Similar to simple queries, to specify the desired return type of dependency graph, the developer only needs to clarify the monoids for each type argument. 
+Fig.~\ref{deps2} shows the code of constructing dependency graph with generalized queries. Similar to simple queries, to specify the desired return type of dependency graph, the developer only needs to clarify the monoids for each type argument. 
 
 \begin{lstlisting}[numbers=none]
 class StringPairDepGraph implements DepGraph {
 	public Monoid<Set<String>> mExp() {return new SetMonoid<>();}
 	public Monoid<Set<Pair<String, String>>> mStat() {
-		return new SetMonoid<>();
-	}
+		return new SetMonoid<>();}
 }
 \end{lstlisting}
 

@@ -1,13 +1,9 @@
 \section{Overview}\label{subsec:overview}
-
 \bruno{Summary of the Section must come first. Look at the
   ``Extensibility for the Masses'' to see how sections are written.}
-
-In this section, we start by considering a practical problem of representing tree structure in simple object oriented approach and in object algebras. It turns out that both approaches of coding are lengthy and cumbersome. Thus we introduce generic queries and transformations to make traversal code reusable and modular. Finally we present our framework Shy which automatically generate generic queries and transformations based on Object Algebra Interfaces with Java annotation.
+In this section, we start by considering a practical problem of representing tree structure in simple object-oriented approach. It turns out that this approach of coding is lengthy and lacks extensibility when the tree structure is big in size. We then applies object algebras to help solving extensibility problem, but the code is still full to tedious delegation code in the tree structure nodes. Thus we introduce generic queries and transformations to make traversal code reusable and modular. Finally we present our framework \name which automatically generate generic queries, generalized generic queries, transformations and contextual aware transformations based on Object Algebra Interfaces with Java annotation.
 
 \subsection{Object Oriented Solution}
-
-
 We start by considering the company structure introduced in
 Fig.~\ref{company_structure}.\bruno{More text needed. Where does the
 company example come from? add a reference to it.} This example is borrowed from \cite{ralf03syb}, where they use the example to address the problem of boilerplate code when programming with rich tree structures in Haskell. 
@@ -19,8 +15,7 @@ company example come from? add a reference to it.} This example is borrowed from
 \end{figure}
 
 A very natural Object-Oriented way to model the company structure is
-as illustrated in Figure~\ref{oop_company} and
-Figure~\ref{oop_salary}. Similar code can be applied to
+as illustrated in Figure~\ref{oop_company}. Similar code can be applied to
 \lstinline{Department}\bruno{references to code identifiers should be
   printed with code font as in \lstinline{Department}.Change all such 
 references throughout the paper.},
@@ -122,7 +117,6 @@ implementing interesting cases of generic queries and
 transformations. Moreover, it will be even better if the boilerplate code can be generated automatically so we can focus our attention on the interesting cases.
 
 \subsection{Object Algebra Framework}
-
 Motivated by this problem of writing generic code for tree structure
 traversals, we introduce generic queries, generalized generic queries, transformations and contextual aware transformations with Object Algebras, which can be easily inherited by real cases of queries and transformations. Furthermore, we designed an object algebra framework \name. With our framework, the generic query and transformation classes can be generated automatically by adding an ``$@$Algebra'' annotation.
 
@@ -145,8 +139,8 @@ Transformation code will be like Figure~\ref{transform_with_oaframework}. Simila
 
 \bruno{code is too specific. See comment about previous
   increase salary example}
-The classes SybAlgQuery<R>, SybAlgTransform<R,R,R,R,R,R> are generated
-by the framework automatically. 
+\begin{comment}The classes SybAlgQuery<R>, SybAlgTransform<R,R,R,R,R,R> are generated
+by the framework automatically. \end{comment}
 \bruno{Jason, generally speaking your explanations of the code are to
   brief: you don't actually explain the code. You need to emphasize
   the relevant parts of the code, as well as the parts that are
