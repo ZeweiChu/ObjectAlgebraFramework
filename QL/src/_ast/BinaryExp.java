@@ -1,6 +1,8 @@
 package _ast;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class BinaryExp extends Exp {
 	protected final Exp lhs;
@@ -17,4 +19,11 @@ public abstract class BinaryExp extends Exp {
 	}
 	
 	protected abstract Exp make(Exp lhs, Exp rhs);
+	
+	@Override
+	public Set<String> freeVars() {
+		Set<String> set = new HashSet<>(lhs.freeVars());
+		set.addAll(rhs.freeVars());
+		return set;
+	}
 }

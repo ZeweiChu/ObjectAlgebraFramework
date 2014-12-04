@@ -1,6 +1,7 @@
 package _ast;
 
 import java.util.Map;
+import java.util.Set;
 
 public class Not extends Exp {
 
@@ -13,6 +14,11 @@ public class Not extends Exp {
 	@Override
 	public Exp rename(Map<String, String> ren) {
 		return new Not(arg.rename(ren));
+	}
+
+	@Override
+	public Set<String> freeVars() {
+		return arg.freeVars();
 	}
 
 }

@@ -1,6 +1,8 @@
 package _ast;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 import _ast.util.Rename;
 
@@ -16,5 +18,9 @@ public class Var extends Exp {
 		return new Var(Rename.rename(ren, name));
 	}
 
+	@Override
+	public Set<String> freeVars() {
+		return Collections.singleton(name);
+	}
 	
 }
