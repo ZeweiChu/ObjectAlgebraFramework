@@ -91,7 +91,7 @@ $^{\textrm{2}}$ The University of Hong Kong\\
 \begin{abstract}
 
 Traversing complex data structures typically requires large amounts of
-tedious boilerplate code. For some operations most of the code simply
+tedious boilerplate code. For many operations most of the code simply
 walks the structure, and only a small portion of the code implements
 the functionality that motivated the traversal in the first place.
 This paper present a type-safe Java framework called \name that
@@ -100,7 +100,7 @@ are used to describe complex data structures. Using Java annotations
 generic boilerplate code is generated for various types of traversals,
 including queries and transformations. Then programmers can inherit
 the generic traversal code to focus only on writing the interesting
-parts of the traversals. Consequentely, the amount of code that
+parts of the traversals. Consequently, the amount of code that
 programmers need to write is significantly smaller, and traversals
 using the \name framework are also much more \emph{structure
   shy}. That is, since traversals have less type-specific code they

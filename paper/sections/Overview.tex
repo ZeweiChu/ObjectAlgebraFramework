@@ -9,8 +9,8 @@ In this section, we start by considering a practical problem of representing tre
 
 
 We start by considering the company structure introduced in
-Figure~\ref{company_structure}.\bruno{More text needed. Where does the
-company example come from? add a reference to it.}
+Fig.~\ref{company_structure}.\bruno{More text needed. Where does the
+company example come from? add a reference to it.} This example is borrowed from \cite{ralf03syb}, where they use the example to address the problem of boilerplate code when programming with rich tree structures in Haskell. 
 
 \begin{figure}[ht!]
 \centering
@@ -22,34 +22,27 @@ A very natural Object-Oriented way to model the company structure is
 as illustrated in Figure~\ref{oop_company} and
 Figure~\ref{oop_salary}. Similar code can be applied to
 \lstinline{Department}\bruno{references to code identifiers should be
-  printed with code font as in \lstinline{Department}.Chnage all such 
+  printed with code font as in \lstinline{Department}.Change all such 
 references throughout the paper.},
-Employee, SubUnit and Person. A Company comprises a list of
+\lstinline{Employee}, \lstinline{SubUnit} and \lstinline{Person}. A Company comprises a list of
 Departments. Each Department is managed by an Employee as the manager
 and contains a list of SubUnits. The SubUnit can be either a
 department or an Employee. An Employee is a Person with the Salary
 Information.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=6-17]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
+\lstinputlisting[linerange=6-23]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{Company Class in OOP style}
 \label{oop_company}
 \end{figure}
-
-\begin{figure}[tb]
-\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/sybDemo1/Salary.java} % APPLY:linerange=OOP_SALARY
-\vspace{-.1in}
-\caption{Salary Class in OOP style}
-\label{oop_salary}
-\end{figure}\bruno{No need for 2 figures. Just put the code for the
+\bruno{No need for 2 figures. Just put the code for the
   two classes in a single figure.}
 
 Now consider adding two operations to our company structure: query the
 salary bill for the whole company and increase the salary of each
 employee by 10\%. The methods Float salaryBill() and void
-increaseSalary() in Figure~\ref{oop_company} and
-Figure~\ref{oop_salary} is an easy solution.\bruno{Some more text
+increaseSalary() in Figure~\ref{oop_company} is an easy solution.\bruno{Some more text
   needed: why do we need to have the methods in most classes, but not
   in \lstinline{Person}?}
 

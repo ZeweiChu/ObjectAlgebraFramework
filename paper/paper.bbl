@@ -1,5 +1,9 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
+
+\bibitem{ralf03syb}
+ralf Lammel, S.P.J.: Scrap your boilerplate: A practical design pattern for
+  generic programming. In: TLDI'03 (2003)
 
 \end{thebibliography}

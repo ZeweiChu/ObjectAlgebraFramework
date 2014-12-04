@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  4 DEC 2014 12:54
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  4 DEC 2014 13:17
 entering extended mode
 **paper.tex
 
@@ -790,10 +790,14 @@ File: Company.jpg Graphic file (type jpg)
  <use Company.jpg>
 Package pdftex.def Info: Company.jpg used on input line 17.
 (pdftex.def)             Requested size: 256.0748pt x 175.65599pt.
+
+
+LaTeX Warning: Reference `oop_salary' on page 3 undefined on input line 23.
+
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
 (Font)              scaled to size 8.50006pt on input line 24.
- [3 <C:/Users/jasonchuzewei/Documents/GitHub/ObjectAlgebraFramework/ObjectAlgeb
-raFramework/paper/Company.jpg>]
+[3 <C:/Users/jasonchuzewei/Documents/GitHub/ObjectAlgebraFramework/ObjectAlgebr
+aFramework/paper/Company.jpg>]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\ObjectAlgebras\src\sybDemo1\Company.java
 LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
@@ -801,11 +805,12 @@ LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 (Font)              scaled to size 7.65005pt on input line 6.
 )
-(C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\ObjectAlgebras\src\sybDemo1\Salary.java) [4]
+Underfull \vbox (badness 1953) has occurred while \output is active []
+
+ [4]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\ObjectAlgebras\src\trees\SybAlg.java)
-Overfull \hbox (25.90831pt too wide) in paragraph at lines 129--130
+Overfull \hbox (25.90831pt too wide) in paragraph at lines 122--123
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][]
  []
@@ -870,39 +875,39 @@ amework\paper\sections/RelatedWork.tex [15])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\sections/Conclusion.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\paper.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 5.
-
-) [16]
+amework\paper\paper.bbl) [16]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\paper.aux) ) 
+amework\paper\paper.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14044 strings out of 493921
- 233997 string characters out of 3147257
+ 14042 strings out of 493921
+ 233752 string characters out of 3147257
  469243 words of memory out of 3000000
- 16942 multiletter control sequences out of 15000+200000
+ 16943 multiletter control sequences out of 15000+200000
  22504 words of font info for 60 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  41i,6n,72p,933b,1558s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname
-/8r.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}<
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/bera/fvmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/bera/fv
-mr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfbx0900.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfbx1000.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/cm-super/sfcc0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/cm-super/sfcc1000.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/cm-super/sfrm0600.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-sup
-er/sfrm0700.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm09
-00.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1000.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfti0900.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on paper.pdf (16 pages, 325931 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Program File
+s/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}<C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/bera/fvmb
+8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/bera/fvmr8a.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/cm-super/sfbx0900.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/cm-super/sfbx1000.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/cm-super/sfbx1200.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/cm-super/sfbx1440.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-
+super/sfcc0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfc
+c1000.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm0600.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm0700.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm0900.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1000.pfb><C:/Program Files/MiKTeX 2
+.9/fonts/type1/public/cm-super/sfti0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/cm-super/sfti1000.pfb>
+Output written on paper.pdf (16 pages, 327757 bytes).
 PDF statistics:
  128 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
