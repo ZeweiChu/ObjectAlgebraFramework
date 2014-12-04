@@ -1,17 +1,17 @@
 package _ast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import library.Pair;
 import ql_obj_alg.check.types.Type;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
 import ql_obj_alg.syntax.IStmtAlg;
-import library.Pair;
 
 public class Form {
 
@@ -32,17 +32,13 @@ public class Form {
 	}
 	
 	public Set<Pair<String,String>> controlDeps() {
-		Set<Pair<String, String>> deps = new HashSet<>();
-		for (Stmt s: body) {
-			deps.addAll(s.controlDeps());
-		}
-		return deps;
+		return Stmt.depMonoid.fold(body.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
 	}
 	
 	public Map<String,Type> typeEnv() {
-		Map<String,Type> tenv = new HashMap<String, Type>(); 
+		Map<String,Type> tenv = Stmt.typeEnvMonoid.empty(); 
 		for (Stmt s: body) {
-			tenv.putAll(s.typeEnv());
+			tenv = Stmt.typeEnvMonoid.join(tenv, s.typeEnv());
 		}
 		return tenv;
 	}

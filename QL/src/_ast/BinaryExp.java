@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.stringtemplate.v4.compiler.CodeGenerator.conditional_return;
-
 import ql_obj_alg.syntax.IExpAlg;
 
 public abstract class BinaryExp extends Exp {

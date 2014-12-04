@@ -91,11 +91,10 @@ public class Benchmark  {
 		return results;
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException {
-		benchmarkNoOp();
-//		benchmarkControlDeps();
-//		benchmarkTypeEnv();
-//		benchmarkRename();
+	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+		benchmarkControlDeps();
+		benchmarkTypeEnv();
+		benchmarkRename();
 	}
 
 	private static void benchmarkRename() throws FileNotFoundException {
@@ -134,30 +133,30 @@ public class Benchmark  {
 		r1 = benchmarkAST(0, 10000, 100, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
 		r2 = benchmarkAlg(0, 10000, 100, "rename", renamer);
 		
-		assert r1.size() == r2.size();
-		
-		for (int i = 0; i < r1.size(); i++) {
-			Form f = (Form) r1.get(i);
-			IFormat format1 = f.recons(algebra, algebra, algebra);
-			StringWriter writer1 = new StringWriter();
-			format1.format(0, true, writer1);
-			
-			IFormat format2 = (IFormat)r2.get(i);
-			StringWriter writer2 = new StringWriter();
-			format2.format(0, true, writer2);
-			
-			String src1 = writer1.toString();
-			String src2 = writer2.toString();
-			if (!src1.equals(src2)) {
-				System.err.println("Not equal!!! " + i);
-				System.err.println("FIRST: ---------");
-				System.err.println(src1);
-				System.err.println("SECOND: --------------");
-				System.err.println(src2);
-				System.exit(1);
-			}
-		}
-		System.out.println("Results equal.");
+//		assert r1.size() == r2.size();
+//		
+//		for (int i = 0; i < r1.size(); i++) {
+//			Form f = (Form) r1.get(i);
+//			IFormat format1 = f.recons(algebra, algebra, algebra);
+//			StringWriter writer1 = new StringWriter();
+//			format1.format(0, true, writer1);
+//			
+//			IFormat format2 = (IFormat)r2.get(i);
+//			StringWriter writer2 = new StringWriter();
+//			format2.format(0, true, writer2);
+//			
+//			String src1 = writer1.toString();
+//			String src2 = writer2.toString();
+//			if (!src1.equals(src2)) {
+//				System.err.println("Not equal!!! " + i);
+//				System.err.println("FIRST: ---------");
+//				System.err.println(src1);
+//				System.err.println("SECOND: --------------");
+//				System.err.println(src2);
+//				System.exit(1);
+//			}
+//		}
+//		System.out.println("Results equal.");
 	}
 
 	private static void benchmarkNoOp() throws FileNotFoundException {
@@ -171,11 +170,12 @@ public class Benchmark  {
 	private static void benchmarkTypeEnv() throws FileNotFoundException {
 		List<Object> r1;
 		List<Object> r2;
+		MapMonoid<String,Type> m = new MapMonoid<>();
 		r1 = benchmarkAST(0, 10000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
 		r2 = benchmarkAlg(0, 10000, 100, "typeEnv", new TypeEnv() {
 			@Override
 			public Monoid<Map<String, Type>> m() {
-				return new MapMonoid<>();
+				return m;
 			}
 		});		
 		
@@ -185,21 +185,24 @@ public class Benchmark  {
 	private static void benchmarkControlDeps() throws FileNotFoundException {
 		List<Object> r1, r2;
 		
+		SetMonoid<String> m = new SetMonoid<>();
+		SetMonoid<Pair<String,String>> m2 = new SetMonoid<>();
+		
 		r1 = benchmarkAST(0, 10000, 100, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
 		r2 = benchmarkAlg(0, 10000, 100, "controlDeps", new ControlDepGraph() {
 			@Override
 			public Monoid<Set<String>> mE() {
-				return new SetMonoid<>();
+				return m;
 			}
 			
 			@Override
 			public Monoid<Set<Pair<String,String>>> mF() {
-				return new SetMonoid<>();
+				return m2;
 			}
 			
 			@Override
 			public Monoid<Set<Pair<String,String>>> mS() {
-				return new SetMonoid<>();
+				return m2;
 			}
 		});
 		

@@ -1,37 +1,37 @@
 package _ast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import library.Pair;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 
-public class If extends Conditional {
-
-	public If(Exp cond, List<Stmt> statements) {
-		super(cond, statements);
+public class Unless extends Conditional {
+	
+	public Unless(Exp cond, List<Stmt> body) {
+		super(cond, body);
 	}
 
 	@Override
 	public Stmt rename(Map<String, String> ren) {
-		List<Stmt> body = new ArrayList<>();
-		for (Stmt s: this.then) {
-			body.add(s.rename(ren));
+		List<Stmt> stats = new ArrayList<>();
+		for (Stmt s: then) {
+			stats.add(s.rename(ren));
 		}
-		return new If(cond.rename(ren), body);
+		return new Unless(cond.rename(ren), stats);
 	}
+
 
 	@Override
 	public <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg) {
+		//throw new RuntimeException("extending visitor not possible, no recons for unless");
+		// NB: do the desugaring
 		List<S> stats = new ArrayList<>();
 		for (Stmt s: then) {
 			stats.add(s.recons(expAlg, stmtAlg));
 		}
-		return stmtAlg.iff(cond.recons(expAlg), stats);
+		return stmtAlg.iff(expAlg.not(cond.recons(expAlg)), stats);
 	}
 
 	@Override
@@ -42,12 +42,5 @@ public class If extends Conditional {
 		}
 		return count;
 	}
-
-	@Override
-	public Set<Pair<String, String>> controlDeps() {
-		return new IfElse(cond, then, Collections.emptyList()).controlDeps();
-	}
-
-	
 
 }

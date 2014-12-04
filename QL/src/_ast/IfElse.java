@@ -1,11 +1,13 @@
 package _ast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import library.Pair;
 import ql_obj_alg.check.types.Type;
@@ -36,29 +38,29 @@ public class IfElse extends Conditional {
 
 	@Override
 	public Map<String, Type> typeEnv() {
-		Map<String, Type> tenv = new HashMap<String, Type>();
-		tenv.putAll(super.typeEnv());
-		for (Stmt s : els) {
-			tenv.putAll(s.typeEnv());
+		Map<String, Type> tenv = typeEnvMonoid.empty();
+		for (Stmt s: els) {
+			tenv =  typeEnvMonoid.join(tenv, s.typeEnv());
 		}
-		return tenv;
+		return typeEnvMonoid.join(tenv, super.typeEnv());
 	}
 
 	@Override
 	public Set<Pair<String, String>> controlDeps() {
-		Set<Pair<String, String>> deps = new HashSet<>();
+		Set<Pair<String, String>> s1 = depMonoid.fold(then.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
+		Set<Pair<String, String>> s2 = depMonoid.fold(els.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
 		
-		Set<Pair<String, String>> elseDeps = bodyDeps(els);
-		for (Pair<String, String> p : elseDeps) {
-			if (p.b().equals("")) {
-				for (String x : cond.freeVars()) {
-					deps.add(new Pair<>(p.a(), x));
+		Set<Pair<String,String>> result = new HashSet<>();
+		for (Set<Pair<String,String>> s: Arrays.asList(s1, s2)) {
+			for (Pair<String,String> x: s) {
+				if (x.b().equals("")) {
+					for (String c: cond.freeVars()) {
+						result.add(new Pair<>(x.a(), c));
+					}
 				}
 			}
 		}
-		deps.addAll(super.controlDeps());
-		deps.addAll(elseDeps);
-		return deps;
+		return depMonoid.join(s1, depMonoid.join(s2, result));
 	}
 	
 	@Override
