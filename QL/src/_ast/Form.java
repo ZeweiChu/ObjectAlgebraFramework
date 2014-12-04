@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 import ql_obj_alg.check.types.Type;
+import ql_obj_alg.syntax.IExpAlg;
+import ql_obj_alg.syntax.IFormAlg;
+import ql_obj_alg.syntax.IStmtAlg;
 import library.Pair;
 
 public class Form {
@@ -43,4 +46,13 @@ public class Form {
 		}
 		return tenv;
 	}
+	
+	public <E, S, F> F recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
+		List<S> stats = new ArrayList<>();
+		for (Stmt s: body) {
+			stats.add(s.recons(expAlg, stmtAlg));
+		}
+		return formAlg.form(id, stats);
+	}
+	
 }

@@ -9,6 +9,8 @@ import java.util.Set;
 
 import library.Pair;
 import ql_obj_alg.check.types.Type;
+import ql_obj_alg.syntax.IExpAlg;
+import ql_obj_alg.syntax.IStmtAlg;
 
 public class IfElse extends Conditional {
 
@@ -57,6 +59,19 @@ public class IfElse extends Conditional {
 		deps.addAll(super.controlDeps());
 		deps.addAll(elseDeps);
 		return deps;
+	}
+	
+	@Override
+	public <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg) {
+		List<S> stats = new ArrayList<>();
+		for (Stmt s: then) {
+			stats.add(s.recons(expAlg, stmtAlg));
+		}
+		List<S> elseStats = new ArrayList<>();
+		for (Stmt s: els) {
+			stats.add(s.recons(expAlg, stmtAlg));
+		}
+		return stmtAlg.iffelse(cond.recons(expAlg), stats, elseStats);
 	}
 
 }
