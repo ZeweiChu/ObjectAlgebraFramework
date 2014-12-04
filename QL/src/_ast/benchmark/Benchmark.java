@@ -3,9 +3,11 @@ package _ast.benchmark;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +17,10 @@ import library.Pair;
 import monoids.MapMonoid;
 import monoids.SetMonoid;
 import noa.Builder;
+import ql_obj_alg.box.IFormat;
 import ql_obj_alg.check.types.Type;
+import ql_obj_alg.format.Format;
+import ql_obj_alg.format.IFormatWithPrecedence;
 import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
@@ -27,6 +32,7 @@ import _ast.BuildStmtAST;
 import _ast.Form;
 import _syb.query.ControlDepGraph;
 import _syb.query.TypeEnv;
+import _syb.trafo.RenameVariable;
 
 public class Benchmark  {
 
@@ -86,6 +92,88 @@ public class Benchmark  {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
+//		benchmarkControlDeps();
+//		benchmarkTypeEnv();
+		benchmarkRename();
+	}
+
+	private static void benchmarkRename() throws FileNotFoundException {
+		List<Object> r1;
+		List<Object> r2;
+		// x_14_15 -> bla
+		
+		Format algebra = new Format();
+		Map<String, String> ren = new HashMap<String, String>();
+		ren.put("x_14_15", "BLA");
+				
+		
+		RenameVariable<IFormatWithPrecedence, IFormat, IFormat> renamer  = new RenameVariable<IFormatWithPrecedence, IFormat, IFormat>() {
+			@Override
+			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
+				return algebra;
+			}
+
+			@Override
+			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
+				return algebra;
+			}
+
+			@Override
+			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
+				return algebra;
+			}
+
+			
+			@Override
+			public Map<String, String> renaming() {
+				return ren;
+			}
+		};
+
+		r1 = benchmarkAST(0, 10000, 1000, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
+		r2 = benchmarkAlg(0, 10000, 1000, "rename", renamer);
+		
+		assert r1.size() == r2.size();
+		
+		for (int i = 0; i < r1.size(); i++) {
+			Form f = (Form) r1.get(i);
+			IFormat format1 = f.recons(algebra, algebra, algebra);
+			StringWriter writer1 = new StringWriter();
+			format1.format(0, true, writer1);
+			
+			IFormat format2 = (IFormat)r2.get(i);
+			StringWriter writer2 = new StringWriter();
+			format2.format(0, true, writer2);
+			
+			String src1 = writer1.toString();
+			String src2 = writer2.toString();
+			if (!src1.equals(src2)) {
+				System.err.println("Not equal!!! " + i);
+				System.err.println("FIRST: ---------");
+				System.err.println(src1);
+				System.err.println("SECOND: --------------");
+				System.err.println(src2);
+				System.exit(1);
+			}
+		}
+		System.out.println("Results equal.");
+	}
+
+	private static void benchmarkTypeEnv() throws FileNotFoundException {
+		List<Object> r1;
+		List<Object> r2;
+		r1 = benchmarkAST(0, 1000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
+		r2 = benchmarkAlg(0, 1000, 100, "typeEnv", new TypeEnv() {
+			@Override
+			public Monoid<Map<String, Type>> m() {
+				return new MapMonoid<>();
+			}
+		});		
+		
+		System.out.println("Result equal: " + r1.equals(r2));
+	}
+
+	private static void benchmarkControlDeps() throws FileNotFoundException {
 		List<Object> r1, r2;
 		
 		r1 = benchmarkAST(0, 1000, 100, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
@@ -107,16 +195,5 @@ public class Benchmark  {
 		});
 		
 		System.out.println("Result equal: " + r1.equals(r2));
-		
-		r1 = benchmarkAST(0, 1000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
-		r2 = benchmarkAlg(0, 1000, 100, "typeEnv", new TypeEnv() {
-			@Override
-			public Monoid<Map<String, Type>> m() {
-				return new MapMonoid<>();
-			}
-		});		
-		
-		System.out.println("Result equal: " + r1.equals(r2));
-		
 	}
 }

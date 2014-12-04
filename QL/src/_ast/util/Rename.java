@@ -7,7 +7,7 @@ public class Rename {
 		String newName = old;
 		if (ren.containsKey(old)) {
 			newName = ren.get(old);
-			System.err.println("Renaming " + old + " to " + newName);
+			//System.err.println("Renaming " + old + " to " + newName);
 		}
 		return newName;
 	}

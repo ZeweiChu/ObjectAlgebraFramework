@@ -69,7 +69,7 @@ public class IfElse extends Conditional {
 		}
 		List<S> elseStats = new ArrayList<>();
 		for (Stmt s: els) {
-			stats.add(s.recons(expAlg, stmtAlg));
+			elseStats.add(s.recons(expAlg, stmtAlg));
 		}
 		return stmtAlg.iffelse(cond.recons(expAlg), stats, elseStats);
 	}
