@@ -46,7 +46,7 @@ public class Benchmark  {
 		for (String src: gen) {
 			Builder x = TheParser.parse(src);
 			long nBefore = System.nanoTime();
-			results.add(x.build(alg)); // building is computing the result
+			x.build(alg); // building is computing the result
 			long nAfter = System.nanoTime();
 			double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
 			System.out.println(src.length() + ", " +  String.format("%f", time));
@@ -76,25 +76,26 @@ public class Benchmark  {
 			try {
 				Method m = f.getClass().getMethod(method, types);
 				long nBefore = System.nanoTime();
-				results.add(m.invoke(f, args));
+				m.invoke(f, args);
 				long nAfter = System.nanoTime();
 				double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
 				System.out.println(src.length() + ", " +  String.format("%f", time));
 				output.println(src.length() + ", " +  String.format("%f", time));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				output.close();
 				throw new RuntimeException(e);
 			}
-			finally {
-				output.close();
-			}
+			
 		}
+		output.close();
 		return results;
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		benchmarkNoOp();
 //		benchmarkControlDeps();
 //		benchmarkTypeEnv();
-		benchmarkRename();
+//		benchmarkRename();
 	}
 
 	private static void benchmarkRename() throws FileNotFoundException {
@@ -130,8 +131,8 @@ public class Benchmark  {
 			}
 		};
 
-		r1 = benchmarkAST(0, 10000, 1000, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
-		r2 = benchmarkAlg(0, 10000, 1000, "rename", renamer);
+		r1 = benchmarkAST(0, 10000, 100, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
+		r2 = benchmarkAlg(0, 10000, 100, "rename", renamer);
 		
 		assert r1.size() == r2.size();
 		
@@ -159,11 +160,19 @@ public class Benchmark  {
 		System.out.println("Results equal.");
 	}
 
+	private static void benchmarkNoOp() throws FileNotFoundException {
+		Format algebra = new Format();
+
+		benchmarkAST(0, 10000, 100, "noop", "recons", new Class<?>[] {IExpAlg.class, IStmtAlg.class, IFormAlg.class}, 
+				new Object[] {algebra, algebra, algebra});
+		benchmarkAlg(0, 10000, 100, "noop", algebra);
+	}
+	
 	private static void benchmarkTypeEnv() throws FileNotFoundException {
 		List<Object> r1;
 		List<Object> r2;
-		r1 = benchmarkAST(0, 1000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
-		r2 = benchmarkAlg(0, 1000, 100, "typeEnv", new TypeEnv() {
+		r1 = benchmarkAST(0, 10000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
+		r2 = benchmarkAlg(0, 10000, 100, "typeEnv", new TypeEnv() {
 			@Override
 			public Monoid<Map<String, Type>> m() {
 				return new MapMonoid<>();
@@ -176,8 +185,8 @@ public class Benchmark  {
 	private static void benchmarkControlDeps() throws FileNotFoundException {
 		List<Object> r1, r2;
 		
-		r1 = benchmarkAST(0, 1000, 100, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
-		r2 = benchmarkAlg(0, 1000, 100, "controlDeps", new ControlDepGraph() {
+		r1 = benchmarkAST(0, 10000, 100, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
+		r2 = benchmarkAlg(0, 10000, 100, "controlDeps", new ControlDepGraph() {
 			@Override
 			public Monoid<Set<String>> mE() {
 				return new SetMonoid<>();

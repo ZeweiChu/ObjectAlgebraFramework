@@ -26,4 +26,8 @@ public class ComputedQuestion extends Question {
 		return stmtAlg.question(id, label, type, exp.recons(expAlg));
 	}
 
+	@Override
+	public int count() {
+		return super.count() + exp.count();
+	}
 }

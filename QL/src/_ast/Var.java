@@ -28,5 +28,10 @@ public class Var extends Exp {
 	public <E> E recons(IExpAlg<E> alg) {
 		return alg.var(name);
 	}
+
+	@Override
+	public int count() {
+		return 1;
+	}
 	
 }

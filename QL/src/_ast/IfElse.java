@@ -74,4 +74,16 @@ public class IfElse extends Conditional {
 		return stmtAlg.iffelse(cond.recons(expAlg), stats, elseStats);
 	}
 
+	@Override
+	public int count() {
+		int count = 1 + cond.count();
+		for (Stmt s: then) {
+			count += s.count();
+		}
+		for (Stmt s: els) {
+			count += s.count();
+		}
+		return count;
+	}
+	
 }

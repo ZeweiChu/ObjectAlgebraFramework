@@ -27,5 +27,10 @@ public class Bracket extends Exp {
 	public <E> E recons(IExpAlg<E> alg) {
 		return alg.bracket(exp.recons(alg));
 	}
+	
+	@Override
+	public int count() {
+		return 1 + exp.count();
+	}
 
 }

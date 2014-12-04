@@ -55,4 +55,12 @@ public class Form {
 		return formAlg.form(id, stats);
 	}
 	
+	public int count() {
+		int count = 1;
+		for (Stmt s: body) {
+			count += s.count();
+		}
+		return count;
+	}
+	
 }

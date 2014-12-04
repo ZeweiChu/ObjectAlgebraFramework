@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.stringtemplate.v4.compiler.CodeGenerator.conditional_return;
+
 import ql_obj_alg.syntax.IExpAlg;
 
 public abstract class BinaryExp extends Exp {
@@ -35,4 +37,9 @@ public abstract class BinaryExp extends Exp {
 	}
 	
 	protected abstract <E> E recons2(IExpAlg<E> alg, E lhs, E rhs);
+	
+	@Override
+	public int count() {
+		return 1 + lhs.count() + rhs.count();
+	}
 }

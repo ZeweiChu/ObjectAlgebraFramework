@@ -12,4 +12,5 @@ public abstract class Exp {
 	public abstract Set<String> freeVars();
 	
 	public abstract <E> E recons(IExpAlg<E> alg);
+	public abstract int count();
 }

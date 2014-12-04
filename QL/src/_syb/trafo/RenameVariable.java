@@ -12,7 +12,7 @@ public interface RenameVariable<E, S, F> extends IExpAlgTransform<E>, IStmtAlgTr
 		String newName = old;
 		if (renaming().containsKey(old)) {
 			newName = renaming().get(old);
-			System.err.println("Renaming " + old + " to " + newName);
+			//System.err.println("Renaming " + old + " to " + newName);
 		}
 		return newName;
 	}

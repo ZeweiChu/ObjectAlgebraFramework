@@ -32,6 +32,15 @@ public class If extends Conditional {
 		return stmtAlg.iff(cond.recons(expAlg), stats);
 	}
 
+	@Override
+	public int count() {
+		int count = 1 + cond.count();
+		for (Stmt s: then) {
+			count += s.count();
+		}
+		return count;
+	}
+
 	
 
 }

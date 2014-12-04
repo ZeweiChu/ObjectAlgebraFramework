@@ -27,5 +27,10 @@ public class Not extends Exp {
 	public <E> E recons(IExpAlg<E> alg) {
 		return alg.not(arg.recons(alg));
 	}
+	
+	@Override
+	public int count() {
+		return 1 + arg.count();
+	}
 
 }

@@ -13,4 +13,5 @@ public abstract class Stmt {
 	public abstract Map<String,Type> typeEnv();
 	public abstract Set<Pair<String,String>> controlDeps();
 	public abstract <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg);
+	public abstract int count();
 }

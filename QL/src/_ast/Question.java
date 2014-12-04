@@ -29,4 +29,8 @@ public abstract class Question extends Stmt {
 		return Collections.singleton(new Pair<>(id, ""));
 	}
 	
+	@Override
+	public int count() {
+		return 1;
+	}
 }
