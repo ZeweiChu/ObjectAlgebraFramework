@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  4 DEC 2014 13:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.11)  4 DEC 2014 14:52
 entering extended mode
 **paper.tex
 
@@ -804,26 +804,23 @@ LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <9> not available
 (Font)              Font shape `T1/fvm/b/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 (Font)              scaled to size 7.65005pt on input line 6.
-)
-Underfull \vbox (badness 1953) has occurred while \output is active []
-
- [4]
+) [4]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\ObjectAlgebras\src\trees\SybAlg.java)
-Overfull \hbox (25.90831pt too wide) in paragraph at lines 122--123
+amework\ObjectAlgebras\src\trees\SybAlg.java) [5]
+Overfull \hbox (25.90831pt too wide) in paragraph at lines 113--114
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][]
  []
 
-[5]
+[6]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\ObjectAlgebras\src\example_SybAlg\FloatQuery.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\ObjectAlgebras\src\example_SybAlg\IncSalary.java)) [6]
+amework\ObjectAlgebras\src\example_SybAlg\IncSalary.java))
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\sections/Queries.tex [7]
+amework\paper\sections/Queries.tex [7] [8]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\ObjectAlgebras\src\expDemo3\QueryExpAlg.java) [8] [9]
+amework\ObjectAlgebras\src\expDemo3\QueryExpAlg.java) [9]
 Overfull \hbox (5.62732pt too wide) in paragraph at lines 138--139
 []\T1/cmr/m/n/10 When the class Free-Vars-Query-Ex-pAlg is used, an ob-ject of 
 the Free-VarsMonoid
@@ -831,7 +828,7 @@ the Free-VarsMonoid
 
 )
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\sections/GeneralizedQueries.tex
+amework\paper\sections/GeneralizedQueries.tex [10]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\ObjectAlgebras\src\trees\StatAlg.java)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
@@ -844,16 +841,16 @@ r/m/n/10 (\OML/cmm/m/it/10 Stats\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; Stats\OT1/c
 mr/m/n/10 2)$
  []
 
-[10] [11]
+[11]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\ObjectAlgebras\src\deps2\DepGraph.java))
+amework\ObjectAlgebras\src\deps2\DepGraph.java) [12])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\sections/Transformations.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
-[12]
+[13]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
@@ -863,19 +860,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
-[13])
+[14])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\sections/Framework.tex [14])
+amework\paper\sections/Framework.tex [15])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\sections/Other.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\sections/CaseStudy.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\sections/RelatedWork.tex [15])
+amework\paper\sections/RelatedWork.tex [16])
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\sections/Conclusion.tex)
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
-amework\paper\paper.bbl) [16]
+amework\paper\paper.bbl) [17]
 (C:\Users\jasonchuzewei\Documents\GitHub\ObjectAlgebraFramework\ObjectAlgebraFr
 amework\paper\paper.aux)
 
@@ -883,13 +880,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14042 strings out of 493921
- 233752 string characters out of 3147257
- 469243 words of memory out of 3000000
- 16943 multiletter control sequences out of 15000+200000
+ 14044 strings out of 493921
+ 233779 string characters out of 3147257
+ 445243 words of memory out of 3000000
+ 16945 multiletter control sequences out of 15000+200000
  22504 words of font info for 60 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 41i,6n,72p,933b,1558s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,6n,72p,956b,1560s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Program File
 s/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}<C:/Program Files/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/font
@@ -907,9 +904,9 @@ ram Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm0900.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1000.pfb><C:/Program Files/MiKTeX 2
 .9/fonts/type1/public/cm-super/sfti0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/
 type1/public/cm-super/sfti1000.pfb>
-Output written on paper.pdf (16 pages, 327757 bytes).
+Output written on paper.pdf (17 pages, 332464 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
+ 131 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,4 +6,8 @@
 ralf Lammel, S.P.J.: Scrap your boilerplate: A practical design pattern for
   generic programming. In: TLDI'03 (2003)
 
+\bibitem{bruno12oa}
+Bruno C.~d. S.~Oliveira, W.R.C.: Extensibility for the masses, practical
+  extensibility with object algebras. In: ECOOP'12 (2004)
+
 \end{thebibliography}
