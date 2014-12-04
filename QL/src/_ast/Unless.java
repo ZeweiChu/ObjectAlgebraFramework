@@ -3,7 +3,9 @@ package _ast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import library.Pair;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 
@@ -41,6 +43,11 @@ public class Unless extends Conditional {
 			count += s.count();
 		}
 		return count;
+	}
+
+	@Override
+	public Set<Pair<String, String>> controlDeps() {
+		return new If(cond, then).controlDeps();
 	}
 
 }
