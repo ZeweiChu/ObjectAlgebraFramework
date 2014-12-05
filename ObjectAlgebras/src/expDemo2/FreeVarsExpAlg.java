@@ -1,17 +1,13 @@
 package expDemo2;
 
-//BEGIN_QUERY
-public interface FreeVarsExpAlg extends ExpAlg<String[]>{
-	@Override
-	default String[] Var(String s){
+public interface FreeVarsExpAlg extends ExpAlg<String[]> {
+	default String[] Var(String s) {
 		return new String[]{s};
 	}
-	@Override
-	default String[] Lit(int i){
+	default String[] Lit(int i) {
 		return new String[]{};
 	}
-	@Override
-	default String[] Add(String[] e1, String[] e2){
+	default String[] Add(String[] e1, String[] e2) {
 		int e1len = e1.length;
 		int e2len = e2.length;
 		String[] res = new String[e1len+e2len];
@@ -20,4 +16,3 @@ public interface FreeVarsExpAlg extends ExpAlg<String[]>{
 		return res;
 	}
 }
-//END_QUERY

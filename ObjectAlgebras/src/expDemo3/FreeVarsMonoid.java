@@ -1,12 +1,9 @@
 package expDemo3;
 
-//BEGIN_FREEVARS_MONOID
-public class FreeVarsMonoid implements Monoid<String[]>{
-	@Override
+public class FreeVarsMonoid implements Monoid<String[]> {
 	public String[] empty() {
 		return new String[]{};
 	}
-	@Override
 	public String[] join(String[] e1, String[] e2) {
 		int e1len = e1.length;
 		int e2len = e2.length;
@@ -16,4 +13,3 @@ public class FreeVarsMonoid implements Monoid<String[]>{
 		return res;
 	}
 }
-//END_FREEVARS_MONOID
