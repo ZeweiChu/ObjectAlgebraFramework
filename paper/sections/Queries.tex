@@ -15,6 +15,9 @@ query.
 A normal paragraph is created by having an empty line, not by using
 ``$\backslash\backslash$". The ``$\backslash\backslash$" command is only for forcing a new line.}
 \end{comment}
+\begin{comment}
+Write a new definition. Class or interface?
+\end{comment}
 
 \subsection{FreeVars: a simple query algebra}\label{subsec:freevars}
 
@@ -37,15 +40,14 @@ two expressions. Specifically, the structure is defined as follows:
 
 Based on the interface above, a query might be raised on collecting
 all the names of free variables defined in an expression. More
-precisely, an array of strings would be used to store the names of
-those variables. In that case, a \lstinline{Var(s)} would simply return a singleton of \lstinline{s}, and a \lstinline{Lit(i)} corresponds to an empty set,
-whereas two arrays would be merged into one if we are combining two
+precisely, a list of strings would be used to store the names of
+those variables. In that case, a \lstinline{Var(s)} would simply return a singleton list of \lstinline{s}, and a \lstinline{Lit(i)} corresponds to an empty list, whereas two lists would be joined into one if we are combining two
 expressions with the \lstinline{Add()} method.
 
 Generally speaking, it is natural to deal with the traversal in an algebra-based approach like Fig.~\ref{freevars_without_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=3-18]{../ObjectAlgebras/src/expDemo2/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\lstinputlisting[linerange=7-19]{../ObjectAlgebras/src/expDemo2/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \vspace{-.1in}
 \caption{A normal algebra-based approach for freeVars}
 \label{freevars_without_monoid}
@@ -70,14 +72,14 @@ the information. With these two issues, everything becomes simple in
 the traversal. Hence we introduce the concept of monoid and generic
 traversal here in our query algebras.
 
-\begin{figure}[!htbp]
+\begin{figure}[tb]
 \lstinputlisting[linerange=5-15]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
 \vspace{-.1in}
 \caption{A generalized monoid interface}
 \label{monoid}
 \end{figure}
 
-The interface of a monoid is defined above. Intuitively, the \lstinline{join()}
+The interface of a monoid is defined in Fig.~\ref{monoid}. Intuitively, the \lstinline{join()}
 method implies how we combine the information from substructures during
 merging, and the \lstinline{empty()} is just an indicator of ``no
 information''. Hence now we are able to write a ``generic traversal''
@@ -99,10 +101,10 @@ And now we find everything goes in an easier way: we don't care about what kind 
 
 \subsection{Solving freeVars with generic query algebra}\label{subsec:solvingfreevars}
 
-As an alternative way to handle the freeVars query, the query algebra is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic algebra, with generic type to be \lstinline{String[]}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
+As an alternative way to handle the freeVars query, the query algebra is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic algebra, with generic type to be \lstinline{List<String>}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=3-15]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
+\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
 \vspace{-.1in}
 \caption{A monoid instance defined for freeVars}
 \label{freevars_monoid}
@@ -110,10 +112,10 @@ As an alternative way to handle the freeVars query, the query algebra is going t
 \bruno{Is an array the best structure to use here?
   Wouldn't a vector or list be better? The simpler the code is, the better.}
 
-But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, freeVars can be implemented by:
+But the result for an expression can only be a null list based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into a list, and by using the monoid, freeVars can be implemented. See Fig.~\ref{freevars_with_monoid}.
 
-\begin{figure}[!htbp]
-\lstinputlisting[linerange=3-6]{../ObjectAlgebras/src/expDemo3/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITH_MONOID
+\begin{figure}[tb]
+\lstinputlisting[linerange=6-13]{../ObjectAlgebras/src/expDemo3/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 \vspace{-.1in}
 \caption{The query interface for freeVars}
 \label{freevars_with_monoid}

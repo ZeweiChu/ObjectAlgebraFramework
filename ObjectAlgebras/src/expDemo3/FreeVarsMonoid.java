@@ -1,15 +1,16 @@
 package expDemo3;
 
-public class FreeVarsMonoid implements Monoid<String[]> {
-	public String[] empty() {
-		return new String[]{};
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class FreeVarsMonoid implements Monoid<List<String>> {
+	public List<String> empty() {
+		return Collections.emptyList();
 	}
-	public String[] join(String[] e1, String[] e2) {
-		int e1len = e1.length;
-		int e2len = e2.length;
-		String[] res = new String[e1len+e2len];
-		System.arraycopy(e1, 0, res, 0, e1len);
-		System.arraycopy(e2, 0, res, e1len, e2len);
+	public List<String> join(List<String> e1, List<String> e2) {
+		List<String> res = new ArrayList<String>(e1);
+		res.addAll(e2);
 		return res;
 	}
 }

@@ -1,5 +1,7 @@
 package expDemo3;
 
+import java.util.List;
+
 /*Using manual queries and transformations: Implement generic queries and transformations for the language 
  * (but do not use our framework). Then implement freeVars as a query and substVars as a transformation.
  */
@@ -10,12 +12,12 @@ public class ExpTest {
 		
 	public static void main(String[] args) {		
 		FreeVarsExpAlg alg = new FreeVarsExpAlg(){};
-		SubstVarsExpAlg<String[]> substVarsExpAlg = new SubstVarsExpAlg<String[]>() {
-			public ExpAlg<String[]> expAlg() { return alg; }
+		SubstVarsExpAlg<List<String>> substVarsExpAlg = new SubstVarsExpAlg<List<String>>() {
+			public ExpAlg<List<String>> expAlg() { return alg; }
 			public String getVar() { return "var1"; }
-			public String[] getExp() { return expAlg().Var("var4"); }
+			public List<String> getExp() { return expAlg().Var("var4"); }
 		};
-		String[] res = genExp(substVarsExpAlg);
+		List<String> res = genExp(substVarsExpAlg);
 		for (String s: res) System.out.println(s);
 	}
 }

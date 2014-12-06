@@ -9,9 +9,15 @@ look at papers like Syb to see how they describe queries and transformations}. A
 top-down traversal throughout the hierarchy. It is something
 supporting the program to gather information from the substructures of
 a data type recursively, and make a response at the root node to the
-query.\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
+query.
+\begin{comment}
+\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
 A normal paragraph is created by having an empty line, not by using
 ``$\backslash\backslash$". The ``$\backslash\backslash$" command is only for forcing a new line.}
+\end{comment}
+\begin{comment}
+Write a new definition. Class or interface?
+\end{comment}
 
 \subsection{FreeVars: a simple query algebra}\label{subsec:freevars}
 
@@ -112,7 +118,7 @@ But the result for an expression can only be a null array based on the monoid. T
 \begin{figure}[!htbp]
 \lstinputlisting[linerange=3-6]{../ObjectAlgebras/src/expDemo3/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 \vspace{-.1in}
-\caption{The query interface for freeVars using monoid}
+\caption{The query interface for freeVars}
 \label{freevars_with_monoid}
 \end{figure}
 

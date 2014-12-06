@@ -1,18 +1,19 @@
 package expDemo2;
 
-public interface FreeVarsExpAlg extends ExpAlg<String[]> {
-	default String[] Var(String s) {
-		return new String[]{s};
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public interface FreeVarsExpAlg extends ExpAlg<List<String>> {
+	default List<String> Var(String s) {
+		return Collections.singletonList(s);
 	}
-	default String[] Lit(int i) {
-		return new String[]{};
+	default List<String> Lit(int i) {
+		return Collections.emptyList();
 	}
-	default String[] Add(String[] e1, String[] e2) {
-		int e1len = e1.length;
-		int e2len = e2.length;
-		String[] res = new String[e1len+e2len];
-		System.arraycopy(e1, 0, res, 0, e1len);
-		System.arraycopy(e2, 0, res, e1len, e2len);
+	default List<String> Add(List<String> e1, List<String> e2) {
+		List<String> res = new ArrayList<String>(e1);
+		res.addAll(e2);
 		return res;
 	}
 }
