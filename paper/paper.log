@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.22)  5 DEC 2014 19:13
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.22)  6 DEC 2014 16:10
 entering extended mode
 **C:/Users/hyzhang/Desktop/ObjectAlgebraFramework/paper/paper.tex
 (C:/Users/hyzhang/Desktop/ObjectAlgebraFramework/paper/paper.tex
@@ -793,82 +793,78 @@ Underfull \vbox (badness 7981) has occurred while \output is active []
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo2\Ex
 pAlg.java)
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo2\Fr
-eeVarsExpAlg.java) [8]
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\Library\src\library\Monoid.jav
-a)
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Qu
-eryExpAlg.java) [9]
+eeVarsExpAlg.java)
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Mo
+noid.java) [8]
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Ex
+pAlgQuery.java)
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Fr
-eeVarsMonoid.java) [10]
+eeVarsMonoid.java)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Fr
-eeVarsQueryExpAlg.java))
+eeVarsExpAlg.java))
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/GeneralizedQuer
-ies.tex
+ies.tex [10]
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\trees\StatA
-lg.java) [11]
+lg.java)
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\deps1\DepGr
-aph.java) [12]
+aph.java) [11] [12]
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\deps2\DepGr
-aph.java) [13])
+aph.java))
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Transformations
-.tex
-Underfull \hbox (badness 10000) in paragraph at lines 4--5
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
-
- []
-
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
-
- []
-
-[15])
+.tex [13]
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo2\Su
+bstVarsExpAlg.java)
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Ex
+pAlgTransform.java) [14]
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\ObjectAlgebras\src\expDemo3\Su
+bstVarsExpAlg.java))
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Framework.tex
+[15]
 Overfull \hbox (2.63828pt too wide) in paragraph at lines 26--27
 []\T1/cmr/m/n/10 Here the au-to-mat-i-cal-ly gen-er-at-ed Ex-pAl-gQuery, G_ExpA
 lgQuery, Ex-pAl-gTrans-
  []
 
-) [16]
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Other.tex)
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/CaseStudy.tex)
+) (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Other.tex)
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/CaseStudy.tex
+Underfull \vbox (badness 3302) has occurred while \output is active []
+
+ [16])
 (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/RelatedWork.tex
-[17])
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Conclusion.tex)
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\paper.bbl) [18]
-(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\paper.aux) ) 
+)
+(C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\sections/Conclusion.tex
+[17]) (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\paper.bbl)
+[18] (C:\Users\hyzhang\Desktop\ObjectAlgebraFramework\paper\paper.aux) ) 
 Here is how much of TeX's memory you used:
- 13810 strings out of 495354
- 228209 string characters out of 3183075
- 438120 words of memory out of 3000000
- 16576 multiletter control sequences out of 15000+200000
+ 13817 strings out of 495354
+ 228744 string characters out of 3183075
+ 462120 words of memory out of 3000000
+ 16578 multiletter control sequences out of 15000+200000
  22504 words of font info for 60 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  49i,6n,72p,1020b,1562s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program 
-Files/CTeX/MiKTeX/fonts/enc/dvips/fontname/8r.enc}{C:/Program Files/CTeX/MiKTeX
-/fonts/enc/dvips/cm-super/cm-super-t1.enc}<C:/Program Files/CTeX/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/bera/fvmb8
-a.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:/Program Fil
-es/CTeX/MiKTeX/fonts/type1/public/cm-super/sfbx0900.pfb><C:/Program Files/CTeX/
-MiKTeX/fonts/type1/public/cm-super/sfbx1000.pfb><C:/Program Files/CTeX/MiKTeX/f
-onts/type1/public/cm-super/sfbx1200.pfb><C:/Program Files/CTeX/MiKTeX/fonts/typ
-e1/public/cm-super/sfbx1440.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/publi
-c/cm-super/sfcc0900.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-sup
-er/sfcc1000.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm0
-600.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm0700.pfb>
-<C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm0900.pfb><C:/Prog
-ram Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm1000.pfb><C:/Program File
-s/CTeX/MiKTeX/fonts/type1/public/cm-super/sfti0900.pfb><C:/Program Files/CTeX/M
-iKTeX/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on paper.pdf (18 pages, 320110 bytes).
+{C:/Pro
+gram Files/CTeX/MiKTeX/fonts/enc/dvips/fontname/8r.enc}{C:/Program Files/CTeX/M
+iKTeX/fonts/enc/dvips/cm-super/cm-super-t1.enc}<C:/Program Files/CTeX/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type
+1/bera/fvmb8a.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:
+/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfbx0900.pfb><C:/Program
+ Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfbx1000.pfb><C:/Program Files/C
+TeX/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Program Files/CTeX/MiKT
+eX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Program Files/CTeX/MiKTeX/fonts
+/type1/public/cm-super/sfcc0900.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/p
+ublic/cm-super/sfcc1000.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm
+-super/sfrm0600.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/s
+frm0700.pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm0900.
+pfb><C:/Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfrm1000.pfb><C:/
+Program Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfti0900.pfb><C:/Program 
+Files/CTeX/MiKTeX/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on paper.pdf (18 pages, 312119 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
+ 126 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

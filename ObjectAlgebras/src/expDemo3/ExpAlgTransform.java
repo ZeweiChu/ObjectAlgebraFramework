@@ -1,33 +1,14 @@
 package expDemo3;
 
-//BEGIN_GENERIC_TRANSFORM
-public interface ExpAlgTransform extends ExpAlg<G_Exp> {
-	@Override
-	default G_Exp Add(G_Exp e1, G_Exp e2) {
-		return new G_Exp() {
-			@Override
-			public <Exp> Exp accept(ExpAlg<Exp> alg) {
-				return alg.Add(e1.accept(alg), e2.accept(alg));
-			}
-		};
+public interface ExpAlgTransform<Exp> extends ExpAlg<Exp> {
+	ExpAlg<Exp> expAlg();
+	default Exp Var(String s) {
+		return expAlg().Var(s);
 	}
-	@Override
-	default G_Exp Lit(int i) {
-		return new G_Exp() {
-			@Override
-			public <Exp> Exp accept(ExpAlg<Exp> alg) {
-				return alg.Lit(i);
-			}
-		};
+	default Exp Lit(int i) {
+		return expAlg().Lit(i);
 	}
-	@Override
-	default G_Exp Var(String s) {
-		return new G_Exp() {
-			@Override
-			public <Exp> Exp accept(ExpAlg<Exp> alg) {
-				return alg.Var(s);
-			}
-		};
+	default Exp Add(Exp e1, Exp e2) {
+		return expAlg().Add(e1, e2);
 	}
 }
-//END_GENERIC_TRANSFORM

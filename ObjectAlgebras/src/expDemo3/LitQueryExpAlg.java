@@ -1,7 +1,0 @@
-package expDemo3;
-
-public class LitQueryExpAlg extends QueryExpAlg<Integer>{
-	public LitQueryExpAlg(Monoid<Integer> m) {super(m);}
-	@Override
-	public Integer Lit(int i){return i;}
-}

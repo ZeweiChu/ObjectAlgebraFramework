@@ -9,9 +9,12 @@ look at papers like Syb to see how they describe queries and transformations}. A
 top-down traversal throughout the hierarchy. It is something
 supporting the program to gather information from the substructures of
 a data type recursively, and make a response at the root node to the
-query.\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
+query.
+\begin{comment}
+\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
 A normal paragraph is created by having an empty line, not by using
 ``$\backslash\backslash$". The ``$\backslash\backslash$" command is only for forcing a new line.}
+\end{comment}
 
 \subsection{FreeVars: a simple query algebra}\label{subsec:freevars}
 
@@ -31,12 +34,11 @@ two expressions. Specifically, the structure is defined as follows:
   repository directly via the ruby script! The same applies to the
   other pieces of code in the rest of the paper.}
 \end{comment}
-  
+
 Based on the interface above, a query might be raised on collecting
 all the names of free variables defined in an expression. More
 precisely, an array of strings would be used to store the names of
-those variables. In that case, a \lstinline{Var(s)} would simply return an
-one-element array of \lstinline{s}, and a \lstinline{Lit(i)} corresponds to an empty set,
+those variables. In that case, a \lstinline{Var(s)} would simply return a singleton of \lstinline{s}, and a \lstinline{Lit(i)} corresponds to an empty set,
 whereas two arrays would be merged into one if we are combining two
 expressions with the \lstinline{Add()} method.
 
@@ -69,14 +71,14 @@ the traversal. Hence we introduce the concept of monoid and generic
 traversal here in our query algebras.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=6-16]{../Library/src/library/Monoid.java} % APPLY:linerange=MONOID
+\lstinputlisting[linerange=5-15]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
 \vspace{-.1in}
 \caption{A generalized monoid interface}
 \label{monoid}
 \end{figure}
 
 The interface of a monoid is defined above. Intuitively, the \lstinline{join()}
-method implies how we gather the information from substructures during
+method implies how we combine the information from substructures during
 merging, and the \lstinline{empty()} is just an indicator of ``no
 information''. Hence now we are able to write a ``generic traversal''
 manually based on monoids. See Fig.~\ref{generic_query}.
@@ -87,20 +89,20 @@ manually based on monoids. See Fig.~\ref{generic_query}.
 \end{comment}
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=3-21]{../ObjectAlgebras/src/expDemo3/QueryExpAlg.java} % APPLY:linerange=GENERIC_QUERY
+\lstinputlisting[linerange=3-19]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
 \vspace{-.1in}
 \caption{Generic query by hand with monoid}
 \label{generic_query}
 \end{figure}
 
-And now we find everything goes in an easier way: we don't care about what kind of query it is any more during the traversal. Despite whether it asks for all the names of free variables or a printer showing the hierarchy of an expression, all we need to do is to traverse a monoid to the generic traversal class, and the monoid is exactly constructed by implementing the previous interface. This is the progress, once we prepare such a template dealing with the traversal, all query algebras can be addressed in a more concise way, which is called the \textit{generic query algebra}.
+And now we find everything goes in an easier way: we don't care about what kind of query it is any more during the traversal. Despite whether it asks for all the names of free variables or a printer showing the hierarchy of an expression, at first we can simply override the method \lstinline{m()}, which provides an instance of \lstinline{Monoid}, in the return statement. As the next step, we only need to override a few other methods to meet the requirements. This is the progress, once we have such a template dealing with the traversal, all query algebras can be addressed in a more concise way, which is called the \textit{generic query algebra}.
 
 \subsection{Solving freeVars with generic query algebra}\label{subsec:solvingfreevars}
 
-As an alternative way to handle the freeVars query, the query algebra is going to be a subclass of \lstinline{QueryExpAlg}, the generic algebra, with generic type to be \lstinline{String[]}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
+As an alternative way to handle the freeVars query, the query algebra is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic algebra, with generic type to be \lstinline{String[]}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=3-21]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
+\lstinputlisting[linerange=3-15]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
 \vspace{-.1in}
 \caption{A monoid instance defined for freeVars}
 \label{freevars_monoid}
@@ -108,13 +110,13 @@ As an alternative way to handle the freeVars query, the query algebra is going t
 \bruno{Is an array the best structure to use here?
   Wouldn't a vector or list be better? The simpler the code is, the better.}
 
-But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, the query algebra will be like:
+But the result for an expression can only be a null array based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into an array, and by using the monoid, freeVars can be implemented by:
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=3-6]{../ObjectAlgebras/src/expDemo3/FreeVarsQueryExpAlg.java} % APPLY:linerange=FREEVARS_QUERY
+\lstinputlisting[linerange=3-6]{../ObjectAlgebras/src/expDemo3/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 \vspace{-.1in}
-\caption{The query class for freeVars using monoid}
-\label{freevars_query}
+\caption{The query interface for freeVars}
+\label{freevars_with_monoid}
 \end{figure}
 
-When the class \lstinline{FreeVarsQueryExpAlg} is used, an object of the \lstinline{FreeVarsMonoid} should be created and traversed to the constructor. As we can see, it is needless for a user to address the traversals in a data structure. Nothing but a monoid is required together with a few methods being overwritten. And furthermore, a monoid can usually be shared among query algebras with the same data type.
+When the interface \lstinline{FreeVarsExpAlg} is used, an object of the \lstinline{FreeVarsMonoid} is then created. As we can see, it is needless for a user to write an exclusive traversal fully for a data structure. Nothing but a monoid is required together with a few methods being overwritten. And furthermore, a monoid can usually be shared among query algebras with the same data type.

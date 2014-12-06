@@ -1,56 +1,56 @@
 \section{Transformations}\label{sec:transformations}
 \label{retroimp}
 
-Besides the collection of information, one may also want to modify the information under some circumstances, in which case transformation is inspired. Transformation is another essential type of operations handling a data structure. Whereas a programmer unavoidably should also write a bunch of boilerplate code traversing the structure to do some modification.\\
+Besides the collection of information, one may also want to modify the information under some circumstances, by which transformation is inspired. Transformation is another essential type of object algebras with respect to query. Whereas a programmer unavoidably should also write a bunch of boilerplate code traversing the structure make some changes.\\
 
-\subsection{SubstVars: a tranformation algebra}\label{subsec:substvars}
+\subsection{SubstVars: a simple tranformation algebra}\label{subsec:substvars}
 
-An example of the transformation algebra, based on the interface ExpAlg above is called \textit{substVars}. We anticipate to substitute a given expression for a specific variable. To address this issue, a programmer who has knowledge of object algebras may usually write some traversal code like:
+An example of the transformation algebra, based on the interface ExpAlg is called \textit{substVars}. We anticipate to substitute a given expression for a specific variable. To address this issue, a programmer who has knowledge of object algebras may usually write some traversal code like Fig.~\ref{substvars_without_monoid}.
 
-\begin{lstlisting}[numbers=none]
-public class SubstVarsExpAlg implements ExpAlg<String> {
-	String v, e;
-	SubstVarsExpAlg(String v, String e) {
-		this.v = v;
-		this.e = e;
-	}
-	public String Var(String s) {
-		return v.equals(s) ? e : s;
-	}
-	public String Lit(int x) {
-		return "" + x;
-	}
-	public String Add(String e1, String e2) {
-		return "( " + e1 + " + " + e2 + " )";
-	}
-}
-\end{lstlisting}
+\begin{figure}[tb]
+\lstinputlisting[linerange=3-16]{../ObjectAlgebras/src/expDemo2/SubstVarsExpAlg.java} % APPLY:linerange=SUBSTVARS_WITHOUT_MONOID
+\vspace{-.1in}
+\caption{A normal algebra-based approach for substVars}
+\label{substvars_without_monoid}
+\end{figure}
 
-Here v is the name of the specified variable, and e is the substitution. Moreover, this piece of code attaches the transformation to a query of type String, which works as a pretty printer. Nevertheless in that case, transformations are dependent on query algebras, which results in the loss of modularity. Furthermore, with a different transformation algebra, the user still has to write similar traversal code correspondingly, which is very boring.\\
+In Fig.~\ref{substvars_without_monoid}, \lstinline{getVar()} is the name of the specified variable, and \lstinline{getExp()} is the substitution. \lstinline{expAlg()} is an instance of \lstinline{ExpAlg} on which the transformation is based. A same problem occurs at this moment. The boilerplate code consists of a particular traversal, with implementing all methods in the algebra interface to fulfill the requirements. It implies redundant work for a different transformation.
 
 \subsection{The identity approach}\label{subsec:idapproach}
 
 In the section of query algebras, we introduce monoids to implement the generic traversal of an object algebra interface. And similarly, the technique to achieve the generic traversal on transformations is called the \textit{identity approach}.
 
+\begin{figure}[tb]
+\lstinputlisting[linerange=3-14]{../ObjectAlgebras/src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
+\vspace{-.1in}
+\caption{Generic transformation by hand with identity approach}
+\label{generic_transform}
+\end{figure}
+
+Fig.~\ref{generic_transform} shows the generic transformation code of \lstinline{ExpAlg} with our identity approach. This class takes an algebra as the incoming argument, and works exactly in the same way as the algebra. In this way transformations become independent of queries, holding the modularity as expected. And though this class is actually doing nothing, a user can simply override some of the methods and get a certain transformation algebra.\\
+
+Another important characteristic is that we can apply several transformations to the data structure before a query. This pattern is called the \textit{transformation pipeline}. Since a transformation algebra has the same type as the argument its constructor takes, a programmer can define a number of transformation algebras, and make them nested. At the meantime, a query algebra is passed to the innermost constructor. In that case, the query is traversed recursively throughout the pipeline and eventually derives a certain composite transformation algebra.
+
+\subsection{Solving substVars with generic transformation algebra}\label{subsec:solvingsubst}
+
+Now with the generic transformation, the substVars transformation can be addressed by simply creating a subclass of it, where some methods are overridden.
+
 \begin{lstlisting}[numbers=none]
-public class SubstVarsExpAlg<Exp> implements ExpAlg<Exp> {
-	ExpAlg<Exp> alg;
-	public SubstVarsExpAlg(ExpAlg<Exp> alg) {this.alg = alg;}
+class SubstVarsExpAlg<Exp> extends ExpAlgTransform<Exp> {
+	String v;
+	Exp e;
+	public SubstVarsExpAlg(ExpAlg<Exp> alg, String v, Exp e) {
+		super(alg);
+		this.v = v;
+		this.e = e;
+	}
 	public Exp Var(String s) {
-		return alg.Var(s);
-	}
-	public Exp Lit(int x) {
-		return alg.Lit(x);
-	}
-	public Exp Add(Exp e1, Exp e2) {
-		return alg.Add(e1, e2);
+		return v.equals(s) ? e : alg.Var(s);
 	}
 }
 \end{lstlisting}
 
-Here is the generic transformation code of ExpAlg with our identity approach. This class takes an algebra as the incoming argument, and works exactly in the same way as the algebra. In this way transformations become independent of queries, holding the modularity as expected. And though this class is actually doing nothing, a user can simply override some of the methods and get a real transformation algebra.
-
-\subsection{Solving freeVars with the identity approach}\label{subsec:solvingtrans}
+The SubstVarsExpAlg is still a generic class, however, some query algebra like a pretty printer can be passed to the constructor to display the results. Hence at this moment, a programmer doesn't need to write the boilerplate code for traversals. The identity approach and the pipeline of transformations provide users with a generic transformation like a template.
 
 \begin{comment}
 Before writing generic transformation interfaces, we first introduce \emph{generic visitable interface} as Figure~\ref{generic_visitable}. Implementing the generic visitable interface allows the user to construct objects from the passed in algebra.

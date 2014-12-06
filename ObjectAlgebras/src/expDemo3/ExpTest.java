@@ -8,22 +8,14 @@ public class ExpTest {
 		return alg.Add(alg.Add(alg.Lit(2), alg.Var("var1")),alg.Add(alg.Add(alg.Var("var2"), alg.Var("var3")), alg.Lit(5)));
 	}
 		
-	public static void main(String[] args) {	
-		G_Exp gExp = new G_Exp(){
-			@Override
-			public <Exp> Exp accept(ExpAlg<Exp> alg) {
-				return alg.Var("Var4");
-			}
+	public static void main(String[] args) {		
+		FreeVarsExpAlg alg = new FreeVarsExpAlg(){};
+		SubstVarsExpAlg<String[]> substVarsExpAlg = new SubstVarsExpAlg<String[]>() {
+			public ExpAlg<String[]> expAlg() { return alg; }
+			public String getVar() { return "var1"; }
+			public String[] getExp() { return expAlg().Var("var4"); }
 		};
-		
-		SubstVarsTransform substVarsExpAlg = new SubstVarsTransform("var1", gExp);
-		FreeVarsQueryExpAlg alg = new FreeVarsQueryExpAlg(new FreeVarsMonoid());
-		String[] res = genExp(substVarsExpAlg).accept(alg);
+		String[] res = genExp(substVarsExpAlg);
 		for (String s: res) System.out.println(s);
-		
-		LitIncreaseTransform litIncreaseTransform = new LitIncreaseTransform();
-		LitQueryExpAlg litQueryExpAlg = new LitQueryExpAlg(new LitMonoid());
-		Integer intRes = genExp(substVarsExpAlg).accept(litIncreaseTransform).accept(litIncreaseTransform).accept(litIncreaseTransform).accept(litQueryExpAlg);
-		System.out.println("Total Value: " + intRes);
 	}
 }
