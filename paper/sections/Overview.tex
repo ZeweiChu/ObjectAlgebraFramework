@@ -36,7 +36,7 @@ Information.
 
 Now consider adding two operations to our company structure: query the
 salary bill for the whole company and increase the salary of each
-employee by 10\%. A very natural solution, as illustrated in Fig.~\ref{oop_company}, is to add methods \lstinline{Float salaryBill()} and \lstinline{void increaseSalary()} in all classes from the bottom \lstinline{class Salary} to the top \lstinline{class Company}, except some sibling classes like \lstinline{class Person} which has nothing to do with salary information. Thus query salary bill of the whole company can be implemented as return the salary in \lstinline{class Salary} and delegating the method \lstinline{Float salaryBill()} to the child leaves for the upper level classes in the company tree structure, while increase salary of the whole company by 10\% can be implemented by updating the salary information in \lstinline{class Salary} and delegating the method \lstinline{void increaseSalary()} to the child leaves for the upper level nodes.  \bruno{Some more text
+employee by 10\%. A very natural solution, as illustrated in Fig.~\ref{oop_company}, is to add methods \lstinline{Float salaryBill()} and \lstinline{void increaseSalary()} in all classes from the bottom \lstinline{class Salary} to the top \lstinline{class Company}, except some sibling classes like \lstinline{class Person} which has nothing to do with salary information. Thus query salary bill of the whole company can be implemented as return the salary in \lstinline{class Salary} and delegating the method \lstinline{Float salaryBill()} to the child leaves in other upper level classes in the company tree structure, while increase salary of the whole company by 10\% can be implemented by updating the salary information in \lstinline{class Salary} and delegating the method \lstinline{void increaseSalary()} to the child leaves in other upper level nodes.  \bruno{Some more text
   needed: why do we need to have the methods in most classes, but not
   in \lstinline{Person}?}
 
@@ -45,10 +45,10 @@ However, this simple object-oriented solution is lack of extensibility and with 
 \begin{enumerate}
 
 \item {\bf Lack of extensibility} \bruno{explain}
-This way of Object Oriented style representation of tree structures can become cumbersome and inflexible due to the bound relationship between classes. For instance, adding another layer of nodes between classes, such as adding a class Team in our Company example, requires modifying its parent classes and child classes, which violates the no modification rule and are prone to errors. Adding a new operation such as pretty printing of the company structure requires adding a lot of similar methods on the existing code and violates the no modification rule.
+This way of Object Oriented style representation of tree structures can become cumbersome and inflexible due to the bound relationship between classes. For instance, adding another layer of nodes between classes, such as adding a class Team in our Company example, requires modifying its parent classes and child classes, which violates the no modification rule and are prone to errors. Adding a new operation such as pretty printing of the company structure requires adding a lot of similar methods on the existing code and also violates the no modification rule.
 
 \item {\bf Boilerplate code} \bruno{explain}
-Another issue of the above solution is that we usually need to write a large amount of boilerplate code to implement very simple task. In our example, we implemented \lstinline{void increaseSalary()} and \lstinline{Float querySalary()} in almost all classes, while only \lstinline{class Salary} does some interesting work, other classes simply delegating the task to its child nodes. This problem become more severe when we have bigger tree structures. The useful code can become very little while most of the code is doing tedious delegation work. 
+Another issue of the above solution is that we usually need to write a large amount of boilerplate code to implement very simple task. In our example, we implemented \lstinline{void increaseSalary()} and \lstinline{Float querySalary()} in almost all classes, while only \lstinline{class Salary} does some interesting work, other classes simply delegating the task to its child nodes. This problem become more severe when we have bigger tree structures. The useful code can become very little while most of the code is doing tedious work. 
 
 \end{enumerate}
 
@@ -70,8 +70,8 @@ To tackle with the problem of extensibility, Object Algebras is a good solution.
 
 Fig.~\ref{syb_tree} shows the approach to model the Company
 structure as an object algebra interface. Different operations can be realized by extending object algebras inheriting from the object algebra interface. To implement query bill
-operation for the whole Company structure, we can implement the
-Company interface with specific operation for each component.
+operation for the whole Company structure, we can pass in a \lstinline{Float} class to represent salary and implement the
+Company interface with specific operation for each component. In our case, the \lstinline{QuerySalarySybAlg} returns salary information in method \lstinline{Float S(float salary)} and does the delegation work in most other methods related to salary information.
 
 \begin{lstlisting}[numbers=none] 
 public class QuerySalarySybAlg implements SybAlg<Float,Float,Float,Float,Float,Float> {
@@ -87,17 +87,17 @@ public class QuerySalarySybAlg implements SybAlg<Float,Float,Float,Float,Float,F
 }
 \end{lstlisting}
 
-While IncreaseSalary can be realized as: 
+IncreaseSalary will modify an old algebra and return a new algebra based on specific implementations. More specifically, the old algebra is set as a field in \lstinline{IncreaseSalarySybAlg}, method  \lstinline{Salary S(float salary)} increases the salary by 10\%, and other methods simply delegates to the same methods in the old algebra. 
 
 \begin{lstlisting}[numbers=none]
-public class IncreaseSalarySybAlg implements SybAlg<Float, Float, Float, Float, Float, Float> {
-	public SybAlg<Float, Float, Float, Float, Float, Float> alg;
-	public IncreaseSalarySybAlg(SybAlg<Float, Float, Float, Float, Float, Float> alg) { this.alg = alg; }
-	public Float C(List<Float> depts) {
+public class IncreaseSalarySybAlg<Company, Dept, SubUnit, Employee, Person, Salary> implements SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> {
+	public SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg;
+	public IncreaseSalarySybAlg(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) { this.alg = alg; }
+	public Float C(List<Dept> depts) {
 		return alg.C(depts);
 	}
 	...
-	public Float S(float salary) {
+	public Salary S(float salary) {
 		return alg.S(salary*1.1f);
 	}
 }
@@ -110,9 +110,9 @@ public class IncreaseSalarySybAlg implements SybAlg<Float, Float, Float, Float, 
 \bruno{code needs to be better explained. What are we using the
   \lstinline{alg} for?}
   
-We pass in Float as type parameter class to represent salary. Hence different operations, i.e. query salary bill and increase salary of the company, can be done with inheritance. When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters. 
+When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters. 
 
-However, although we solved the problem of extensibility with object algebras, the traversal code is still lengthy and we are writing tedious boilerplate code. The only code we are really interested in is the \lstinline{Salary S(Float salary)} method to return or to increase the salary. It will be better if we can design some generic classes for queries and transformations. Hence specific algebras can be generated by
+However, although we solved the problem of extensibility with object algebras, the traversal code is still lengthy and we are still writing tedious traversing code of tree structures. The only code we are really interested in is the \lstinline{Salary S(Float salary)} method to return or to increase the salary. It will be better if we can design some generic classes for queries and transformations. Hence specific algebras can be generated by
 implementing interesting cases of generic queries and
 transformations. Moreover, it will be even better if the boilerplate code can be generated automatically so we can focus our attention on the interesting cases.
 
@@ -127,7 +127,6 @@ Now with our Object Algebra Framework, the code we need to write for Salary Bill
 \caption{Query Salary Class with Object Algebra Framework}
 \label{query_with_oaframework}
 \end{figure}
-
 
 Transformation code will be like Figure~\ref{transform_with_oaframework}. Similar to the query example, all the boilerplate part has been handled by the framework and the developer only needs to pass in the original company algebra and override the interesting case \lstinline{Float S(float salary)}, then a new company algebra will be returned after transformation.  
 \begin{figure}[tb]
