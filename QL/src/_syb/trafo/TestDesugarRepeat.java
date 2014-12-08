@@ -4,28 +4,28 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.function.Function;
 
 import ql_obj_alg.box.IFormat;
 import ql_obj_alg.check.types.TBoolean;
 import ql_obj_alg.format.Format;
 import ql_obj_alg.format.IFormatWithPrecedence;
-import ql_obj_alg.format.UnlessFormat;
+import ql_obj_alg.format.RepeatFormat;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
+import ql_obj_alg.syntax.IRepeatAlg;
 import ql_obj_alg.syntax.IStmtAlg;
-import ql_obj_alg.syntax.IUnlessAlg;
-import transform.IFormAlgTransform;
 
-public class TestDesugarUnless {
+public class TestDesugarRepeat {
 	
-	static class FormatWithUnless extends Format implements UnlessFormat {
+	static class FormatWithRepeat extends Format implements RepeatFormat {
 		
 	}
 	
-	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
-		private FormatWithUnless algebra;
+	static class Desugar implements DesugarRepeat<IFormatWithPrecedence, IFormat, IFormat> {
+		private FormatWithRepeat algebra;
 
-		public Desugar(FormatWithUnless f) {
+		public Desugar(FormatWithRepeat f) {
 			this.algebra = f;
 		}
 		@Override
@@ -34,7 +34,7 @@ public class TestDesugarUnless {
 		}
 
 		@Override
-		public IUnlessAlg<IFormatWithPrecedence, IFormat> iUnlessAlg() {
+		public IRepeatAlg<IFormat> iRepeatAlg() {
 			return algebra;
 		}
 
@@ -50,17 +50,17 @@ public class TestDesugarUnless {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-//		Builder builder = TheParser.parse(new FileInputStream(
-//				"resources/inputfiles/test.QL"));
 
-		FormatWithUnless algebra = new FormatWithUnless();
+		FormatWithRepeat algebra = new FormatWithRepeat();
 		Desugar d = new Desugar(algebra);
 
-		// Create unless, pp as if(!..).
-		IFormat pp = d.form("bla", Arrays.asList(d.unless(d.lit(4), Arrays.asList(d.question("x", "X?", new TBoolean())))));
+		Function<String, IFormat> pp = d.form("bla", Arrays.asList(
+				d.repeat(2, Arrays.asList(
+						d.repeat(3, Arrays.asList(d.question("y", "Y?", new TBoolean()))),
+						d.question("x", "X?", new TBoolean())))));
 		
 		StringWriter w = new StringWriter();
-		pp.format(0, true, w);
+		pp.apply("").format(0, true, w);
 		System.out.println(w);
 	}
 }
