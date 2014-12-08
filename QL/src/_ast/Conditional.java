@@ -1,12 +1,8 @@
 package _ast;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import library.Pair;
 import ql_obj_alg.check.types.Type;
 
 public abstract class Conditional extends Stmt {

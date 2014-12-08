@@ -2,7 +2,6 @@ package _ast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +46,8 @@ public class IfElse extends Conditional {
 
 	@Override
 	public Set<Pair<String, String>> controlDeps() {
-		Set<Pair<String, String>> s1 = depMonoid.fold(then.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
-		Set<Pair<String, String>> s2 = depMonoid.fold(els.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
+		Set<Pair<String, String>> s1 = then.stream().flatMap((x) -> x.controlDeps().stream()).collect(Collectors.toSet());
+		Set<Pair<String, String>> s2 = els.stream().flatMap((x) -> x.controlDeps().stream()).collect(Collectors.toSet());
 		
 		Set<Pair<String,String>> result = new HashSet<>();
 		for (Set<Pair<String,String>> s: Arrays.asList(s1, s2)) {

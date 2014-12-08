@@ -21,6 +21,11 @@ public interface Substitution<Exp> extends
 	
 	ExpAlg<Exp> myExpAlg();
 	LamAlg<Exp> myLamAlg();
+	@Override 
+	default List<Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>> substList(List<Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>> list, String acc) {
+		return null; // not used here, but overridden to avoid duplicate default method error.
+	}
+	
 	
 	@Override
 	default Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>> Var(String s) {
@@ -28,7 +33,7 @@ public interface Substitution<Exp> extends
 			if (s.equals(x)) 
 				return e;
 			if (ren.containsKey(s)) 
-				return expAlg().Var(ren.get(s)).apply(e).apply(fv).apply(ren);
+				return expAlg().Var(ren.get(s));
 			return expAlg().Var(s).apply(e).apply(fv).apply(ren);
 		};
 	}
@@ -37,8 +42,12 @@ public interface Substitution<Exp> extends
 	default Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>  Lambda(String x, Function<String, Function<Exp, Function<Set<String>, Function<Map<String, String>, Exp>>>>  e) {
 		return (y) -> (e2) -> (fv) -> (ren)  -> {
 			if (x.equals(y)) {
+<<<<<<< Updated upstream
 				return null;
 				//return lamAlg().Lambda(x, e.apply(x).apply(myExpAlg().Var(x)).apply(Collections.emptySet()).apply(ren)).apply(e).apply(fv).apply(ren);
+=======
+				return lamAlg().Lambda(x, e.apply(x).apply(myExpAlg().Var(x)).apply(Collections.emptySet()));
+>>>>>>> Stashed changes
 			}
 			
 			if (fv.contains(x)) {
