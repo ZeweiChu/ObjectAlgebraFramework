@@ -19,11 +19,11 @@ import transform.IFormAlgTransform;
 
 public class TestRenameVariable {
 
-	static class DoIt implements RenameVariable<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
+	public static class DoIt implements RenameVariable<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
 		private Map<String, String> renaming;
 		private Format format;
 
-		DoIt(Map<String, String> renaming, Format format) {
+		public DoIt(Map<String, String> renaming, Format format) {
 			this.renaming = renaming;
 			this.format = format;
 		}

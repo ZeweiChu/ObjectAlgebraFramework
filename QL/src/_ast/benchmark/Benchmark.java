@@ -3,24 +3,15 @@ package _ast.benchmark;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import library.Monoid;
-import library.Pair;
-import monoids.MapMonoid;
-import monoids.SetMonoid;
 import noa.Builder;
-import ql_obj_alg.box.IFormat;
-import ql_obj_alg.check.types.Type;
 import ql_obj_alg.format.Format;
-import ql_obj_alg.format.IFormatWithPrecedence;
 import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
@@ -30,9 +21,10 @@ import _ast.BuildExpAST;
 import _ast.BuildFormAST;
 import _ast.BuildStmtAST;
 import _ast.Form;
-import _syb.query.ControlDepGraph;
-import _syb.query.TypeEnv;
-import _syb.trafo.RenameVariable;
+import _syb.query.TestControlDepGraph;
+import _syb.query.TestTypeEnv;
+import _syb.trafo.TestRenameVariable;
+import _syb.trafo.TestRenameVariable.DoIt;
 
 public class Benchmark  {
 
@@ -92,14 +84,12 @@ public class Benchmark  {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-		benchmarkControlDeps();
+		//benchmarkControlDeps();
 		benchmarkTypeEnv();
-		benchmarkRename();
+//		benchmarkRename();
 	}
 
 	private static void benchmarkRename() throws FileNotFoundException {
-		List<Object> r1;
-		List<Object> r2;
 		// x_14_15 -> bla
 		
 		Format algebra = new Format();
@@ -107,31 +97,10 @@ public class Benchmark  {
 		ren.put("x_14_15", "BLA");
 				
 		
-		RenameVariable<IFormatWithPrecedence, IFormat, IFormat> renamer  = new RenameVariable<IFormatWithPrecedence, IFormat, IFormat>() {
-			@Override
-			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
-				return algebra;
-			}
+		DoIt renamer = new TestRenameVariable.DoIt(ren, algebra);
 
-			@Override
-			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
-				return algebra;
-			}
-
-			
-			@Override
-			public Map<String, String> renaming() {
-				return ren;
-			}
-		};
-
-		r1 = benchmarkAST(0, 10000, 100, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
-		r2 = benchmarkAlg(0, 10000, 100, "rename", renamer);
+		benchmarkAST(0, 10000, 100, "rename", "rename", new Class<?>[] {Map.class}, new Object[] {ren});
+		benchmarkAlg(0, 10000, 100, "rename", renamer);
 		
 //		assert r1.size() == r2.size();
 //		
@@ -170,14 +139,8 @@ public class Benchmark  {
 	private static void benchmarkTypeEnv() throws FileNotFoundException {
 		List<Object> r1;
 		List<Object> r2;
-		MapMonoid<String,Type> m = new MapMonoid<>();
 		r1 = benchmarkAST(0, 10000, 100, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
-		r2 = benchmarkAlg(0, 10000, 100, "typeEnv", new TypeEnv() {
-			@Override
-			public Monoid<Map<String, Type>> m() {
-				return m;
-			}
-		});		
+		r2 = benchmarkAlg(0, 10000, 100, "typeEnv", new TestTypeEnv.DoIt());
 		
 		System.out.println("Result equal: " + r1.equals(r2));
 	}
@@ -185,26 +148,8 @@ public class Benchmark  {
 	private static void benchmarkControlDeps() throws FileNotFoundException {
 		List<Object> r1, r2;
 		
-		SetMonoid<String> m = new SetMonoid<>();
-		SetMonoid<Pair<String,String>> m2 = new SetMonoid<>();
-		
 		r1 = benchmarkAST(0, 10000, 100, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
-		r2 = benchmarkAlg(0, 10000, 100, "controlDeps", new ControlDepGraph() {
-			@Override
-			public Monoid<Set<String>> mE() {
-				return m;
-			}
-			
-			@Override
-			public Monoid<Set<Pair<String,String>>> mF() {
-				return m2;
-			}
-			
-			@Override
-			public Monoid<Set<Pair<String,String>>> mS() {
-				return m2;
-			}
-		});
+		r2 = benchmarkAlg(0, 10000, 100, "controlDeps", new TestControlDepGraph.DoIt());
 		
 		System.out.println("Result equal: " + r1.equals(r2));
 	}

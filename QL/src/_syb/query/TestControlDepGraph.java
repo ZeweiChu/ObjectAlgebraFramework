@@ -14,7 +14,7 @@ import ql_obj_alg.parse.TheParser;
 
 public class TestControlDepGraph {
 
-	static class DoIt implements ControlDepGraph, FreeVars {
+	public static class DoIt implements ControlDepGraph, FreeVars {
 		
 		private SetMonoid<String> fvMonoid = new SetMonoid<String>();
 		private SetMonoid<Pair<String, String>> depMonoid = new SetMonoid<Pair<String, String>>();

@@ -13,7 +13,7 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class Block extends Stmt {
 
-	private List<Stmt> stats;
+	private final List<Stmt> stats;
 
 	public Block(List<Stmt> stats) {
 		this.stats = stats;
@@ -21,8 +21,11 @@ public class Block extends Stmt {
 
 	@Override
 	public Stmt rename(Map<String, String> ren) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Stmt> newStats = new ArrayList<>();
+		for (Stmt s: stats) {
+			newStats.add(s.rename(ren));
+		}
+		return new Block(newStats);
 	}
 
 	@Override

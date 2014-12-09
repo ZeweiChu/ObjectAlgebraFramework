@@ -15,7 +15,7 @@ import query.IFormAlgQuery;
 
 public class TestTypeEnv {
 	
-	static class DoIt implements TypeEnv, IExpAlgQuery<Map<String,Type>>, IFormAlgQuery<Map<String,Type>> {
+	public static class DoIt implements TypeEnv, IExpAlgQuery<Map<String,Type>>, IFormAlgQuery<Map<String,Type>> {
 		private Monoid<Map<String,Type>> m = new MapMonoid<>();
 		
 		@Override
