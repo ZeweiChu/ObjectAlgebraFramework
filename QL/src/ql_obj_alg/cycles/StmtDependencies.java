@@ -9,8 +9,22 @@ public class StmtDependencies implements
 		IStmtAlg<IExpDependency, IDependencyGraph> {
 
 	@Override
-	public IDependencyGraph iff(final IExpDependency cond,
-			final List<IDependencyGraph> statements) {
+	public IDependencyGraph block(List<IDependencyGraph> stats) {
+		return new IDependencyGraph() {
+
+			@Override
+			public void fill(DependencyGraph dependencyGraph,
+					Dependencies currentDependencies) {
+
+				for (IDependencyGraph stmt : stats) {
+					stmt.fill(dependencyGraph, currentDependencies);
+				}
+			}
+		};
+	}
+	
+	@Override
+	public IDependencyGraph iff(final IExpDependency cond, IDependencyGraph then) {
 		return new IDependencyGraph() {
 
 			@Override
@@ -18,18 +32,15 @@ public class StmtDependencies implements
 					Dependencies currentDependencies) {
 				Dependencies newDependencies = cond
 						.dependency(currentDependencies);
-
-				for (IDependencyGraph stmt : statements) {
-					stmt.fill(dependencyGraph, newDependencies);
-				}
+				then.fill(dependencyGraph, newDependencies);
 			}
 		};
 	}
 
 	@Override
 	public IDependencyGraph iffelse(final IExpDependency cond,
-			final List<IDependencyGraph> statementsIf,
-			final List<IDependencyGraph> statementsElse) {
+			final IDependencyGraph statementsIf,
+			final IDependencyGraph statementsElse) {
 		return new IDependencyGraph() {
 
 			@Override
@@ -39,13 +50,8 @@ public class StmtDependencies implements
 				Dependencies newDependencies = cond
 						.dependency(currentDependencies);
 
-				for (IDependencyGraph stmt : statementsIf) {
-					stmt.fill(dependencyGraph, newDependencies);
-				}
-
-				for (IDependencyGraph stmt : statementsElse) {
-					stmt.fill(dependencyGraph, newDependencies);
-				}
+					statementsIf.fill(dependencyGraph, newDependencies);
+					statementsElse.fill(dependencyGraph, newDependencies);
 			}
 		};
 	}

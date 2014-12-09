@@ -10,26 +10,24 @@ import ql_obj_alg.syntax.IStmtAlg;
 public interface StmtCollectQuestionTypes<E> extends IStmtAlg<E,ICollect> {
 	
 	@Override
-	default ICollect iff(final E cond, final List<ICollect> statements) {
+	default ICollect block(List<ICollect> stats) {
 		return new ICollect(){
 			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
-				for(ICollect stmt : statements)
+				for(ICollect stmt : stats)
 					stmt.collect(typeEnv,report);
 			}
 		};
 	}
+	
+	@Override
+	default ICollect iff(final E cond, final ICollect then) {
+		return (tenv, report) -> then.collect(tenv, report);
+	}
 
 	@Override
-	default ICollect iffelse(final E cond, final List<ICollect> statementsIf,
-			final List<ICollect> statementsElse) {
-		return new ICollect(){
-			public void collect(TypeEnvironment typeEnv, ErrorReporting report){
-				for(ICollect stmt : statementsIf)
-					stmt.collect(typeEnv, report);
-				for(ICollect stmt : statementsElse)
-					stmt.collect(typeEnv,report);
-			}
-		};
+	default ICollect iffelse(final E cond, final ICollect statementsIf,
+			final ICollect statementsElse) {
+		return (tenv, report) -> { statementsIf.collect(tenv,report); statementsElse.collect(tenv, report); };
 	}
 
 	@Override

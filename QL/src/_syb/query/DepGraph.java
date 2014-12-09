@@ -35,13 +35,13 @@ public interface DepGraph extends
 	}
 	
 	@Override
-	default Set<Pair<String, String>> iff(Set<String> p0, java.util.List<Set<Pair<String,String>>> p1) {
-		return mS().fold(p1);
+	default Set<Pair<String, String>> iff(Set<String> p0, Set<Pair<String,String>> p1) {
+		return p1;
 	}
 
 	@Override
-	default Set<Pair<String, String>> iffelse(Set<String> p0, java.util.List<Set<Pair<String,String>>> p1, java.util.List<Set<Pair<String,String>>> p2) {
-		return mS().join(mS().fold(p1), mS().fold(p2));
+	default Set<Pair<String, String>> iffelse(Set<String> p0, Set<Pair<String,String>> p1, Set<Pair<String,String>> p2) {
+		return mS().join(p1, p2);
 	}
 
 }

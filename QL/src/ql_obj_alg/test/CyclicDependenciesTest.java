@@ -87,11 +87,11 @@ public class CyclicDependenciesTest{
 		List<S> level1 = new ArrayList<S>();
 		List<S> level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X"), level2));
+		level1.add(s.iff(e.var("X"), s.block(level2)));
 		level2.add(s.question("Y", "label y", new TBoolean()));
 		level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("Y"), level2));
+		level1.add(s.iff(e.var("Y"), s.block(level2)));
 		level2.add(s.question("X", "label x", new TBoolean()));
 		
 		return f.form("Form id", level1);
@@ -132,13 +132,13 @@ public class CyclicDependenciesTest{
 		List<S> level2 = new ArrayList<S>();
 		List<S> level3 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X1"), level2));
+		level1.add(s.iff(e.var("X1"), s.block(level2)));
 		level2.add(s.question("X2", "label 2", new TBoolean()));
-		level2.add(s.iff(e.var("X2"), level3));
+		level2.add(s.iff(e.var("X2"), s.block(level3)));
 		level3.add(s.question("X3", "label 3", new TBoolean()));
 		level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X3"), level2));
+		level1.add(s.iff(e.var("X3"), s.block(level2)));
 		level2.add(s.question("X1", "label 1", new TBoolean()));
 		
 		return f.form("Form id", level1);
@@ -160,13 +160,13 @@ public class CyclicDependenciesTest{
 		List<S> level2 = new ArrayList<S>();
 		List<S> level3 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X1"), level2));
+		level1.add(s.iff(e.var("X1"), s.block(level2)));
 		level2.add(s.question("X2", "label 2", new TBoolean(), e.var("X3")));
-		level2.add(s.iff(e.var("X2"), level3));
+		level2.add(s.iff(e.var("X2"), s.block(level3)));
 		level3.add(s.question("X3", "label 3", new TBoolean()));
 		level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X3"),level2));
+		level1.add(s.iff(e.var("X3"),s.block(level2)));
 		level2.add( s.question("X4", "label 4", new TBoolean()));
 		
 		level1.add(s.question("X1", "label 5", new TBoolean(), e.var("X4")));		
@@ -191,11 +191,11 @@ public class CyclicDependenciesTest{
 		List<S> level1 = new ArrayList<S>();
 		List<S> level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X"), level2));
+		level1.add(s.iff(e.var("X"), s.block(level2)));
 		level2.add(s.question("Y", "label y", new TBoolean()));	
 		level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("Y"), level2));
+		level1.add(s.iff(e.var("Y"), s.block(level2)));
 		level2.add(s.question("X", "label x", new TBoolean()));
 		
 		level1.add(s.question("X", "label z", new TBoolean()));
@@ -236,13 +236,13 @@ public class CyclicDependenciesTest{
 		List<S> level2 = new ArrayList<S>();
 		List<S> level3 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X1"), level2));
+		level1.add(s.iff(e.var("X1"), s.block(level2)));
 		level2.add(s.question("X2", "label2", new TBoolean(), e.var("X1")));
-		level2.add(s.iff(e.var("X2"), level3));
+		level2.add(s.iff(e.var("X2"), s.block(level3)));
 		level3.add(s.question("X3", "label3", new TBoolean()));
 		level2 = new ArrayList<S>();
 		
-		level1.add(s.iff(e.var("X3"),level2));
+		level1.add(s.iff(e.var("X3"),s.block(level2)));
 		level2.add( s.question("X4", "label4", new TBoolean()));
 
 		return f.form("Form id", level1);

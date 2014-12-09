@@ -17,32 +17,29 @@ public interface StmtUI extends IStmtAlg<IDepsAndEvalE,IRender> {
 	IExpAlg<IDepsAndEvalE> expAlg();
 
 	@Override
-	default IRender iff(final IDepsAndEvalE cond, final List<IRender> statements) {
+	default IRender block(List<IRender> stats) {
 		return new IRender(){
 			@Override
-			public void render(final FormFrame frame,final ValueEnvironment valEnv, final Registry registry,
-					IDepsAndEvalE condition) {
-				for(IRender stmt : statements){
-					stmt.render(frame,valEnv,registry, expAlg().and(condition,cond));
+			public void render(final FormFrame frame,final ValueEnvironment valEnv, final Registry registry, IDepsAndEvalE condition) {
+				for(IRender stmt : stats){
+					stmt.render(frame,valEnv,registry, condition);
 				}
 			}
 		};
 	}
+	
+	@Override
+	default IRender iff(final IDepsAndEvalE cond, IRender then) {
+		return (frame, valEnv, registry, condition) -> then.render(frame,valEnv,registry, expAlg().and(condition,cond));
+	}
 
 	@Override
-	default IRender iffelse(final IDepsAndEvalE cond,final List<IRender> statementsIf, final List<IRender> statementsElse) {
+	default IRender iffelse(final IDepsAndEvalE cond, IRender then, IRender els) {
 		return new IRender(){
 			@Override
-			public void render(final FormFrame frame, final ValueEnvironment valEnv, final Registry registry,
-					IDepsAndEvalE condition) {
-				for(IRender stmt : statementsIf){
-					stmt.render(frame,valEnv,registry, expAlg().and(cond,condition));
-				}
-
-				for(IRender stmt : statementsElse){
-					stmt.render(frame,valEnv,registry, expAlg().and(expAlg().not(cond),condition));
-				}
-
+			public void render(final FormFrame frame, final ValueEnvironment valEnv, final Registry registry, IDepsAndEvalE condition) {
+					then.render(frame,valEnv,registry, expAlg().and(cond,condition));
+					els.render(frame,valEnv,registry, expAlg().and(expAlg().not(cond),condition));
 			}
 		};
 	}

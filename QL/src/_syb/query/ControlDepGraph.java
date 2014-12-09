@@ -30,16 +30,14 @@ public interface ControlDepGraph
 	}
 	
 	@Override 
-	default Set<Pair<String, String>> iff(Set<String> p0,List<Set<Pair<String, String>>> p1) {
-		return iffelse(p0, p1, Collections.emptyList());
+	default Set<Pair<String, String>> iff(Set<String> p0, Set<Pair<String, String>> p1) {
+		return iffelse(p0, p1, block(Collections.emptyList()));
 	}
 	
 	@Override 
-	default Set<Pair<String, String>> iffelse(Set<String> p0,List<Set<Pair<String, String>>> p1,List<Set<Pair<String, String>>> p2) {
-		Set<Pair<String, String>> s1 = mS().fold(p1);
-		Set<Pair<String, String>> s2 = mS().fold(p2);
+	default Set<Pair<String, String>> iffelse(Set<String> p0, Set<Pair<String, String>> p1, Set<Pair<String, String>> p2) {
 		Set<Pair<String,String>> result = new HashSet<>();
-		for (Set<Pair<String,String>> s: Arrays.asList(s1, s2)) {
+		for (Set<Pair<String,String>> s: Arrays.asList(p1, p2)) {
 			for (Pair<String,String> x: s) {
 				if (x.b().equals("")) {
 					for (String c: p0) {
@@ -48,7 +46,7 @@ public interface ControlDepGraph
 				}
 			}
 		}
-		return mS().join(s1, mS().join(s2, result));
+		return mS().join(p1, mS().join(p2, result));
 	}
 	
 	

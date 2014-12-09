@@ -12,19 +12,21 @@ public interface StmtFormat extends IStmtAlg<IFormatWithPrecedence, IFormat> {
 
 	
 	@Override
-	default IFormat iff(final IFormatWithPrecedence cond, final List<IFormat> statements) {
-		return box().V(box().H(1,box().L("if"),box().H(box().L("("),cond,box().L(")")),box().L("{")),
-						box().I(2,statements), box().L("}"));
+	default IFormat block(List<IFormat> stats) {
+		return box().V(box().L("{"), box().I(2,stats), box().L("}"));
+	}
+	
+	@Override
+	default IFormat iff(final IFormatWithPrecedence cond, final IFormat then) {
+		return box().H(box().H(1,box().L("if"),box().H(box().L("("),cond,box().L(")")), then));
 	}
 
+	
+	
 	@Override
-	default IFormat iffelse(final IFormatWithPrecedence cond, final List<IFormat> statementsIf, final List<IFormat> statementsElse) {
-		return box().V(box().H(1,box().L("if"),box().H(box().L("("),cond,box().L(")")),box().L("{")),
-					 box().I(2,statementsIf), 
-					 box().L("}"),
-					 box().H(1, box().L("else"),box().L("{")),
-					 box().I(2,statementsElse),
-					 box().L("}"));
+	default IFormat iffelse(final IFormatWithPrecedence cond, IFormat then, IFormat els) {
+		return box().V(box().H(1,box().L("if"),box().H(box().L("("),cond,box().L(")")), then),
+					 box().H(1, box().L("else"), els));
 	}
 
 	@Override

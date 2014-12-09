@@ -57,7 +57,7 @@ public class TestDesugarUnless {
 		Desugar d = new Desugar(algebra);
 
 		// Create unless, pp as if(!..).
-		IFormat pp = d.form("bla", Arrays.asList(d.unless(d.lit(4), Arrays.asList(d.question("x", "X?", new TBoolean())))));
+		IFormat pp = d.form("bla", Arrays.asList(d.unless(d.lit(4), d.block(Arrays.asList(d.question("x", "X?", new TBoolean()))))));
 		
 		StringWriter w = new StringWriter();
 		pp.format(0, true, w);

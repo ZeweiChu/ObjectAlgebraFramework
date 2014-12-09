@@ -55,9 +55,9 @@ public class TestDesugarRepeat {
 		Desugar d = new Desugar(algebra);
 
 		Function<String, IFormat> pp = d.form("bla", Arrays.asList(
-				d.repeat(2, Arrays.asList(
-						d.repeat(3, Arrays.asList(d.question("y", "Y?", new TBoolean()))),
-						d.question("x", "X?", new TBoolean())))));
+				d.repeat(2, d.block(Arrays.asList(
+						d.repeat(3, d.question("y", "Y?", new TBoolean())),
+						d.question("x", "X?", new TBoolean()))))));
 		
 		StringWriter w = new StringWriter();
 		pp.apply("").format(0, true, w);

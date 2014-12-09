@@ -12,32 +12,38 @@ import ql_obj_alg.syntax.IStmtAlg;
 public interface StmtTypeChecker extends IStmtAlg<IExpType, ITypeCheck> {
 
 	@Override
-	default ITypeCheck iff(final IExpType cond, final List<ITypeCheck> statements) {
+	default ITypeCheck block(List<ITypeCheck> stats) {
+		return (tenv, report) -> {
+			for (ITypeCheck stmt : stats) {
+				stmt.check(tenv,report);
+			}
+		};
+	}
+	
+	@Override
+	default ITypeCheck iff(final IExpType cond, final ITypeCheck then) {
 		return new ITypeCheck(){
 			public void check(TypeEnvironment typeEnv, ErrorReporting report){
 				Type type = cond.type(typeEnv,report); 
 				if(!type.isBoolean()){
 					report.addError(new UnexpectedTypeError(new TBoolean(), type, "if-then"));
 				}
-				for(ITypeCheck stmt : statements)
-					stmt.check(typeEnv,report);
+				then.check(typeEnv, report);;
 			}
 		};
 	}
 
 	@Override
-	default ITypeCheck iffelse(final IExpType cond, final List<ITypeCheck> statementsIf,
-			final List<ITypeCheck> statementsElse) {
+	default ITypeCheck iffelse(final IExpType cond, final ITypeCheck statementsIf,
+			final ITypeCheck statementsElse) {
 		return new ITypeCheck(){
 			public void check(TypeEnvironment typeEnv, ErrorReporting report){
 				Type type = cond.type(typeEnv,report); 
 				if(!type.isBoolean()){
 					report.addError(new UnexpectedTypeError(new TBoolean(), type, "if-then-else"));
 				}
-				for(ITypeCheck stmt : statementsIf)
-					stmt.check(typeEnv,report);
-				for(ITypeCheck stmt : statementsElse)
-					stmt.check(typeEnv,report);
+				statementsIf.check(typeEnv,report);
+				statementsElse.check(typeEnv,report);
 			}
 		};
 	}

@@ -146,7 +146,7 @@ public class TypeCheckerTest {
 		List<S> questions = new ArrayList<S>();
 		
 		questions.add( s.question("id1", "number", new TBoolean()));
-		stmtList.add(s.iff(exp,questions));		
+		stmtList.add(s.iff(exp,s.block(questions)));		
 		
 		return f.form("Form id", stmtList);
 	}

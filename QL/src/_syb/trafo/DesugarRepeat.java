@@ -30,15 +30,13 @@ public interface DesugarRepeat<E, S, F> extends
 	}
 	
 	@Override 
-	default Function<String, S> repeat(int p0,List<Function<String, S>> p1) {
+	default Function<String, S> repeat(int p0, Function<String, S> p1) {
 		return (n) -> {
 			List<S> body = new ArrayList<>();
 			for (int i = 0; i < p0; i++) {
-				for (Function<String,S> f: p1) {
-					body.add(f.apply(n + "_" + i));
-				}
+				body.add(p1.apply(n + "_" + i));
 			}
-			return iStmtAlg().iff(iExpAlg().bool(true), body);
+			return iStmtAlg().block(body);
 		};
 	}
 	
