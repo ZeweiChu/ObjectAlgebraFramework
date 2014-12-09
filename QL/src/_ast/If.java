@@ -1,6 +1,7 @@
 package _ast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,10 @@ public class If extends Conditional {
 		return new IfElse(cond, then, new Block(Collections.emptyList())).controlDeps();
 	}
 
+	@Override
+	public Stmt flatten(Exp guard) {
+		return new Block(Arrays.asList(then.flatten(new And(guard, cond))));
+	}
 	
 
 }

@@ -20,4 +20,5 @@ public abstract class Stmt {
 	public abstract Set<Pair<String,String>> controlDeps();
 	public abstract <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg);
 	public abstract int count();
+	public abstract Stmt flatten(Exp guard);
 }

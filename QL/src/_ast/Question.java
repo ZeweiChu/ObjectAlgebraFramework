@@ -33,4 +33,10 @@ public abstract class Question extends Stmt {
 	public int count() {
 		return 1;
 	}
+	
+	@Override
+	public Stmt flatten(Exp guard) {
+		return new If(guard, this);
+	}
+	
 }

@@ -1,7 +1,6 @@
 package _ast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,6 +56,14 @@ public class Form {
 			count += s.count();
 		}
 		return count;
+	}
+	
+	public Form flatten(Exp guard) {
+		List<Stmt> newBody = new ArrayList<>();
+		for (Stmt s: body) {
+			newBody.add(s.flatten(guard));
+		}
+		return new Form(id, newBody);
 	}
 	
 }

@@ -18,7 +18,7 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class TestInlineConditions {
 
-	static class DoIt implements InlineConditions<IFormatWithPrecedence, IFormat, IFormat> {
+	public static class DoIt implements InlineConditions<IFormatWithPrecedence, IFormat, IFormat> {
 		private Format format;
 		
 		public DoIt(Format f) {
@@ -51,25 +51,7 @@ public class TestInlineConditions {
 
 		Format algebra = new Format();
 		
-		Function<IFormatWithPrecedence, IFormat> pp = builder.build(new InlineConditions<IFormatWithPrecedence, IFormat, IFormat>() {
-
-			@Override
-			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
-				return algebra;
-			}
-
-			
-		});
+		Function<IFormatWithPrecedence, IFormat> pp = builder.build(new DoIt(algebra));
 
 		StringWriter w = new StringWriter();
 		pp.apply(algebra.bool(true)).format(0, true, w);

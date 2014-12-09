@@ -59,4 +59,13 @@ public class Block extends Stmt {
 		}
 		return count;
 	}
+
+	@Override
+	public Stmt flatten(Exp guard) {
+		List<Stmt> newBody = new ArrayList<>();
+		for (Stmt s: stats) {
+			newBody.add(s.flatten(guard));
+		}
+		return new Block(newBody);
+	}
 }

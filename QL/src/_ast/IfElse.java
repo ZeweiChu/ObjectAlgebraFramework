@@ -60,4 +60,9 @@ public class IfElse extends Conditional {
 		return 1 + cond.count() + then.count() + els.count();
 	}
 	
+	@Override
+	public Stmt flatten(Exp guard) {
+		return new Block(Arrays.asList(then.flatten(new And(guard, cond)), els.flatten(new And(guard, new Not(cond)))));
+	}
+	
 }

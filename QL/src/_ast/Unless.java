@@ -33,5 +33,10 @@ public class Unless extends Conditional {
 	public Set<Pair<String, String>> controlDeps() {
 		return new If(cond, then).controlDeps();
 	}
+	
+	@Override
+	public Stmt flatten(Exp guard) {
+		return then.flatten(new And(guard, new Not(cond)));
+	}
 
 }

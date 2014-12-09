@@ -1,0 +1,25 @@
+
+#assumes astData and algData and theTitle set on commandline
+
+set terminal postscript #eps #color colortext
+
+set key left
+
+set grid ytics lt 0 lw 1 lc rgb "#bbbbbb"
+set grid xtics lt 0 lw 1 lc rgb "#bbbbbb"
+
+f(x) = A0*x
+fit f(x) astData every ::1 using 1:2 via A0
+g(x) = A1*x
+fit g(x) algData every ::1 using 1:2 via A1
+
+# set output "controldeps.eps"
+set title theTitle 
+set xlabel "Input size (bytes)"
+set ylabel "Running time (s)"
+plot astData every ::1 using 1:2 \
+     title "AST", \
+     f(x) lt 0 lw 3 title "Linear fit AST", \
+     algData every ::1 using 1:2 \
+     title "Object Algebra" pt 6, \
+     g(x) lt 2 lw 1 title "Linear fit ObjAlg"
