@@ -8,25 +8,18 @@ import java.util.Set;
 
 import library.Pair;
 import ql_obj_alg.check.types.Type;
-import query.G_IExpAlgQuery;
 import query.G_IFormAlgQuery;
 import query.G_IStmtAlgQuery;
 
 public interface ControlDepGraph
 		extends
 		G_IFormAlgQuery<Set<String>, Set<Pair<String, String>>, Set<Pair<String, String>>>,
-		G_IStmtAlgQuery<Set<String>, Set<Pair<String, String>>>,
-		G_IExpAlgQuery<Set<String>> {
+		G_IStmtAlgQuery<Set<String>, Set<Pair<String, String>>> {
 
 	
 	@Override 
 	default Set<Pair<String, String>> form(String p0,List<Set<Pair<String, String>>> p1) {
 		return mS().fold(p1);
-	}
-	
-	@Override 
-	default Set<String> var(String p0) {
-		return Collections.singleton(p0);
 	}
 	
 	@Override 

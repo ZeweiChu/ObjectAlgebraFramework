@@ -1,7 +1,6 @@
 package _syb.trafo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -41,15 +40,11 @@ public interface Flatten<E, S, F> extends
 
 	@Override
 	default Function<E, S> question(String id, String label, Type type) {
-		return (guard) -> {
-			return iStmtAlg().iff(guard, iStmtAlg().question(id, label, type));
-		};
+		return (guard) -> iStmtAlg().iff(guard, iStmtAlg().question(id, label, type));
 	}
 	
 	@Override
 	default Function<E, S> question(String id, String label, Type type, Function<E,E> exp) {
-		return (guard) -> {
-			return iStmtAlg().iff(guard, iStmtAlg().question(id, label, type, exp.apply(guard)));
-		};
+		return (guard) -> iStmtAlg().iff(guard, iStmtAlg().question(id, label, type, exp.apply(guard)));
 	}
 }
