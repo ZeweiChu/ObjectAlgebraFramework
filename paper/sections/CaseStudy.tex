@@ -1,3 +1,46 @@
 \section{Case Study}
 
-Case study section
+We have used the Object Algebras framework in the implementation of a simple DSL for Questionnaires, called QL~\cite{GPCE}.
+A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed. 
+QL programs consist of lists of labeled, typed questions.
+Questions can be answerable, meaning the user has to enter some data, or computed.
+In the latter case the question is defined by an expression.
+A conditional if-then-else construct allows questions to visually appear only when a certain condition is true. 
+
+Apart from the parser, the QL implementation consists of three main components.
+First, a type checker is defined to check that expressions are used consistently and that no cyclic dependencies between questions exist.
+Second, the  interpreter renders questionnaires as a GUI and ensures and computed questions are evaluated.
+Finally, a pretty printer allows serialization of questionnaires to text. 
+
+A recent experiment explored the implementation of QL using Object Algebras~\cite{GPCE14}.
+This involved a lot of repetitive boilerplate code in the implementation.
+We have used \name to remove such boilerplate for the following query operations:
+\begin{itemize}
+\item Collect type environment: construct a mapping from question name to question type. This mapping is used during type checking.
+  \item Reference graph: construct a graph where nodes represent name occurences, and edge represent the use-define relation.
+\item Collect question dependencies: extract a binary relation capturing the data and control dependencies between questions. This is used in detecting cyclic dependencies.
+\end{itemize}
+
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{l|r|r|r}
+    Operation        & Original SLOC & \name SLOC & Reduction (\%) \\\hline
+    Type Environment &               &            &                \\
+    Reference graph  &               &            &                \\
+    Dependencies     &               &            &                \\\hline
+    \textit{Total}   &               &            &                \\
+  \end{tabular}
+  \caption{Effect of using \name on the implementation of QL\label{TBL:qlresults}}
+\end{table}
+
+
+
+\subsection{Desugaring Language Extensions}
+
+
+
+\subsection{\name performance vs Vanilla ASTs}
+
+1 Plot/table
+
