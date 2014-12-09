@@ -4,10 +4,9 @@ import java.util.Map;
 
 import ql_obj_alg.check.types.Type;
 import transform.IExpAlgTransform;
-import transform.IFormAlgTransform;
 import transform.IStmtAlgTransform;
 
-public interface RenameVariable<E, S, F> extends IExpAlgTransform<E>, IStmtAlgTransform<E, S>, IFormAlgTransform<E, S, F> {
+public interface RenameVariable<E, S> extends IExpAlgTransform<E>, IStmtAlgTransform<E, S> {
 	default String rename(String old) {
 		String newName = old;
 		if (renaming().containsKey(old)) {

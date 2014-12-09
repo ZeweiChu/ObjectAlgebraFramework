@@ -15,9 +15,41 @@ import ql_obj_alg.parse.TheParser;
 import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
 import ql_obj_alg.syntax.IStmtAlg;
+import transform.IFormAlgTransform;
 
 public class TestRenameVariable {
 
+	static class DoIt implements RenameVariable<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
+		private Map<String, String> renaming;
+		private Format format;
+
+		DoIt(Map<String, String> renaming, Format format) {
+			this.renaming = renaming;
+			this.format = format;
+		}
+		
+		public Map<String,String> renaming() {
+			return renaming;
+		}
+		
+		@Override
+		public IExpAlg<IFormatWithPrecedence> iExpAlg() {
+			return format;
+		}
+
+		@Override
+		public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
+			return format;
+		}
+
+		@Override
+		public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
+			return format;
+		}
+
+	}
+	
+	
 	@SuppressWarnings("serial")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
@@ -27,34 +59,10 @@ public class TestRenameVariable {
 			put("privateDebt", "publicDebt");
 			put("soldHouse", "didYouSellAHouse");
 		}};
-				
 
 		Format algebra = new Format();
 		
-		IFormat pp = builder.build(new RenameVariable<IFormatWithPrecedence, IFormat, IFormat>() {
-
-			@Override
-			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
-				return algebra;
-			}
-
-			@Override
-			public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
-				return algebra;
-			}
-
-			
-			@Override
-			public Map<String, String> renaming() {
-				return ren;
-			}
-		});
-
+		IFormat pp = builder.build(new DoIt(ren, algebra));
 		StringWriter w = new StringWriter();
 		pp.format(0, true, w);
 		System.out.println(w);
