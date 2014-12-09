@@ -81,34 +81,37 @@ public class Flatten<E, S, F>  implements
 		return form.form(id, ss);
 	}
 
+	
 	@Override
-	public IFlatten<E, S> iff(E cond, List<IFlatten<E, S>> statements) {
+	public IFlatten<E, S> block(List<IFlatten<E, S>> stats) {
 		return (guard, output) -> {
-				for (IFlatten<E, S> s: statements) {
-					s.flatten(exp.and(guard, cond), output);
-				}
+			for (IFlatten<E,S> s: stats) {
+				s.flatten(guard, output);
+			}
+		};
+	}
+	
+	@Override
+	public IFlatten<E, S> iff(E cond, IFlatten<E, S> statements) {
+		return (guard, output) -> {
+			statements.flatten(exp.and(guard, cond), output);
 		};
 	}
 
 	@Override
-	public IFlatten<E, S> iffelse(E cond, List<IFlatten<E, S>> statementsIf,
-			List<IFlatten<E, S>> statementsElse) {
+	public IFlatten<E, S> iffelse(E cond, IFlatten<E, S> statementsIf, IFlatten<E, S> statementsElse) {
 		return new IFlatten<E, S>() {
 			@Override
 			public void flatten(E guard, List<S> output) {
-				for (IFlatten<E, S> s: statementsIf) {
-					s.flatten(exp.and(guard, cond), output);
-				}
-				for (IFlatten<E, S> s: statementsElse) {
-					s.flatten(exp.and(guard, exp.not(cond)), output);
-				}
+				statementsIf.flatten(exp.and(guard, cond), output);
+				statementsElse.flatten(exp.and(guard, exp.not(cond)), output);
 			}
 		};
 	}
 
 	@Override
 	public IFlatten<E, S> question(String id, String label, Type type) {
-		return (guard, output) -> { output.add(stmt.iff(guard, Collections.singletonList(stmt.question(id, label, type)))); };
+		return (guard, output) -> { output.add(stmt.iff(guard, stmt.question(id, label, type))); };
 	}
 
 	@Override
@@ -117,7 +120,7 @@ public class Flatten<E, S, F>  implements
 
 			@Override
 			public void flatten(E guard, List<S> output) {
-				output.add(stmt.iff(guard, Collections.singletonList(stmt.question(id, label, type, exp))));
+				output.add(stmt.iff(guard, stmt.question(id, label, type, exp)));
 			}
 			
 		};
