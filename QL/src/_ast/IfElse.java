@@ -15,39 +15,27 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class IfElse extends Conditional {
 
-	private final List<Stmt> els;
+	private final Stmt els;
 
-	public IfElse(Exp cond, List<Stmt> statementsIf, List<Stmt> statementsElse) {
+	public IfElse(Exp cond, Stmt statementsIf, Stmt statementsElse) {
 		super(cond, statementsIf);
 		this.els = statementsElse;
 	}
 
 	@Override
 	public Stmt rename(Map<String, String> ren) {
-		List<Stmt> body = new ArrayList<>();
-		for (Stmt s : this.then) {
-			body.add(s.rename(ren));
-		}
-		List<Stmt> elseBody = new ArrayList<>();
-		for (Stmt s : els) {
-			elseBody.add(s.rename(ren));
-		}
-		return new IfElse(cond.rename(ren), body, elseBody);
+		return new IfElse(cond.rename(ren), then.rename(ren), els.rename(ren));
 	}
 
 	@Override
 	public Map<String, Type> typeEnv() {
-		Map<String, Type> tenv = typeEnvMonoid.empty();
-		for (Stmt s: els) {
-			tenv =  typeEnvMonoid.join(tenv, s.typeEnv());
-		}
-		return typeEnvMonoid.join(tenv, super.typeEnv());
+		return typeEnvMonoid.join(els.typeEnv(), super.typeEnv());
 	}
 
 	@Override
 	public Set<Pair<String, String>> controlDeps() {
-		Set<Pair<String, String>> s1 = then.stream().flatMap((x) -> x.controlDeps().stream()).collect(Collectors.toSet());
-		Set<Pair<String, String>> s2 = els.stream().flatMap((x) -> x.controlDeps().stream()).collect(Collectors.toSet());
+		Set<Pair<String, String>> s1 = then.controlDeps();
+		Set<Pair<String, String>> s2 = els.controlDeps();
 		
 		Set<Pair<String,String>> result = new HashSet<>();
 		for (Set<Pair<String,String>> s: Arrays.asList(s1, s2)) {
@@ -64,27 +52,12 @@ public class IfElse extends Conditional {
 	
 	@Override
 	public <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg) {
-		List<S> stats = new ArrayList<>();
-		for (Stmt s: then) {
-			stats.add(s.recons(expAlg, stmtAlg));
-		}
-		List<S> elseStats = new ArrayList<>();
-		for (Stmt s: els) {
-			elseStats.add(s.recons(expAlg, stmtAlg));
-		}
-		return stmtAlg.iffelse(cond.recons(expAlg), stats, elseStats);
+		return stmtAlg.iffelse(cond.recons(expAlg), then.recons(expAlg, stmtAlg), els.recons(expAlg, stmtAlg));
 	}
 
 	@Override
 	public int count() {
-		int count = 1 + cond.count();
-		for (Stmt s: then) {
-			count += s.count();
-		}
-		for (Stmt s: els) {
-			count += s.count();
-		}
-		return count;
+		return 1 + cond.count() + then.count() + els.count();
 	}
 	
 }

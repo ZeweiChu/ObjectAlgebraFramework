@@ -8,13 +8,17 @@ import ql_obj_alg.syntax.IStmtAlg;
 public interface BuildStmtAST extends IStmtAlg<Exp, Stmt> {
 	
 	@Override
-	default Stmt iff(Exp cond, List<Stmt> statements) {
+	default Stmt block(List<Stmt> stats) {
+		return new Block(stats);
+	}
+	
+	@Override
+	default Stmt iff(Exp cond, Stmt statements) {
 		return new If(cond, statements);
 	}
 
 	@Override
-	default Stmt iffelse(Exp cond, List<Stmt> statementsIf,
-			List<Stmt> statementsElse) {
+	default Stmt iffelse(Exp cond, Stmt statementsIf, Stmt statementsElse) {
 		return new IfElse(cond, statementsIf, statementsElse);
 	}
 
