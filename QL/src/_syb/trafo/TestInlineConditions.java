@@ -16,9 +16,9 @@ import ql_obj_alg.syntax.IFormAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 
 
-public class TestFlatten {
+public class TestInlineConditions {
 
-	static class DoIt implements Flatten<IFormatWithPrecedence, IFormat, IFormat> {
+	static class DoIt implements InlineConditions<IFormatWithPrecedence, IFormat, IFormat> {
 		private Format format;
 		
 		public DoIt(Format f) {
@@ -51,7 +51,7 @@ public class TestFlatten {
 
 		Format algebra = new Format();
 		
-		Function<IFormatWithPrecedence, IFormat> pp = builder.build(new Flatten<IFormatWithPrecedence, IFormat, IFormat>() {
+		Function<IFormatWithPrecedence, IFormat> pp = builder.build(new InlineConditions<IFormatWithPrecedence, IFormat, IFormat>() {
 
 			@Override
 			public IExpAlg<IFormatWithPrecedence> iExpAlg() {

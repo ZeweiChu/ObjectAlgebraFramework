@@ -3,14 +3,12 @@ package _syb.query;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import library.Monoid;
 import library.Pair;
 import monoids.SetMonoid;
 import noa.Builder;
-import ql_obj_alg.check.types.Type;
 import ql_obj_alg.parse.TheParser;
 
 public class TestDataDepGraph {

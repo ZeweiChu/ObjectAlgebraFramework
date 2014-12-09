@@ -9,7 +9,7 @@ import transform.G_IExpAlgTransform;
 import transform.G_IFormAlgTransform;
 import transform.G_IStmtAlgTransform;
 
-public interface Flatten<E, S, F> extends
+public interface InlineConditions<E, S, F> extends
 	G_IFormAlgTransform<E, E, S, F>,
 	G_IStmtAlgTransform<E, E, S>, 
 	G_IExpAlgTransform<E, E> {
