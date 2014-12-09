@@ -84,9 +84,10 @@ public class Benchmark  {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-		//benchmarkControlDeps();
+		benchmarkControlDeps();
 		benchmarkTypeEnv();
-//		benchmarkRename();
+		benchmarkRename();
+//		benchmarkNoOp();
 	}
 
 	private static void benchmarkRename() throws FileNotFoundException {
