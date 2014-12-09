@@ -4,14 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 import noa.Builder;
 import ql_obj_alg.box.IFormat;
-import ql_obj_alg.check.types.Type;
 import ql_obj_alg.format.Format;
 import ql_obj_alg.format.IFormatWithPrecedence;
 import ql_obj_alg.parse.TheParser;
@@ -22,7 +18,7 @@ import ql_obj_alg.syntax.IStmtAlg;
 
 public class TestFlatten {
 
-	static class DoIt implements Flatten<IFormatWithPrecedence, IFormat> {
+	static class DoIt implements Flatten<IFormatWithPrecedence, IFormat, IFormat> {
 		private Format format;
 		
 		public DoIt(Format f) {
@@ -30,13 +26,12 @@ public class TestFlatten {
 		}
 		
 		@Override
-		// TODO: the first argument here is wrong...
-		public IFormAlg<Function<IFormatWithPrecedence, List<IFormat>>, IFormatWithPrecedence, List<IFormat>> iFormAlg() {
-			return null;
+		public IFormAlg<IFormatWithPrecedence, IFormat, IFormat> iFormAlg() {
+			return format;
 		}
 
 		@Override
-		public IStmtAlg<IFormatWithPrecedence, List<IFormat>> iStmtAlg() {
+		public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
 			return format;
 		}
 
@@ -49,7 +44,6 @@ public class TestFlatten {
 		
 	}
 	
-	@SuppressWarnings("serial")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Builder builder = TheParser.parse(new FileInputStream(
 				"resources/inputfiles/test.QL"));
@@ -57,7 +51,7 @@ public class TestFlatten {
 
 		Format algebra = new Format();
 		
-		IFormat pp = builder.build(new Flatten<IFormatWithPrecedence, IFormat>() {
+		Function<IFormatWithPrecedence, IFormat> pp = builder.build(new Flatten<IFormatWithPrecedence, IFormat, IFormat>() {
 
 			@Override
 			public IExpAlg<IFormatWithPrecedence> iExpAlg() {
@@ -65,9 +59,8 @@ public class TestFlatten {
 			}
 
 			@Override
-			public IStmtAlg<IFormatWithPrecedence, List<IFormat>> iStmtAlg() {
-				// TODO Auto-generated method stub
-				return null;
+			public IStmtAlg<IFormatWithPrecedence, IFormat> iStmtAlg() {
+				return algebra;
 			}
 
 			@Override
@@ -76,14 +69,10 @@ public class TestFlatten {
 			}
 
 			
-			@Override
-			public Map<String, String> renaming() {
-				return ren;
-			}
 		});
 
 		StringWriter w = new StringWriter();
-		pp.format(0, true, w);
+		pp.apply(algebra.bool(true)).format(0, true, w);
 		System.out.println(w);
 	}
 }
