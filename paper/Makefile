@@ -15,7 +15,7 @@ plots/rename.eps: ../QL/resources/benchmark/genplot.plg
 
 plots/inline.eps: ../QL/resources/benchmark/genplot.plg
 	(cd ../QL/resources/benchmark/; \
-	 gnuplot -e "astData='with-ast-0-1000-10-inline.csv'; algData='with-alg-0-1000-10-inline.csv'; theTitle='Flatten conditions'" genplot.plg > ../../../paper/$@; \
+	 gnuplot -e "astData='with-ast-0-1000-10-inline.csv'; algData='with-alg-0-1000-10-inline.csv'; theTitle='Inline conditions'" genplot.plg > ../../../paper/$@; \
 	cd -)
 
 plots/typeenv.eps: ../QL/resources/benchmark/genplot.plg
