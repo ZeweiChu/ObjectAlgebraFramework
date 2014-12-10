@@ -9,7 +9,7 @@ We can see in the previous transformation algebras, namely ``non-contextual'' on
 A good example for the contextual transformation, is the \textit{capture-avoiding substitution} (SUBST, for convenience). \haoyuan{citation needed.} The SUBST is distinguished from our previous substitution algebra, in the sense that, for example, with an extension to the \lstinline{ExpAlg}, including lambda expressions and applications, the substitution should be able to avoid variable capture problems. As our object algebra interface is flexible with high extensibility, we create a new interface here as the extension to \lstinline{ExpAlg}. See Fig.~\ref{lam_alg}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=LAM_ALG
+\lstinputlisting[linerange=-]{} % APPLY:linerange=-LAM_ALG
 \vspace{-.1in}
 \caption{Object algebra interface: LamAlg}
 \label{lam_alg}

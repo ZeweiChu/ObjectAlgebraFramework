@@ -43,28 +43,47 @@ The framework permits to use  Java interface extension to achieve this in a full
 Figure~\ref{inline_conds_unless} and Fig.~\ref{controldeps_unless} show the extension of the inline conditions transformation and control dependencies query when extending QL with ``unless''.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=11-19]{../QL/src/_syb/trafo/InlineConditionsUnless.java} % APPLY:linerange=INLINECONDS_UNLESS
+\lstinputlisting[linerange=-]{} % APPLY:linerange=9-16INLINECONDS_UNLESS
 \vspace{-.1in}
 \caption{Extending the inline-conditions transformation to deal with ``unless''}
 \label{inline_conds_unless}
 \end{figure}
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=10-18]{../QL/src/_syb/query/ControlDepGraphUnless.java} % APPLY:linerange=CONTROLDEPS_UNLESS
+\lstinputlisting[linerange=-]{} % APPLY:linerange=10-18CONTROLDEPS_UNLESS
 \vspace{-.1in}
 \caption{Extending the control-dependencies query to deal with ``unless''}
 \label{controldeps_unless}
 \end{figure}
 
-Inlining of conditions across ``unless'' statements is analogous to the implementation for ``if''.
+Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unless}) is analogous to the implementation for ``if''.
 It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
+The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
 \subsection{\name performance vs Vanilla ASTs}
 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{plots/controldeps}
-  \caption{Performance of control dependencies query implemented using normal ASTs vs using the \name framework\label{FIG:perfControlDeps}}
+\begin{figure}[t]
+  \includegraphics[width=0.49\textwidth]{plots/controldeps}
+  \includegraphics[width=0.49\textwidth]{plots/inline}
+  \caption{Performance comparison of control dependencies query (left) and inline conditions transformation (right) implemented using normal ASTs vs using the \name framework\label{FIG:performance}}
 \end{figure}
+
+We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes.
+The operations were executed on progressively larger QL programs (up to 1.4Mb).
+In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
+In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
+For context-dependent transformation, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function. 
+To make the comparison as fair as possible, the query implementations use the same monoid structures as in \name.
+
+The comparison of the control dependencies query is shown on the left of Fig.~\ref{FIG:performance}.
+The plot shows that the performance is quite comparable.
+On average, the \name implementation of the query seems a little slower.
+This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes \tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
+
+For transformations the performance difference is slightly more severe.
+The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation. 
+The greate difference can probably be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls. 
+
+
+
 

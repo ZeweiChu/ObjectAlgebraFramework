@@ -5,7 +5,7 @@ The previous section discusses simple queries of merging the same type. However,
 A simple example of generalized queries could be to construct the dependency graph of a program. Let us first extend our simple ExpAlg to a more generalized language StatAlg by adding Statements as in Fig.~\ref{statalg}. Two more statements, sequence and assign operation, are added to our statement language. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
+\lstinputlisting[linerange=-]{} % APPLY:linerange=7-10STATALG
 \vspace{-.1in}
 \caption{Statement Algebra Interface}
 \label{statalg}
@@ -14,7 +14,7 @@ A simple example of generalized queries could be to construct the dependency gra
 Now think about constructing the dependency graph from a statement. For \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appear in the Expression \lstinline{e}. As for \lstinline{Seq(Stat s1, Stat s2)}, it is nothing but merge the dependency list appear at both statement dependency lists. A simple implementation of constructing a dependency graph with return type \lstinline{Set<Pair<String, String>>} is shown in Fig.~\ref{deps1}. Here \lstinline{Var(String p0)} is the source where variable are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that all variable in p1 are dependent on variable p0. Other methods only congregate same type of variables to larger collections. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
+\lstinputlisting[linerange=-]{} % APPLY:linerange=12-27DEPS1
 \vspace{-.1in}
 \caption{Dependency Graph}
 \label{deps1}
@@ -102,7 +102,7 @@ As shown above, if we introduce two monoids, \lstinline{mExp} and \lstinline{mSt
 Now that we have the Generalized queries with various monoids, we can focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=12-20]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
+\lstinputlisting[linerange=-]{} % APPLY:linerange=12-20DEPS2
 \vspace{-.1in}
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}
