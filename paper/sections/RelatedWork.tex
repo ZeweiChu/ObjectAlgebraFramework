@@ -1,12 +1,74 @@
 \section{Related Work}\label{sec:related}
 
-To the best of our knowledge, few work has been done addressing writing generic queries and transformations with object algebras, while we should mention some work on object algebras and large tree structures traversal control, which inspired and formed the basis of our work. 
+To the best of our knowledge, few work has been done addressing
+writing generic queries and transformations with object algebras,
+while we should mention some work on object algebras and large tree
+structures traversal control, which inspired and formed the basis of
+our work.
 
-\textit{Object Algebras}. Oliveira proposed Object Algebras as a solution to Expression Problem. Object algebras applies well in mainstream object oriented languages like Java. It is a lightweight solution in terms of language features required. Oliveira also worked on using intersection type and type-constructor polymorphism to make object algebras compositional with feature oriented programming. Different from their prior research, we found that when applying object algebras in rich tree structures, boilerplate code is hard to avoid. Hence our work focuses on reducing the amount of boilerplate code for developers when writing queries and transformations with object algebra tree structures. 
+\paragraph{Adaptive Object-Oriented Programming (AOOP)}
+In AOOP~\cite{DemeterBook} there is a domain-specific language for
+selecting parts of a structure that should be visited. This is useful
+to do traversals on complex structures and focus only on the
+interesting parts of the structure relevant for computing the final
+output.  DJ is an implementation of AOOP for Java using
+reflection~\cite{DJ}. More recently, inspired by AOOP,
+DemeterF~\cite{OOGP} improved on previous approaches by providing
+support for safe traversals, generics and data-generic function
+generation.  Compared to \name most AOOP approaches are not
+type-safe. Only in DemeterF a custom type system was designed to
+ensure type-safety of generic functions. However, in contrast to
+\Name, DemeterF requires a new language and it is unclear how DemeterF
+traversals interact with extensibility.
 
-\textit{Tree structures traversals}. In the functional programming community like Haskell, much research has been done on traversal control of large structures. Lammel's Scrap your Boilerplate\cite{ralf03syb} series introduced a practical design pattern for generic programming in tree structures, which inspired our work of scrapping boilerplates in Object Algebras. Bringert\cite{bjorn08acf} introduced useful compositional functions to help construct final results in Haskell. Lammel\cite{ralf00banana} proposed a polytypic programming approach for generalized and basic folds. These fold algebras scale up applications involving large systems of mutually recursive datatypes. These works all try to optimize traversal control of large structures in functional programming paradigm, while our work solves a similar problem in Object Algebras, a programming style in Object Oriented Programming paradigm. 
+\paragraph{Structure-Shy Traversals with Visitors}. 
+Visser\cite{visser01visitor} provided some visitor
+combinators that can express interesting traversal strategies in
+visitor pattern. We applies some similar idea like identity
+transformation in simple transformation, but our work targets at
+traversal control in Object Algebras.\bruno{Tijs}\bruno{More work: 
+The essence of the visitor pattern, and follow-up work to improve 
+performance.}
 
-\textit{Visitor Combinators and Traversal Control}. Visser\cite{visser01visitor} provided some visitor combinators that can express interesting traversal strategies in visitor pattern. We applies some similar idea like identity transformation in simple transformation, but our work targets at traversal control in Object Algebras. 
+\paragraph{Strategic Programming}\bruno{Tijs}
 
-In summary, prior to our work, research has been done on object algebras and composition problem of this programming style. In the functional programming world and with visitor pattern, traversal control in large structures is also explored. Different from these work, we explored techniques helping write generic queries and transformations traversing large tree structures with Object Algebras. 
+\paragraph{Object Algebras.} Oliveira proposed Object Algebras as a
+solution to Expression Problem. Object algebras applies well in
+mainstream object oriented languages like Java. It is a lightweight
+solution in terms of language features required. Oliveira also worked
+on using intersection type and type-constructor polymorphism to make
+object algebras compositional with feature oriented
+programming. Different from their prior research, we found that when
+applying object algebras in rich tree structures, boilerplate code is
+hard to avoid. Hence our work focuses on reducing the amount of
+boilerplate code for developers when writing queries and
+transformations with object algebra tree structures.
+
+\textit{Structure-Shy Traversals in Functional Programming.} 
+In the functional programming community like Haskell, much research
+has been done on traversal control of large structures. Lammel and
+Peyton Jones' ``Scrap your Boilerplate''~\cite{ralf03syb,?,?} series
+introduced a practical design pattern for doing type-safe
+structure-shy traversals in tree structures, and were a source 
+of inspiration. Quite different implementation techniques ... 
+SyB traversals are notoriously slow due to the use of some run-time 
+reflection techniques.
+%The notions of queries 
+%and transformations are inspired by their work.
+Bringert\cite{bjorn08acf} introduced useful compositional
+functions to help construct final results in
+Haskell. Lammel\cite{ralf00banana} proposed a polytypic programming
+approach for generalized and basic folds. These fold algebras scale up
+applications involving large systems of mutually recursive
+datatypes. These works all try to optimize traversal control of large
+structures in functional programming paradigm, while our work solves a
+similar problem in Object Algebras, a programming style in Object
+Oriented Programming paradigm.
+
+In summary, prior to our work, research has been done on object
+algebras and composition problem of this programming style. In the
+functional programming world and with visitor pattern, traversal
+control in large structures is also explored. Different from these
+work, we explored techniques helping write generic queries and
+transformations traversing large tree structures with Object Algebras.
 

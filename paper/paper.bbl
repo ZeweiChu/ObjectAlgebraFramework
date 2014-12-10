@@ -6,6 +6,16 @@
 Bjorn~Bringert, A.R.: A pattern for almost compositional functions. Journal of
   Functional Programming  18,  567--598 (September 2008)
 
+\bibitem{gouseti14extensible}
+Gouseti, M., Peters, C., Storm, T.v.d.: Extensible language implementation with
+  object algebras (short paper). In: Proceedings of the 2014 International
+  Conference on Generative Programming: Concepts and Experiences. GPCE 2014
+  (2014)
+
+\bibitem{DemeterBook}
+Lieberherr, K.J.: Adaptive Object Oriented Software: The Demeter Method with
+  Propagation Patterns. PWS Publishing (1996)
+
 \bibitem{ralf00banana}
 Ralf~Lammel, Joost~Visser, J.K.: Dealing with large bananas (2000)
 

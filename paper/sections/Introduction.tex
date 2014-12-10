@@ -23,19 +23,18 @@ of run-time errors that would not otherwise be detected.
 
 Unfortunately, for many traversals, the number of nodes and the
 enforced type distinctions between nodes can lead to so-called
-boilerplate code~\cite{}. In this context, boilerplate code is code
-that is similar for most different types of nodes and which
+boilerplate code~\cite{ralf03syb}. In this context, boilerplate code
+is code that is similar for most different types of nodes and which
 essentially walks the structure. Traversals where such boilerplate
-code dominates are called \emph{structure shy}~\cite{}\bruno{Who
-  invented the term structure-shy? Alcino Cunha?}. In structure shy
-operations only for a small portion of nodes the code for the core
-functionality that motivated the traversal in the first place will be
-different. A typical example would be computing the free variables of
-an expression for some programming language. In this case, the
-interesting code would be done in the nodes representing the binding
-constructs. In all other nodes, the code would just deal with
-walking the structure. In languages with dozens or hundreds of nodes,
-having to explictly write cases for each node is a source of
+code dominates are called \emph{structure shy}~\cite{DemeterBook}. In
+structure shy operations only for a small portion of nodes the code
+for the core functionality that motivated the traversal in the first
+place will be different. A typical example would be computing the free
+variables of an expression for some programming language. In this
+case, the interesting code would be done in the nodes representing the
+binding constructs. In all other nodes, the code would just deal with
+walking the structure. In data structures with dozens or hundreds of
+nodes, having to explictly write cases for each node is a source of
 significant complexity, since it requires a lot of effort and it is
 error-prone.
 %In summary, structure shy operations
@@ -84,7 +83,9 @@ data structure.
 \item {\bf Simple and general:} \name traversals work for any
   structure that can be expressed as a (multi-sorted) object
   algebra. This includes complex OO hierarquies or ASTs for large
-  languages.\bruno{Why simple?}
+  languages. Very often traversals are quite simple, being
+  implementable in just a few lines of code, even for complex
+  structures with hundreds of different types of nodes.
 
 \item {\bf Implemented in plain Java:} \name traversals do not require
   a new tool or language. The approach is library based and uses only
@@ -94,20 +95,28 @@ data structure.
   type-safe. No run-time casts are needed for generic traversal code
   or for user-defined traversal code.
 
-\item {\bf Extensible:} \name traversals inherit the type-safe
+\item {\bf Extensible:} \name traversals inherit type-safe
   extensibility from object algebras. Therefore it is possible to
   reuse traversal code in structures that are extended with additional
   constructors.
+
+\item {\bf Performant:} Traversals written with \name have performance that 
+is comparable to naive hand-written OO code.
 
 \end{itemize}
 
 To prove the effectiveness of the approach, we employeed \name 
 on the implementation of the domain-specific questionaire 
-language QL~\cite{}. Our results show that for a large number of traversals 
-there was a significant reduction in the amount of user-defined code.
+language QL~\cite{gouseti14extensible}\bruno{hot to format QL properly in latex?}. 
+Our results show that for a large number of traversals 
+there was a significant reduction in the amount of user-defined code, and no
+performance penalties.
 
-Moreover our approach should apply to any OO language 
-  with support for generics and annotations, including Scala, or .Net languages.
+Although we have chosen Java as the implementation language for \Name,
+our approach should apply to any OO language with support for generics
+and annotations (or other built-in macro or meta-programming techniques). 
+For example it should be easy to port \name to languages such as Scala, 
+or .Net languages.
 
 \begin{comment}
 
@@ -170,8 +179,10 @@ In summary, the contributions of this paper are:
 patterns for various types of traversals using object algebras. These include: 
 \emph{queries}, \emph{transformations},
 \emph{generalized queries} and \emph{generalized transformations}.
+\bruno{Come back to this later, when we know which types of traversals we are
+presenting.}
 
-\item {\bf Shy: a Java framework for eliminating boilerplate code.} We have implemented 
+\item {\bf The Shy Java framework.} We have implemented 
 a Java framework that can be used to describe complex structures using 
 object algebras; and to eliminate boilerplate code. The framework uses Java 
 annotations to automatically generate generic traversals, and is publicly available
