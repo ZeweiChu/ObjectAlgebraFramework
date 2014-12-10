@@ -8,7 +8,7 @@ Besides the collection of information, one may also want to modify the informati
 An example of the transformation algebra, based on the interface ExpAlg is called \textit{substVars}. We anticipate to substitute a given expression for a specific variable. To address this issue, a programmer who has knowledge of object algebras may usually write some traversal code like Fig.~\ref{substvars_without_id}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=3-16]{../ObjectAlgebras/src/expDemo2/SubstVarsExpAlg.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
 \vspace{-.1in}
 \caption{A normal algebra-based approach for substVars}
 \label{substvars_without_id}
@@ -21,7 +21,7 @@ In Fig.~\ref{substvars_without_id}, \lstinline{getVar()} is the name of the spec
 In the section of query algebras, we introduce monoids to implement the generic traversal of an object algebra interface. And similarly, the technique to achieve the generic traversal on transformations is called the \textit{identity approach}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=3-14]{../ObjectAlgebras/src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
+\lstinputlisting[linerange=-]{} % APPLY:linerange=GENERIC_TRANSFORM
 \vspace{-.1in}
 \caption{Generic transformation by hand with identity approach}
 \label{generic_transform}
@@ -36,7 +36,7 @@ Another important characteristic is that we can apply several transformations to
 Now with our generic transformation, one solution to substVars is available in Fig.~\ref{substvars_with_id}, where the method \lstinline{Var()} from its super-interface \lstinline{ExpAlgTransform} is overridden.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=3-9]{../ObjectAlgebras/src/expDemo3/SubstVarsExpAlg.java} % APPLY:linerange=SUBSTVARS_WITH_ID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=SUBSTVARS_WITH_ID
 \vspace{-.1in}
 \caption{The transformation interface for substVars}
 \label{substvars_with_id}

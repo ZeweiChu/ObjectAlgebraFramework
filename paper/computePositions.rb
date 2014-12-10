@@ -39,12 +39,14 @@ fileloc = {}
 beginpos = {}
 endpos = {}
 
-Dir['../ObjectAlgebras/src/*.java'].each do |file| 
+Dir['../ObjectAlgebras/src/**/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
-Dir['../ObjectAlgebras/src/*/*.java'].each do |file| 
+
+Dir['../QL/src/**/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
+
 
 Dir['*.tex'].each do |file| 
   #temp = Tempfile.new('compute_positions')

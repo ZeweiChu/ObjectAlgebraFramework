@@ -27,7 +27,7 @@ it can be treated as a numeric literal, a variable or the addition of
 two expressions. Specifically, the structure is defined as follows:
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=3-7]{../ObjectAlgebras/src/expDemo2/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\lstinputlisting[linerange=-]{} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{Object algebra interface: ExpAlg}
 \label{exp_alg}
@@ -47,7 +47,7 @@ expressions with the \lstinline{Add()} method.
 Generally speaking, it is natural to deal with the traversal in an algebra-based approach like Fig.~\ref{freevars_without_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-19]{../ObjectAlgebras/src/expDemo2/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \vspace{-.1in}
 \caption{A normal algebra-based approach for freeVars}
 \label{freevars_without_monoid}
@@ -73,7 +73,7 @@ the traversal. Hence we introduce the concept of monoid and generic
 traversal here in our query algebras.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=5-15]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=MONOID
 \vspace{-.1in}
 \caption{A generalized monoid interface}
 \label{monoid}
@@ -91,7 +91,7 @@ manually based on monoids. See Fig.~\ref{generic_query}.
 \end{comment}
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=3-19]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
+\lstinputlisting[linerange=-]{} % APPLY:linerange=GENERIC_QUERY
 \vspace{-.1in}
 \caption{Generic query by hand with monoid}
 \label{generic_query}
@@ -104,7 +104,7 @@ And now we find everything goes in an easier way: we don't care about what kind 
 As an alternative way to handle the freeVars query, the query algebra is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic algebra, with generic type to be \lstinline{List<String>}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=FREEVARS_MONOID
 \vspace{-.1in}
 \caption{A monoid instance defined for freeVars}
 \label{freevars_monoid}
@@ -115,7 +115,7 @@ As an alternative way to handle the freeVars query, the query algebra is going t
 But the result for an expression can only be a null list based on the monoid. Thus in the freeVars query, furthermore, we expect the variables to store their names into a list, and by using the monoid, freeVars can be implemented. See Fig.~\ref{freevars_with_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=6-13]{../ObjectAlgebras/src/expDemo3/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITH_MONOID
+\lstinputlisting[linerange=-]{} % APPLY:linerange=FREEVARS_WITH_MONOID
 \vspace{-.1in}
 \caption{The query interface for freeVars}
 \label{freevars_with_monoid}

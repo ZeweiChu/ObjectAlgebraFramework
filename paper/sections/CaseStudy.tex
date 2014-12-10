@@ -36,9 +36,29 @@ The cases required for desugaring include the case of the language extension, wh
 \end{table}
 
 
-\subsection{Desugaring Language Extensions}
+\subsection{Extending queries and transformations}
 
+Instead of desugaring language extensions to the base language it is also possible to treat them as first-class constructs and retroactively extend existing queries and transformations.
+The framework permits to use  Java interface extension to achieve this in a fully type safe way.
+Figure~\ref{inline_conds_unless} and Fig.~\ref{controldeps_unless} show the extension of the inline conditions transformation and control dependencies query when extending QL with ``unless''.
 
+\begin{figure}[tb]
+\lstinputlisting[linerange=9-16]{../QL/src/_syb/trafo/InlineConditionsUnless.java} % APPLY:linerange=INLINECONDS_UNLESS
+\vspace{-.1in}
+\caption{Extending the inline-conditions transformation to deal with ``unless''}
+\label{inline_conds_unless}
+\end{figure}
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=10-18]{../QL/src/_syb/query/ControlDepGraphUnless.java} % APPLY:linerange=CONTROLDEPS_UNLESS
+\vspace{-.1in}
+\caption{Extending the control-dependencies query to deal with ``unless''}
+\label{controldeps_unless}
+\end{figure}
+
+Inlining of conditions across ``unless'' statements is analogous to the implementation for ``if''.
+It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
+The extension of the control dependencies query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
 \subsection{\name performance vs Vanilla ASTs}
 
