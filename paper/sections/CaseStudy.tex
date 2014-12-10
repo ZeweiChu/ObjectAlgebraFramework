@@ -56,11 +56,24 @@ Figure~\ref{inline_conds_unless} and Fig.~\ref{controldeps_unless} show the exte
 \label{controldeps_unless}
 \end{figure}
 
-Inlining of conditions across ``unless'' statements is analogous to the implementation for ``if''.
+Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unless}) is analogous to the implementation for ``if''.
 It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
-The extension of the control dependencies query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
+The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
 \subsection{\name performance vs Vanilla ASTs}
+
+We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes.
+The operations were executed on progressively larger QL programs (up to 1.4Mb).
+In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
+In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
+For context-dependent transformation, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function. 
+To make the comparison as fair as possible, the query implementations use the same monoid structures as in \name.
+
+The comparison of the control dependencies query is shown in Figure~\ref{FIG:perfControlDeps}.
+The plot shows that the performance is quite comparable.
+On average, the \name implementation of the query seems a little slower.
+This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes \tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
+
 
 
 \begin{figure}
