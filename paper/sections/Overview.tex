@@ -26,7 +26,7 @@ department or an Employee. An Employee is a Person with the Salary
 Information.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=6-23OOP_COMPANY
+\lstinputlisting[linerange=6-23]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{Company Class in OOP style}
 \label{oop_company}
@@ -62,7 +62,7 @@ Another issue of the above solution is that we usually need to write a large amo
 To tackle with the problem of extensibility, Object Algebras is a good solution. \bruno{text missing here. We need to introduce object algebras first; explain what they are; cite them; and then talk about the solution.} Oliveira proposed the design pattern \emph{Object Algebras}\cite{bruno12oa} to solve the famous Expression Problem. Object Algebras are classes that implement Object Algebra Interfaces where the type parameters represents the algebra classes. With this extra layer of generic type parameters, Object Algebras is extensible on both data variants and operations.  
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=8-17SYB_TREE
+\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
 \vspace{-.1in}
 \caption{Company Structure represented by Object Algebra Interface}
 \label{syb_tree}
@@ -122,7 +122,7 @@ traversals, we introduce generic queries, generalized generic queries, transform
 
 Now with our Object Algebra Framework, the code we need to write for Salary Bill and Increase Salary will be much shorter. A Generic query code will be as short as Fig.~\ref{query_with_oaframework}. Here when coding with the framework \name, users need not worry about any boilerplate delegation code of the tree structure, but just simply rewrite the interesting case which actually return the salary information.
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=8-11QUERY_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/example_SybAlg/FloatQuery.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Query Salary Class with Object Algebra Framework}
 \label{query_with_oaframework}
@@ -130,7 +130,7 @@ Now with our Object Algebra Framework, the code we need to write for Salary Bill
 
 Transformation code will be like Figure~\ref{transform_with_oaframework}. Similar to the query example, all the boilerplate part has been handled by the framework and the developer only needs to pass in the original company algebra and override the interesting case \lstinline{Float S(float salary)}, then a new company algebra will be returned after transformation.  
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=7-12TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-12]{../ObjectAlgebras/src/example_SybAlg/IncSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Increase Salary Class with Object Algebra Framework}
 \label{transform_with_oaframework}
