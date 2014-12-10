@@ -18,10 +18,7 @@ public interface InlineConditions<E, S, F> extends
 	@Override 
 	default Function<E, S> iff(Function<E, E> p0, Function<E, S> p1) {
 		return (guard) -> {
-			E conj1 =  iExpAlg().and(guard, p0.apply(guard));
-			List<S> ss = new ArrayList<>();
-			ss.add(p1.apply(conj1));
-			return iStmtAlg().block(ss);
+			return p1.apply(iExpAlg().and(guard, p0.apply(guard)));
 		};
 	}
 	
