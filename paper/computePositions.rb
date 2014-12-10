@@ -26,8 +26,16 @@ def process(file, out, beginpos, endpos, fileloc)
     if line =~ /APPLY:(\w+)=(\w+)/
       var = $1
       label = $2
-      line = line.sub( /#{var}=([0-9-]*)/, "#{var}=#{beginpos[label]}-#{endpos[label]}" )
-      line = line.sub( /\{[^{]*\}/, "{#{fileloc[label]}}" )
+      puts "Processing #{var} #{label}"
+      #puts "Line before: #{line}"
+      if fileloc.has_key?(label) then
+        line = line.sub( /#{var}=([0-9-]*)/, "#{var}=#{beginpos[label]}-#{endpos[label]}" )
+        #puts "Line is now 1: #{line}"
+        line = line.sub( /\{[^{]*\}/, "{#{fileloc[label]}}" )
+        #puts "Line is now 2: #{line}"
+      else
+        puts "Not found!"
+      end
     end
     out.write(line)
   end
@@ -39,10 +47,12 @@ fileloc = {}
 beginpos = {}
 endpos = {}
 
-Dir['../ObjectAlgebras/src/**/*.java'].each do |file| 
+Dir['../ObjectAlgebras/src/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
-
+Dir['../ObjectAlgebras/src/*/*.java'].each do |file| 
+  scan(file, beginpos, endpos, fileloc)
+end
 Dir['../QL/src/**/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
