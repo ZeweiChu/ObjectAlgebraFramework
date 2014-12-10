@@ -1,0 +1,13 @@
+\section{Contextual Transformations}\label{sec:contexttrans}
+
+In the previous section, our identity approach introduces a simple template for transformations, in which users can just override a few methods to construct a transformation algebra, rather than build up the traversal framework, which can be very complicated with boring code.
+
+\hl{citation?}
+
+\subsection{Capture-avoiding substitution: a contextual transformation}\label{subsec:captureavoidsubst}
+
+\textbf{SUBST}
+
+\subsection{Generic traversal for contextual transformations}\label{subsec:genericcontexttrans}
+
+\subsection{Solving SUBST with generic transformation algebra}\label{subsec:solvingsubst}
