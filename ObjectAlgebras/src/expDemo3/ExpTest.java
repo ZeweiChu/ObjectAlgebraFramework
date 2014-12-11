@@ -12,10 +12,10 @@ public class ExpTest {
 		
 	public static void main(String[] args) {		
 		FreeVarsExpAlg alg = new FreeVarsExpAlg(){};
-		SubstVarsExpAlg<List<String>> substVarsExpAlg = new SubstVarsExpAlg<List<String>>() {
+		SubstVarExpAlg<List<String>> substVarsExpAlg = new SubstVarExpAlg<List<String>>() {
 			public ExpAlg<List<String>> expAlg() { return alg; }
-			public String getVar() { return "var1"; }
-			public List<String> getExp() { return expAlg().Var("var4"); }
+			public String x() { return "var1"; }
+			public List<String> e() { return expAlg().Var("var4"); }
 		};
 		List<String> res = genExp(substVarsExpAlg);
 		for (String s: res) System.out.println(s);
