@@ -39,21 +39,21 @@ public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>
 	}
 	
 	@Override
-	default Subst<Exp> Lambda(String x, Subst<Exp> e) {
+	default Subst<Exp> Lam(String x, Subst<Exp> e) {
 		return (y, to, fv, ren) -> {
 			if (x.equals(y)) 
-				return lamAlg().Lambda(x, e.subst(x, expAlg().Var(x), Collections.emptySet(), ren));
+				return lamAlg().Lam(x, e.subst(x, expAlg().Var(x), Collections.emptySet(), ren));
 			
 			if (fv.contains(x)) {
 				String z = fresh(x, fv);
 				ren = new HashMap<>(ren);
 				ren.put(x, z);
-				return lamAlg().Lambda(z, e.subst(y, to, fv, ren));
+				return lamAlg().Lam(z, e.subst(y, to, fv, ren));
 			}
 			
 			ren = new HashMap<>(ren);
 			ren.remove(x);
-			return lamAlg().Lambda(x, e.subst(y, to, fv, ren));
+			return lamAlg().Lam(x, e.subst(y, to, fv, ren));
 		};
 	}
 	

@@ -19,20 +19,20 @@ public interface Substitution<Exp> extends G_ExpAlgTransform<Map<String,String>,
 	}
 	
 	@Override
-	default Function<Map<String,String>,Exp> Lambda(String y, Function<Map<String,String>,Exp> e) {
+	default Function<Map<String,String>,Exp> Lam(String y, Function<Map<String,String>,Exp> e) {
 		return (ren) -> {
 			if (y.equals(x())) {
-				return lamAlg().Lambda(y, e.apply(Collections.singletonMap(y, y)));
+				return lamAlg().Lam(y, e.apply(Collections.singletonMap(y, y)));
 			}
 			
 			if (fv().contains(y)) {
 				// rename lambda binder using fresh variable z.
 				String z = fresh(y, fv()); 
-				return lamAlg().Lambda(z, e.apply(add(ren, y, z)));	
+				return lamAlg().Lam(z, e.apply(add(ren, y, z)));	
 			}
 			
 			// no risk of capture, but don't rename across binder y
-			return lamAlg().Lambda(y, e.apply(remove(ren, y)));
+			return lamAlg().Lam(y, e.apply(remove(ren, y)));
 			
 			
 		};

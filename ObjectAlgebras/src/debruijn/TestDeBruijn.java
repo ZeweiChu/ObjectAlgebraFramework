@@ -12,7 +12,7 @@ public class TestDeBruijn {
 	static class PrintLambdaExp implements ExpAlg<String>, LamAlg<String> {
 
 		@Override
-		public String Lambda(String x, String e) {
+		public String Lam(String x, String e) {
 			return "\\" + x + "." + e;
 		}
 
@@ -54,13 +54,12 @@ public class TestDeBruijn {
 	
 	
 	public static void main(String[] args) {
-		// λx. λy. λz. x z (y z) => λ λ λ 3 1 (2 1).
 		DoIt d = new DoIt();
-		Function<List<String>, String> f = d.Lambda("x", d.Lambda("y", d.Lambda("z", d.Apply(d.Apply(d.Var("x"), d.Var("z")), d.Apply(d.Var("y"), d.Var("z"))))));
+		Function<List<String>, String> f = d.Lam("x", d.Lam("y", d.Lam("z", d.Apply(d.Apply(d.Var("x"), d.Var("z")), d.Apply(d.Var("y"), d.Var("z"))))));
 		String s = f.apply(Collections.emptyList());
 		System.out.println(s);
 
-		f = d.Lambda("x", d.Lambda("y", d.Add(d.Var("x"), d.Var("y"))));
+		f = d.Lam("x", d.Lam("y", d.Add(d.Var("x"), d.Var("y"))));
 		s = f.apply(Collections.emptyList());
 		System.out.println(s);
 

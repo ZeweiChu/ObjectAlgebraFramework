@@ -31,7 +31,7 @@ public class TestSubstitution {
 	}
 	
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E buildSrc(Alg alg) {
-		return alg.Lambda("x", alg.Add(alg.Add(alg.Lit(3), alg.Add(alg.Var("x"), alg.Lambda("x", alg.Var("y")))), alg.Add(alg.Var("y"), alg.Lambda("y", alg.Var("y")))));
+		return alg.Lam("x", alg.Add(alg.Add(alg.Lit(3), alg.Add(alg.Var("x"), alg.Lam("x", alg.Var("y")))), alg.Add(alg.Var("y"), alg.Lam("y", alg.Var("y")))));
 	}
 	
 	
@@ -40,7 +40,7 @@ public class TestSubstitution {
 	}
 
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E replacement2(Alg alg) {
-		return alg.Lambda("x", alg.Var("x"));
+		return alg.Lam("x", alg.Var("x"));
 	}
 
 	static void example(Set<String> fvs, Supplier<String> org, Function<SubstArgs<Supplier<String>>, Supplier<String>> src, Supplier<String> repl) {
@@ -78,7 +78,7 @@ public class TestSubstitution {
 	
 	static <E, Alg extends ExpAlg<E> & LamAlg<E>> E bruno(Alg alg) {
 		//(\x . \y . \x . x + y) [y -> x]
-		return alg.Lambda("x", alg.Lambda("y", alg.Lambda("x", alg.Add(alg.Var("x"), alg.Var("y")))));
+		return alg.Lam("x", alg.Lam("y", alg.Lam("x", alg.Add(alg.Var("x"), alg.Var("y")))));
 	}
 	
 	

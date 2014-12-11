@@ -30,8 +30,8 @@ public class CombineLamAlg<A0, B0>
 		return new Pair<A0, B0>(alg1.Apply(p0.a(), p1.a()), alg2.Apply(p0.b(), p1.b()));
 	}
 
-	public Pair<A0, B0> Lambda(java.lang.String p0, Pair<A0, B0> p1) {
-		return new Pair<A0, B0>(alg1.Lambda(p0, p1.a()), alg2.Lambda(p0, p1.b()));
+	public Pair<A0, B0> Lam(java.lang.String p0, Pair<A0, B0> p1) {
+		return new Pair<A0, B0>(alg1.Lam(p0, p1.a()), alg2.Lam(p0, p1.b()));
 	}
 
 }

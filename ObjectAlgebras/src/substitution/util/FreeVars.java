@@ -16,7 +16,7 @@ public class FreeVars implements LamAlgQuery<Set<String>>, ExpAlgQuery<Set<Strin
 	}
 
 	@Override
-	public Set<String> Lambda(String x, Set<String> e) {
+	public Set<String> Lam(String x, Set<String> e) {
 		Set<String> set = new HashSet<>(e);
 		set.remove(x);
 		return set;

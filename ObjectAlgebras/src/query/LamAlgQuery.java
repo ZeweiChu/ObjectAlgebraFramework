@@ -14,7 +14,7 @@ public interface LamAlgQuery<R> extends LamAlg<R> {
 		return res;
 	}
 
-	default R Lambda(java.lang.String p0, R p1) {
+	default R Lam(java.lang.String p0, R p1) {
 		R res = m().empty();
 		res = m().join(res, p1);
 		return res;

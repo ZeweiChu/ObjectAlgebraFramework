@@ -8,7 +8,7 @@ import trees.LamAlg;
 public class Print implements ExpAlg<Supplier<String>>, LamAlg<Supplier<String>> {
 
 	@Override
-	public Supplier<String> Lambda(String x, Supplier<String> e) {
+	public Supplier<String> Lam(String x, Supplier<String> e) {
 		return () -> "(lambda (" + x + ") " + e.get() + ")";
 	}
 
