@@ -7,20 +7,22 @@ Just as with queries, we can distinguish code that deal with traversing the data
 In this section we show how to avoid most traversal boilerplate code in the context of transformations based on Object Algebras.
 
 
-\subsection{SubstVars: a simple tranformation algebra}\label{subsec:substvars}
+\subsection{Variable substitution: a simple tranformation algebra}\label{subsec:substvars}
 
 An simple example of a transformation algebra, based on the interface \lstinline{ExpAlg} is called substituting variables for expressions. A manual implementation based on Object Algebras is shown in Fig.~\ref{substvars_without_id}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVarsExpAlg.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
+\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVarExpAlg.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
 \vspace{-.1in}
-\caption{A normal algebra-based approach for substVars}
+\caption{A normal algebra-based implementation of variable substitution}
 \label{substvars_without_id}
 \end{figure}
 
 The variable to be substituted, and the expression to substitute for are captured by the methods \lstinline{x()} and \lstinline{e()} respectively. 
 \lstinline{expAlg()} is an instance of \lstinline{ExpAlg} on which the transformation is based.
-In other words, performing the substitution will build a structure in the algebra \lstinline{expAlg()}.
+Since Object Algebras are factories, the transformation is executed immediately during construction.
+For instance, calling \lstinline{Var("x")} on a \lstinline{SubstVarExpAlg} object with \lstinline{x()} returning \lstinline{"x"} immediately returns the result of \lstinline{exp()}, --- the original variable expression is never created. 
+In the other cases, the original structure is recreated in the algebra \lstinline{expAlg()}.
 
 Again we observe the problem of traversal-only boilerplate code: the \lstinline{Lit} and \lstinline{Add} methods simply delegate to the base algebra \lstinline{expAlg()} without performing any computation.
 This boilerplate code can be avoided by creating a super-interface containing default methods performing the traversal (shown in Fig.~\ref{generic_transform}).
@@ -38,15 +40,16 @@ In this case, only the  method \lstinline{Var()} is overridden.
 
 
 \begin{figure}[t]
-\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/SubstVarsExpAlg.java} % APPLY:linerange=SUBSTVARS_WITH_ID
+\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/SubstVarExpAlg.java} % APPLY:linerange=SUBSTVARS_WITH_ID
 \vspace{-.1in}
 \caption{The transformation interface for substVars}
 \label{substvars_with_id}
 \end{figure}
 
 
-To execute substitution, the \lstinline{SubstVarsExpAlg} should be subclassed (either anonymously or explicitly) with implementations for \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}.
+To execute substitution, the \lstinline{SubstVarExpAlg} should be subclassed (either anonymously or explicitly) with implementations for \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}.
 The base algebra \lstinline{expAlg()} could for instance be an algebra for pretty printing the expression with the substitution applied.
+Note that this allows pipelining of transformations: there is no reason  \lstinline{expAlg()} can not return yet another transformation algebra. 
 
 
 %Another important characteristic is that we can apply several transformations to the data structure before a query. This pattern is called the \textit{transformation pipeline}. Since the transformation algebra \lstinline{ExpAlgTransform<Exp>} is a sub-interface of \lstinline{ExpAlg<Exp>}, it creates any instance with the same type as the \lstinline{expAlg()} inside. Therefore a programmer can define a number of transformation algebras, and compose them in sequence, like a nested structure. At the meantime, a query algebra is passed to the innermost \lstinline{expAlg()}. In that case, the query is traversed recursively throughout the pipeline and eventually derives a certain composite transformation algebra.
