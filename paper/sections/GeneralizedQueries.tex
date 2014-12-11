@@ -41,10 +41,11 @@ Data dependencies are created by assignment statements:
 for a statement \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appearing in \lstinline{e}.
 The result of extracting such dependencies can be represented as binary relation (a set of pairs). 
 
+To implement the extraction of data dependencies only two case have to be implemented: the variable (\lstinline{Var}) case from the \lstinline{ExpAlg} signature, and the assignment (\lstinline{Assign}) case from the \lstinline{StatAlg} signature.
+The implementation is shown in Fig.\ref{deps2}.
+Note that the \lstinline{Assign} case takes in the input \lstinline{Set<String> p1} and uses it to create the binary dependency relation.
+The propagation of the statement monoid across sequential composition is automatic, as is the propagation of the set of variables through expressions.
 
-As shown above, if we introduce two monoids, \lstinline{mExp} and \lstinline{mStat}, it is simple to query and construct the desired dependency graph with monoids specific to the query types.  
-
-Now that we have the Generalized queries with various monoids, we can focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=12-17]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
@@ -53,14 +54,6 @@ Now that we have the Generalized queries with various monoids, we can focus on t
 \label{deps2}
 \end{figure}
 
-Fig.~\ref{deps2} shows the code of constructing dependency graph with generalized queries. Similar to simple queries, to specify the desired return type of dependency graph, the developer only needs to clarify the monoids for each type argument. 
-
-\begin{lstlisting}[numbers=none]
-class StringPairDepGraph implements DepGraph {
-	public Monoid<Set<String>> mExp() {return new SetMonoid<>();}
-	public Monoid<Set<Pair<String, String>>> mStat() {
-		return new SetMonoid<>();}
-}
-\end{lstlisting}
-
-Note that the generalized query interface can be implemented with different ways to achieve different desired functionalities and monoids will help specify various query return types. 
+The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
+If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.
+The default implementation thus can carry over, for instance, query results of expression into the result of statements. 
