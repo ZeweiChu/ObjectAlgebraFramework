@@ -1,4 +1,4 @@
-\subsection{Contextual Transformations}\label{sec:contexttrans}
+\section{Contextual Transformations}\label{sec:contexttrans}
 
 The previous section introduced a simple template for defining transformations that execute during construction of a structure (e.g., an expression).
 Transformations in this style can only depend on global context information (e.g., \lstinline{x()}, \lstinline{e()}).
@@ -28,7 +28,7 @@ interface Alg$_T$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Funct
 \label{ctxTrafoTemplate}
 \end{figure}
 
-\subsection{Conversion to De Bruijn indices: contextual transformation}
+\subsection{Example: conversion to De Bruijn indices}
 
 The template shown in Fig.~\ref{ctxTrafoTemplate} support tranformations where traversal dependent context informations flows down the created structure.
 An example of such a contextual transformation is replacing variables  to De Bruijn indices in the lambda calculus~\cite{DeBruijn}.
