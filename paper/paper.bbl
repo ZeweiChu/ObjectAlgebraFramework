@@ -6,6 +6,10 @@
 Bjorn~Bringert, A.R.: A pattern for almost compositional functions. Journal of
   Functional Programming  18,  567--598 (September 2008)
 
+\bibitem{OOGP}
+Chadwick, B., Lieberherr, K.: Weaving generic programming and traversal
+  performance. In: AOSD'10 (2010)
+
 \bibitem{gouseti14extensible}
 Gouseti, M., Peters, C., Storm, T.v.d.: Extensible language implementation with
   object algebras (short paper). In: Proceedings of the 2014 International
@@ -15,6 +19,10 @@ Gouseti, M., Peters, C., Storm, T.v.d.: Extensible language implementation with
 \bibitem{DemeterBook}
 Lieberherr, K.J.: Adaptive Object Oriented Software: The Demeter Method with
   Propagation Patterns. PWS Publishing (1996)
+
+\bibitem{DJ}
+Orleans, D., Lieberherr, K.J.: {DJ}: {Dynamic} adaptive programming in {Java}.
+  In: Reflection 2001. Springer-Verlag (2001)
 
 \bibitem{ralf00banana}
 Ralf~Lammel, Joost~Visser, J.K.: Dealing with large bananas (2000)
