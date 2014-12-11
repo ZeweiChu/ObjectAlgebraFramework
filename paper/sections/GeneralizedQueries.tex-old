@@ -1,8 +1,16 @@
 \section{Generalized Queries}\label{sec:generalizedQueries}
-The previous section discusses simple queries of merging the same type. However, queries can be with different types when various type parameters are passed to the \textit{Object Algebra Interface}. Such generalized version of queries are applicable in more cases and the queries in the previous section is a special case of it. 
+
+The previous section discusses simple queries that contribute to the same type of monoid. However, recursive data type often have multiple syntactic categories, for instance expressions and statements.
+In such many-sorted object algebras each sort is represented by the a different type parameter in the Object Algebra interface.
+In this section we present \textit{generalized queries}, where each such type parameter can be instantiated to different monoids. 
+The queries presented in the previous section are a special case of generalized queries when there is only a single sort.
+
 
 \subsection{Dependency Graph: Query different types}\label{subsec:depGraph}
-A simple example of generalized queries could be to construct the dependency graph of a program. Let us first extend our simple ExpAlg to a more generalized language StatAlg by adding Statements as in Fig.~\ref{statalg}. Two more statements, sequence and assign operation, are added to our statement language. 
+
+\tijs{I don't think we need the non-monoid example here, it's too much rehashing of earlier material, --- let's go immediately to the monoid version (Fig. 14).}
+A simple example of generalized queries could be to construct data dependencies between statements and expressions in simple imperative programs. The simple ExpAlg is extended with statements using the StatAlg interface of Fig.~\ref{statalg}.
+The extension consists of statement constructorsL sequential composition and assignment.
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
@@ -11,7 +19,16 @@ A simple example of generalized queries could be to construct the dependency gra
 \label{statalg}
 \end{figure}
 
-Now think about constructing the dependency graph from a statement. For \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appear in the Expression \lstinline{e}. As for \lstinline{Seq(Stat s1, Stat s2)}, it is nothing but merge the dependency list appear at both statement dependency lists. A simple implementation of constructing a dependency graph with return type \lstinline{Set<Pair<String, String>>} is shown in Fig.~\ref{deps1}. Here \lstinline{Var(String p0)} is the source where variable are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that all variable in p1 are dependent on variable p0. Other methods only congregate same type of variables to larger collections. 
+Data dependencies are created by assignment statements:
+for a statement \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appearing in \lstinline{e}.
+The result of extracting such dependencies can be represented as binary relation (a set of pairs). 
+A simple implementation of constructing the dependency graph is shown in Fig.~\ref{deps1}.
+Here \lstinline{Var(String p0)} is the source where variables are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that variable \lstinline{p0} is dependent on all variables in \lstinline{p1}.
+Note that the result of \lstinline{Assign} is a different type (set of pairs of strings) than the input expression (set of strings), because \lstinline{ExpAlg} is instantiated with \lstinline{Set<String>}, and \lstinline{Stat} of \lstinline{StatAlg} is instantiated with \lstinline{Set<Pair<String,String>>}. 
+
+
+Sequential composition simply merges the dependencies of its arguments, so the the method \lstinline{Seq} does not have to be overridden.
+
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1

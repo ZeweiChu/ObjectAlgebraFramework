@@ -56,6 +56,7 @@ keywordstyle=\ttfamily\bfseries,
 \newcommand\jason[1]{\authornote{jason}{green}{#1}}
 \newcommand\haoyuan[1]{\authornote{haoyuan}{red}{#1}}
 \newcommand\bruno[1]{\authornote{bruno}{red}{#1}}
+\newcommand\tijs[1]{\authornote{tijs}{blue}{#1}}
 
 \newcommand\name{{\bf Shy}~}
 \newcommand\Name{{\bf Shy}}
@@ -106,11 +107,11 @@ programmers need to write is significantly smaller, and traversals
 using the \name framework are also much more \emph{structure
   shy}. That is, since traversals have less type-specific code they
 become much more adaptive to future changes in the data structure.
-%An additional benefit of \name is that traversal code can be easily 
-%reused by extensions of the 
-To prove the effectiveness of the approach, we employeed \name 
-on the implementation of a domain-specific questionaire 
-language. Our results show that for a large number of traversals 
+%An additional benefit of \name is that traversal code can be easily
+%reused by extensions of the
+To prove the effectiveness of the approach, we employeed \name
+on the implementation of a domain-specific questionaire
+language. Our results show that for a large number of traversals
 there was a significant reduction in the amount of user-defined code.
 \bruno{Say something more about extensibility and type-safety!}
 
@@ -119,35 +120,35 @@ there was a significant reduction in the amount of user-defined code.
 Static types are useful to distinguish between different kinds
 of nodes in a structure and to prevent misuses. The
 distinction between different types of nodes also means that code for
-dealing with each type of node is needed. However, in large structures, 
-such as the Abstract Syntax Tree (AST) of a programming language, 
-the amount of required code can be a problem. For some operations, 
-which traverse large structures, most of the code amounts to recursively 
-delegating the traversal to the child nodes. Only for some nodes 
-of the structure the code needs to do something different. Still 
-the programmer needs to diligently and tediously write the error-prone 
+dealing with each type of node is needed. However, in large structures,
+such as the Abstract Syntax Tree (AST) of a programming language,
+the amount of required code can be a problem. For some operations,
+which traverse large structures, most of the code amounts to recursively
+delegating the traversal to the child nodes. Only for some nodes
+of the structure the code needs to do something different. Still
+the programmer needs to diligently and tediously write the error-prone
 traversal code for all nodes.
 
-In this paper we present a framework 
+In this paper we present a framework
 
 This approach works well for many operations,
-which need different (and non-trivial) code for each different type 
-of node 
+which need different (and non-trivial) code for each different type
+of node
 
-%Unfortunately, for some operations the interesting 
+%Unfortunately, for some operations the interesting
 
-%%In large structures, 
-%%such as the Abstract Syntax Tree (AST) of a programming language, 
+%%In large structures,
+%%such as the Abstract Syntax Tree (AST) of a programming language,
 %%the code required to traverse the whole structure is proportionaly large.
 
 
-The problem is particularly prominent 
-in statically typed languages, where the typing discipline 
-enforces strict distinctions between different cases 
+The problem is particularly prominent
+in statically typed languages, where the typing discipline
+enforces strict distinctions between different cases
 
-Operations that traverse complex structures often require large and 
-tedious amounts of boilerplate code. In those operations there are 
-typically a few 
+Operations that traverse complex structures often require large and
+tedious amounts of boilerplate code. In those operations there are
+typically a few
 
 A pervasive problem in programming occurs when large tree tr
 
@@ -157,10 +158,10 @@ A pervasive problem in programming occurs when large tree tr
 
 %if False
 
-%\category{D.3.2}{Programming Languages}   
+%\category{D.3.2}{Programming Languages}
 %                {Language Classifications}
 %                [Functional Languages]
-%\category{F.3.3}{Logics and Meanings of Programs}   
+%\category{F.3.3}{Logics and Meanings of Programs}
 %                {Studies of Program Constructs}
 %                []
 
@@ -184,6 +185,8 @@ A pervasive problem in programming occurs when large tree tr
 \input{sections/GeneralizedQueries.tex}
 
 \input{sections/Transformations.tex}
+
+\input{sections/ContexualTransformations.tex}
 
 \input{sections/Framework.tex}
 
