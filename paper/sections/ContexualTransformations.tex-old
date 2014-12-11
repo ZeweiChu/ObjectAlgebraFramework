@@ -11,7 +11,7 @@ A good example for the contextual transformation, is the \textit{capture-avoidin
 \begin{figure}[!htbp]
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/example_LamAlg1/LamAlg.java} % APPLY:linerange=LAM_ALG
 \vspace{-.1in}
-\caption{Object algebra interface: LamAlg}
+\caption{Object algebra interface: \lstinline{LamAlg}}
 \label{lam_alg}
 \end{figure}
 
@@ -21,12 +21,12 @@ An algorithm for SUBST is given by (\haoyuan{citation}). The idea is that, besid
 
 We give a representative approach here as usual, which solves SUBST with respect to transformation algebras.
 
-Firstly we define a custom interface named Subst in Fig.~\ref{interface_subst}. It has only one method inside, which takes four arguments: the variable to be substituted as a String, the resulting expression of type Exp, the set of free variables, and the mapping for renaming.
+Firstly we define a custom interface named \lstinline{Subst} in Fig.~\ref{interface_subst}. It has only one method inside, which takes four arguments: the variable to be substituted as a \lstinline{String}, the resulting expression of type \lstinline{Exp}, the set of free variables, and the mapping for renaming.
 
 \begin{figure}[!htbp]
 \lstinputlisting[linerange=7-9]{../ObjectAlgebras/src/example_LamAlg1/Subst.java} % APPLY:linerange=INTERFACE_SUBST
 \vspace{-.1in}
-\caption{The interface Subst with only one function inside}
+\caption{The interface \lstinline{Subst} with only one function inside}
 \label{interface_subst}
 \end{figure}
 
@@ -47,16 +47,16 @@ Again, one may also come up with the same question: can we also generalize the p
 Fig.~\ref{context_trans_expalg} and Fig.~\ref{context_trans_lamalg} show the generic transformation code for \lstinline{ExpAlg} and \lstinline{LamAlg}, respectively. They are inspired from the identity approach as well. Both interfaces have two generic types A and B, where A specifies the type of the information we are to propagate, and B actually corresponds to \lstinline{expAlg()} and \lstinline{lamAlg()}. They are the algebras that a transformation follows with the identity approach. Therefore, here the generic type for \lstinline{ExpAlg} and \lstinline{LamAlg} is \lstinline{Function<A, B>}. For the contextual transformations that refer to a data structure with multiple generic types, we may have various return types and the \lstinline{Function} instance could be curried.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=CONTEXT_TRANS_EXPALG
+\lstinputlisting[linerange=6-17]{../ObjectAlgebras/src/example_LamAlg2/G_ExpAlgTransform.java} % APPLY:linerange=CONTEXT_TRANS_EXPALG
 \vspace{-.1in}
-\caption{Generic contextual transformation by hand for ExpAlg}
+\caption{Generic contextual transformation by hand for \lstinline{ExpAlg}}
 \label{context_trans_expalg}
 \end{figure}
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=CONTEXT_TRANS_LAMALG
+\lstinputlisting[linerange=6-14]{../ObjectAlgebras/src/example_LamAlg2/G_LamAlgTransform.java} % APPLY:linerange=CONTEXT_TRANS_LAMALG
 \vspace{-.1in}
-\caption{Generic contextual transformation by hand for LamAlg}
+\caption{Generic contextual transformation by hand for \lstinline{LamAlg}}
 \label{context_trans_lamalg}
 \end{figure}
 
@@ -67,16 +67,16 @@ As we can see, there are two identity transformation algebras for \lstinline{Exp
 With those templates for contextual transformations, we can now address SUBST in a different way. There is an issue here, if we implement the transformation algebra just using \lstinline{Function}, the type would be a curried \lstinline{Function} with depth four, since we need four variables to be propagated. Instead we again define a new interface here, called \lstinline{SubstArgs}. See Fig.~\ref{interface_substargs}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=INTERFACE_SUBSTARGS
+\lstinputlisting[linerange=7-30]{../ObjectAlgebras/src/example_LamAlg2/SubstArgs.java} % APPLY:linerange=INTERFACE_SUBSTARGS
 \vspace{-.1in}
-\caption{The interface SubstArgs}
+\caption{The interface \lstinline{SubstArgs}}
 \label{interface_substargs}
 \end{figure}
 
 With \lstinline{SubstArgs}, the code is further simplified. Fig.~\ref{capture_avoid_with_id} gives a solution to SUBST based on the generic transformation algebras above. We can see that only \lstinline{Lam()} and \lstinline{Var()} are overridden, while in other methods the information is simply passed down by default. And other methods are just auxiliary functions. Note that in some client code, to use this transformation interface, we may firstly pass algebras to \lstinline{expAlg()} and \lstinline{lamAlg()}, and then the transformation pipeline returns a variable of type \lstinline{Function<Subst<Exp>, Exp>}, where \lstinline{Exp} is a fixed type. As the final step, we apply it to an interface of \lstinline{Subst} to get the result.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=CAPTURE_AVOID_WITH_ID
+\lstinputlisting[linerange=10-44]{../ObjectAlgebras/src/example_LamAlg2/Substitution.java} % APPLY:linerange=CAPTURE_AVOID_WITH_ID
 \vspace{-.1in}
 \caption{The contextual transformation for SUBST using generic algebras}
 \label{capture_avoid_with_id}

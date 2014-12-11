@@ -1,0 +1,90 @@
+
+A simple implementation of constructing the dependency graph is shown in Fig.~\ref{deps1}.
+Here \lstinline{Var(String p0)} is the source where variables are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that variable \lstinline{p0} is dependent on all variables in \lstinline{p1}.
+Note that the result of \lstinline{Assign} is a different type (set of pairs of strings) than the input expression (set of strings), because \lstinline{ExpAlg} is instantiated with \lstinline{Set<String>}, and \lstinline{Stat} of \lstinline{StatAlg} is instantiated with \lstinline{Set<Pair<String,String>>}. 
+
+
+Sequential composition simply merges the dependencies of its arguments, so the the method \lstinline{Seq} does not have to be overridden.
+
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
+\vspace{-.1in}
+\caption{Dependency Graph}
+\label{deps1}
+\end{figure}
+
+Similar to what we have discussed in Section~\ref{sec:queries}, the traversal code contains boilerplates and it is natural to simplify this kind of traversal code in a similar way. 
+
+\subsection{Generalized Queries with Monoids}\label{subsec:generalizedQuery}
+The generalized queries such as constructing the dependency graph as discussed in \ref{subsec:depGraph} share a lot of similarities. Methods like \lstinline{Add(Exp e1, Exp e2)} and \lstinline{Seq(Stat s1, Stat s2)} can be easily implemented with the help of Monoids, but since generalized queries contain different type arguments, different monoids shall be specified to merge elements with corresponding types. 
+
+\jason{The example implementing two interfaces seperately is not good as \lstinline{mExp()} in G\_StatAlgQuery is not actually used.}
+\begin{comment}
+\begin{lstlisting}[numbers=none]
+public interface G_StatAlgQuery<A0, A1> extends StatAlg<A0, A1>, ExpAlg<A0> { 
+	Monoid<A0> mExp();
+	Monoid<A1> mStat();
+	default A0 Add(A0 p0, A0 p1) {
+		A0 res = mExp().empty();
+		res = mExp().join(res, p0);
+		res = mExp().join(res, p1);
+		return res;
+	}
+	default A0 Lit(int p0) {
+		A0 res = mExp().empty();
+		return res;
+	}
+	default A0 Var(java.lang.String p0) {
+		A0 res = mExp().empty();
+		return res;
+	}
+	default A1 Assign(java.lang.String p0, A0 p1) {
+		A1 res = mStat().empty();
+		return res;
+	}
+	default A1 Seq(A1 p0, A1 p1) {
+		A1 res = mStat().empty();
+		res = mStat().join(res, p0);
+		res = mStat().join(res, p1);
+		return res;
+	}
+}
+\end{lstlisting}
+\end{comment}
+
+\begin{lstlisting}[numbers=none]
+public interface G_StatAlgQuery<A0, A1> extends StatAlg<A0, A1> {
+	Monoid<A0> mExp();
+	Monoid<A1> mStat();
+	default A1 Assign(java.lang.String p0, A0 p1) {
+		A1 res = mStat().empty();
+		return res;
+	}
+	default A1 Seq(A1 p0, A1 p1) {
+		A1 res = mStat().empty();
+		res = mStat().join(res, p0);
+		res = mStat().join(res, p1);
+		return res;
+	}
+}
+public interface G_ExpAlgQuery<A0> extends ExpAlg<A0> {
+	Monoid<A0> mExp();
+	default A0 Add(A0 p0, A0 p1) {
+		A0 res = mExp().empty();
+		res = mExp().join(res, p0);
+		res = mExp().join(res, p1);
+		return res;
+	}
+	default A0 Lit(int p0) {
+		A0 res = mExp().empty();
+		return res;
+	}
+	default A0 Var(java.lang.String p0) {
+		A0 res = mExp().empty();
+		return res;
+	}
+}
+\end{lstlisting}
+
+\jason{I should explain more of the code, specifically, how various monoids work together and build large tree structures. What is the algorithm of defining default implementation in constructor methods With various typed arguments.}

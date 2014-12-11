@@ -1,125 +1,53 @@
 \section{Generalized Queries}\label{sec:generalizedQueries}
 
 The previous section discusses simple queries that contribute to the same type of monoid. However, recursive data type often have multiple syntactic categories, for instance expressions and statements.
-In such many-sorted object algebras each sort is represented by the a different type parameter in the Object Algebra interface.
+In such many-sorted Object Algebras each sort is represented by the a different type parameter in the Object Algebra interface.
 In this section we present \textit{generalized queries}, where each such type parameter can be instantiated to different monoids. 
 The queries presented in the previous section are a special case of generalized queries when there is only a single sort.
 
 
-\subsection{Dependency Graph: Query different types}\label{subsec:depGraph}
+\subsection{Dealing with multiple sorts}\label{subsec:depGraph}
 
-\tijs{I don't think we need the non-monoid example here, it's too much rehashing of earlier material, --- let's go immediately to the monoid version (Fig. 14).}
-A simple example of generalized queries could be to construct data dependencies between statements and expressions in simple imperative programs. The simple ExpAlg is extended with statements using the StatAlg interface of Fig.~\ref{statalg}.
-The extension consists of statement constructorsL sequential composition and assignment.
+%\tijs{I don't think we need the non-monoid example here, it's too much rehashing of earlier material, --- let's go immediately to the monoid version (Fig. 14).}
+A simple example of a generalized query is the  construction of a data dependency between assignment statements and variables in simple imperative programs.
 
-\begin{figure}[tb]
+The simple ExpAlg is extended with statements using the StatAlg interface of Fig.~\ref{statalg}.
+The extension consists of statement constructors for sequential composition and assignment.
+A default implementation of queries over statements is shown in Fig.~\ref{LST:gstatquery}.
+Note that the interface declares two monoids,---one for each sort.
+Since the \lstinline{Assign} and \lstinline{Seq} constructors create statements, they return elements of the \lstinline{mStat()} monoid.
+Furthermore, because it is impossible to automatically compose a monoid over one type with a monoid over another type, the \lstinline{p1} argument in \lstinline{Assign} is ignored.
+As a result, a concrete implementation has to override this case to provide semantics for each transition from expressions into statements. 
+
+\begin{figure}[t]
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
 \vspace{-.1in}
 \caption{Statement Algebra Interface}
 \label{statalg}
 \end{figure}
 
+
+\begin{figure}[t]
+\lstinputlisting[linerange=7-11]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
+\vspace{-.1in}
+\caption{Default implementation of queries over many-sorted statement algebra}
+\label{LST:gstatquery}
+\end{figure}
+
+\subsection{Example: data dependencies}
+
+An example of a query over the many-sorted statement algebra is the extraction of data dependencies from a program.
 Data dependencies are created by assignment statements:
 for a statement \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appearing in \lstinline{e}.
 The result of extracting such dependencies can be represented as binary relation (a set of pairs). 
-A simple implementation of constructing the dependency graph is shown in Fig.~\ref{deps1}.
-Here \lstinline{Var(String p0)} is the source where variables are created, and \lstinline{Assign(String p0, Set<String> p1)} describes that variable \lstinline{p0} is dependent on all variables in \lstinline{p1}.
-Note that the result of \lstinline{Assign} is a different type (set of pairs of strings) than the input expression (set of strings), because \lstinline{ExpAlg} is instantiated with \lstinline{Set<String>}, and \lstinline{Stat} of \lstinline{StatAlg} is instantiated with \lstinline{Set<Pair<String,String>>}. 
 
-
-Sequential composition simply merges the dependencies of its arguments, so the the method \lstinline{Seq} does not have to be overridden.
-
-
-\begin{figure}[tb]
-\lstinputlisting[linerange=12-27]{../ObjectAlgebras/src/deps1/DepGraph.java} % APPLY:linerange=DEPS1
-\vspace{-.1in}
-\caption{Dependency Graph}
-\label{deps1}
-\end{figure}
-
-Similar to what we have discussed in Section~\ref{sec:queries}, the traversal code contains boilerplates and it is natural to simplify this kind of traversal code in a similar way. 
-
-\subsection{Generalized Queries with Monoids}\label{subsec:generalizedQuery}
-The generalized queries such as constructing the dependency graph as discussed in \ref{subsec:depGraph} share a lot of similarities. Methods like \lstinline{Add(Exp e1, Exp e2)} and \lstinline{Seq(Stat s1, Stat s2)} can be easily implemented with the help of Monoids, but since generalized queries contain different type arguments, different monoids shall be specified to merge elements with corresponding types. 
-
-\jason{The example implementing two interfaces seperately is not good as \lstinline{mExp()} in G\_StatAlgQuery is not actually used.}
-\begin{comment}
-\begin{lstlisting}[numbers=none]
-public interface G_StatAlgQuery<A0, A1> extends StatAlg<A0, A1>, ExpAlg<A0> { 
-	Monoid<A0> mExp();
-	Monoid<A1> mStat();
-	default A0 Add(A0 p0, A0 p1) {
-		A0 res = mExp().empty();
-		res = mExp().join(res, p0);
-		res = mExp().join(res, p1);
-		return res;
-	}
-	default A0 Lit(int p0) {
-		A0 res = mExp().empty();
-		return res;
-	}
-	default A0 Var(java.lang.String p0) {
-		A0 res = mExp().empty();
-		return res;
-	}
-	default A1 Assign(java.lang.String p0, A0 p1) {
-		A1 res = mStat().empty();
-		return res;
-	}
-	default A1 Seq(A1 p0, A1 p1) {
-		A1 res = mStat().empty();
-		res = mStat().join(res, p0);
-		res = mStat().join(res, p1);
-		return res;
-	}
-}
-\end{lstlisting}
-\end{comment}
-
-
-\begin{lstlisting}[numbers=none]
-public interface G_StatAlgQuery<A0, A1> extends StatAlg<A0, A1> {
-	Monoid<A0> mExp();
-	Monoid<A1> mStat();
-	default A1 Assign(java.lang.String p0, A0 p1) {
-		A1 res = mStat().empty();
-		return res;
-	}
-	default A1 Seq(A1 p0, A1 p1) {
-		A1 res = mStat().empty();
-		res = mStat().join(res, p0);
-		res = mStat().join(res, p1);
-		return res;
-	}
-}
-public interface G_ExpAlgQuery<A0> extends ExpAlg<A0> {
-	Monoid<A0> mExp();
-	default A0 Add(A0 p0, A0 p1) {
-		A0 res = mExp().empty();
-		res = mExp().join(res, p0);
-		res = mExp().join(res, p1);
-		return res;
-	}
-	default A0 Lit(int p0) {
-		A0 res = mExp().empty();
-		return res;
-	}
-	default A0 Var(java.lang.String p0) {
-		A0 res = mExp().empty();
-		return res;
-	}
-}
-\end{lstlisting}
-
-\jason{I should explain more of the code, specifically, how various monoids work together and build large tree structures. What is the algorithm of defining default implementation in constructor methods With various typed arguments.}
 
 As shown above, if we introduce two monoids, \lstinline{mExp} and \lstinline{mStat}, it is simple to query and construct the desired dependency graph with monoids specific to the query types.  
 
-\subsection{Dependency Graph with Generalized Query Algebra}\label{subsec:DepGraphWithGeneralizedQuery}
 Now that we have the Generalized queries with various monoids, we can focus on the interesting cases for constructing dependency graph and let the generalized query interface worry about the boilerplates. 
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=12-20]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
+\lstinputlisting[linerange=12-17]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
 \vspace{-.1in}
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}
