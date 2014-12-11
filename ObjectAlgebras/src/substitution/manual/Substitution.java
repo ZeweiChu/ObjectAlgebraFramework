@@ -32,17 +32,8 @@ public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>
 	@Override
 	default Subst<Exp> Var(String s) {
 		return (x, e, fv, ren) -> {
-			if (s.equals(x)) {
-				return e;
-			}
-			if (ren.containsKey(s)) {
-				// only rename here.
-				// example:
-				// \x. y [y->x]
-				// \y. (y [y -> x]) with ren = (x: y)
-				// \y. x (NOT: \y. y)
-				return expAlg().Var(ren.get(s));
-			}
+			if (s.equals(x)) return e;
+			if (ren.containsKey(s)) return expAlg().Var(ren.get(s));
 			return expAlg().Var(s);
 		};
 	}
@@ -50,13 +41,10 @@ public interface Substitution<Exp> extends ExpAlg<Subst<Exp>>, LamAlg<Subst<Exp>
 	@Override
 	default Subst<Exp> Lambda(String x, Subst<Exp> e) {
 		return (y, to, fv, ren) -> {
-			if (x.equals(y)) {
-				// don't subtitute == substitute with itself.
+			if (x.equals(y)) 
 				return lamAlg().Lambda(x, e.subst(x, expAlg().Var(x), Collections.emptySet(), ren));
-			}
 			
 			if (fv.contains(x)) {
-				// rename the lambda
 				String z = fresh(x, fv);
 				ren = new HashMap<>(ren);
 				ren.put(x, z);

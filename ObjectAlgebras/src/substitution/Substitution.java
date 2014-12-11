@@ -10,35 +10,31 @@ import transform.G_ExpAlgTransform;
 import transform.G_LamAlgTransform;
 
 
-@SuppressWarnings("serial")
-public interface Substitution<Exp> extends G_ExpAlgTransform<SubstArgs<Exp>, Exp>, G_LamAlgTransform<SubstArgs<Exp>, Exp> {
+public interface Substitution<Exp> extends G_ExpAlgTransform<Map<String,String>, Exp>, G_LamAlgTransform<Map<String,String>, Exp> {
+	String x(); Exp e(); Set<String> fv();
 	
 	@Override
-	default Function<SubstArgs<Exp>, Exp> Var(String s) {
-		return (args) -> {
-			if (rename(args.ren, s).equals(args.x)) { 
-				return args.e;
-			}
-			return expAlg().Var(rename(args.ren, s));
-		};
+	default Function<Map<String,String>, Exp> Var(String s) {
+		return (ren) -> rename(ren, s).equals(x()) ? e() : expAlg().Var(rename(ren, s)); 
 	}
 	
 	@Override
-	default Function<SubstArgs<Exp>,Exp> Lambda(String y, Function<SubstArgs<Exp>,Exp> e) {
-		return (args) -> {
-			if (y.equals(args.x)) {
-				// don't substitute == substitute with identity.
-				return lamAlg().Lambda(y, e.apply(args.setE(expAlg().Var(y)).setFV(Collections.singleton(y))));
+	default Function<Map<String,String>,Exp> Lambda(String y, Function<Map<String,String>,Exp> e) {
+		return (ren) -> {
+			if (y.equals(x())) {
+				return lamAlg().Lambda(y, e.apply(Collections.singletonMap(y, y)));
 			}
 			
-			if (!args.fv.contains(y)) {
-				// no risk of capture, but don't rename across binder y
-				return lamAlg().Lambda(y, e.apply(args.setRen(remove(args.ren, y))));
+			if (fv().contains(y)) {
+				// rename lambda binder using fresh variable z.
+				String z = fresh(y, fv()); 
+				return lamAlg().Lambda(z, e.apply(add(ren, y, z)));	
 			}
 			
-			// rename lambda binder using fresh variable z.
-			String z = fresh(y, args.fv); 
-			return lamAlg().Lambda(z, e.apply(args.setRen(add(args.ren, y, z))));
+			// no risk of capture, but don't rename across binder y
+			return lamAlg().Lambda(y, e.apply(remove(ren, y)));
+			
+			
 		};
 	}
 	
