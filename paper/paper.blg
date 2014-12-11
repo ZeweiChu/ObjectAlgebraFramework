@@ -1,8 +1,55 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
 The style file: splncs.bst
 Database file #1: paper.bib
+Repeated entry---line 131 of file paper.bib
+ : @inproceedings{gouseti14extensible
+ :                                   ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for ""
 Warning--I didn't find a database entry for "GPCE"
 Warning--I didn't find a database entry for "?"
 Warning--empty booktitle in ralf00banana
-(There were 4 warnings)
+You've used 13 entries,
+            2785 wiz_defined-function locations,
+            659 strings with 6364 characters,
+and the built_in function-call counts, 5544 in all, are:
+= -- 431
+> -- 151
+< -- 2
++ -- 65
+- -- 50
+* -- 307
+:= -- 760
+add.period$ -- 16
+call.type$ -- 13
+change.case$ -- 79
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 536
+empty$ -- 578
+format.name$ -- 56
+if$ -- 1205
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 106
+newline$ -- 44
+num.names$ -- 26
+pop$ -- 225
+preamble$ -- 1
+purify$ -- 51
+quote$ -- 0
+skip$ -- 136
+stack$ -- 0
+substring$ -- 231
+swap$ -- 216
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 48
+warning$ -- 1
+while$ -- 41
+width$ -- 15
+write$ -- 125
+(There was 1 error message)
