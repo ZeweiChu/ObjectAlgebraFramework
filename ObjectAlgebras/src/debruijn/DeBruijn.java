@@ -11,7 +11,7 @@ import transform.G_LamAlgTransform;
 //BEGIN_DEBRUIJN
 public interface DeBruijn<E> extends G_ExpAlgTransform<List<String>, E>, G_LamAlgTransform<List<String>, E> {
 	default Function<List<String>, E> Var(String p0) {
-		return xs -> expAlg().Var("" + xs.indexOf(p0));
+		return xs -> expAlg().Var("" + xs.indexOf(p0) + 1);
 	}
 
 	default Function<List<String>,E> Lam(String x,Function<List<String>,E>e){
