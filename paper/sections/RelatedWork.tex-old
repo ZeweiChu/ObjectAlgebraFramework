@@ -1,10 +1,10 @@
 \section{Related Work}\label{sec:related}
 
-To the best of our knowledge, few work has been done addressing
-writing generic queries and transformations with object algebras,
-while we should mention some work on object algebras and large tree
-structures traversal control, which inspired and formed the basis of
-our work.
+%To the best of our knowledge, our work proposes the first solution 
+%working entirely on a mainstream OO languages, that deals with the 
+%problem boilerplate code in traversals. 
+
+This section discusses related work.
 
 \paragraph{Adaptive Object-Oriented Programming (AOOP)}
 AOOP~\cite{DemeterBook} is a programming style where it is possible to
@@ -22,10 +22,10 @@ ensure type-safety of generic functions. However, in contrast to
 \Name, DemeterF requires a new language and it is unclear how DemeterF
 traversals interact with extensibility.
 
-\paragraph{Structure-Shy Traversals with Visitors}. 
-Visser\cite{visser01visitor} provided some visitor
-combinators that can express interesting traversal strategies in
-visitor pattern. We applies some similar idea like identity
+\paragraph{Structure-Shy Traversals with Visitors}
+Visser~\cite{visser01visitor} provided some visitor
+combinators that can express interesting traversal strategies in the
+{\sc visitor} pattern~\cite{gof}. We applies some similar idea like identity
 transformation in simple transformation, but our work targets at
 traversal control in Object Algebras.\bruno{Tijs}\bruno{More work: 
 The essence of the visitor pattern, and follow-up work to improve 
@@ -33,24 +33,38 @@ performance.}
 
 \paragraph{Strategic Programming}\bruno{Tijs}
 
-\paragraph{Object Algebras.} \name traversals are based in 
-object algebras~\cite{bruno12oa}. Previous work on object 
-algebras was mostly motivated by improved programming support 
-for extensibility. However it has not addressed the problem of 
-hot to eliminate boilerplate code in traversals. 
+\paragraph{Object Algebras.} \name traversals are based on
+object algebras~\cite{bruno12oa}. The original motivation for object
+algebras was as a design pattern for OO programming that allowed
+improved extensibility and modularity of programs.  Using object
+algebras it is possible to solve the well-known ``Expression
+Problem''~\cite{wadler98expression-problem}.  Later
+work~\cite{oliveira13fop,rendel14attributes} has explored the use of
+\emph{object algebra combinators}, and generalizations of object
+algebras to improve expressiveness and modularity. In particular it
+has been claimed that object algebras can be used to do
+\emph{feature-oriented programming}~\cite{oliveira13fop}, and to
+encode \emph{attribute grammars}~\cite{rendel14attributes}. One domain
+where object algebras are especially useful is in the implementation
+of (extensible) languages.  The QL language used in our case study is
+based on Gouseti et al.~\cite{gouseti14extensible} work. That work
+provides a realistic implementation of an extensible
+\emph{domain-specific language} using object algebras. In contrast to
+our work, previous work on object algebras was mostly motivated by
+improved programming support for extensibility and modularity. Our
+work shows that object algebras are also useful to solve a different
+problem: how to traverse complex structures without boilerplate
+code. The combination of extensibility (inherited for free from object
+algebras) and structure-shy type-safe traversals also adds a new
+dimention to our work that, as far as we know, as not been explored
+previously.
 
 
-Oliveira proposed Object Algebras as a
-solution to Expression Problem. Object algebras applies well in
-mainstream object oriented languages like Java. It is a lightweight
-solution in terms of language features required. Oliveira also worked
-on using intersection type and type-constructor polymorphism to make
-object algebras compositional with feature oriented
-programming. Different from their prior research, we found that when
-applying object algebras in rich tree structures, boilerplate code is
-hard to avoid. Hence our work focuses on reducing the amount of
-boilerplate code for developers when writing queries and
-transformations with object algebra tree structures.
+%However, such work has not addressed the problem of how to
+%eliminate boilerplate in traversals. Our work shows that the
+%combination of object algebras representing basic forms of traversals
+%(queries and transformations) and standard OO inheritance provides a
+%solution to the traversal boilerplate problem.
 
 \textit{Structure-Shy Traversals in Functional Programming.} 
 In the functional programming community like Haskell, much research
