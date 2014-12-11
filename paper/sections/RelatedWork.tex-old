@@ -7,15 +7,16 @@ structures traversal control, which inspired and formed the basis of
 our work.
 
 \paragraph{Adaptive Object-Oriented Programming (AOOP)}
-In AOOP~\cite{DemeterBook} there is a domain-specific language for
-selecting parts of a structure that should be visited. This is useful
-to do traversals on complex structures and focus only on the
-interesting parts of the structure relevant for computing the final
-output.  DJ is an implementation of AOOP for Java using
-reflection~\cite{DJ}. More recently, inspired by AOOP,
+AOOP~\cite{DemeterBook} is a programming style where it is possible to
+select parts of a structure that should be visited. This is useful to
+do traversals on complex structures and focus only on the interesting
+parts of the structure relevant for computing the final output. The
+original approach to AOOP was based on a domain-specific
+language~\cite{DemeterBook}. DJ is an implementation of AOOP in Java
+using reflection~\cite{DJ}. More recently, inspired by AOOP,
 DemeterF~\cite{OOGP} improved on previous approaches by providing
 support for safe traversals, generics and data-generic function
-generation.  Compared to \name most AOOP approaches are not
+generation. Compared to \name most AOOP approaches are not
 type-safe. Only in DemeterF a custom type system was designed to
 ensure type-safety of generic functions. However, in contrast to
 \Name, DemeterF requires a new language and it is unclear how DemeterF
@@ -32,7 +33,14 @@ performance.}
 
 \paragraph{Strategic Programming}\bruno{Tijs}
 
-\paragraph{Object Algebras.} Oliveira proposed Object Algebras as a
+\paragraph{Object Algebras.} \name traversals are based in 
+object algebras~\cite{bruno12oa}. Previous work on object 
+algebras was mostly motivated by improved programming support 
+for extensibility. However it has not addressed the problem of 
+hot to eliminate boilerplate code in traversals. 
+
+
+Oliveira proposed Object Algebras as a
 solution to Expression Problem. Object algebras applies well in
 mainstream object oriented languages like Java. It is a lightweight
 solution in terms of language features required. Oliveira also worked

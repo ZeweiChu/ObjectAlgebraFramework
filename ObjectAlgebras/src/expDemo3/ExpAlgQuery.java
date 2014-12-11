@@ -1,5 +1,6 @@
 package expDemo3;
 
+//BEGIN_GENERIC_QUERY
 public interface ExpAlgQuery<Exp> extends ExpAlg<Exp> {
 	Monoid<Exp> m();
 	default Exp Var(String s) { 
@@ -17,3 +18,4 @@ public interface ExpAlgQuery<Exp> extends ExpAlg<Exp> {
 		return res;
 	}
 }
+//END_GENERIC_QUERY

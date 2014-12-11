@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+//BEGIN_FREEVARS_WITHOUT_MONOID
 public interface FreeVarsExpAlg extends ExpAlg<List<String>> {
 	default List<String> Var(String s) {
 		return Collections.singletonList(s);
@@ -17,3 +18,4 @@ public interface FreeVarsExpAlg extends ExpAlg<List<String>> {
 		return res;
 	}
 }
+//END_FREEVARS_WITHOUT_MONOID

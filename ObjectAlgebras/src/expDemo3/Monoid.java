@@ -2,6 +2,7 @@ package expDemo3;
 
 import java.util.List;
 
+//BEGIN_MONOID
 public interface Monoid<R> {
     R join(R x, R y);
     R empty();
@@ -13,3 +14,4 @@ public interface Monoid<R> {
     	return res;
     }
 }
+//END_MONOID

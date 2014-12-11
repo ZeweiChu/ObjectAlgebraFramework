@@ -1,5 +1,6 @@
 package expDemo3;
 
+//BEGIN_GENERIC_TRANSFORM
 public interface ExpAlgTransform<Exp> extends ExpAlg<Exp> {
 	ExpAlg<Exp> expAlg();
 	default Exp Var(String s) {
@@ -12,3 +13,4 @@ public interface ExpAlgTransform<Exp> extends ExpAlg<Exp> {
 		return expAlg().Add(e1, e2);
 	}
 }
+//END_GENERIC_TRANSFORM

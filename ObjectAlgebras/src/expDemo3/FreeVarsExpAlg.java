@@ -3,6 +3,7 @@ package expDemo3;
 import java.util.Collections;
 import java.util.List;
 
+//BEGIN_FREEVARS_WITH_MONOID
 public interface FreeVarsExpAlg extends ExpAlgQuery<List<String>> {
 	default Monoid<List<String>> m() {
 		return new FreeVarsMonoid();
@@ -11,3 +12,4 @@ public interface FreeVarsExpAlg extends ExpAlgQuery<List<String>> {
 		return Collections.singletonList(s);
 	}
 }
+//END_FREEVARS_WITH_MONOID

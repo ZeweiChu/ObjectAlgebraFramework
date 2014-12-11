@@ -1,51 +1,8 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: paper.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
 The style file: splncs.bst
 Database file #1: paper.bib
 Warning--I didn't find a database entry for ""
 Warning--I didn't find a database entry for "GPCE"
 Warning--I didn't find a database entry for "?"
 Warning--empty booktitle in ralf00banana
-You've used 9 entries,
-            2785 wiz_defined-function locations,
-            636 strings with 5548 characters,
-and the built_in function-call counts, 3724 in all, are:
-= -- 292
-> -- 83
-< -- 2
-+ -- 36
-- -- 26
-* -- 198
-:= -- 509
-add.period$ -- 10
-call.type$ -- 9
-change.case$ -- 51
-chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 370
-empty$ -- 401
-format.name$ -- 29
-if$ -- 816
-int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 70
-newline$ -- 32
-num.names$ -- 18
-pop$ -- 148
-preamble$ -- 1
-purify$ -- 31
-quote$ -- 0
-skip$ -- 101
-stack$ -- 0
-substring$ -- 166
-swap$ -- 144
-text.length$ -- 2
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 34
-warning$ -- 1
-while$ -- 29
-width$ -- 10
-write$ -- 86
 (There were 4 warnings)

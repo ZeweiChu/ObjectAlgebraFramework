@@ -1,5 +1,6 @@
 package expDemo2;
 
+//BEGIN_SUBSTVARS_WITHOUT_ID
 public interface SubstVarsExpAlg<Exp> extends ExpAlg<Exp> {
 	ExpAlg<Exp> expAlg();
 	String getVar();
@@ -14,3 +15,4 @@ public interface SubstVarsExpAlg<Exp> extends ExpAlg<Exp> {
 		return expAlg().Add(e1, e2);
 	}
 }
+//END_SUBSTVARS_WITHOUT_ID
