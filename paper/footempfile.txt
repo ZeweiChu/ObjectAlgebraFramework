@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \section{Transformations}\label{sec:transformations}
 \label{retroimp}
 
@@ -43,3 +44,5 @@ Now with our generic transformation, one solution to substVars is available in F
 \end{figure}
 
 The \lstinline{SubstVarsExpAlg} is still generic, yet something like a pretty printer can be passed to the \lstinline{expAlg()} inside as a query, to display the results. Hence at this moment, a programmer doesn't need to write boilerplate code for traversals. The identity approach and the pipeline of transformations provide users with a generic transformation like a template.
+=======
+>>>>>>> 95038de... Merge conflict.

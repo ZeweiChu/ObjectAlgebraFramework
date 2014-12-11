@@ -7,7 +7,6 @@ import ql_obj_alg.syntax.IExpAlg;
 
 
 public abstract class Exp {
-
 	public abstract Exp rename(Map<String, String> ren);
 	public abstract Set<String> freeVars();
 	
