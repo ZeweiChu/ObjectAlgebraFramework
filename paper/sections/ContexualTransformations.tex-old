@@ -1,26 +1,83 @@
 \section{Contextual Transformations}\label{sec:contexttrans}
 
-In the previous section, our identity approach introduces a simple template for transformations. When a transformation algebra is requested, users can just override some of the methods, to avoid building up the complete framework for traversals, which can be quite complicated with boring code. Moreover, we mention that transformation algebras show up like a transformation pipeline, and once a query is passed to the pipeline, all the information is visited, processed and integrated exactly along with the construction. However, some other transformations are special, in the sense that they work in a different way. They are called \textit{contextual transformations}. Literally, they need to deal with the context in a data structure.
+In the previous section, our identity approach introduces a simple template for transformations. When a transformation algebra is requested, users can just override some of the methods, to avoid building up the complete framework for traversals, which can be quite complicated with boring code. Moreover, we mention that transformation algebras show up with a transformation pipeline, and once a query is passed to the pipeline, all the information is visited, processed and integrated exactly along with the construction. However, some other transformations are special, in the sense that they work in a different way. They are called \textit{contextual transformations}. Literally, they need to deal with the context in a data structure.
 
-We can see in the previous transformation algebras, namely ``non-contextual'' ones according to our classification, that those methods in an algebra usually work separately, share no information and hence we handle them as different cases. But in other situations, we may need to interact with the context, and propagate some additional information everywhere accordingly.
+We can see in the previous transformation algebras, namely ``non-contextual'' ones according to our classification, that those methods in an algebra are usually doing their own jobs, sharing no information and hence we handle them separately. But in other situations, we may need to interact with the context, and propagate some additional information everywhere accordingly.
 
 \subsection{Capture-avoiding substitution: a contextual transformation}\label{subsec:captureavoidsubst}
 
 A good example for the contextual transformation, is the \textit{capture-avoiding substitution} (SUBST, for convenience). \haoyuan{citation needed.} The SUBST is distinguished from our previous substitution algebra, in the sense that, for example, with an extension to the \lstinline{ExpAlg}, including lambda expressions and applications, the substitution should be able to avoid variable capture problems. As our object algebra interface is flexible with high extensibility, we create a new interface here as the extension to \lstinline{ExpAlg}. See Fig.~\ref{lam_alg}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=LAM_ALG
+\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/example_LamAlg1/LamAlg.java} % APPLY:linerange=LAM_ALG
 \vspace{-.1in}
 \caption{Object algebra interface: LamAlg}
 \label{lam_alg}
 \end{figure}
 
-Now our expression algebra also supports lambdas and applications. So when we want to substitute a specified variable to a new expression, we shall be careful that those free variables should not be captured when replacement is applied. This is to preserve the equivalence in semantics during substitution.
+Now our expression algebra also supports lambdas and applications. So when we want to substitute a specified variable for a new expression, we shall be careful that those free variables should not be captured when replacement is applied. This is to preserve the equivalence in semantics during substitution.
 
 An algorithm for SUBST is given by (\haoyuan{citation}). The idea is that, besides the variable and the substitutive expression, we should always maintain a set of free variables, as well as a mapping for renaming during a top-down traversal. Here we see the difference from some common transformations: we are passing additional information among substructures from top to the bottom, and update it sometimes according to the context inside.
 
 We give a representative approach here as usual, which solves SUBST with respect to transformation algebras.
 
+Firstly we define a custom interface named Subst in Fig.~\ref{interface_subst}. It has only one method inside, which takes four arguments: the variable to be substituted as a String, the resulting expression of type Exp, the set of free variables, and the mapping for renaming.
+
+\begin{figure}[!htbp]
+\lstinputlisting[linerange=7-9]{../ObjectAlgebras/src/example_LamAlg1/Subst.java} % APPLY:linerange=INTERFACE_SUBST
+\vspace{-.1in}
+\caption{The interface Subst with only one function inside}
+\label{interface_subst}
+\end{figure}
+
+Then we have the interface \lstinline{Substitution} for SUBST. See Fig.~\ref{capture_avoid_without_id}. This interface inherits both \lstinline{ExpAlg} and \lstinline{LamAlg}, and at the same time implements all the methods from the two original interfaces. The first observation is that, since we are overriding those methods, the types and the number of arguments cannot be changed, even if we need more information to be propagated everywhere. So the idea comes that we can put the information inside the interface \lstinline{Subst}. As \lstinline{Subst} serves like a functional interface, when we consider the return type of the methods to be \lstinline{Subst}, we are actually passing functions. That is to say, functions play the role helping to pass ``information'' from one to another, and the information can be modified at any time when we apply the same method \lstinline{subst()} with input changed. As the second observation, let us seek the method \lstinline{Add()} for details. It returns an object of \lstinline{Subst} like an identity function, except that \lstinline{subst()} is applied to both \lstinline{e1} and \lstinline{e2} with arguments unchanged. It implies that the information is passed from the source to the two branches \lstinline{e1} and \lstinline{e2}. So it reflects the principle of a top-down traversal: the information is passed down from the source to all the substructures.
+\haoyuan{The code in this section takes too much space, and disrupt the layout of diagrams temporarily. Should be put in something like Appendix?}
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=7-43]{../ObjectAlgebras/src/example_LamAlg1/Substitution.java} % APPLY:linerange=CAPTURE_AVOID_WITHOUT_ID
+\vspace{-.1in}
+\caption{A normal algebra-based approach for SUBST}
+\label{capture_avoid_without_id}
+\end{figure}
+
 \subsection{Generic traversal for contextual transformations}\label{subsec:genericcontexttrans}
 
+Again, one may also come up with the same question: can we also generalize the procedure of traversals, just like the generic transformations that we discussed before? The answer is yes.
+
+Fig.~\ref{context_trans_expalg} and Fig.~\ref{context_trans_lamalg} show the generic transformation code for \lstinline{ExpAlg} and \lstinline{LamAlg}, respectively. They are inspired from the identity approach as well. Both interfaces have two generic types A and B, where A specifies the type of the information we are to propagate, and B actually corresponds to \lstinline{expAlg()} and \lstinline{lamAlg()}. They are the algebras that a transformation follows with the identity approach. Therefore, here the generic type for \lstinline{ExpAlg} and \lstinline{LamAlg} is \lstinline{Function<A, B>}. For the contextual transformations that refer to a data structure with multiple generic types, we may have various return types and the \lstinline{Function} instance could be curried.
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=-]{} % APPLY:linerange=CONTEXT_TRANS_EXPALG
+\vspace{-.1in}
+\caption{Generic contextual transformation by hand for ExpAlg}
+\label{context_trans_expalg}
+\end{figure}
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=-]{} % APPLY:linerange=CONTEXT_TRANS_LAMALG
+\vspace{-.1in}
+\caption{Generic contextual transformation by hand for LamAlg}
+\label{context_trans_lamalg}
+\end{figure}
+
+As we can see, there are two identity transformation algebras for \lstinline{ExpAlg} and \lstinline{LamAlg}, respectively. And a user can simply override some of the methods instead of write a lot of boilerplates for traversals, which could be even worse with a complicated structure.
+
 \subsection{Solving SUBST with generic transformation algebra}\label{subsec:solvingsubst}
+
+With those templates for contextual transformations, we can now address SUBST in a different way. There is an issue here, if we implement the transformation algebra just using \lstinline{Function}, the type would be a curried \lstinline{Function} with depth four, since we need four variables to be propagated. Instead we again define a new interface here, called \lstinline{SubstArgs}. See Fig.~\ref{interface_substargs}.
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=-]{} % APPLY:linerange=INTERFACE_SUBSTARGS
+\vspace{-.1in}
+\caption{The interface SubstArgs}
+\label{interface_substargs}
+\end{figure}
+
+With \lstinline{SubstArgs}, the code is further simplified. Fig.~\ref{capture_avoid_with_id} gives a solution to SUBST based on the generic transformation algebras above. We can see that only \lstinline{Lam()} and \lstinline{Var()} are overridden, while in other methods the information is simply passed down by default. And other methods are just auxiliary functions. Note that in some client code, to use this transformation interface, we may firstly pass algebras to \lstinline{expAlg()} and \lstinline{lamAlg()}, and then the transformation pipeline returns a variable of type \lstinline{Function<Subst<Exp>, Exp>}, where \lstinline{Exp} is a fixed type. As the final step, we apply it to an interface of \lstinline{Subst} to get the result.
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=-]{} % APPLY:linerange=CAPTURE_AVOID_WITH_ID
+\vspace{-.1in}
+\caption{The contextual transformation for SUBST using generic algebras}
+\label{capture_avoid_with_id}
+\end{figure}

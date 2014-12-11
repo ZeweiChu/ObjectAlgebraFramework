@@ -3,6 +3,7 @@ package example_LamAlg2;
 import java.util.Map;
 import java.util.Set;
 
+//BEGIN_INTERFACE_SUBSTARGS
 public class SubstArgs<Exp> {
 	public final String x;
 	public final Exp e;
@@ -27,3 +28,4 @@ public class SubstArgs<Exp> {
 		return new SubstArgs<Exp>(x, e, fv, ren);
 	}
 }
+//END_INTERFACE_SUBSTARGS
