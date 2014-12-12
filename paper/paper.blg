@@ -1,55 +1,58 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: splncs.bst
 Database file #1: paper.bib
-Repeated entry---line 131 of file paper.bib
+Repeated entry---line 230 of file paper.bib
  : @inproceedings{gouseti14extensible
  :                                   ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 370 of file paper.bib
+ : @inproceedings{oliveira08visitor
+ :                                 ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "DeBruijn"
 Warning--I didn't find a database entry for "GPCE"
-Warning--I didn't find a database entry for "?"
-Warning--empty booktitle in ralf00banana
-You've used 13 entries,
+You've used 23 entries,
             2785 wiz_defined-function locations,
-            659 strings with 6364 characters,
-and the built_in function-call counts, 5544 in all, are:
-= -- 431
-> -- 151
-< -- 2
-+ -- 65
-- -- 50
-* -- 307
-:= -- 760
-add.period$ -- 16
-call.type$ -- 13
-change.case$ -- 79
+            724 strings with 8308 characters,
+and the built_in function-call counts, 10716 in all, are:
+= -- 847
+> -- 323
+< -- 7
++ -- 135
+- -- 109
+* -- 626
+:= -- 1457
+add.period$ -- 36
+call.type$ -- 23
+change.case$ -- 153
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 536
-empty$ -- 578
-format.name$ -- 56
-if$ -- 1205
+cite$ -- 23
+duplicate$ -- 1026
+empty$ -- 1063
+format.name$ -- 126
+if$ -- 2320
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 106
-newline$ -- 44
-num.names$ -- 26
-pop$ -- 225
+int.to.str$ -- 23
+missing$ -- 208
+newline$ -- 74
+num.names$ -- 50
+pop$ -- 424
 preamble$ -- 1
-purify$ -- 51
+purify$ -- 97
 quote$ -- 0
-skip$ -- 136
+skip$ -- 251
 stack$ -- 0
-substring$ -- 231
-swap$ -- 216
-text.length$ -- 2
+substring$ -- 438
+swap$ -- 447
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
-warning$ -- 1
-while$ -- 41
-width$ -- 15
-write$ -- 125
-(There was 1 error message)
+type$ -- 88
+warning$ -- 0
+while$ -- 79
+width$ -- 25
+write$ -- 230
+(There were 2 error messages)

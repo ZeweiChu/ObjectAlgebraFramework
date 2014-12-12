@@ -2,6 +2,11 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
+\bibitem{adams2012tyb}
+Adams, M.D., DuBuisson, T.M.: Template your boilerplate: Using {T}emplate
+  {H}askell for efficient generic programming. In: Proceedings of the 2012 ACM
+  SIGPLAN Haskell symposium. pp. 13--24. Haskell '12 (2012)
+
 \bibitem{bjorn08acf}
 Bjorn~Bringert, A.R.: A pattern for almost compositional functions. Journal of
   Functional Programming  18,  567--598 (September 2008)
@@ -15,27 +20,62 @@ Gamma, E., Helm, R., Johnson, R., Vlissides, J.: Design Patterns: Elements of
   Reusable Object-oriented Software. Addison-Wesley Longman Publishing Co.,
   Inc., Boston, MA, USA (1995)
 
+\bibitem{Gibbons07dgp}
+Gibbons, J.: Datatype-generic programming. In: Backhouse, R., Gibbons, J.,
+  Hinze, R., Jeuring, J. (eds.) Spring School on Datatype-Generic Programming.
+  Lecture Notes in Computer Science, vol. 4719. Springer-Verlag (2007),
+  \url{http://www.comlab.ox.ac.uk/jeremy.gibbons/publications/dgp.pdf}
+
 \bibitem{gouseti14extensible}
 Gouseti, M., Peters, C., Storm, T.v.d.: Extensible language implementation with
   object algebras (short paper). In: Proceedings of the 2014 International
   Conference on Generative Programming: Concepts and Experiences. GPCE 2014
   (2014)
 
+\bibitem{ComparingGPHaskellHinze}
+Hinze, R., Jeuring, J., Loeh, A.: Comparing approaches to generic programming
+  in {Haskell}. In: Datatype-Generic Programming, vol. 4719. Springer
+  Berlin/Heidelberg (2007)
+
+\bibitem{hinze2003fun}
+Hinze, R., et~al.: Fun with phantom types. {The Fun of Programming} pp.
+  245--262 (2003)
+
+\bibitem{lammel04syb}
+L\"{a}mmel, R., Jones, S.P.: Scrap more boilerplate: Reflection, zips, and
+  generalised casts. In: Proceedings of the Ninth ACM SIGPLAN International
+  Conference on Functional Programming. ICFP '04 (2004)
+
+\bibitem{lammel05syb}
+L\"{a}mmel, R., Jones, S.P.: Scrap your boilerplate with class: Extensible
+  generic functions. SIGPLAN Not.  40(9) (Sep 2005)
+
+\bibitem{lammel00dealing}
+L{\"a}mmel, R., Visser, J., Kort, J.: Dealing with large bananas. In: Jeuring,
+  J. (ed.) Workshop on Generic Programming. Technical Report UU-CS-2000-19,
+  Universiteit Utrecht, Ponte de Lima (Jul 2000)
+
 \bibitem{DemeterBook}
 Lieberherr, K.J.: Adaptive Object Oriented Software: The Demeter Method with
   Propagation Patterns. PWS Publishing (1996)
+
+\bibitem{GP}
+Musser, D.R., Stepanov, A.A.: Generic programming. In: ISAAC '88 (1989)
 
 \bibitem{oliveira13fop}
 Oliveira, B.C.d.S., van~der Storm, T., Loh, A., Cook, W.R.: Feature-oriented
   programming with object algebras. In: Proceedings of the 27th European
   Conference on Object-Oriented Programming. ECOOP'13 (2013)
 
+\bibitem{Oliveira08visitor}
+Oliveira, B.C., Wang, M., Gibbons, J.: The visitor pattern as a reusable,
+  generic, type-safe component. In: Proceedings of the 23rd ACM SIGPLAN
+  Conference on Object-oriented Programming Systems Languages and Applications.
+  OOPSLA '08 (2008)
+
 \bibitem{DJ}
 Orleans, D., Lieberherr, K.J.: {DJ}: {Dynamic} adaptive programming in {Java}.
   In: Reflection 2001. Springer-Verlag (2001)
-
-\bibitem{ralf00banana}
-Ralf~Lammel, Joost~Visser, J.K.: Dealing with large bananas (2000)
 
 \bibitem{ralf03syb}
 Ralf~Lammel, S.P.J.: Scrap your boilerplate: A practical design pattern for
@@ -47,12 +87,22 @@ Rendel, T., Brachth\"{a}user, J.I., Ostermann, K.: From object algebras to
   on Object Oriented Programming Systems Languages \&\#38; Applications. OOPSLA
   '14 (2014)
 
+\bibitem{ComparingGPHaskellRodriquez}
+Rodriguez, A., Jeuring, J., Jansson, P., Gerdes, A., Kiselyov, O., Oliveira,
+  B.C.d.S.: Comparing libraries for generic programming in {Haskell}. In:
+  Haskell'08 (2008)
+
 \bibitem{bruno12oa}
 Bruno C.~d. S.~Oliveira, W.R.C.: Extensibility for the masses, practical
   extensibility with object algebras. In: ECOOP'12 (2004)
 
 \bibitem{visser01visitor}
 Visser, J.: Visitor combination and traversal control. In: OOPSLA '01 (2001)
+
+\bibitem{wadler89type-classes}
+Wadler, P., Blott, S.: How to make ad-hoc polymorphism less ad hoc. In:
+  Proceedings of the 16th ACM SIGPLAN-SIGACT Symposium on Principles of
+  Programming Languages. POPL '89 (1989)
 
 \bibitem{wadler98expression-problem}
 Wadler, P.: The {E}xpression {P}roblem. Email (Nov 1998), discussion on the
