@@ -3,56 +3,56 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: splncs.bst
 Database file #1: paper.bib
-Repeated entry---line 230 of file paper.bib
+Repeated entry---line 239 of file paper.bib
  : @inproceedings{gouseti14extensible
  :                                   ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 370 of file paper.bib
+Repeated entry---line 379 of file paper.bib
  : @inproceedings{oliveira08visitor
  :                                 ,
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for ""
 Warning--I didn't find a database entry for "DeBruijn"
 Warning--I didn't find a database entry for "GPCE"
-You've used 23 entries,
+You've used 24 entries,
             2785 wiz_defined-function locations,
-            724 strings with 8308 characters,
-and the built_in function-call counts, 10716 in all, are:
-= -- 847
-> -- 323
+            731 strings with 8547 characters,
+and the built_in function-call counts, 11240 in all, are:
+= -- 887
+> -- 345
 < -- 7
-+ -- 135
-- -- 109
-* -- 626
-:= -- 1457
-add.period$ -- 36
-call.type$ -- 23
-change.case$ -- 153
++ -- 144
+- -- 117
+* -- 659
+:= -- 1529
+add.period$ -- 38
+call.type$ -- 24
+change.case$ -- 162
 chr.to.int$ -- 0
-cite$ -- 23
-duplicate$ -- 1026
-empty$ -- 1063
-format.name$ -- 126
-if$ -- 2320
+cite$ -- 24
+duplicate$ -- 1074
+empty$ -- 1112
+format.name$ -- 135
+if$ -- 2432
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 208
-newline$ -- 74
-num.names$ -- 50
-pop$ -- 424
+int.to.str$ -- 24
+missing$ -- 219
+newline$ -- 77
+num.names$ -- 52
+pop$ -- 447
 preamble$ -- 1
-purify$ -- 97
+purify$ -- 103
 quote$ -- 0
-skip$ -- 251
+skip$ -- 261
 stack$ -- 0
-substring$ -- 438
-swap$ -- 447
+substring$ -- 451
+swap$ -- 468
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 88
+type$ -- 92
 warning$ -- 0
-while$ -- 79
-width$ -- 25
-write$ -- 230
+while$ -- 82
+width$ -- 26
+write$ -- 241
 (There were 2 error messages)

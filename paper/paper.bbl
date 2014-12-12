@@ -15,6 +15,11 @@ Bjorn~Bringert, A.R.: A pattern for almost compositional functions. Journal of
 Chadwick, B., Lieberherr, K.: Weaving generic programming and traversal
   performance. In: AOSD'10 (2010)
 
+\bibitem{Inauguration101}
+Favre, J.M., L{\"a}mmel, R., Schmorleiz, T., Varanovich, A.:
+  {\emph{101companies}: a community project on software technologies and
+  software languages}. In: {Proceedings of TOOLS 2012}. LNCS, Springer (2012)
+
 \bibitem{gof}
 Gamma, E., Helm, R., Johnson, R., Vlissides, J.: Design Patterns: Elements of
   Reusable Object-oriented Software. Addison-Wesley Longman Publishing Co.,
