@@ -4,23 +4,33 @@
 %working entirely on a mainstream OO languages, that deals with the 
 %problem boilerplate code in traversals. 
 
-This section discusses related work.
+This section discusses related work. Our approach is unique in that: 
+it works in Java; supports both separate compilation and modular 
+type-checking, as well as extensibility; and it enjoys from structure 
+shyness and adaptability. While some approaches support some of these 
+features, no approach supports all of them. A detailed comparison
+follows next.
 
 \paragraph{Adaptive Object-Oriented Programming (AOOP)}
-AOOP~\cite{DemeterBook} is a programming style where it is possible to
-select parts of a structure that should be visited. This is useful to
-do traversals on complex structures and focus only on the interesting
-parts of the structure relevant for computing the final output. The
-original approach to AOOP was based on a domain-specific
-language~\cite{DemeterBook}. DJ is an implementation of AOOP in Java
-using reflection~\cite{DJ}. More recently, inspired by AOOP,
-DemeterF~\cite{OOGP} improved on previous approaches by providing
-support for safe traversals, generics and data-generic function
-generation. Compared to \name most AOOP approaches are not
+AOOP~\cite{DemeterBook} is an extension of object-oriented programming
+aimed at increasing the flexibility and maintainability of
+programs. AOOP promotes the idea of structure-shyness to achieve those
+goals. In AOOP it is possible to select parts of a structure that
+should be visited. This is useful to do traversals on complex
+structures and focus only on the interesting parts of the structure
+relevant for computing the final output. The original approach to AOOP
+was based on a domain-specific language~\cite{DemeterBook}. DJ is an
+implementation of AOOP in Java using reflection~\cite{DJ}. More
+recently, inspired by AOOP, DemeterF~\cite{OOGP} improved on previous
+approaches by providing support for type-safe traversals, generics and
+data-generic function generation. \name shares with AOOP the use of
+structure-shyness as a means to increase flexibility and adaptability
+of programs.  Differently from \name most AOOP approaches are not
 type-safe. Only in DemeterF a custom type system was designed to
-ensure type-safety of generic functions. However, in contrast to
-\Name, DemeterF requires a new language and it is unclear how DemeterF
-traversals interact with extensibility.
+ensure type-safety of generic functions. However DemeterF requires a
+new language whereas \name is a Java library. Moreover the compilation
+of DemeterF is done through static weaving, and appears to preclude
+separate compilation.
 
 \paragraph{Structure-Shy Traversals with Visitors}
 Visser~\cite{visser01visitor} provided some visitor
@@ -32,6 +42,67 @@ The essence of the visitor pattern, and follow-up work to improve
 performance.}
 
 \paragraph{Strategic Programming}\bruno{Tijs}
+
+
+%However, such work has not addressed the problem of how to
+%eliminate boilerplate in traversals. Our work shows that the
+%combination of object algebras representing basic forms of traversals
+%(queries and transformations) and standard OO inheritance provides a
+%solution to the traversal boilerplate problem.
+
+\textit{Structure-Shy Traversals in Functional Programming.}  In
+functional programming there has been alot of research on type-safe
+structure-shy traversals. Lammel and Peyton Jones' ``Scrap your
+Boilerplate'' (SyB)~\cite{ralf03syb,lammel04syb,lammel05syb} series
+introduced a practical design pattern for doing generic
+traversals. The simple queries and transformations in
+\name were partly inspired by SyB. However SyB and \name use very
+different implementation techniques. SyB is implemented in Haskell and
+relies on a run-time type-safe cast mechanism. This approach allows
+Syb traversals to be encoded once-and-forall using a single
+higher-order function called \lstinline{gfoldl}. In contrast, in \name
+Java annotations are used to generate generic traversals for each
+structure. A drawback of SyB traversals is that they are notoriously
+slow, partly due to the use of the run-time
+cast~\cite{adams2012tyb}. Another notable difference between SyB and
+\name is with respect to extensibility. While \name supports
+extensibility of both traversals and structures, the original SyB
+approach did not support any extensibility. Only in later work,
+L\"ammel and Peyton Jones proposed an alternative design for SyB,
+based on type classes~\cite{wadler89type-classes}, that supported
+extensibility of traversals. Nevertheless, the extensibility of the
+traversed structures was not supported.
+
+In functional programming there has also been an important line of
+work on \emph{datatype-generic programming} (DGP)~\cite{Gibbons07dgp}.  DGP is an
+advanced form of \emph{generic programming}~\cite{GP}, where generic
+functions are usually defined by inspecting the structure of
+types.  Extensive surveys of various approaches to DGP in Haskell
+(mostly focused on libraries) document various
+approaches~\cite{ComparingGPHaskellRodriquez,ComparingGPHaskellHinze}.
+DGP can be used to implement structure-shy traversals as combinators,
+similarly to the traversals provided by SyB~\cite{hinze2003fun}. 
+Some DGP approaches have also been targetted specifically at doing 
+structure-shy type-safe traversals. Bringert~\cite{bjorn08acf}
+introduced a DGP approach that can also be used to express queries 
+and transformations. Closest to \name is a DGP approach proposed by 
+L\"ammel et al.~\cite{lammel00dealing} for dealing with so-called
+``\emph{large bananas}''. A large banana corresponds to the fold
+algebra of a complex structure. Object algebras, which we use in our 
+work, are an OO encoding of fold algebras~\cite{Oliveira08visitor,bruno12oa}.
+However L\"ammel et al. work has not dealt with extensibility. Interestingly 
+in their future work  L\"ammel et al. did mention that they would like ``to cope 
+with incomplete or extensible systems of datatypes''. 
+
+\begin{comment} 
+In that
+approach for generalized and basic folds. These fold algebras scale up
+applications involving large systems of mutually recursive
+datatypes. These works all try to optimize traversal control of large
+structures in functional programming paradigm, while our work solves a
+similar problem in Object Algebras, a programming style in Object
+Oriented Programming paradigm.
+\end{comment}
 
 \paragraph{Object Algebras.} \name traversals are based on
 object algebras~\cite{bruno12oa}. The original motivation for object
@@ -56,41 +127,6 @@ work shows that object algebras are also useful to solve a different
 problem: how to traverse complex structures without boilerplate
 code. The combination of extensibility (inherited for free from object
 algebras) and structure-shy type-safe traversals also adds a new
-dimention to our work that, as far as we know, as not been explored
+dimention to our work that, as far as we know, as not been well explored
 previously.
-
-
-%However, such work has not addressed the problem of how to
-%eliminate boilerplate in traversals. Our work shows that the
-%combination of object algebras representing basic forms of traversals
-%(queries and transformations) and standard OO inheritance provides a
-%solution to the traversal boilerplate problem.
-
-\textit{Structure-Shy Traversals in Functional Programming.} 
-In the functional programming community like Haskell, much research
-has been done on traversal control of large structures. Lammel and
-Peyton Jones' ``Scrap your Boilerplate''~\cite{ralf03syb,?,?} series
-introduced a practical design pattern for doing type-safe
-structure-shy traversals in tree structures, and were a source 
-of inspiration. Quite different implementation techniques ... 
-SyB traversals are notoriously slow due to the use of some run-time 
-reflection techniques.
-%The notions of queries 
-%and transformations are inspired by their work.
-Bringert\cite{bjorn08acf} introduced useful compositional
-functions to help construct final results in
-Haskell. Lammel\cite{ralf00banana} proposed a polytypic programming
-approach for generalized and basic folds. These fold algebras scale up
-applications involving large systems of mutually recursive
-datatypes. These works all try to optimize traversal control of large
-structures in functional programming paradigm, while our work solves a
-similar problem in Object Algebras, a programming style in Object
-Oriented Programming paradigm.
-
-In summary, prior to our work, research has been done on object
-algebras and composition problem of this programming style. In the
-functional programming world and with visitor pattern, traversal
-control in large structures is also explored. Different from these
-work, we explored techniques helping write generic queries and
-transformations traversing large tree structures with Object Algebras.
 

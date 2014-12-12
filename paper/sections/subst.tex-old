@@ -55,3 +55,24 @@ With \lstinline{SubstArgs}, the code is further simplified. Fig.~\ref{capture_av
 \caption{The contextual transformation for SUBST using generic algebras}
 \label{capture_avoid_with_id}
 \end{figure}
+\subsection{Generic traversal for contextual transformations}\label{subsec:genericcontexttrans}
+
+Again, one may also come up with the same question: can we also generalize the procedure of traversals, just like the generic transformations that we discussed before? The answer is yes.
+
+Fig.~\ref{context_trans_expalg} and Fig.~\ref{context_trans_lamalg} show the generic transformation code for \lstinline{ExpAlg} and \lstinline{LamAlg}, respectively. They are inspired from the identity approach as well. Both interfaces have two generic types A and B, where A specifies the type of the information we are to propagate, and B actually corresponds to \lstinline{expAlg()} and \lstinline{lamAlg()}. They are the algebras that a transformation follows with the identity approach. Therefore, here the generic type for \lstinline{ExpAlg} and \lstinline{LamAlg} is \lstinline{Function<A, B>}. For the contextual transformations that refer to a data structure with multiple generic types, we may have various return types and the \lstinline{Function} instance could be curried.
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=6-17]{../ObjectAlgebras/src/example_LamAlg2/G_ExpAlgTransform.java} % APPLY:linerange=CONTEXT_TRANS_EXPALG
+\vspace{-.1in}
+\caption{Generic contextual transformation by hand for \lstinline{ExpAlg}}
+\label{context_trans_expalg}
+\end{figure}
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=6-14]{../ObjectAlgebras/src/example_LamAlg2/G_LamAlgTransform.java} % APPLY:linerange=CONTEXT_TRANS_LAMALG
+\vspace{-.1in}
+\caption{Generic contextual transformation by hand for \lstinline{LamAlg}}
+\label{context_trans_lamalg}
+\end{figure}
+
+As we can see, there are two identity transformation algebras for \lstinline{ExpAlg} and \lstinline{LamAlg}, respectively. And a user can simply override some of the methods instead of write a lot of boilerplates for traversals, which could be even worse with a complicated structure.
