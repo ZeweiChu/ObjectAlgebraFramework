@@ -47,7 +47,7 @@ expressions with the \lstinline{Add()} method.
 Generally speaking, it is natural to deal with the traversal in an algebra-based approach like Fig.~\ref{freevars_without_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=8-20]{../ObjectAlgebras/src/expDemo2/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVarsExpAlg.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \vspace{-.1in}
 \caption{A normal algebra-based approach for freeVars}
 \label{freevars_without_monoid}
@@ -104,7 +104,7 @@ And now we find everything goes in an easier way: we don't care about what kind 
 As an alternative way to handle the freeVars query, the query algebra is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic algebra, with generic type to be \lstinline{List<String>}. To use the generic traversal code, a monoid is defined in Fig.~\ref{freevars_monoid}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
+\lstinputlisting[linerange=9-14]{../ObjectAlgebras/src/expDemo3/FreeVarsMonoid.java} % APPLY:linerange=FREEVARS_MONOID
 \vspace{-.1in}
 \caption{A monoid instance defined for freeVars}
 \label{freevars_monoid}
