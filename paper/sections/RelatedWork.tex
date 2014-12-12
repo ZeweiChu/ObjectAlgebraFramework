@@ -4,7 +4,12 @@
 %working entirely on a mainstream OO languages, that deals with the 
 %problem boilerplate code in traversals. 
 
-This section discusses related work.
+This section discusses related work. Our approach is unique in that: 
+it works in Java; supports both separate compilation and modular 
+type-checking, as well as extensibility; and it enjoys from structure 
+shyness and adaptability. While some approaches support some of these 
+features, no approach supports all of them. A detailed comparison
+follows next.
 
 \paragraph{Adaptive Object-Oriented Programming (AOOP)}
 AOOP~\cite{DemeterBook} is an extension of object-oriented programming
@@ -17,7 +22,7 @@ relevant for computing the final output. The original approach to AOOP
 was based on a domain-specific language~\cite{DemeterBook}. DJ is an
 implementation of AOOP in Java using reflection~\cite{DJ}. More
 recently, inspired by AOOP, DemeterF~\cite{OOGP} improved on previous
-approaches by providing support for safe traversals, generics and
+approaches by providing support for type-safe traversals, generics and
 data-generic function generation. \name shares with AOOP the use of
 structure-shyness as a means to increase flexibility and adaptability
 of programs.  Differently from \name most AOOP approaches are not
@@ -99,7 +104,6 @@ similar problem in Object Algebras, a programming style in Object
 Oriented Programming paradigm.
 \end{comment}
 
-
 \paragraph{Object Algebras.} \name traversals are based on
 object algebras~\cite{bruno12oa}. The original motivation for object
 algebras was as a design pattern for OO programming that allowed
@@ -125,11 +129,4 @@ code. The combination of extensibility (inherited for free from object
 algebras) and structure-shy type-safe traversals also adds a new
 dimention to our work that, as far as we know, as not been well explored
 previously.
-
-In summary, prior to our work, research has been done on object
-algebras and composition problem of this programming style. In the
-functional programming world and with visitor pattern, traversal
-control in large structures is also explored. Different from these
-work, we explored techniques helping write generic queries and
-transformations traversing large tree structures with Object Algebras.
 
