@@ -1,21 +1,19 @@
 package expDemo2;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static java.util.Collections.emptySet;
+import static java.util.Collections.singleton;
+import static java.util.stream.Stream.concat;
+
+import java.util.Set;
+import static java.util.stream.Collectors.toSet;
+
 
 //BEGIN_FREEVARS_WITHOUT_MONOID
-public interface FreeVarsExpAlg extends ExpAlg<List<String>> {
-	default List<String> Var(String s) {
-		return Collections.singletonList(s);
-	}
-	default List<String> Lit(int i) {
-		return Collections.emptyList();
-	}
-	default List<String> Add(List<String> e1, List<String> e2) {
-		List<String> res = new ArrayList<String>(e1);
-		res.addAll(e2);
-		return res;
+public interface FreeVarsExpAlg extends ExpAlg<Set<String>> {
+	default Set<String> Var(String s) { return singleton(s); }
+	default Set<String> Lit(int i) { return emptySet(); }
+	default Set<String> Add(Set<String> e1, Set<String> e2) {
+		return concat(e1.stream(), e2.stream()).collect(toSet());
 	}
 }
 //END_FREEVARS_WITHOUT_MONOID
