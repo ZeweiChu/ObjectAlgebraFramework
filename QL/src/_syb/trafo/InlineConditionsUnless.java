@@ -9,9 +9,7 @@ import transform.G_IUnlessAlgTransform;
 public interface InlineConditionsUnless<E, S> extends 
   G_IUnlessAlgTransform<E, E, S>, G_IExpAlgTransform<E, E> { 
 	default Function<E, S> unless(Function<E, E> p0, Function<E, S> p1) {
-		return (guard) -> {
-			return p1.apply(iExpAlg().and(guard, iExpAlg().not(p0.apply(guard))));
-		};
+		return g -> p1.apply(iExpAlg().and(g, iExpAlg().not(p0.apply(g))));
 	}
 }
 //END_INLINECONDS_UNLESS

@@ -43,7 +43,7 @@ The framework permits to use  Java interface extension to achieve this in a full
 Figure~\ref{inline_conds_unless} and Fig.~\ref{controldeps_unless} show the extension of the inline conditions transformation and control dependencies query when extending QL with ``unless''.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=9-16]{../QL/src/_syb/trafo/InlineConditionsUnless.java} % APPLY:linerange=INLINECONDS_UNLESS
+\lstinputlisting[linerange=9-14]{../QL/src/_syb/trafo/InlineConditionsUnless.java} % APPLY:linerange=INLINECONDS_UNLESS
 \vspace{-.1in}
 \caption{Extending the inline-conditions transformation to deal with ``unless''}
 \label{inline_conds_unless}
