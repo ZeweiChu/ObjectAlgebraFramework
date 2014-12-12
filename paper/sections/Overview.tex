@@ -98,22 +98,29 @@ However, this simple object-oriented solution has two important problems:
 
 \subsection{Modeling the Company Structure with Object Algebras}
 
-To tackle with the problem of extensibility, Object Algebras is a good solution. \bruno{text missing here. We need to introduce object algebras first; explain what they are; cite them; and then talk about the solution.} Oliveira proposed the design pattern \emph{Object Algebras}\cite{bruno12oa} to solve the famous Expression Problem. Object Algebras are classes that implement Object Algebra Interfaces where the type parameters represents the algebra classes. With this extra layer of generic type parameters, Object Algebras is extensible on both data variants and operations.  
+Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem. 
+Object algebras are a design pattern that is useful to model complex
+structures, while providing a lot of flexibility in terms of
+modularity and extensibility. In particular, object algebras allow 
+extensibility in two dimensions: it is easy to add new types of
+nodes; and new operations over the structure. 
+%As a result, object
+%algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
 \vspace{-.1in}
-\caption{Company Structure represented by Object Algebra Interface}
+\caption{Company structure represented by an object algebra interface}
 \label{syb_tree}
 \end{figure}
 
-Fig.~\ref{syb_tree} shows the approach to model the Company
-structure as an object algebra interface. Different operations can be realized by extending object algebras inheriting from the object algebra interface. To implement query bill
-operation for the whole Company structure, we can pass in a \lstinline{Float} class to represent salary and implement the
-Company interface with specific operation for each component. In our case, the \lstinline{QuerySalarySybAlg} returns salary information in method \lstinline{Float S(float salary)} and does the delegation work in most other methods related to salary information.
+Figure~\ref{syb_tree} shows the approach to model the company
+structure as an object algebra interface. Different operations are
+defined by implementing the object algebra interface. The following 
+code show a partial implementation of the salary bill operation.
 
 \begin{lstlisting}[numbers=none] 
-public class QuerySalarySybAlg implements SybAlg<Float,Float,Float,Float,Float,Float> {
+class QuerySalary implements SybAlg<Float,Float,Float,Float,Float,Float> {
 	public Float C(List<Float> depts){
 		Float r = 0f;
 		for (Float f: depts) r += f;
@@ -125,6 +132,21 @@ public class QuerySalarySybAlg implements SybAlg<Float,Float,Float,Float,Float,F
 	}
 }
 \end{lstlisting}
+
+The \lstinline{QuerySalary} class provides an implementation for each 
+of the methods in the object algebra interface. Note that the way
+operations are deifined with object algebras resembles the definition 
+of operations by case analysis in functional programming.
+\bruno{editing going on here!}
+In the object algebra
+style, each type parameter is set to the type of the result that we
+are interested on, for each type of node. In the case of the salary
+bill that is a \lstinline{Float} for all types of nodes. In the 
+\lstinline{Float S(float salary)} method (which models the salary 
+constructor) we simply return the salary. 
+
+and does the delegation work in most
+other methods related to salary information.
 
 IncreaseSalary will modify an old algebra and return a new algebra based on specific implementations. More specifically, the old algebra is set as a field in \lstinline{IncreaseSalarySybAlg}, method  \lstinline{Salary S(float salary)} increases the salary by 10\%, and other methods simply delegates to the same methods in the old algebra. 
 
