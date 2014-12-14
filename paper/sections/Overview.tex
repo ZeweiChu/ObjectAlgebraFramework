@@ -115,9 +115,19 @@ nodes; and new operations over the structure.
 \end{figure}
 
 Figure~\ref{syb_tree} shows the approach to model the company
-structure as an object algebra interface. Different operations are
-defined by implementing the object algebra interface. The following 
-code show a partial implementation of the salary bill operation.
+structure as an object algebra interface. Each kind of node (for
+example \lstinline{Salary} or \lstinline{Company}) is represented as a
+type parameter. Each method in the object algebra interface models a
+constructor of some node in the company structure. For example the
+method \lstinline{C} constructs an instance of a company; whereas the
+method \lstinline{S} creates an instance of a salary. From an
+object-oriented perspective the methods in the interface are factory
+methods. For the reader familiar with functional programming, the
+resamblance to constructors of  (a system of) algebraic datatypes should be clear.
+
+Operations are defined by implementing the object algebra interface.
+The following code show a partial implementation of the salary bill
+operation.
 
 \begin{lstlisting}[numbers=none] 
 class QuerySalary implements SybAlg<Float,Float,Float,Float,Float,Float> {
@@ -131,27 +141,27 @@ class QuerySalary implements SybAlg<Float,Float,Float,Float,Float,Float> {
 		return salary;
 	}
 }
-\end{lstlisting}
+\end{lstlisting}\bruno{SalaryBill is probably a better name.}
 
-The \lstinline{QuerySalary} class provides an implementation for each 
-of the methods in the object algebra interface. Note that the way
-operations are deifined with object algebras resembles the definition 
-of operations by case analysis in functional programming.
-\bruno{editing going on here!}
-In the object algebra
-style, each type parameter is set to the type of the result that we
-are interested on, for each type of node. In the case of the salary
-bill that is a \lstinline{Float} for all types of nodes. In the 
-\lstinline{Float S(float salary)} method (which models the salary 
-constructor) we simply return the salary. 
+The \lstinline{QuerySalary} class provides an implementation for each
+of the methods in the object algebra interface, which defines the
+overall salary bill operation. Since the result of computing the
+salary bill is a \lstinline{Float}, all the type parameters are set to
+that type. Most of the method implementations simply traverse the
+child nodes and accumulate the salaries. That is the case, for
+example, for \lstinline{C}. The only method implementation that does
+something different is \lstinline{S}, which returns the salary
+argument. 
+%Note that the way operations are deifined with object
+%algebras resembles the definition of operations by case analysis in
+%functional programming.
 
-and does the delegation work in most
-other methods related to salary information.
-
-IncreaseSalary will modify an old algebra and return a new algebra based on specific implementations. More specifically, the old algebra is set as a field in \lstinline{IncreaseSalarySybAlg}, method  \lstinline{Salary S(float salary)} increases the salary by 10\%, and other methods simply delegates to the same methods in the old algebra. 
+For the increase salary operation the result is itself a structure
+with all salaries updated. The following code shows part of the 
+implementation:
 
 \begin{lstlisting}[numbers=none]
-public class IncreaseSalarySybAlg<Company, Dept, SubUnit, Employee, Person, Salary> implements SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> {
+class IncreaseSalary<Company, Dept, SubUnit, Employee, Person, Salary> implements SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> {
 	public SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg;
 	public IncreaseSalarySybAlg(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) { this.alg = alg; }
 	public Float C(List<Dept> depts) {
@@ -162,47 +172,106 @@ public class IncreaseSalarySybAlg<Company, Dept, SubUnit, Employee, Person, Sala
 		return alg.S(salary*1.1f);
 	}
 }
-\end{lstlisting}\bruno{The code is too specific. It should be
-  something like: \lstinline{public class
-    IncreaseSalarySybAlg<Company, Dept, SubUnit, Employee, Person,
-    Salary> implements SybAlg<Company, Dept, SubUnit, Employee,
-    Person, Salary>}}
+\end{lstlisting}
 
-\bruno{code needs to be better explained. What are we using the
-  \lstinline{alg} for?}
-  
-When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters. 
+The class \lstinline{IncreaseSalary} is parametrized by six types,
+which represent the kinds of nodes in the company structure. Each
+constructor needs to build an instance of the right type of nodes.
+Note that, due to the lack of better type-inference in Java, there is
+some repetition of type-annotations. In order to create the updated
+company structure another algebra called \lstinline{alg} is used.
+Almost all the method implementations reconstruct the structure with
+no changes using the methods in \lstinline{alg}. The exception is the
+method \lstinline{S} where the structure is also reconstructed, but
+the salary is increased by 10\%.
 
-However, although we solved the problem of extensibility with object algebras, the traversal code is still lengthy and we are still writing tedious traversing code of tree structures. The only code we are really interested in is the \lstinline{Salary S(Float salary)} method to return or to increase the salary. It will be better if we can design some generic classes for queries and transformations. Hence specific algebras can be generated by
-implementing interesting cases of generic queries and
-transformations. Moreover, it will be even better if the boilerplate code can be generated automatically so we can focus our attention on the interesting cases.
+%In the method  
+%IncreaseSalary will modify an old algebra and return a new algebra
+%based on specific implementations. More specifically, the old algebra
+%is set as a field in \lstinline{IncreaseSalarySybAlg}, method
+%\lstinline{Salary S(float salary)} increases the salary by 10\%, and
+%other methods simply delegates to the same methods in the old algebra.
 
-\subsection{Object Algebra Framework}
+%When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters. 
+
+Although we solved the problem of extensibility with object
+algebras, the traversal code is still lengthy and we are still writing
+tedious traversal code. In both operations, the only interesting code 
+is in the \lstinline{S} method. Ideally, we would like to write only
+the code for the interesting cases, and somehow ``inherit'' the
+remainder tedious traversal code.
+
+%It will be better if we can
+%design some generic classes for queries and transformations. Hence
+%specific algebras can be generated by implementing interesting cases
+%of generic queries and transformations. Moreover, it will be even
+%better if the boilerplate code can be generated automatically so we
+%can focus our attention on the interesting cases.
+
+\subsection{\Name: An Object Algebra Framework for Traversals}
+
+
+\begin{comment}
 Motivated by this problem of writing generic code for tree structure
-traversals, we introduce generic queries, generalized generic queries, transformations and contextual aware transformations with Object Algebras, which can be easily inherited by real cases of queries and transformations. Furthermore, we designed an object algebra framework \name. With our framework, the generic query and transformation classes can be generated automatically by adding an ``$@$Algebra'' annotation.
+traversals, we introduce generic queries, generalized generic queries,
+transformations and contextual aware transformations with Object
+Algebras, which can be easily inherited by real cases of queries and
+transformations. Furthermore, we designed an object algebra framework
+\name. With our framework, the generic query and transformation
+classes can be generated automatically by adding an ``$@$Algebra''
+annotation.
+\end{comment}
 
-Now with our Object Algebra Framework, the code we need to write for Salary Bill and Increase Salary will be much shorter. A Generic query code will be as short as Fig.~\ref{query_with_oaframework}. Here when coding with the framework \name, users need not worry about any boilerplate delegation code of the tree structure, but just simply rewrite the interesting case which actually return the salary information.
+To deal with the boilerplate problem we created \Name: a Java object
+algebras framework, which provides a number of generic traversals at
+the cost of a simple annotation. The key idea in \name is to
+automatically create highly generic object algebras, which encapsulate
+common types of traversals. In particular \name supports generic
+\emph{queries} and \emph{transformations}. Those two types of
+traversals are useful to capture, respectively, the salary bill and
+increase salary operations.
+
+With \Name, programmers just need to add an ``$@$Algebra'' annotation
+to the definition of \lstinline{SybAlg} to get the code for generic
+queries and transformations. An example of that annotation is already
+shown in Figure~\ref{syb_tree}. With that annotation several classes
+are generated automatically, including \lstinline{SybAlgQuery} and
+\lstinline{SybAlgTransform}. Using those classes the code needed to
+write the salary bill and increase salary object algebras is much
+shorter. The code for salary bill is shown in
+Figure~\ref{query_with_oaframework}. By implementing the
+\lstinline{SybAlgQuery}, only the \lstinline{S} method needs to be
+overriden: all the other methods, which do a simple generic traversal,
+are inherited. The only other aspect of queries that needs to be
+provided by the user is an instance of a monoid, which is used to
+specify how to accumulate the results during the traversal. The
+implementation of the increase salary operation is shown in
+Figure~\ref{transform_with_oaframework}. Similar to the query example,
+all the boilerplate code for traversals is handled by \Name. The
+developer only needs to pass an algebra for providing the constructors
+for the transformation code, and override the interesting case in the
+method \lstinline{S}. 
+
 \begin{figure}[tb]
 \lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/example_SybAlg/FloatQuery.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
 \vspace{-.1in}
-\caption{Query Salary Class with Object Algebra Framework}
+\caption{Salary bill with \Name.}
 \label{query_with_oaframework}
-\end{figure}
-
-Transformation code will be like Figure~\ref{transform_with_oaframework}. Similar to the query example, all the boilerplate part has been handled by the framework and the developer only needs to pass in the original company algebra and override the interesting case \lstinline{Float S(float salary)}, then a new company algebra will be returned after transformation.  
+\end{figure}\bruno{Rename FloatQuery to SalaryBill}
+  
 \begin{figure}[tb]
 \lstinputlisting[linerange=7-12]{../ObjectAlgebras/src/example_SybAlg/IncSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
-\caption{Increase Salary Class with Object Algebra Framework}
+\caption{Increase salary with \Name.}
 \label{transform_with_oaframework}
-\end{figure}
+\end{figure}\bruno{Should we create a simple auxiliary class to make
+  the code shorter?}\bruno{I think it is better to merge the 2 figures
+(for queries and transformations) into a single figure.}
 
-\bruno{code is too specific. See comment about previous
-  increase salary example}
-\begin{comment}The classes SybAlgQuery<R>, SybAlgTransform<R,R,R,R,R,R> are generated
-by the framework automatically. \end{comment}
-\bruno{Jason, generally speaking your explanations of the code are to
-  brief: you don't actually explain the code. You need to emphasize
-  the relevant parts of the code, as well as the parts that are
-  non-obvious. Here for example you want to emphasize that we only
-  need to write the salary method.}
+\bruno{We need client code in the paper! Show how to create a company
+  structure (at least part of the code), and show how to use the algebras.}
+
+The remainder of the paper provides the details and implementation
+techniques used in \Name. Besides basic queries and transformations,
+\name also supports two generalizations of these types of traversals 
+called \emph{generalized queries} and \emph{contextual transformations}.
