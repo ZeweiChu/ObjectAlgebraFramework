@@ -36,7 +36,7 @@ To illustrate the utility of \name we have implemented a number of queries and t
 The transformations include two transformations of language extensions to the base language.
 The first realizes a simple desugaring of ``unless(c){...}'' to ``if(not(c)){...}''.
 The second desugaring statically unfolds a constant bound loop construct (``repeat (i){...}'') and renames variables accordingly.
-Finally, we have implemented a simple rename variable operation, and a normalizer which flattens nested conditionals to sequences.  
+Finally, we have implemented a simple rename variable operation, and a normalizer which inlines the conditions of nested if-then constructs.  
 
 Table~\ref{TBL:qlresults} shows the number of cases that had to be overridden to implement each particular operation. The top row shows the number of  constructs for each sort in QL (Exp, Stmt, and Form, respectively).
 As can be seen, none of the operations required implementing all cases.
@@ -100,7 +100,9 @@ The algebra \lstinline{alg} can now be used to create questionnaires:
 
   \lstinputlisting[linerange=166-168]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
 
-The result of constructing this simple questionnaire is a formatting object representing the questionnaire after desugaring, inlining and renaming:
+The result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire desugaring.
+The \lstinline{IFormatWithPrecedence} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
+Calling this function with a boolean expression representing \lstinline{true} will trigger inlining of conditions. The result is then a formatting object (\lstinline{IFormat}) which can be used to print out the transformed questionnaire:
 
   \begin{lstlisting}[language=ql]
     form myForm {
@@ -108,7 +110,7 @@ The result of constructing this simple questionnaire is a formatting object repr
     }
   \end{lstlisting}
 
-As can be seen, the ``unless'' statement has been desugard.
+As can be seen, the condition \lstinline{y} is now negated, because of the desugaring of ``unless''.
 The result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement. Finally, the variable \lstinline{x} has been renamed to \lstinline{y}.
   
 \subsection{\name performance vs Vanilla ASTs}
