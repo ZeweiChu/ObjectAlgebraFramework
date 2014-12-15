@@ -64,12 +64,12 @@ The cases required for desugaring include the case of the language extension, wh
 
 \begin{table}[t]
   \centering
-  \begin{tabular}{l|r||rrrrrrrr}
+  \begin{tabular}{lccccccccc}
     Sort                           & \rot{\#Cases} & \rot{Collect vars} & \rot{Data deps} & \rot{Control deps} & \rot{Type env} & \rot{Rename var} & \rot{Inline conds} & \rot{\texttt{unless}} & \rot{\texttt{repeat}} \\\hline
     Form                           & 1       &       & 1         & 1            &          &        &        &            &            \\
     Stmt                           & 5       &       & 3         & 4            & 2        & 2      & 4      & 1          & 3          \\ 
     Exp                            & 18      & 1     &           &              &          & 1      &        &            & 1          \\\hline
-    \multicolumn{2}{l||}{Percentage}         & 4\%   & 17\%      & 21\%         & 8\%      & 13\%   & 17\%   &  4\%      & 16\%                       \\
+    \multicolumn{2}{l}{Percentage:}         & 4\%   & 17\%      & 21\%         & 8\%      & 13\%   & 17\%   &  4\%      & 16\%                       \\
   \end{tabular}
   \vspace*{.1in}
   \caption{Number of overriden cases per query and transformation in
