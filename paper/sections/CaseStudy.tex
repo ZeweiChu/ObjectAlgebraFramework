@@ -127,8 +127,10 @@ Calling this function with a boolean expression representing \lstinline{true} wi
     }
   \end{lstlisting}
 
-As can be seen, the condition \lstinline{y} is now negated, because of the desugaring of ``unless''.
-The result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement. Finally, the variable \lstinline{x} has been renamed to \lstinline{y}.
+  As can be seen, the variable \lstinline{x} has been renamed to \lstinline{y}.
+The (renamed) condition \lstinline{y} is now negated, because of the desugaring of ``unless''.
+Finally, the result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement.
+
   
 \subsection{\name performance vs Vanilla ASTs}
 
