@@ -1,0 +1,21 @@
+
+\ProvidesPackage{ql}
+\RequirePackage{listings}
+\RequirePackage{xspace}
+\RequirePackage{bold-extra}
+
+
+\def\fdl{\textsc{ql}\xspace}
+
+\lstdefinelanguage{ql}%
+  {morekeywords={if,else,form,integer,date,string,defined},%
+   sensitive=true,%
+ commentstyle=\rmfamily,%
+ keywordstyle=\bfseries,%
+ basicstyle=\ttfamily,%
+ showstringspaces=false,%
+ columns=fixed,%
+   morecomment=[l]\/\/,%
+  }[keywords,comments]%
+
+

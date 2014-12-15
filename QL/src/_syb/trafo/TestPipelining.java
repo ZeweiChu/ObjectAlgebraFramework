@@ -1,8 +1,11 @@
 package _syb.trafo;
 
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.Collections;
+
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonMap;
+
 import java.util.Map;
 import java.util.function.Function;
 
@@ -48,18 +51,18 @@ public class TestPipelining {
 //		public IStmtAlg<E, S> iStmtAlg() { return stmtAlg; }
 //	}
 	
-	public static class DoItRename<E, S, F> implements RenameVariable<E, S>, IFormAlgTransform<E, S, F> {
+	public static class Rename<E, S, F> implements RenameVariable<E, S>, IFormAlgTransform<E, S, F> {
 		private Map<String, String> renaming;
 
 		private IExpAlg<E> expAlg;
 		private IStmtAlg<E, S> stmtAlg;
 		private IFormAlg<E, S, F> formAlg;
 
-		public DoItRename(Map<String, String> renaming, IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
+		public <Alg extends IExpAlg<E> & IStmtAlg<E,S> & IFormAlg<E,S,F>> Rename(Map<String, String> renaming, Alg alg) {
 			this.renaming = renaming;
-			this.expAlg = expAlg;
-			this.stmtAlg = stmtAlg;
-			this.formAlg = formAlg;
+			this.expAlg = alg;
+			this.stmtAlg = alg;
+			this.formAlg = alg;
 		}
 		@Override
 		public IExpAlg<E> iExpAlg() { return expAlg; }
@@ -75,15 +78,15 @@ public class TestPipelining {
 
 	}
 	
-	static class DoItUnless<E, S, F> implements DesugarUnless<E, S>, IFormAlgTransform<E, S, F> {
+	static class Desugar<E, S, F> implements DesugarUnless<E, S>, IFormAlgTransform<E, S, F> {
 		private IExpAlg<E> expAlg;
 		private IStmtAlg<E, S> stmtAlg;
 		private IFormAlg<E, S, F> formAlg;
 
-		public DoItUnless(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
-			this.expAlg = expAlg;
-			this.stmtAlg = stmtAlg;
-			this.formAlg = formAlg;
+		public  <Alg extends IExpAlg<E> & IStmtAlg<E,S> & IFormAlg<E,S,F>>  Desugar(Alg alg) {
+			this.expAlg = alg;
+			this.stmtAlg = alg;
+			this.formAlg = alg;
 		}
 		@Override
 		public IExpAlg<E> iExpAlg() { return expAlg; }
@@ -98,39 +101,39 @@ public class TestPipelining {
 		public IStmtAlg<E, S> iStmtAlg() { return stmtAlg; }
 	}
 	
-	static class DoItRepeat<E, S, F> implements DesugarRepeat<E, S, F> {
-		private IExpAlg<E> expAlg;
-		private IStmtAlg<E, S> stmtAlg;
-		private IFormAlg<E, S, F> formAlg;
-
-		public DoItRepeat(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
-			this.expAlg = expAlg;
-			this.stmtAlg = stmtAlg;
-			this.formAlg = formAlg;
-		}
-		@Override
-		public IExpAlg<E> iExpAlg() { return expAlg; }
-
-		@Override
-		public IRepeatAlg<S> iRepeatAlg() { return null; }
-
-		@Override
-		public IFormAlg<E, S, F> iFormAlg() { return formAlg; }
-
-		@Override
-		public IStmtAlg<E, S> iStmtAlg() { return stmtAlg; }
-		
-	}
+//	static class Repeat<E, S, F> implements DesugarRepeat<E, S, F> {
+//		private IExpAlg<E> expAlg;
+//		private IStmtAlg<E, S> stmtAlg;
+//		private IFormAlg<E, S, F> formAlg;
+//
+//		public Repeat(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
+//			this.expAlg = expAlg;
+//			this.stmtAlg = stmtAlg;
+//			this.formAlg = formAlg;
+//		}
+//		@Override
+//		public IExpAlg<E> iExpAlg() { return expAlg; }
+//
+//		@Override
+//		public IRepeatAlg<S> iRepeatAlg() { return null; }
+//
+//		@Override
+//		public IFormAlg<E, S, F> iFormAlg() { return formAlg; }
+//
+//		@Override
+//		public IStmtAlg<E, S> iStmtAlg() { return stmtAlg; }
+//		
+//	}
 	
-	public static class DoItInline<E, S, F> implements InlineConditions<E, S, F> {
+	public static class Inline<E, S, F> implements InlineConditions<E, S, F> {
 		private IExpAlg<E> expAlg;
 		private IStmtAlg<E, S> stmtAlg;
 		private IFormAlg<E, S, F> formAlg;
 
-		public DoItInline(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
-			this.expAlg = expAlg;
-			this.stmtAlg = stmtAlg;
-			this.formAlg = formAlg;
+		public  <Alg extends IExpAlg<E> & IStmtAlg<E,S> & IFormAlg<E,S,F>> Inline(Alg alg) {
+			this.expAlg = alg;
+			this.stmtAlg = alg;
+			this.formAlg = alg;
 		}
 		
 		@Override
@@ -145,22 +148,28 @@ public class TestPipelining {
 	}
 	
 	public static void main(String[] args) {
-		Format base = new Format();
 		
-		
-		DoItRename<IFormatWithPrecedence, IFormat, IFormat> d4 = new DoItRename<>(Collections.singletonMap("x",  "y"), base, base, base);
-		DoItInline<IFormatWithPrecedence, IFormat, IFormat> d3 = new DoItInline<>(d4, d4, d4);
-		DoItRepeat<Function<IFormatWithPrecedence, IFormatWithPrecedence>, Function<IFormatWithPrecedence, IFormat>, Function<IFormatWithPrecedence, IFormat>> d2 = new DoItRepeat<>(d3, d3, d3);
-		DoItUnless<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>, Function<String, Function<IFormatWithPrecedence, IFormat>>, Function<String, Function<IFormatWithPrecedence, IFormat>>> d1 = new DoItUnless<>(d2, d2, d2);
+		Rename<IFormatWithPrecedence, IFormat, IFormat> d3;
+		Inline<IFormatWithPrecedence, IFormat, IFormat> d2;
+		Desugar<Function<IFormatWithPrecedence, IFormatWithPrecedence>, 
+		   Function<IFormatWithPrecedence, IFormat>, 
+		   Function<IFormatWithPrecedence, IFormat>> alg;
 
-		//d2.repeat(2, /// cheating!!! So, bad example, for desugarings the extensions should be all in the outer interface.
-
-		Function<String, Function<IFormatWithPrecedence, IFormat>> pp = 
-				d1.form("bla", Arrays.asList(
-						  d1.unless(d1.var("x"), d1.block(Arrays.asList(d1.question("x", "X?", new TBoolean()))))));
 		
+		Map<String, String> ren = singletonMap("x",  "y");
+		
+		//BEGIN_PIPELINEQL
+		alg = new Desugar<>(new Inline<>(new Rename<>(ren, new Format())));
+		//END_PIPELINEQL
+		
+		//BEGIN_PIPELINEQL_CALL
+		Function<IFormatWithPrecedence, IFormat> pp 
+		  = alg.form("myForm", asList(alg.unless(alg.var("x"), 
+				  							alg.question("x", "X?", new TBoolean()))));
+		//END_PIPELINEQL_CALL
+
 		StringWriter w = new StringWriter();
-		pp.apply("").apply(base.bool(true)).format(0, true, w);
+		pp.apply(new Format().bool(true)).format(0, true, w);
 		System.out.println(w);
 	
 	}

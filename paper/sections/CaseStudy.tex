@@ -60,6 +60,29 @@ Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unle
 It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
 The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
+\subsection{Chaining transformations}
+
+Transformations can be chained by passing transformation algebras as the base algebra to the implementation of another transformation.
+For instance, the desugar unless transformation desugars the ``unless'' statement to ``if'' statements in another algebra.
+Assuming this transformation is implemented by \lstinline{Desugar},  \lstinline{Inline} represents the inline conditions transformation, and \lstinline{Rename} represents the rename variable transformation. All three can be chained as follows:
+
+  \lstinputlisting[linerange=162-162]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
+
+The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames variables according to the map \lstinline{ren}.
+The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL. 
+
+The algebra \lstinline{alg} can now be used to create questionnaires:
+
+  \lstinputlisting[linerange=166-168]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
+
+The result of constructing this simple questionnaire is a formatting object representing the questionnaire after desugaring, inlining and renaming:
+
+  \begin{lstlisting}[language=ql]
+    form myForm {
+      if (true && !y) y "X?" boolean
+    }
+  \end{lstlisting}
+  
 \subsection{\name performance vs Vanilla ASTs}
 
 \begin{figure}[t]
