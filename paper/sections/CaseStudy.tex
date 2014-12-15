@@ -3,6 +3,7 @@
 We have used the Object Algebras framework in the implementation of a simple DSL for Questionnaires, called QL~\cite{gouseti14extensible}.
 A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed.
 An example QL questionnaire is shown on the left of Fig.~\ref{FIG:houseowning} together with its rendering on the right.
+
 QL programs consist of lists of labeled, typed questions.
 Questions can be answerable, meaning the user has to enter some data, or computed.
 In the latter case the question is defined by an expression.
@@ -106,6 +107,9 @@ The result of constructing this simple questionnaire is a formatting object repr
       if (true && !y) y "X?" boolean
     }
   \end{lstlisting}
+
+As can be seen, the ``unless'' statement has been desugard.
+The result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement. Finally, the variable \lstinline{x} has been renamed to \lstinline{y}.
   
 \subsection{\name performance vs Vanilla ASTs}
 
@@ -117,7 +121,7 @@ The result of constructing this simple questionnaire is a formatting object repr
 \end{figure}
 
 We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes.
-The operations were executed on progressively larger QL programs (up to 1.4Mb).
+The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
 For context-dependent transformation, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function. 
@@ -126,11 +130,12 @@ To make the comparison as fair as possible, the query implementations use the sa
 The comparison of the control dependencies query is shown on the left of Fig.~\ref{FIG:performance}.
 The plot shows that the performance is quite comparable.
 On average, the \name implementation of the query seems a little slower.
-This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes \tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
+This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes
+%\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 
-For transformations the performance difference is slightly more severe.
+For transformations the performance difference is slightly more pronounced.
 The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation. 
-The greate difference can probably be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls. 
+The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls. 
 
 
 
