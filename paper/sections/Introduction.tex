@@ -21,10 +21,9 @@ of run-time errors that would not otherwise be detected.
 %of node. Static types can also ensure that all nodes are dealt with by
 %an appropriate piece of code.
 
-Unfortunately, for when traversing such structures, the number of nodes and the
+Unfortunately, when traversing such structures, the number of nodes and the
 enforced type distinctions between nodes can lead to so-called
-boilerplate code~\cite{ralf03syb}. In this context, boilerplate code
-is code that is similar for most types of nodes and which
+\emph{boilerplate code}~\cite{ralf03syb}: code that is similar for most types of nodes and which
 essentially walks the structure. Traversals where such boilerplate
 code dominates are called \emph{structure shy}~\cite{DemeterBook}. In
 structure shy operations only for a small portion of nodes the code
@@ -42,17 +41,25 @@ error-prone.
 %distinctions between different kinds of nodes leads to significant
 %boilerplate code.
 
-It is possible to avoid boilerplate code in languages that support
-some kind of reflection~\cite{}, or using some meta-programming
-techniques~\cite{}.  With such approaches a programmer only needs to
-define the code to deal with the nodes that are not structure
-shy. This has important benefits. Firstly the user has to write much
-less code, also removing the possibility of errors in the code walking
-the structure. Secondly the code becomes much more adaptive to
-changes: if structural changes occur only in the structure shy cases,
-then the user-defined code remains unchanged.\bruno{Mention some
-  concrete examples here, or at least cite them.}  However such
-approaches are usually done at the cost of type-safety. For example,
+The boilerplate problem when traversing complex structures has received
+considerable attention in the past. For example, both \emph{Adaptive
+  Object-Oriented Programming} (AOOP)~\cite{DemeterBook} and
+\emph{Strategic
+  Programming}~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}
+are aimed partly at solving this problem. Most approaches to AOOP and
+strategic programming use some meta-programming techniques, such as
+code generation or reflection. The use of meta-programming offers
+programmers an easy way to deal with the code for the nodes that are
+not structure shy. This has important benefits. Firstly the user has
+to write much less code, also removing the possibility of errors in
+the code walking the structure. Secondly the code becomes much more
+adaptive to changes: if structural changes occur only in the structure
+shy cases, then the user-defined code remains unchanged.  However such
+meta-programming based approaches are usually done at the cost of
+other desirable properties, such as type-safety or
+separate-compilation.
+
+For example,
 the use of mechanisms such as Java's dynamic reflection comes at the
 cost of allowing some run-time errors to occur. Moreover dynamic
 reflection usually incurs on significant performance penalties.
