@@ -1,7 +1,7 @@
 \section{Introduction}
 
 Many applications require complex recursive data structures. Examples
-abound in language processing tools/libraries for programming
+abound, for example, in language processing tools/libraries for programming
 languages, domain-specific languages, markup languages like HTML, or
 data-interchange languages like XML or JSON. In those applications
 Abstract Syntax Trees (ASTs) are the key data structure needed to
@@ -21,10 +21,10 @@ of run-time errors that would not otherwise be detected.
 %of node. Static types can also ensure that all nodes are dealt with by
 %an appropriate piece of code.
 
-Unfortunately, for many traversals, the number of nodes and the
+Unfortunately, for when traversing such structures, the number of nodes and the
 enforced type distinctions between nodes can lead to so-called
 boilerplate code~\cite{ralf03syb}. In this context, boilerplate code
-is code that is similar for most different types of nodes and which
+is code that is similar for most types of nodes and which
 essentially walks the structure. Traversals where such boilerplate
 code dominates are called \emph{structure shy}~\cite{DemeterBook}. In
 structure shy operations only for a small portion of nodes the code
