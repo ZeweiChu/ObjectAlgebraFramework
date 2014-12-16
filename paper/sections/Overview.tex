@@ -42,11 +42,10 @@ with an associated \lstinline{Salary} information.
 Two operations are supported by the company structure: querying the
 salary bill for the whole company; and increasing the salary of each
 employee by 10\%. To support those operations, a very natural OO
-solution is to have methods \lstinline{salaryBill} and
-\lstinline{increaseSalary} in all classes from the bottom
-\lstinline{Salary} class to the top \lstinline{Company} class. Only in
-sibling classes such as the \lstinline{Person} class, which has
-nothing to do with salary information, the methods would be ommitted.
+solution following L\"ammel and Peyton Jones' example, is to have 
+methods \lstinline{salaryBill}, which returns salary as a float number, and
+\lstinline{increaseSalary}, which construct a new object with salary increased by 10 \%, 
+in all classes from the bottom \lstinline{Salary} class to the top \lstinline{Company} class. 
 
 Figure~\ref{oop_company} shows the Java implementation of the  
 \lstinline{Salary} and \lstinline{Company} classes. The implementation 

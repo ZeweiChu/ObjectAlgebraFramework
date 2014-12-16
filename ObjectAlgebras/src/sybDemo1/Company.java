@@ -1,5 +1,6 @@
 package sybDemo1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //BEGIN_OOP_COMPANY
@@ -11,49 +12,57 @@ class Company {
 		for (Department dept: depts) r+= dept.salaryBill(); 
 		return r;
 	}
-	public void increaseSalary(){
-		for (Department dept: depts) dept.increaseSalary();
+	public Company increaseSalary(){
+		List<Department> ld = new ArrayList<Department>();
+		for (Department dept: depts) ld.add(dept.increaseSalary());
+		return new Company(ld);
 	}
 }
 class Salary {
 	private Float salary;
 	public Salary(Float salary){this.salary = salary;}
 	public Float salaryBill(){return this.salary;}
-	public void increaseSalary(){this.salary *= 1.1f;}
+	public Salary increaseSalary(){return new Salary(this.salary*1.1f);}
 }
 //END_OOP_COMPANY
 class Department {
 	private String name;
 	private Employee manager;
-	private List<SubUnit> subUnits;
-	public Department(String name, List<SubUnit> subUnits, Employee manager){
+	private List<Employee> lEmployee;
+	private List<Department> lDepartment;
+	public Department(String name, Employee manager, List<Employee> lEmployee, List<Department> lDepartment){
 		this.name = name;
 		this.manager = manager;
-		this.subUnits = subUnits;
+		this.lEmployee = lEmployee;
+		this.lDepartment = lDepartment;
 	}
 	public Float salaryBill(){
 		Float r = 0f;
-		for (SubUnit subUnit: this.subUnits) r += subUnit.salaryBill();
+		for (Employee e: this.lEmployee) r += e.salaryBill();
+		for (Department d: this.lDepartment) r += d.salaryBill();
 		r += this.manager.salaryBill();
 		return r;
 	}
-	public void increaseSalary(){
-		for (SubUnit subUnit: this.subUnits) subUnit.increaseSalary();
-		this.manager.increaseSalary();
+	public Department increaseSalary(){
+		List<Employee> le = new ArrayList<Employee>();
+		List<Department> ld = new ArrayList<Department>();
+		for (Employee e: this.lEmployee) le.add(e.increaseSalary());
+		for (Department d: this.lDepartment) ld.add(d.increaseSalary());
+		return new Department(this.name, this.manager.increaseSalary(), le, ld);
 	}
 }
 class Employee {
 	private Person person;
-	private Float salary;
-	public Employee(Person person, Float salary){
+	private Salary salary;
+	public Employee(Person person, Salary salary){
 		this.person = person;
 		this.salary = salary;
 	}
 	public Float salaryBill(){
-		return this.salary;
+		return this.salary.salaryBill();
 	}
-	public void increaseSalary(){
-		this.salary *= 1.1f;
+	public Employee increaseSalary(){
+		return new Employee(this.person.increaseSalary(), this.salary.increaseSalary());
 	}
 }
 class Person {
@@ -63,24 +72,8 @@ class Person {
 		this.name = name;
 		this.address = address;
 	}
-}
-class SubUnit {
-	private Department dept;
-	private Employee employee;
-	public SubUnit(Department dept){
-		this.dept = dept;
-	}
-	public SubUnit(Employee employee){
-		this.employee = employee;
-	}
-	public Float salaryBill(){
-		if (this.dept != null) return dept.salaryBill();
-		else return employee.salaryBill();
-	}
-	public void increaseSalary(){
-		if (this.dept != null) dept.increaseSalary();
-		else if (this.employee != null) employee.increaseSalary();;
-	}
+	public Float salaryBill(){return 0.0f;}
+	public Person increaseSalary(){return new Person(this.name, this.address);}
 }
 
 
