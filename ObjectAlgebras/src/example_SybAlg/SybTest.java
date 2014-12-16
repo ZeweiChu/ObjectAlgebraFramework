@@ -43,7 +43,7 @@ public class SybTest {
 	public static void main(String[] args) {
 		
 		StringQuery sQuery = new StringQuery();
-		FloatQuery fQuery = new FloatQuery();
+		SalaryBill fQuery = new SalaryBill();
 		
 		System.out.println("Result 1: (All names)\n\n" + genCom(sQuery) + "\n");
 		System.out.println("Result 2: (Total salary)\n\n" + genCom(fQuery) + "\n");

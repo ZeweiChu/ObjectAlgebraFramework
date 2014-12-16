@@ -32,7 +32,7 @@ and contains a list of \lstinline{SubUnits}. A
 with an associated \lstinline{Salary} information.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-26]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
+\lstinputlisting[linerange=7-24]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
   implementing part of the company structure.}
@@ -43,11 +43,11 @@ Two operations are supported by the company structure: querying the
 salary bill for the whole company; and increasing the salary of each
 employee by 10\%. To support those operations, a very natural OO
 solution is to have methods \lstinline{salaryBill}, which returns salary as a float number, and
-\lstinline{increaseSalary}, which construct a new object with salary increased by 10 \%, 
-in all classes from the bottom \lstinline{Salary} class to the top \lstinline{Company} class. 
+\lstinline{increaseSalary}, which construct a new object with salary increased by 10 \%,
+in all classes from the bottom \lstinline{Salary} class to the top \lstinline{Company} class.
 
-Figure~\ref{oop_company} shows the Java implementation of the  
-\lstinline{Salary} and \lstinline{Company} classes. The implementation 
+Figure~\ref{oop_company} shows the Java implementation of the
+\lstinline{Salary} and \lstinline{Company} classes. The implementation
 of other classes is ommitted for space reasons.
 In the implementation, querying the salary bill of the whole company is done
 by returning the salary in instances of the \lstinline{Salary} class,
@@ -81,7 +81,7 @@ However, this simple object-oriented solution has two important problems:
   that we usually need to write a large amount of boilerplate code to
   implement traversals. In
   our example, we implemented \lstinline{increaseSalary} and
-  \lstinline{querySalary} in almost all classes. However only the
+  \lstinline{salaryBill} in almost all classes. However only the
   \lstinline{Salary} class does some interesting work. All other classes
   simply delegate the task to the child nodes. This problem becomes
   more severe with bigger tree structures. The interesting code can
@@ -93,12 +93,12 @@ However, this simple object-oriented solution has two important problems:
 
 \subsection{Modeling the Company Structure with Object Algebras}
 
-Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem. 
+Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem.
 Object algebras are a design pattern that is useful to model complex
 structures, while providing a lot of flexibility in terms of
-modularity and extensibility. In particular, object algebras allow 
+modularity and extensibility. In particular, object algebras allow
 extensibility in two dimensions: it is easy to add new types of
-nodes; and new operations over the structure. 
+nodes; and new operations over the structure.
 %As a result, object
 %algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
@@ -124,8 +124,8 @@ Operations are defined by implementing the object algebra interface.
 The following code show a partial implementation of the salary bill
 operation.
 
-\begin{lstlisting}[numbers=none] 
-class QuerySalary implements SybAlg<Float,Float,Float,Float,Float,Float> {
+\begin{lstlisting}[numbers=none]
+class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
 	public Float C(List<Float> depts){
 		Float r = 0f;
 		for (Float f: depts) r += f;
@@ -138,7 +138,7 @@ class QuerySalary implements SybAlg<Float,Float,Float,Float,Float,Float> {
 }
 \end{lstlisting}\bruno{SalaryBill is probably a better name.}
 
-The \lstinline{QuerySalary} class provides an implementation for each
+The \lstinline{SalaryBill} class provides an implementation for each
 of the methods in the object algebra interface, which defines the
 overall salary bill operation. Since the result of computing the
 salary bill is a \lstinline{Float}, all the type parameters are set to
@@ -146,13 +146,13 @@ that type. Most of the method implementations simply traverse the
 child nodes and accumulate the salaries. That is the case, for
 example, for \lstinline{C}. The only method implementation that does
 something different is \lstinline{S}, which returns the salary
-argument. 
+argument.
 %Note that the way operations are deifined with object
 %algebras resembles the definition of operations by case analysis in
 %functional programming.
 
 For the increase salary operation the result is itself a structure
-with all salaries updated. The following code shows part of the 
+with all salaries updated. The following code shows part of the
 implementation:
 
 \begin{lstlisting}[numbers=none]
@@ -180,18 +180,18 @@ no changes using the methods in \lstinline{alg}. The exception is the
 method \lstinline{S} where the structure is also reconstructed, but
 the salary is increased by 10\%.
 
-%In the method  
+%In the method
 %IncreaseSalary will modify an old algebra and return a new algebra
 %based on specific implementations. More specifically, the old algebra
 %is set as a field in \lstinline{IncreaseSalarySybAlg}, method
 %\lstinline{Salary S(float salary)} increases the salary by 10\%, and
 %other methods simply delegates to the same methods in the old algebra.
 
-%When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters. 
+%When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters.
 
 Although we solved the problem of extensibility with object
 algebras, the traversal code is still lengthy and we are still writing
-tedious traversal code. In both operations, the only interesting code 
+tedious traversal code. In both operations, the only interesting code
 is in the \lstinline{S} method. Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
 remainder tedious traversal code.
@@ -245,15 +245,15 @@ Figure~\ref{transform_with_oaframework}. Similar to the query example,
 all the boilerplate code for traversals is handled by \Name. The
 developer only needs to pass an algebra for providing the constructors
 for the transformation code, and override the interesting case in the
-method \lstinline{S}. 
+method \lstinline{S}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/example_SybAlg/FloatQuery.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=-]{} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Salary bill with \Name.}
 \label{query_with_oaframework}
 \end{figure}\bruno{Rename FloatQuery to SalaryBill}
-  
+
 \begin{figure}[tb]
 \lstinputlisting[linerange=7-12]{../ObjectAlgebras/src/example_SybAlg/IncSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
@@ -272,5 +272,5 @@ method \lstinline{S}.
 
 The remainder of the paper provides the details and implementation
 techniques used in \Name. Besides basic queries and transformations,
-\name also supports two generalizations of these types of traversals 
+\name also supports two generalizations of these types of traversals
 called \emph{generalized queries} and \emph{contextual transformations}.
