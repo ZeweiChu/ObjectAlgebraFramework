@@ -1,30 +1,26 @@
 \section{Queries}\label{sec:queries}
 
+This section shows the ideas behind generic queries and how they are
+implemented in \Name. A query is an operation that traverses a
+structure and computes some aggregate value. The inspiration for
+queries comes from similar types of traversals used in functional
+programming libraries, such as ``Scrap your Boilerplate''~\cite{ralf03syb}.
+Queries are illustrated using a simple type of expressions with
+variables, where the goal is to implement the free variables in an expression.
+
+\begin{comment}
 As a specific type of object algebras, queries allow users to define
 new operations handling a user-defined data structure\bruno{This
-  definition of queries is just too broad. A query is an operation
-  that traverses a structure and computes some aggregate value. Please
+  definition of queries is just too broad. Please
 look at papers like Syb to see how they describe queries and transformations}. A \textit{query
   algebra} is a class implementing an object algebra interface by a
 top-down traversal throughout the hierarchy. It is something
 supporting the program to gather information from the substructures of
 a data type recursively, and make a response at the root node to the
 query.
-\begin{comment}
-\bruno{Haoyuan: please stop using ``$\backslash\backslash$" after every paragraph!
-A normal paragraph is created by having an empty line, not by using
-``$\backslash\backslash$". The ``$\backslash\backslash$" command is only for forcing a new line.}
-\end{comment}
-\begin{comment}
-Write a new definition. Class or interface?
 \end{comment}
 
-\subsection{FreeVars: a simple query algebra}\label{subsec:freevars}
-
-An example is shown here to discuss about query algebras in a clearer
-way. The object algebra interface is related to an expression, where
-it can be treated as a numeric literal, a variable or the addition of
-two expressions. Specifically, the structure is defined as follows:
+\subsection{Free Variables: A Simple Query Algebra}\label{subsec:freevars}
 
 \begin{figure}[!htbp]
 \lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/trees/ExpAlg.java} % APPLY:linerange=EXP_ALG
@@ -32,13 +28,17 @@ two expressions. Specifically, the structure is defined as follows:
 \caption{Object algebra interface: \lstinline{ExpAlg}}
 \label{exp_alg}
 \end{figure}
-\begin{comment}
-\bruno{Don't copy the code! Use the code from the
-  repository directly via the ruby script! The same applies to the
-  other pieces of code in the rest of the paper.}
-\end{comment}
 
-Based on the interface above, a query might be raised on collecting
+Figure~\ref{exp_alg} shows a simple type of expressions, represented 
+as an object algebra interface. Note that we use this minimal object
+algebra interface throughout the rest of the paper to illustrate the various different
+types of traversals supported by \Name. 
+
+Three different kinds of nodes exist:
+a numeric literal, a variable or the addition of
+two expressions. 
+
+Based the interface above, a query might be raised on collecting
 all the names of free variables defined in an expression. More
 precisely, a list of strings would be used to store the names of
 those variables. In that case, a \lstinline{Var(s)} would simply return a singleton list of \lstinline{s}, and a \lstinline{Lit(i)} corresponds to an empty list, whereas two lists would be joined into one if we are combining two
