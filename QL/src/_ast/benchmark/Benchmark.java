@@ -95,18 +95,21 @@ public class Benchmark  {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-		// warmup
 		benchmarkControlDeps();
+		benchmarkControlDeps();
+		
 		benchmarkTypeEnv();
-		benchmarkRename();
-		benchmarkInlineConds();
-		benchmarkNoOp();
+		benchmarkTypeEnv();
 
-		benchmarkControlDeps();
-		benchmarkTypeEnv();
 		benchmarkRename();
+		benchmarkRename();
+		
 		benchmarkInlineConds();
-		benchmarkNoOp();
+		benchmarkInlineConds();
+		
+//		benchmarkNoOp();
+//
+//		benchmarkNoOp();
 	}
 
 	private static void benchmarkInlineConds() throws FileNotFoundException {

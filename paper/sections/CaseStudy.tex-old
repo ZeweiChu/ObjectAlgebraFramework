@@ -1,11 +1,35 @@
 \section{Case Study}
 
-We have used the Object Algebras framework in the implementation of a simple DSL for Questionnaires, called QL~\cite{GPCE}.
-A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed. 
+We have used the Object Algebras framework in the implementation of a simple DSL for Questionnaires, called QL~\cite{gouseti14extensible}.
+A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed.
+An example QL questionnaire is shown on the left of Fig.~\ref{FIG:houseowning} together with its rendering on the right.
 QL programs consist of lists of labeled, typed questions.
 Questions can be answerable, meaning the user has to enter some data, or computed.
 In the latter case the question is defined by an expression.
-A conditional if-then-else construct allows questions to visually appear only when a certain condition is true. 
+A conditional if-then-else construct allows questions to visually appear only when a certain condition is true.
+
+\begin{figure}[t]
+\hspace*{-5pt}\begin{minipage}{0.6\linewidth}
+\begin{lstlisting}[language=ql]
+form HouseOwning {
+  soldHouse: "Did you sell a house?" boolean
+  boughtHouse: "Did you buy a house?" boolean
+  if (soldHouse) {
+    sellingPrice: "Selling price:" integer
+    privateDebt: "Private debts:" integer
+    valueResidue: "Value residue:" integer 
+       = (sellingPrice - privateDebt)
+  }
+}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+  \includegraphics[width=\linewidth]{sections/screenshot}
+\end{minipage}
+\caption{Example QL questionnaire (left) and its rendering (right)}
+\label{FIG:houseowning}
+\end{figure}
+
 
 To illustrate the utility of \name we have implemented a number of queries and transformations in the context of QL. The queries extract derived information from a QL program, such as the set of used variables, the data and control dependencies between questions and the type environment.
 The transformations include two transformations of language extensions to the base language.
@@ -60,11 +84,35 @@ Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unle
 It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
 The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
+\subsection{Chaining transformations}
+
+Transformations can be chained by passing transformation algebras as the base algebra to the implementation of another transformation.
+For instance, the desugar unless transformation desugars the ``unless'' statement to ``if'' statements in another algebra.
+Assuming this transformation is implemented by \lstinline{Desugar},  \lstinline{Inline} represents the inline conditions transformation, and \lstinline{Rename} represents the rename variable transformation. All three can be chained as follows:
+
+  \lstinputlisting[linerange=162-162]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
+
+The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames variables according to the map \lstinline{ren}.
+The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL. 
+
+The algebra \lstinline{alg} can now be used to create questionnaires:
+
+  \lstinputlisting[linerange=166-168]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
+
+The result of constructing this simple questionnaire is a formatting object representing the questionnaire after desugaring, inlining and renaming:
+
+  \begin{lstlisting}[language=ql]
+    form myForm {
+      if (true && !y) y "X?" boolean
+    }
+  \end{lstlisting}
+  
 \subsection{\name performance vs Vanilla ASTs}
 
 \begin{figure}[t]
-  \includegraphics[width=0.49\textwidth]{plots/controldeps}
-  \includegraphics[width=0.49\textwidth]{plots/inline}
+  \hspace*{-.1\textwidth}
+  \includegraphics[width=0.56\textwidth]{plots/controldeps}
+  \includegraphics[width=0.56\textwidth]{plots/inline}
   \caption{Performance comparison of control dependencies query (left) and inline conditions transformation (right) implemented using normal ASTs vs using the \name framework\label{FIG:performance}}
 \end{figure}
 

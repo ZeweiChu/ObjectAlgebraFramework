@@ -3,19 +3,8 @@ package expDemo3;
 //BEGIN_GENERIC_QUERY
 public interface ExpAlgQuery<Exp> extends ExpAlg<Exp> {
 	Monoid<Exp> m();
-	default Exp Var(String s) { 
-		Exp res = m().empty();
-		return res;
-	}
-	default Exp Lit(int i) { 
-		Exp res = m().empty();
-		return res;
-	}
-	default Exp Add(Exp e1, Exp e2) {
-		Exp res = m().empty();
-		res = m().join(res, e1);
-		res = m().join(res, e2);
-		return res;
-	}
+	default Exp Var(String s) { return m().empty(); } 
+	default Exp Lit(int i) { return m().empty(); } 
+	default Exp Add(Exp e1, Exp e2) { return m().join(e1, e2); }
 }
 //END_GENERIC_QUERY
