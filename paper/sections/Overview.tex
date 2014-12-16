@@ -32,7 +32,7 @@ and contains a list of \lstinline{SubUnits}. A
 with an associated \lstinline{Salary} information.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=6-23]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
+\lstinputlisting[linerange=7-24]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
   implementing part of the company structure.}
@@ -53,7 +53,7 @@ In the implementation, querying the salary bill of the whole company is done
 by returning the salary in instances of the \lstinline{Salary} class,
 and delegating the method \lstinline{salaryBill} to the child nodes
 in other classes. Increasing the salary for the whole
-company by 10\%, following L\"ammel and Peyton Jones method, can be implemented similarly. The \lstinline{Salary} class will construct a new \lstinline{Salary} object with increased salary information, and method \lstinline{increaseSalary} in other parent classes will construct a new object with the delegated \lstinline{increaseSalary} methods. \bruno{increaseSalary is mutating the company, but
+company by 10\%, following L\"ammel and Peyton Jones approach, can be implemented similarly. The \lstinline{Salary} class will construct a new \lstinline{Salary} object with increased salary information, and method \lstinline{increaseSalary} in other parent classes will construct a new object with the delegated \lstinline{increaseSalary} methods. \bruno{increaseSalary is mutating the company, but
   with OAs we create a new company.}
 
 \begin{comment}

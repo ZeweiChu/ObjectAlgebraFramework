@@ -10,13 +10,11 @@ class Company {
 	public Float salaryBill(){
 		Float r = 0f; 
 		for (Department dept: depts) r+= dept.salaryBill(); 
-		return r;
-	}
+		return r;}
 	public Company increaseSalary(){
 		List<Department> ld = new ArrayList<Department>();
 		for (Department dept: depts) ld.add(dept.increaseSalary());
-		return new Company(ld);
-	}
+		return new Company(ld);}
 }
 class Salary {
 	private Float salary;
