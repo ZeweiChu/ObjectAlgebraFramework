@@ -13,7 +13,7 @@ public class ExpTest {
 		
 	public static void main(String[] args) {
 		FreeVars alg = new FreeVars(){};
-		SubstVarExpAlg<Set<String>> substVarsExpAlg = new SubstVarExpAlg<Set<String>>() {
+		SubstVar<Set<String>> substVarsExpAlg = new SubstVar<Set<String>>() {
 			public ExpAlg<Set<String>> expAlg() { return alg; }
 			public String x() { return "var1"; }
 			public Set<String> e() { return expAlg().Var("var4"); }
