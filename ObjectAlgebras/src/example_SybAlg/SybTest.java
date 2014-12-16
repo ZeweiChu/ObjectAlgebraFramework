@@ -49,7 +49,7 @@ public class SybTest {
 		System.out.println("Result 2: (Total salary)\n\n" + genCom(fQuery) + "\n");
 		
 		Rename rename = new Rename(sQuery);
-		IncSalary incSalary = new IncSalary(fQuery);
+		IncreaseSalary incSalary = new IncreaseSalary(fQuery);
 		
 		System.out.println("Result 3: (Renaming)\n\n" + genCom(rename) + "\n");
 		System.out.println("Result 4: (Increasing salary)\n\n" + genCom(incSalary) + "\n");

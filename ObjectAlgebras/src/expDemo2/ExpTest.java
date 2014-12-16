@@ -12,7 +12,7 @@ public class ExpTest {
 	}
 		
 	public static void main(String[] args) {
-		FreeVarsExpAlg alg = new FreeVarsExpAlg(){};
+		FreeVars alg = new FreeVars(){};
 		SubstVarExpAlg<Set<String>> substVarsExpAlg = new SubstVarExpAlg<Set<String>>() {
 			public ExpAlg<Set<String>> expAlg() { return alg; }
 			public String x() { return "var1"; }

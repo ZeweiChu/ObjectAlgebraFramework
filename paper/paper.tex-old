@@ -71,13 +71,14 @@ keywordstyle=\ttfamily\bfseries,
 \newcommand\nat[0]{\mathbb{N}}
 \newcommand\unit[0]{\mathbbm{1}}
 
-
+\begin{comment}
 \author{Author1$^{\textrm{1}}$ Author2$^{\textrm{2}}$ }
 \institute{$^{\textrm{1}}$The University of Hong Kong\\
 \email{author1@cs.hku.hk}\\
 $^{\textrm{2}}$ The University of Hong Kong\\
 \email{author2@cs.hku.hk}}
 \authorrunning{Author1 and Author2} % abbreviated author list (for running head)
+\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,7 +88,7 @@ $^{\textrm{2}}$ The University of Hong Kong\\
 %%\CopyrightYear{2010}
 
 
-\title{Scrap your Boilerplate with Object Algebras!}
+\title{Scrap your Boilerplate with Object Algebras}
 
 \maketitle
 
@@ -99,22 +100,22 @@ walks the structure, and only a small portion of the code implements
 the functionality that motivated the traversal in the first place.
 This paper present a type-safe Java framework called \name that
 removes much of this boilerplate code. In \name \emph{object algebras}
-are used to describe complex data structures. Using Java annotations
-generic boilerplate code is generated for various types of traversals,
-including queries and transformations. Then programmers can inherit
-the generic traversal code to focus only on writing the interesting
-parts of the traversals. Consequently, the amount of code that
-programmers need to write is significantly smaller, and traversals
-using the \name framework are also much more \emph{structure
-  shy}. That is, since traversals have less type-specific code they
-become much more adaptive to future changes in the data structure.
+are used to describe complex \emph{extensible} data structures. Using
+Java annotations generic boilerplate code is generated for various
+types of traversals, including queries and transformations.  Thus,
+using \Name, programmers can inherit the generic traversal code to
+focus only on writing the interesting parts of the
+traversals. Consequently, the amount of code that programmers need to
+write is significantly smaller. Moreover, traversals using the \name framework
+are also much more \emph{structure shy}, becoming more adaptive
+to future changes or extensions to the data structure.
 %An additional benefit of \name is that traversal code can be easily
 %reused by extensions of the
 To prove the effectiveness of the approach, we employeed \name
 on the implementation of a domain-specific questionaire
 language. Our results show that for a large number of traversals
 there was a significant reduction in the amount of user-defined code.
-\bruno{Say something more about extensibility and type-safety!}
+%\bruno{Say something more about extensibility and type-safety!}
 
 \begin{comment}
 
@@ -191,7 +192,7 @@ A pervasive problem in programming occurs when large tree tr
 
 \input{sections/Framework.tex}
 
-\input{sections/Other.tex}
+%\input{sections/Other.tex}
 
 \input{sections/CaseStudy.tex}
 
