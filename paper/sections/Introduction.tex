@@ -7,7 +7,7 @@ data-interchange languages like XML or JSON. In those applications
 Abstract Syntax Trees (ASTs) are the key data structure needed to
 model the various constructs of the languages. Such ASTs have various
 different types of nodes, which can range from a few dozen to
-several hundred nodes (for example in the AST of languages like Java).
+several hundred nodes (for example in the ASTs of languages like Java).
 
 Static types are helpful to deal with such complex structures.  With
 static types it is easy to distinghish between different kinds of
@@ -28,9 +28,9 @@ essentially walks the structure. Traversals where such boilerplate
 code dominates are called \emph{structure shy}~\cite{DemeterBook}. In
 structure shy operations only for a small portion of nodes the code
 for the core functionality that motivated the traversal in the first
-place will be different. A typical example would be computing the free
+place will be different. A typical example is computing the free
 variables of an expression for some programming language. In this
-case, the interesting code would be done in the nodes representing the
+case, the interesting code occurs in the nodes representing the
 binding constructs. In all other nodes, the code would just deal with
 walking the structure. In data structures with dozens or hundreds of
 nodes, having to explictly write cases for each node is a source of
@@ -41,10 +41,10 @@ error-prone.
 %distinctions between different kinds of nodes leads to significant
 %boilerplate code.
 
-The boilerplate problem when traversing complex structures has received
-considerable attention in the past. For example, both \emph{Adaptive
-  Object-Oriented Programming} (AOOP)~\cite{DemeterBook} and
-\emph{Strategic
+The boilerplate problem when traversing complex structures has
+received considerable attention in the past. For example, both
+\emph{Adaptive Object-Oriented Programming} (AOOP)~\cite{DemeterBook}
+and \emph{Strategic
   Programming}~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}
 are aimed partly at solving this problem. Most approaches to AOOP and
 strategic programming use some meta-programming techniques, such as
@@ -55,26 +55,25 @@ to write much less code, also removing the possibility of errors in
 the code walking the structure. Secondly the code becomes much more
 adaptive to changes: if structural changes occur only in the structure
 shy cases, then the user-defined code remains unchanged.  However such
-meta-programming based approaches are usually done at the cost of
-other desirable properties, such as type-safety or
-separate-compilation.
-
-For example,
-the use of mechanisms such as Java's dynamic reflection comes at the
-cost of allowing some run-time errors to occur. Moreover dynamic
-reflection usually incurs on significant performance penalties.
-Therefore an important challenge is how to make type-safety and structure 
-shyness co-exist.\bruno{Talk about SyB.}
+meta-programming based approaches are usually come at the cost of
+other desirable properties, such as modular type-safety or
+separate-compilation. The functional programming community has also
+studied the problem before. Various approaches, such as the popular
+``Scrap your boilerplate''~\cite{ralf03syb}, support type-safety and separate
+compilation.  However most of the techniques used in functional
+languages cannot be easily ported to OO languages like Java, and are
+limited in terms of extensibility.
 
 This paper presents a Java framework called \name that allows users to
-define \emph{type-safe structure-shy operations}. \name uses
-\emph{object algebras} to describe complex data structures. Object
+define \emph{type-safe and extensible structure-shy operations}. \name uses
+\emph{object algebras}~\cite{bruno12oa} to describe complex data structures. Object
 algebras are a recently introduced technique, which has been shown to
 have significant advantages for software extensibility.  In \name
-object algebras interfaces are combined with java annotations to
+object algebras interfaces are combined with Java annotations to
 generate generic and reusable object algebras that deal with
 boilerplate traversal code.  Those object algebras include different
-types of queries and transformations\bruno{more detail?}.  Programmers
+types of traversals: \emph{queries}; \emph{transformations};
+\emph{generalized queries}; and \emph{contextual transformations}. Programmers
 that want to implement structure shy traversals can inherit the
 generic traversal code, and focus only on writing the interesting
 parts of the traversals. Consequently, the amount of code that
@@ -83,9 +82,9 @@ written in \name are:
 
 \begin{itemize}
 
-\item {\bf Adaptive and structure shy:} \name traversals can omit boilerplate
-code, allowing these traversals to be more adaptive to future changes in the 
-data structure.
+\item {\bf Adaptive and structure shy:} \name traversals can omit
+  boilerplate code, allowing these traversals to be more adaptive to
+  future changes or extensions to the data structure.
 
 \item {\bf Simple and general:} \name traversals work for any
   structure that can be expressed as a (multi-sorted) object
@@ -98,18 +97,16 @@ data structure.
   a new tool or language. The approach is library based and uses only
   Java annotations. 
 
-\item {\bf Type-safely reusable:} With \name traversals all reuse is
-  type-safe. No run-time casts are needed for generic traversal code
-  or for user-defined traversal code.
+\item {\bf Type-safe and separately compilable:} \name traversals are directly written in Java
+  and the Java type-system ensures type-safety. No run-time casts are
+  needed for generic traversal code or for user-defined traversal
+  code. Furthermore \name traversals support separate compilation. 
 
-\item {\bf Separatly compilable:} \name traversals support separate 
-  compilation. 
-
-\item {\bf Extensible:} \name traversals inherit type-safe
+\item {\bf Extensible:} Traversals inherit type-safe
   extensibility from object algebras. Both traversals and structures
   are extensible. Therefore it is possible to
   reuse traversal code in structures that are extended with additional
-  constructors.
+  nodes.
 
 %\item {\bf Performant:} Traversals written with \name have performance that 
 %is comparable to naive hand-written OO code.
@@ -118,16 +115,14 @@ data structure.
 
 To prove the effectiveness of the approach, we employeed \name 
 on the implementation of the domain-specific questionaire 
-language QL~\cite{gouseti14extensible}\bruno{hot to format QL properly in latex?}. 
+language QL~\cite{gouseti14extensible}. 
 Our results show that for a large number of traversals 
-there was a significant reduction in the amount of user-defined code, and no
-performance penalties.
+there was a significant reduction in the amount of user-defined code.
 
 Although we have chosen Java as the implementation language for \Name,
 our approach should apply to any OO language with support for generics
-and annotations (or other built-in macro or meta-programming techniques). 
-For example it should be easy to port \name to languages such as Scala, 
-or .Net languages.
+and annotations. For example it should be easy to port \name to
+languages such as Scala, or .Net languages.
 
 \begin{comment}
 
@@ -189,18 +184,20 @@ In summary, the contributions of this paper are:
 \item {\bf Design patterns for generic traversals.} We provide a set of design 
 patterns for various types of traversals using object algebras. These include: 
 \emph{queries}, \emph{transformations},
-\emph{generalized queries} and \emph{generalized transformations}.
-\bruno{Come back to this later, when we know which types of traversals we are
-presenting.}
+\emph{generalized queries} and \emph{contextual transformations}.
 
-\item {\bf The Shy Java framework.} We have implemented 
-a Java framework that can be used to describe complex structures using 
-object algebras; and to eliminate boilerplate code. The framework uses Java 
-annotations to automatically generate generic traversals, and is publicly available
-\footnote{\url{www.???.???}}.
+\item {\bf The Shy Java framework.} We have implemented\footnote{{\bf
+      Note to Reviewers:} Due to the anonymous review process we
+    submit a file bundle with the implementation together with the paper submission. If the
+    paper is accepted we will make the code publicaly available.} a
+  Java framework that can be used to describe complex structures using
+  object algebras; and to eliminate boilerplate code. The framework
+  uses Java annotations to automatically generate generic traversals.
+ 
 
-\item {\bf Case study and empirical evaluation.} We evaluate the approach using 
-a case study based on a domain-specific language for questionaires. The results 
-of our case study show significant savings in terms of user-defined traversal code.
+\item {\bf Case study and empirical evaluation.} We evaluate the
+  approach using a case study based on the QL domain-specific
+  language. The results of our case study show significant savings in
+  terms of user-defined traversal code.
 
 \end{itemize}
