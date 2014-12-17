@@ -8,35 +8,36 @@ import java.util.Set;
 public class ExpTest {
 	
 //BEGIN_GEN_EXP
-static <Exp> Exp genExp(ExpAlg<Exp> alg) {
+<Exp> Exp genExp(ExpAlg<Exp> alg) {
 	return alg.Add(alg.Var("x"), alg.Add(alg.Var("y"), alg.Lit(2)));
 }
 //END_GEN_EXP
 
-	static void TestFreeVars() {	
+	void TestFreeVars() {	
 		
 //BEGIN_CLIENTCODE_FREEVARS
-FreeVars alg = new FreeVars(){};
-System.out.println(genExp(alg));
+FreeVars freeVars = new FreeVars(){};
+System.out.println(genExp(freeVars));
 //END_CLIENTCODE_FREEVARS
 
 	}
 	
-	static void TestSubstVar() {
+	void TestSubstVar() {
 		
 //BEGIN_CLIENTCODE_SUBSTVAR
-SubstVar<Set<String>> subst = new SubstVar<Set<String>>() {
+SubstVar<Set<String>> substVar = new SubstVar<Set<String>>() {
 	public ExpAlg<Set<String>> expAlg() {return new FreeVars(){};}
 	public String x() {return "x";}
 	public Set<String> e() {return expAlg().Var("z");}
 };
-System.out.println(genExp(subst));
+System.out.println(genExp(substVar));
 //END_CLIENTCODE_SUBSTVAR
 
 	}
 		
 	public static void main(String[] args) {
-		TestFreeVars();
-		TestSubstVar();		
+		ExpTest expTest = new ExpTest();
+		expTest.TestFreeVars();
+		expTest.TestSubstVar();		
 	}
 }

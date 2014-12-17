@@ -255,7 +255,7 @@ method \lstinline{S}.
 \end{figure}\bruno{Rename FloatQuery to SalaryBill}
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=-]{} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/example_SybAlg/IncreaseSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Increase salary with \Name.}
 \label{transform_with_oaframework}
@@ -269,6 +269,20 @@ method \lstinline{S}.
 
 \bruno{Avoid using qualifiers, such as \lstinline{private} and
   \lstinline{public}: they just make the code longer and harder to read.}
+  
+\haoyuan{Begin: client code.}
+
+Some client code is shown as follows, using those two algebras based on our framework.
+
+\lstinputlisting[linerange=-]{} % APPLY:linerange=GEN_COM
+
+This method is used to create a company structure. To apply \lstinline{SalaryBill} and \lstinline{IncreaseSalary}:
+
+\lstinputlisting[linerange=-]{} % APPLY:linerange=CLIENTCODE_COMPANY
+
+The results give \lstinline{111000.0} and \lstinline{122100.0}, respectively before and after salary increasing.
+
+\haoyuan{End: client code.}
 
 The remainder of the paper provides the details and implementation
 techniques used in \Name. Besides basic queries and transformations,

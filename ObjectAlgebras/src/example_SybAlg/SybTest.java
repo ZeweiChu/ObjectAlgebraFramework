@@ -2,46 +2,42 @@ package example_SybAlg;
 
 import java.util.ArrayList;
 import java.util.List;
-import library.Pair;
 import trees.SybAlg;
 
 public class SybTest {
-	
-	static <Company, Dept, SubUnit, Employee, Person, Salary> Employee 
-		ralf(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
-		return alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
-	}
-	
-	static <Company, Dept, SubUnit, Employee, Person, Salary> Employee 
-		joost(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
-		return alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
-	}
-	
-	static <Company, Dept, SubUnit, Employee, Person, Salary> Employee 
-		marlow(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
-		return alg.E(alg.P("Marlow", "Cambridge"), alg.S(2000.0f));
-	}
-	
-	static <Company, Dept, SubUnit, Employee, Person, Salary> Employee 
-		blair(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
-		return alg.E(alg.P("Blair", "London"), alg.S(100000.0f));
-	}
-	
-	static <Company, Dept, SubUnit, Employee, Person, Salary> Company 
-		genCom(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
+
+//BEGIN_GEN_COM
+<Company, Dept, SubUnit, Employee, Person, Salary> Company genCom(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
+	Employee ralf = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
+	Employee joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
+	Employee marlow = alg.E(alg.P("Marlow", "Cambridge"), alg.S(2000.0f));
+	Employee blair = alg.E(alg.P("Blair", "London"), alg.S(100000.0f));
+	List<SubUnit> s = new ArrayList<SubUnit>();
+	s.add(alg.PU(joost)); s.add(alg.PU(marlow));
+	List<Dept> d = new ArrayList<Dept>();
+	d.add(alg.D("Research", ralf, s));
+	d.add(alg.D("Strategy", blair, new ArrayList<SubUnit>()));
+	return alg.C(d);
+}
+//END_GEN_COM
+
+	void TestCom() {
 		
-		List<SubUnit> s = new ArrayList<SubUnit>();
-		s.add(alg.PU(joost(alg)));
-		s.add(alg.PU(marlow(alg)));
-		List<Dept> d = new ArrayList<Dept>();
-		d.add(alg.D("Research", ralf(alg), s));
-		d.add(alg.D("Strategy", blair(alg), new ArrayList<SubUnit>()));
-		return alg.C(d);
-	
+//BEGIN_CLIENTCODE_COMPANY
+SalaryBill salaryBill = new SalaryBill();
+System.out.println(genCom(salaryBill));
+IncreaseSalary<Float, Float, Float, Float, Float, Float> incSalary = new IncreaseSalary<Float, Float, Float, Float, Float, Float>(salaryBill);
+System.out.println(genCom(incSalary));
+//END_CLIENTCODE_COMPANY
+
 	}
 	
 	public static void main(String[] args) {
 		
+		SybTest sybTest = new SybTest();
+		sybTest.TestCom();
+		
+		/*
 		StringQuery sQuery = new StringQuery();
 		SalaryBill fQuery = new SalaryBill();
 		
@@ -64,6 +60,7 @@ public class SybTest {
 	
 		Rename2 rename2 = new Rename2(sQuery);
 		System.out.println("Result 7: (Renaming2)\n\n" + genCom(rename2).apply("-"));
+		*/
 		
 	}
 	
