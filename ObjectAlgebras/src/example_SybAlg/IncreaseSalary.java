@@ -1,13 +1,11 @@
 package example_SybAlg;
 
-import transform.SybAlgTransform;
 import trees.SybAlg;
+import util.SybAlgTrans;
 
 //BEGIN_TRANSFORM_WITH_OAFRAMEWORK
-public class IncreaseSalary<Company, Dept, SubUnit, Employee, Person, Salary> implements SybAlgTransform<Company, Dept, SubUnit, Employee, Person, Salary> {
-	private SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg;
-	public SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> sybAlg() {return alg;}
-	public IncreaseSalary(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {this.alg=alg;}
-	public Salary S(float salary) {return alg.S(1.1f * salary);}
+class IncreaseSalary<Company, Dept, SubUnit, Employee, Person, Salary> extends SybAlgTrans<Company, Dept, SubUnit, Employee, Person, Salary> {
+	IncreaseSalary(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {super(alg);}
+	public Salary S(float salary) {return sybAlg().S(1.1f * salary);}
 }
 //END_TRANSFORM_WITH_OAFRAMEWORK

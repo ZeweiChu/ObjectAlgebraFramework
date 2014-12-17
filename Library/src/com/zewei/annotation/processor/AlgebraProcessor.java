@@ -58,6 +58,16 @@ public class AlgebraProcessor extends AbstractProcessor {
 				ioe.printStackTrace();
 			}
 			
+			folder = "util";
+			classContent = createUtilClass(folder, element, lTypeArgs, typeArgs);
+			jfo = null;
+			try {
+				jfo = filer.createSourceFile(folder + "/" + algName +"Trans", element);
+				jfo.openWriter().append(classContent).close();
+			} catch(IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
 			// Create transform classes "G_AlgNameTransform".
 			folder = "transform";
 			classContent = createSubstTransformClass(folder, element, lTypeArgs, typeArgs);
@@ -141,6 +151,27 @@ public class AlgebraProcessor extends AbstractProcessor {
 			String[] args = {methodName, typeArgs, algNameLower};
 			classContent += e.asType().accept(new TransformExecutableTypeVisitor(), args);
 		}
+		classContent += "}";
+		return classContent;
+	}
+	
+	String createUtilClass(String folder, Element element, String[] lTypeArgs, String typeArgs) {
+		String algName = element.getSimpleName().toString();
+		String algNameLower = algName.substring(0, 1).toLowerCase() + algName.substring(1);
+		String className = algName + "Trans";
+		String classContent = "package " + folder + ";\n\n";
+		String typeArguments = "<";
+		for (int i = 0; i < lTypeArgs.length; i++) {
+			typeArguments += "A" + i;
+			if (i < lTypeArgs.length - 1) typeArguments += ", ";
+		}
+		typeArguments += ">";
+		classContent += "import transform." + algName + "Transform;\n";
+		classContent += "import " + getPackage(element) + "." + algName + ";\n\n";
+		classContent += "public class " + className + typeArguments + " implements " + algName + "Transform" + typeArguments + " {\n\n";
+		classContent += "\tprivate " + algName + typeArguments + " alg;\n\n";
+		classContent += "\tpublic " + className + "(" + algName + typeArguments + " alg) {this.alg = alg;}\n\n";
+		classContent += "\tpublic " + algName + typeArguments + " " + algNameLower + "() {return alg;}\n\n";
 		classContent += "}";
 		return classContent;
 	}

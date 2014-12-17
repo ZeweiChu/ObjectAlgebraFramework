@@ -17,7 +17,6 @@ illustrate the various different types of traversals supported by
 \Name.  Three different kinds of nodes exist: a numeric literal, a
 variable or the addition of two expressions. Queries are illustrated
 by implementing an operation to compute the free variables in an expression.
-\haoyuan{Figure~\ref{exp_alg}: "@Algebra" removed.}
 
 \begin{comment}
 As a specific type of object algebras, queries allow users to define
@@ -34,7 +33,7 @@ query.
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo2/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/trees/ExpAlg.java} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
