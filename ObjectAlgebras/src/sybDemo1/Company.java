@@ -12,9 +12,10 @@ class Company {
 		return depts.stream().reduce(0.0f, (s, x) -> s + x.salaryBill(), 
                                            (x, y) -> x + y);
 	}
-	Company increaseSalary(){
+	Company increaseSalary() {
 		return new Company(depts.stream().map(d -> d.increaseSalary())
                                          .collect((Collectors.toList())));
+	}
 }
 class Salary {
 	private Float salary;
