@@ -16,7 +16,6 @@
     <data key="d7"/>
     <node id="n0">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="61.0" width="167.0" x="-58.42062499999997" y="89.79839843750003"/>
@@ -39,7 +38,6 @@ increaseSalary(): Company</y:AttributeLabel>
     </node>
     <node id="n1">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="48.0" width="100.0" x="180.57937500000003" y="96.5"/>
@@ -61,7 +59,6 @@ increaseSalary(): Company</y:AttributeLabel>
     </node>
     <node id="n2">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="28.0" width="100.0" x="352.579375" y="106.5"/>
@@ -83,7 +80,6 @@ increaseSalary(): Company</y:AttributeLabel>
     </node>
     <node id="n3">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="61.0" width="100.0" x="291.579375" y="170.2393750000001"/>
@@ -106,7 +102,6 @@ address: String</y:AttributeLabel>
     </node>
     <node id="n4">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="48.0" width="100.0" x="409.579375" y="176.7393750000001"/>
@@ -128,13 +123,12 @@ address: String</y:AttributeLabel>
     </node>
     <node id="n5">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:UMLClassNode>
           <y:Geometry height="28.0" width="100.0" x="275.579375" y="22.76062499999989"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="56.18408203125" x="21.907958984375" y="3.0">SubUnit<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="31.60595703125" x="34.197021484375" y="3.0">Unit<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -149,7 +143,6 @@ address: String</y:AttributeLabel>
       </data>
     </node>
     <node id="n6">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="18.1328125" width="9.783203125" x="163.63357421875003" y="104.5"/>
@@ -161,7 +154,6 @@ address: String</y:AttributeLabel>
       </data>
     </node>
     <node id="n7">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="18.1328125" width="9.783203125" x="259.26714843750005" y="22.76062499999989"/>
@@ -173,7 +165,6 @@ address: String</y:AttributeLabel>
       </data>
     </node>
     <node id="n8">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="18.1328125" width="54.982421875" x="292.596953125" y="89.79839843750003"/>
@@ -186,7 +177,6 @@ address: String</y:AttributeLabel>
     </node>
     <edge id="e0" source="n2" target="n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -198,7 +188,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e1" source="n2" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -210,7 +199,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e2" source="n1" target="n2">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -222,7 +210,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e3" source="n0" target="n1">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -234,7 +221,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e4" source="n1" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -246,7 +232,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e5" source="n2" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -258,7 +243,6 @@ address: String</y:AttributeLabel>
     </edge>
     <edge id="e6" source="n1" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
