@@ -230,11 +230,12 @@ Therefore all that a user needs to define is the query itself
 (\lstinline{FreeVars}), which (for large structures) can be
 significantly smaller than a manually written traversal.
 
-\name queries inherit the extensibility of the Object Algebra design pattern.
-Consider the extension of the expression language with a Lambda construct.
-In the Object Algebra style this is modeled using an extension of the interface \lstinline{ExpAlg}.
-Assuming this interface is called \lstinline{LamAlg}, the free variables query can be extended as follows:
+\name queries inherit  modular extensibility from the Object Algebra design pattern.
+Consider the extension of the expression language with a lambda and application constructs.
+In the Object Algebra style this is modeled as another interface, e.g., \lstinline{LamAlg}, which contains constructor methods to create lambdas (\lstinline{Lam}) and application expressions (\lstinline{App}).
+The free variables query can then be extended as follows:
 
 \lstinputlisting[linerange=18-22]{../ObjectAlgebras/src/expDemo3/FreeVarsWithLambda.java} % APPLY:linerange=EXTENDFREEVARS
 
-This interface extends both the original \lstinline{FreeVars} query and the base query implementation that was generated for the \lstinline{LamAlg} interface defining the language extension. 
+This interface extends both the original \lstinline{FreeVars} query and the base query implementation that was generated for the \lstinline{LamAlg} interface defining the language extension.
+Note again, that only the relevant method (\lstinline{Lam}) needs to be overridden. 
