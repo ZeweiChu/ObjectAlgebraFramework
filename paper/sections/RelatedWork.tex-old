@@ -4,12 +4,10 @@
 %working entirely on a mainstream OO languages, that deals with the 
 %problem boilerplate code in traversals. 
 
-This section discusses related work. Our approach is unique in that: 
-it works in Java; supports both separate compilation and modular 
-type-checking, as well as extensibility; and it enjoys from structure 
-shyness and adaptability. While some approaches support some of these 
-features, no approach supports all of them. A detailed comparison
-follows next.
+Structur shy traversal has been an active research topic.
+Our approach to structure shy traversal is unique in that it supports separate compilation, modular type checking and data type extension. Furthermore, it can be applied in mainstream languages such as Java. While some approaches support some of these 
+features, to the best of our knowledge, no approach supports all of them.
+Below we provide a detailed comparison.
 
 \paragraph{Adaptive Object-Oriented Programming (AOOP)}
 AOOP~\cite{DemeterBook} is an extension of object-oriented programming
@@ -21,37 +19,36 @@ structures and focus only on the interesting parts of the structure
 relevant for computing the final output. The original approach to AOOP
 was based on a domain-specific language~\cite{DemeterBook}. DJ is an
 implementation of AOOP in Java using reflection~\cite{DJ}. More
-recently, inspired by AOOP, DemeterF~\cite{OOGP} improved on previous
-approaches by providing support for type-safe traversals, generics and
+recently DemeterF~\cite{OOGP} improved  previous
+approaches to AOOP by providing support for type-safe traversals, generics and
 data-generic function generation. \name shares with AOOP the use of
 structure-shyness as a means to increase flexibility and adaptability
-of programs.  Differently from \name most AOOP approaches are not
-type-safe. Only in DemeterF a custom type system was designed to
-ensure type-safety of generic functions. However DemeterF requires a
-new language whereas \name is a Java library. Moreover the compilation
-of DemeterF is done through static weaving, and appears to preclude
+of programs.  Most AOOP approaches, however, are not
+type-safe. The exception is  DemeterF where a custom type system was designed to
+ensure type-safety of generic functions. Unlike DemeterF, which is a separate language, \name is Java library.
+Moreover, compiling DemeterF is implemented through static weaving, and thus appears to preclude
 separate compilation.
 
 \paragraph{Strategic Programming}
 
-Strategic programming is an approach to data structure traversal which originated in term rewriting~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}.
-Computations are represented by simple, conditional rewrite rules, but the application of such rules is controlled separately using a strategy.
+Strategic programming is an approach to data structure traversal, which originated in term rewriting~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}.
+Computations are represented by simple, conditional rewrite rules, but the application of such rules is controlled separately using the concept of a strategy.
 Strategies can be primitive (e.g., ``fail'') or composed using combinators (e.g., ``try $s$ else $s'$'').
-The strategy concept has been ported to other paradigms. \textsc{JJTraveler} is an OO framework for strategic programming~\cite{visser01visitor}.
+The strategy concept has been ported to other paradigms.
+\textsc{JJTraveler} is an OO framework for strategic programming~\cite{visser01visitor}.
 L\"ammel et al. introduced typed strategy combinators in Haskell~\cite{lammel2002typed}.
 The relation between strategic programming and AOOP has been explored in~\cite{lammel2003strategic}.
 
-Strategic programming's key tenet is separation of concerns:  actual computation and traversal are specified separately.
+The key tenet of strategic programming is separation of concerns:  actual computation and traversal are specified separately.
 In \name, the traversal of a data structure is also specified separately (in a super-interface), however, it is fixed for specific styles of queries and transformations.
-For instance, queries and basic transformations employ an innermost, bottom-up strategy, whereas contextual transformations are executed in a top-down fashion.
-We leave expressing more complex traversal strategies as future work. 
+For instance, both queries and transformations employ an innermost, bottom-up strategy.
 
 The distinction between queries and transformations also originates from existing work in strategic programming. 
 L\"ammel et al.~\cite{lammel2002typed} discuss type unifying and type preserving traversals.
-Type unifying traversal corresponds to our queries, where all data type constructors are unified into a single monoid.
+Type unifying traversals correspond to our queries, where all data type constructors are unified into a single monoid.
 Analogously, \name transformations are type preserving in the sense that a transformation is an algebra which maps constructor calls to another algebra of the same type.
-\tijs{Bruno: can you check the previous sentence? Should we mention ``type preserving'' natural transformations?}
-The \textsc{Asf+Sdf} program transformation system also distinguishes transforming and accumulating traversals, which correspond to our transformations and queries, respectively.
+%\tijs{Bruno: can you check the previous sentence? Should we mention ``type preserving'' natural transformations?}
+The \textsc{Asf+Sdf} program transformation system distinguishes transforming and accumulating traversals, which correspond to our transformations and queries, respectively.
 Furthermore, an \textit{accumulating transforming} traversal combines both styles, by tupling the accumulated result and the transformed tree.
 Support for this combination could easily be generated by \name by having the boilerplate code construct the monoid and the transformed term in parallel (see Fig.~\ref{FIG:accuTrafo}).
 
@@ -76,24 +73,24 @@ Support for this combination could easily be generated by \name by having the bo
 \paragraph{Structure-Shy Traversals with Visitors}
 Visser~\cite{visser01visitor} adapted the strategy combinators of Stratego~\cite{visser1998core,Visser:1998:BPO:289423.289425} to combinators that operate on object-oriented Visitors~\cite{gof}.
 The resulting framework \textsc{JJTraveler} solves the problem of entangling traversal control within the \lstinline{accept} methods, or in the Visitors themselves (which only allow static specialization).
-A challenge not addressed by \textsc{JJTraveler} is type safety of traversal code: either the combinators needs to be redefined for each data type, or client code needs to cast the generic objects of type \lstinline{AnyVisitable} to the specific type. 
+A challenge not addressed by \textsc{JJTraveler} is type safety of traversal code: either the combinators needs to be redefined for each data type, or client code needs to cast the generic objects of type \lstinline{AnyVisitable} to the specific type.
+Even if specific combinators would be generated, however, the traversed data types would not be extensible.
 %Furthermore, a performance evaluation based on counting cyclomatic complexity of medium-to-large Cobol programs, showed that the overhead of dispatch between various combinators accounts for roughly 7.5 slow-down~\cite{SPE:SPE616}.
 
 Another approach to improve upon the standard Visitor pattern is presented in Palsberg et al.~\cite{palsberg98essence}.
 This work particularly addressed the fact that traditional Visitors operate on a fixed set of classes. As a result, the data type can not be extended without changing all existing Visitors as well.
-The proposed solution is a generic \lstinline{Walkabout} class which accesses sub-components of arbitrary data structure using reflection.
-Unfortunately, the heavy use of reflection make \lstinline{Walkabout}s significantly slower than the traditional approach.
-The authors  state that the \lstinline{Walkabout} class could be generated to improve performance, but note that addition of a class could trigger regeneration. As a result the pattern does not support separate compilation.
+The proposed solution is a generic \lstinline{Walkabout} class which accesses sub-components of arbitrary data structures using reflection.
+Unfortunately, the heavy use of reflection make \lstinline{Walkabout}s significantly slower than traditional Visitors.
+The authors  state that the \lstinline{Walkabout} class could be generated to improve performance, but note that the addition of a class could trigger regeneration. As a result the pattern does not support separate compilation.
 Our solution obtains the same kind of default behavior for traversal,  without losing extensibility, type safety, or separate compilation.
 
 Whereas the \lstinline{Walkabout} provides generic navigation over an object structure, this navigation can be programmed explicitly using \textit{guides}~\cite{bravenboer2001guiding}.
 Guides insert one level of indirection between recursing on the children of a node in \lstinline{visit} methods: the guide decides how to proceed the traversal.
 Since guides needs to define how to proceed for each type that will be visited, they suffer from the same extensibility problem
-as ordinary visitors.
+as ordinary Visitors.
 Generic guides, on the other hand, are dynamically typed and use reflection to call appropriate \lstinline{visit} methods.
 The \lstinline{Walkabout} can be formulated as such a generic guide.
 Since the publication of \cite{palsberg98essence} Java reflection had improved considerably; nevertheless Bravenboer et al. substantially improved the performance of the \lstinline{Walkabout} by caching reflective method lookups.
-
 
 
 
@@ -106,11 +103,11 @@ Since the publication of \cite{palsberg98essence} Java reflection had improved c
 \paragraph{Structure-Shy Traversals in Functional Programming.}
 
 In
-functional programming there has been alot of research on type-safe
-structure-shy traversals. Lammel and Peyton Jones' ``Scrap your
+functional programming there has been a lot of research on type-safe
+structure-shy traversals. L\"ammel and Peyton Jones' ``Scrap your
 Boilerplate'' (SyB)~\cite{ralf03syb,lammel04syb,lammel05syb} series
 introduced a practical design pattern for doing generic
-traversals. The simple queries and transformations in
+traversals in Haskell. The simple queries and transformations in
 \name were partly inspired by SyB. However SyB and \name use very
 different implementation techniques. SyB is implemented in Haskell and
 relies on a run-time type-safe cast mechanism. This approach allows
@@ -124,21 +121,18 @@ cast~\cite{adams2012tyb}. Another notable difference between SyB and
 extensibility of both traversals and structures, the original SyB
 approach did not support any extensibility. Only in later work,
 L\"ammel and Peyton Jones proposed an alternative design for SyB,
-based on type classes~\cite{wadler89type-classes}, that supported
-extensibility of traversals. Nevertheless, the extensibility of the
-traversed structures was not supported.
+based on type classes~\cite{wadler89type-classes}.
+This design supports extensibility of traversals, but not of the
+traversed structures.
 
 In functional programming there has also been an important line of
 work on \emph{datatype-generic programming} (DGP)~\cite{Gibbons07dgp}.  DGP is an
 advanced form of \emph{generic programming}~\cite{GP}, where generic
 functions are usually defined by inspecting the structure of
-types.  Extensive surveys of various approaches to DGP in Haskell
-(mostly focused on libraries) document various
-approaches~\cite{ComparingGPHaskellRodriquez,ComparingGPHaskellHinze}.
+types.  Different approaches to DGP in Haskell have been extensively studied and documented~\cite{ComparingGPHaskellRodriquez,ComparingGPHaskellHinze}.
 DGP can be used to implement structure-shy traversals as combinators,
-similarly to the traversals provided by SyB~\cite{hinze2003fun}. 
-Some DGP approaches have also been targetted specifically at doing 
-structure-shy type-safe traversals. Bringert~\cite{bjorn08acf}
+similar to the traversals provided by SyB~\cite{hinze2003fun}. 
+Bringert~\cite{bjorn08acf}
 introduced a DGP approach that can also be used to express queries 
 and transformations. Closest to \name is a DGP approach proposed by 
 L\"ammel et al.~\cite{lammel00dealing} for dealing with so-called
@@ -149,7 +143,7 @@ However L\"ammel et al. work has not dealt with extensibility. Interestingly
 in their future work  L\"ammel et al. did mention that they would like ``to cope 
 with incomplete or extensible systems of datatypes''. 
 
-\tijs{Bruno: should we add this one: \cite{lammel2002typed}}
+%\tijs{Bruno: should we add this one: \cite{lammel2002typed}}
 
 
 \begin{comment} 
@@ -176,7 +170,7 @@ has been claimed that object algebras can be used to do
 encode \emph{attribute grammars}~\cite{rendel14attributes}. One domain
 where object algebras are especially useful is in the implementation
 of (extensible) languages.  The QL language used in our case study is
-based on Gouseti et al.~\cite{gouseti14extensible} work. That work
+based on Gouseti et al.~\cite{gouseti14extensible}. That work
 provides a realistic implementation of an extensible
 \emph{domain-specific language} using object algebras. In contrast to
 our work, previous work on object algebras was mostly motivated by
@@ -184,7 +178,7 @@ improved programming support for extensibility and modularity. Our
 work shows that object algebras are also useful to solve a different
 problem: how to traverse complex structures without boilerplate
 code. The combination of extensibility (inherited for free from object
-algebras) and structure-shy type-safe traversals also adds a new
-dimention to our work that, as far as we know, as not been well explored
+algebras) and structure-shy type-safe traversals  adds a new
+dimension to our work that, as far as we know, has not been explored
 previously.
 

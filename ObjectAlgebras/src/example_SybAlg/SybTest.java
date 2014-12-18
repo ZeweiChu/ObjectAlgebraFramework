@@ -1,23 +1,23 @@
 package example_SybAlg;
 
-import java.util.ArrayList;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import java.util.List;
+
 import trees.SybAlg;
 
 public class SybTest {
 
 //BEGIN_GEN_COM
-<Company, Dept, SubUnit, Employee, Person, Salary> Company genCom(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) {
-	Employee ralf = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
-	Employee joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
-	Employee marlow = alg.E(alg.P("Marlow", "Cambridge"), alg.S(2000.0f));
-	Employee blair = alg.E(alg.P("Blair", "London"), alg.S(100000.0f));
-	List<SubUnit> s = new ArrayList<SubUnit>();
-	s.add(alg.PU(joost)); s.add(alg.PU(marlow));
-	List<Dept> d = new ArrayList<Dept>();
-	d.add(alg.D("Research", ralf, s));
-	d.add(alg.D("Strategy", blair, new ArrayList<SubUnit>()));
-	return alg.C(d);
+<C, D, U, E, P, S> C genCom(SybAlg<C, D, U, E, P, S> alg) {
+	E ralf  = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
+	E joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
+	E simon = alg.E(alg.P("Simon", "Cambridge"), alg.S(2000.0f));
+	E blair = alg.E(alg.P("Blair", "London"), alg.S(100000.0f));
+	List<U> us = asList(alg.PU(joost), alg.PU(simon));
+	List<D> ds = asList(alg.D("Research", ralf, us), 
+                        alg.D("Strategy", blair, emptyList()));
+	return alg.C(ds);
 }
 //END_GEN_COM
 

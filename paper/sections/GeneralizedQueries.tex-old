@@ -1,23 +1,23 @@
 \section{Generalized Queries}\label{sec:generalizedQueries}
 
-The previous section discusses simple queries that contribute to the same type of monoid. However, recursive data type often have multiple syntactic categories, for instance expressions and statements.
-In such many-sorted Object Algebras each sort is represented by the a different type parameter in the Object Algebra interface.
+The previous section introduced simple queries where each constructor contributes to a single monoid.
+Recursive data types, however, often have multiple syntactic categories, for instance expressions and statements.
+In such multi-sorted Object Algebras each sort is represented by a different type parameter in the algebra interface.
 In this section we present \textit{generalized queries}, where each such type parameter can be instantiated to different monoids. 
-The queries presented in the previous section are a special case of generalized queries when there is only a single sort.
 
 
-\subsection{Dealing with multiple sorts}\label{subsec:depGraph}
+\subsection{Example: data dependencies}
+\label{subsec:depGraph}
+%\subsection{Dealing with multiple sorts}
 
-%\tijs{I don't think we need the non-monoid example here, it's too much rehashing of earlier material, --- let's go immediately to the monoid version (Fig. 14).}
-A simple example of a generalized query is the  construction of a data dependency between assignment statements and variables in simple imperative programs.
-
-The simple ExpAlg is extended with statements using the StatAlg interface of Fig.~\ref{statalg}.
-The extension consists of statement constructors for sequential composition and assignment.
-A default implementation of queries over statements is shown in Fig.~\ref{LST:gstatquery}.
+A simple example of a generalized query is the extraction of the data dependencies between assignment statements and variables in simple imperative programs.
+To express this query, the simple \lstinline{ExpAlg} is first  extended with statements using the \lstinline{StatAlg} interface of Fig.~\ref{statalg}.
+The extension consists of statement constructors for sequential composition (\lstinline{Seq}) and assignment (\lstinline{Assign}).
+The generated default implementation of queries over statements is shown in Fig.~\ref{LST:gstatquery}.
 Note that the interface declares two monoids,---one for each sort.
 Since the \lstinline{Assign} and \lstinline{Seq} constructors create statements, they return elements of the \lstinline{mStat()} monoid.
-Furthermore, because it is impossible to automatically compose a monoid over one type with a monoid over another type, the \lstinline{p1} argument in \lstinline{Assign} is ignored.
-As a result, a concrete implementation has to override this case to provide semantics for each transition from expressions into statements. 
+Furthermore, because it is impossible to automatically join a monoid over one type with a monoid over another type, the \lstinline{p1} argument in \lstinline{Assign} is ignored \tijs{TODO: fix code to have better names}.
+As a result, a concrete implementation has to override this case to deal with the transition from expressions to statements. 
 
 \begin{figure}[t]
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
@@ -34,17 +34,16 @@ As a result, a concrete implementation has to override this case to provide sema
 \label{LST:gstatquery}
 \end{figure}
 
-\subsection{Example: data dependencies}
 
-An example of a query over the many-sorted statement algebra is the extraction of data dependencies from a program.
+%An example of a query over the multi-sorted statement algebra is the extraction of data dependencies from a program.
 Data dependencies are created by assignment statements:
 for a statement \lstinline{Assign(String x, Exp e)} method, the variable \lstinline{x} will depend on all variables appearing in \lstinline{e}.
 The result of extracting such dependencies can be represented as binary relation (a set of pairs). 
 
 To implement the extraction of data dependencies only two case have to be implemented: the variable (\lstinline{Var}) case from the \lstinline{ExpAlg} signature, and the assignment (\lstinline{Assign}) case from the \lstinline{StatAlg} signature.
 The implementation is shown in Fig.\ref{deps2}.
-Note that the \lstinline{Assign} case takes in the input \lstinline{Set<String> p1} and uses it to create the binary dependency relation.
-The propagation of the statement monoid across sequential composition is automatic, as is the propagation of the set of variables through expressions.
+Note that the \lstinline{Assign} case takes in the input \lstinline{Set<String> p1} and uses it to create the  dependency relation.
+The propagation of dependencies across sequential composition is automatic, as is the propagation of the set of variables through the different types of expressions.
 
 
 \begin{figure}[tb]
@@ -54,6 +53,6 @@ The propagation of the statement monoid across sequential composition is automat
 \label{deps2}
 \end{figure}
 
-The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
-If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.
-The default implementation thus can carry over, for instance, query results of expression into the result of statements. 
+%The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
+%If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.
+%The default implementation thus can carry over, for instance, query results of expression into the result of statements. 
