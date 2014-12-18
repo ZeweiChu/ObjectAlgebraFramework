@@ -218,9 +218,9 @@ methods being overwritten. And furthermore, a monoid can usually be
 shared among query algebras with the same data type.
 \end{comment}
 
-\subsection{Generic Queries in \name}
+\subsection{Generic, Extensible Queries in \name}
 
-Fortunatelly the traversal code in \lstinline{ExpAlgQuery} is entirely
+Fortunately the traversal code in \lstinline{ExpAlgQuery} is entirely
 mechanical and can be automatically generated.  This is precisely what
 \name does. All a user needs to do to get \lstinline{ExpAlgQuery} is
 to annotate the object algebra interface with an ``$@$Algebra''
@@ -229,3 +229,11 @@ the library. These include the set monoid used in free variables.
 Therefore all that a user needs to define is the query itself
 (\lstinline{FreeVars}), which (for large structures) can be
 significantly smaller than a manually written traversal.
+
+\name queries inherit the extensibility of the Object Algebra design pattern.
+Consider the extension of the expression language with a Lambda construct.
+In the Object Algebra style this is modeled using an extension of the interface \lstinline{ExpAlg}.
+Assuming this interface is called \lstinline{LamAlg}, the free variables query can be extended as follows:
+
+\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=EXTENDFREEVARS
+

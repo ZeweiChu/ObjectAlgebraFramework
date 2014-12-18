@@ -1,14 +1,25 @@
 package expDemo3;
 
 import java.util.Set;
+
+import static java.util.Collections.singleton;
 import static java.util.stream.Collectors.toSet;
 
-//BEGIN_EXTENDFREEVARS
-public interface FreeVarsWithLambda extends FreeVars, LamAlgQuery<Set<String>> {
-	default Monoid<Set<String>> m() { return new SetMonoid<>(); }
-	
-	default Set<String> Lam(String x, Set<String> fv) {
-		return fv.stream().filter((y) -> !y.equals(x)).collect(toSet());
+class FreeVarsWithLambdas {
+
+	// special version to avoid implementation of m()
+	interface FreeVars extends ExpAlgQuery<Set<String>> {
+		default Set<String> Var(String s) {
+			return singleton(s);
+		}
 	}
+
+	// BEGIN_EXTENDFREEVARS
+	interface FreeVarsWithLambda extends FreeVars, LamAlgQuery<Set<String>> {
+		default Set<String> Lam(String x, Set<String> fv) {
+			return fv.stream().filter((y) -> !y.equals(x)).collect(toSet());
+		}
+	}
+	// END_EXTENDFREEVARS
+
 }
-//END_EXTENDFREEVARS
