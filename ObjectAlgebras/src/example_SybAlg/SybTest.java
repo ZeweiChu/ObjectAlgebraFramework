@@ -9,7 +9,7 @@ import trees.SybAlg;
 public class SybTest {
 
 //BEGIN_GEN_COM
-<C, D, U, E, P, S> C genCom(SybAlg<C, D, U, E, P, S> alg) {
+<C,D,U,E,P,S> C makeCompany(SybAlg<C,D,U,E,P,S> alg) {
 	E ralf  = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
 	E joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
 	E simon = alg.E(alg.P("Simon", "Cambridge"), alg.S(2000.0f));
@@ -25,9 +25,10 @@ public class SybTest {
 		
 //BEGIN_CLIENTCODE_COMPANY
 SalaryBill salaryBill = new SalaryBill();
-System.out.println(genCom(salaryBill));
-IncreaseSalary<Float, Float, Float, Float, Float, Float> incSalary = new IncreaseSalary<Float, Float, Float, Float, Float, Float>(salaryBill);
-System.out.println(genCom(incSalary));
+System.out.println(makeCompany(salaryBill));
+IncreaseSalary<Float,Float,Float,Float,Float,Float> incSalary 
+  = new IncreaseSalary<>(salaryBill);
+System.out.println(makeCompany(incSalary));
 //END_CLIENTCODE_COMPANY
 
 	}

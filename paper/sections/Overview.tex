@@ -153,7 +153,7 @@ class IncreaseSalary<C,D,U,E,P,S> implements SybAlg<C,D,U,E,P,S> {
 	public SybAlg<C,D,U,E,P,S> alg;
 	public Float C(List<Dept> depts) { return alg.C(depts); }
 	...
-	public Salary S(float salary) { return alg.S(salary*1.1f); }
+	public Salary S(float salary) { return alg.S(1.1f * salary); }
 }
 \end{lstlisting}
 
@@ -260,7 +260,7 @@ usual object algebras style.
 Using this company structure, we can use the \lstinline{SalaryBill}
 and \lstinline{IncreaseSalary} to compute some information about the company:
 
-\lstinputlisting[linerange=27-30]{../ObjectAlgebras/src/example_SybAlg/SybTest.java} % APPLY:linerange=CLIENTCODE_COMPANY
+\lstinputlisting[linerange=27-31]{../ObjectAlgebras/src/example_SybAlg/SybTest.java} % APPLY:linerange=CLIENTCODE_COMPANY
 
 The results give \lstinline{111000.0} and \lstinline{122100.0}, which
 is respectively the salary before and after increase.
