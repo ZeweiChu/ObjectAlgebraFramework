@@ -1,19 +1,20 @@
 @INPROCEEDINGS{ralf03syb,
-	author = {Ralf Lammel and Simon Peyton Jones},
+	author = {Ralf Lammel, Simon Peyton Jones},
 	title = {Scrap Your Boilerplate: A Practical Design Pattern for Generic Programming},
 	booktitle = {TLDI'03},
 	year = {2003}
 }
 
 @inproceedings{Gibbons07dgp,
-  title = {Datatype-Generic Programming},
-  author = {Jeremy Gibbons},
-  year = {2007},
-  booktitle = {Spring School on Datatype-Generic Programming},
-  editor = {Roland Backhouse and Jeremy Gibbons and Ralf Hinze and Johan Jeuring},
-  publisher = {Springer-Verlag},
-  series = {Lecture Notes in Computer Science},
-  volume = {4719},
+  title = "Datatype-Generic Programming",
+  author = "Jeremy Gibbons",
+  year = "2007",
+  booktitle = "Spring School on Datatype-Generic Programming",
+  editor = "Roland Backhouse and Jeremy Gibbons and Ralf Hinze and Johan Jeuring",
+  publisher = "Springer-Verlag",
+  series = "Lecture Notes in Computer Science",
+  url = "http://www.comlab.ox.ac.uk/jeremy.gibbons/publications/dgp.pdf",
+  volume = "4719",
 }
 
 @article{hinze2003fun,
@@ -40,7 +41,7 @@
   year = "2007",
   booktitle = "Datatype-Generic Programming",
   location = "Nottingham, UK",
-  publisher = "Springer Berlin Heidelberg",
+  publisher = "Springer Berlin/Heidelberg",
   volume = "4719",
 }
 
@@ -61,7 +62,11 @@
 @article{lammel05syb,
  author = {L\"{a}mmel, Ralf and Jones, Simon Peyton},
  title = {Scrap Your Boilerplate with Class: Extensible Generic Functions},
- booktitle = {ICFP '05},
+ journal = {SIGPLAN Not.},
+ issue_date = {September 2005},
+ volume = {40},
+ number = {9},
+ month = sep,
  year = {2005}
 } 
 
@@ -79,7 +84,8 @@
 @inproceedings{wadler89type-classes,
  author = {Wadler, P. and Blott, S.},
  title = {How to Make Ad-hoc Polymorphism Less Ad Hoc},
- booktitle = {POPL '89},
+ booktitle = {Proceedings of the 16th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '89},
  year = {1989}
 } 
 
@@ -95,7 +101,8 @@
 @inproceedings{lammel04syb,
  author = {L\"{a}mmel, Ralf and Jones, Simon Peyton},
  title = {Scrap More Boilerplate: Reflection, Zips, and Generalised Casts},
- booktitle = {ICFP '04},
+ booktitle = {Proceedings of the Ninth ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '04},
  year = {2004}
 } 
 
@@ -132,9 +139,9 @@
 }%% from patterns.bib
 
 @INPROCEEDINGS{bruno12oa,
-	author = {Oliveira, Bruno C. d. S. and William R. Cook},
+	author = {Bruno C. d. S. Oliveira, William R. Cook},
 	title = {Extensibility for the Masses, Practical Extensibility with Object Algebras},
-	booktitle = {ECOOP '12},
+	booktitle = {ECOOP'12},
 	year = {2004}
 }
 
@@ -146,7 +153,7 @@
 }
 
 @article{bjorn08acf,
- author = {Bjorn Bringert and Aarne Ranta},
+ author = {Bjorn Bringert, Aarne Ranta},
  title = {A pattern for almost compositional functions},
  journal = {Journal of Functional Programming},
  volume = {18},
@@ -197,8 +204,10 @@
 @inproceedings{lammel2003strategic,
   title={Strategic programming meets adaptive programming},
   author={L{\"a}mmel, Ralf and Visser, Eelco and Visser, Joost},
-  booktitle={AOSD '03},
+  booktitle={Proceedings of the 2nd international conference on Aspect-oriented software development},
+  pages={168--177},
   year={2003},
+  organization={ACM}
 }
 
 @InCollection{reynolds75user-defined,
@@ -258,14 +267,16 @@ author = "N.G de Bruijn"
 @inproceedings{oliveira13fop,
  author = {Oliveira, Bruno C. d. S. and van der Storm, Tijs and Loh, Alex and Cook, William R.},
  title = {Feature-Oriented Programming with Object Algebras},
- booktitle = {ECOOP '13},
+ booktitle = {Proceedings of the 27th European Conference on Object-Oriented Programming},
+ series = {ECOOP'13},
  year = {2013}
 } 
 
 @inproceedings{rendel14attributes,
  author = {Rendel, Tillmann and Brachth\"{a}user, Jonathan Immanuel and Ostermann, Klaus},
  title = {From Object Algebras to Attribute Grammars},
- booktitle = {OOPSLA '14},
+ booktitle = {Proceedings of the 2014 ACM International Conference on Object Oriented Programming Systems Languages \&\#38; Applications},
+ series = {OOPSLA '14},
  year = {2014}
 } 
 
@@ -696,8 +707,11 @@ year = {2004}
 @inproceedings{Visser:1998:BPO:289423.289425,
  author = {Visser, Eelco and Benaissa, Zine-el-Abidine and Tolmach, Andrew},
  title = {Building Program Optimizers with Rewriting Strategies},
- booktitle = {ICFP '98},
+ booktitle = {Proceedings of the Third ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '98},
  year = {1998},
+ pages = {13--26},
+ publisher = {ACM}
 } 
 
 
