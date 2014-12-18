@@ -16,7 +16,7 @@ interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
 
   default X$_i$ f$_j$(X$^1_p$ p$_1$, $...$, X$^k_p$ p$_k$) {
     X$_i$ res = m$_i$().empty();
-    
+
     /* For all $s$ such that X$^s_p$ = X$_i$. */
     res = m$_i$().join(res, p$_s$);
     $...$
@@ -26,7 +26,7 @@ interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
 \end{lstlisting}
 \caption{Generic template for generating boilerplate of generalized queries}
 \label{gQueryTemplate}
-\end{figure} 
+\end{figure}
 
 
 \subsection{Example: data dependencies}
@@ -75,6 +75,16 @@ The propagation of dependencies across sequential composition is automatic, as i
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}
 \end{figure}
+
+\begin{comment}
+\haoyuan{Begin: client code.}
+
+\lstinputlisting[linerange=14-17]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
+
+\lstinputlisting[linerange=23-27]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
+
+\haoyuan{End: client code.}
+\end{comment}
 
 %The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
 %If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.

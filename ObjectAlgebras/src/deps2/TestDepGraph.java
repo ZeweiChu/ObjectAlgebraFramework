@@ -10,26 +10,27 @@ import monoid.SetMonoid;
 
 public class TestDepGraph {
 
-	static class DoIt implements DepGraph {
-		@Override
-		public Monoid<Set<String>> mExp() {
-			return new SetMonoid<>();
-		}
-		
-		@Override
-		public Monoid<Set<Pair<String, String>>> mStat() {
-			return new SetMonoid<>();
-		}
-	}
+//BEGIN_GEN_DEPGRAPH
+<E, S, Alg extends ExpAlg<E> & StatAlg<E, S>> S genExp(Alg alg) {
+	return alg.Seq(alg.Assign("x", alg.Add(alg.Var("x"), alg.Lit(3))), 
+			alg.Assign("y", alg.Add(alg.Var("x"), alg.Var("z"))));
+}
+//END_GEN_DEPGRAPH
 
-	static <E, S, Alg extends ExpAlg<E> & StatAlg<E, S>> S build(Alg alg) {
-		return alg.Seq(alg.Assign("x", alg.Add(alg.Var("x"), alg.Lit(3))), 
-				alg.Assign("y", alg.Add(alg.Var("x"), alg.Var("z"))));
+	void Test() {
+
+//BEGIN_CLIENTCODE_DEPGRAPH
+DepGraph depGraph = new DepGraph() {
+	public Monoid<Set<String>> mExp() { return new SetMonoid<>(); }
+	public Monoid<Set<Pair<String, String>>> mStat() { return new SetMonoid<>(); }
+};
+System.out.println(genExp(depGraph));
+//END_CLIENTCODE_DEPGRAPH
+
 	}
 	
 	public static void main(String[] args) {
-		DoIt doIt = new DoIt();
-		Set<Pair<String, String>> result = build(doIt);
-		System.out.println(result);
+		TestDepGraph testDepGraph = new TestDepGraph();
+		testDepGraph.Test();
 	}
 }
