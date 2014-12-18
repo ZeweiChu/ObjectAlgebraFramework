@@ -65,31 +65,3 @@ Here we also give the client code. With the same expression \lstinline{x + (y + 
 
 %The \lstinline{SubstVarsExpAlg} is still generic, yet something like a pretty printer can be passed to the \lstinline{expAlg()} inside as a query, to display the results. Hence at this moment, a programmer doesn't need to write boilerplate code for traversals. The identity approach and the pipeline of transformations provide users with a generic transformation like a template.
 
-\subsection{Extensible Transformations}
-
-\name transformations are extensible in the same way that \name queries are extensible.
-To illustrate extension of transformation, consider the simple transformation that makes all variable occurrences unique:
-
-%% weird, computeposition does not compute the right range.
-\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/Unique.java} % APPLY:linerange=UNIQUEVARS
-
-This transformation uses a helper method \lstinline{nextInt()} which returns consecutive integers on each call.
-The basic transformation simply renames \lstinline{Var} expressions.
-If the expression language is extended with lambda constructs, the transformation needs to be extended as well.
-
-\lstinputlisting[linerange=4-6]{../ObjectAlgebras/src/expDemo3/UniqueWithLambda.java} % APPLY:linerange=EXTEND_UNIQUEVARS
-
-Note that the transformation uses the \lstinline{lamAlg()} algebra (generated in \lstinline{LamAlgTransfrom}),
-to create lambda expressions.
-
-
-%% Alternatively, a single method would suffice in the single-sorted case, since sub-classes or interfaces may refine the return type. 
-
-%% \begin{lstlisting}[mathescape=true]
-%% interface UniqueWithLambda<E, Alg extends ExpAlg<E> & LamAlg<E>>
-%%     extends Unique<E>, LamAlgTransform<E> {	
-%%   Alg expAlg();
-  
-%%   default E Lam(String x, E e) { return expAlg().Lam($...$); }
-%% }
-%% \end{lstlisting}
