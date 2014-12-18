@@ -121,17 +121,13 @@ Operations are defined by implementing the object algebra interface.
 The following code show a partial implementation of the salary bill
 operation.
 
-\begin{lstlisting}[numbers=none]
+\begin{lstlisting}[numbers=none,mathescape=true]
 class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
-	public Float C(List<Float> depts){
-		Float r = 0f;
-		for (Float f: depts) r += f;
-		return r;
-	}
-	...
-	public Float S(float salary){
-		return salary;
-	}
+  public Float C(List<Float> depts) {
+    return depts.stream().reduce(0.0f, (x, y) -> x + y);
+  }
+  $...$
+  public Float S(float salary) { return salary; }
 }
 \end{lstlisting}
 
@@ -153,16 +149,11 @@ with all salaries updated. The following code shows part of the
 implementation:
 
 \begin{lstlisting}[numbers=none]
-class IncreaseSalary<Company, Dept, SubUnit, Employee, Person, Salary> implements SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> {
-	public SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg;
-	public IncreaseSalarySybAlg(SybAlg<Company, Dept, SubUnit, Employee, Person, Salary> alg) { this.alg = alg; }
-	public Float C(List<Dept> depts) {
-		return alg.C(depts);
-	}
+class IncreaseSalary<C,D,U,E,P,S> implements SybAlg<C,D,U,E,P,S> {
+	public SybAlg<C,D,U,E,P,S> alg;
+	public Float C(List<Dept> depts) { return alg.C(depts); }
 	...
-	public Salary S(float salary) {
-		return alg.S(salary*1.1f);
-	}
+	public Salary S(float salary) { return alg.S(salary*1.1f); }
 }
 \end{lstlisting}
 
