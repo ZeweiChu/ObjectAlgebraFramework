@@ -2,25 +2,25 @@ package sybDemo1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //BEGIN_OOP_COMPANY
 class Company {
 	private List<Department> depts;
-	public Company(List<Department> depts){this.depts = depts;}
-	public Float salaryBill(){
-		Float r = 0f; 
-		for (Department dept: depts) r+= dept.salaryBill(); 
-		return r;}
-	public Company increaseSalary(){
-		List<Department> ld = new ArrayList<Department>();
-		for (Department dept: depts) ld.add(dept.increaseSalary());
-		return new Company(ld);}
+	Company(List<Department> depts) { this.depts = depts; }
+	Float salaryBill() {
+		return depts.stream().reduce(0.0f, (s, x) -> s + x.salaryBill(), 
+                                           (x, y) -> x + y);
+	}
+	Company increaseSalary(){
+		return new Company(depts.stream().map(d -> d.increaseSalary())
+                                         .collect((Collectors.toList())));
 }
 class Salary {
 	private Float salary;
-	public Salary(Float salary){this.salary = salary;}
-	public Float salaryBill(){return this.salary;}
-	public Salary increaseSalary(){return new Salary(this.salary*1.1f);}
+	public Salary(Float salary) { this.salary = salary; }
+	public Float salaryBill() { return this.salary; }
+	public Salary increaseSalary() { return new Salary(this.salary * 1.1f); }
 }
 //END_OOP_COMPANY
 class Department {

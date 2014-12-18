@@ -29,7 +29,7 @@ either a \lstinline{Department} or an \lstinline{Employee}. An
 \lstinline{Salary} information.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=7-24]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
+\lstinputlisting[linerange=8-25]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
   implementing part of the company structure.}
