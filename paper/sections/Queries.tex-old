@@ -235,5 +235,6 @@ Consider the extension of the expression language with a Lambda construct.
 In the Object Algebra style this is modeled using an extension of the interface \lstinline{ExpAlg}.
 Assuming this interface is called \lstinline{LamAlg}, the free variables query can be extended as follows:
 
-\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=EXTENDFREEVARS
+\lstinputlisting[linerange=18-22]{../ObjectAlgebras/src/expDemo3/FreeVarsWithLambda.java} % APPLY:linerange=EXTENDFREEVARS
 
+This interface extends both the original \lstinline{FreeVars} query and the base query implementation that was generated for the \lstinline{LamAlg} interface defining the language extension. 
