@@ -9,16 +9,16 @@ In this section we instantiate algebras over function types to obtain transforma
 Instead of having the algebra methods delegate directly to base algebra (e.g., \lstinline{expAlg()}), this now happens indirectly through closures that propagate the context information.
 
 Figure~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
-Note that interface \lstinline{Alg}$_T$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$. 
+Note that interface \lstinline{Alg}$_{CT}$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$.
 Each constructor method now creates an anonymous function which, when invoked, calls the functions received as parameters (\lstinline{p}$_1$ to \lstinline{p}$_k$) and only then creates a structure over the \lstinline{alg()} algebra.
 
 \begin{figure}[t]
 \begin{lstlisting}[mathescape=true]
-interface Alg$_T$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
+interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
   Alg<X$_1$, ..., X$_n$> alg();
 
-  default Function<C, X$_i$> f$_j$(Function<C,X$^1_p$> p$_1$, $...$, Function<C,X$^k_{q}$> p$_k$) {
-    return  (c) -> alg().f$_j$(p$_1$.apply(c), $...$, p$_k$.apply(c));
+  default Function<C, X$_i$> f$_j$(Function<C,X$^1_p$> p$_1$, $...$, Function<C,X$^k_p$> p$_k$) {
+    return (c) -> alg().f$_j$(p$_1$.apply(c), $...$, p$_k$.apply(c));
   }
   $...$
 }

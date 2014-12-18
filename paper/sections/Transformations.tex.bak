@@ -12,16 +12,16 @@ In this section we show how to avoid most traversal boilerplate code in the cont
 A simple example of a transformation algebra, based on the interface \lstinline{ExpAlg} is substituting expressions for variables. A manual implementation based on Object Algebras is shown in Fig.~\ref{substvars_without_id}.
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVarExpAlg.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
+\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
 \vspace{-.1in}
 \caption{A normal algebra-based implementation of variable substitution}
 \label{substvars_without_id}
 \end{figure}
 
-The expression to be substituted, and the variable to substitute for are computed by the methods \lstinline{e()} and  \lstinline{x()} respectively. 
+The expression to be substituted, and the variable to substitute for are computed by the methods \lstinline{e()} and  \lstinline{x()} respectively.
 \lstinline{expAlg()} is an instance of \lstinline{ExpAlg} on which the transformation is based.
 Since Object Algebras are factories, the transformation is executed immediately during construction.
-For instance, calling \lstinline{Var("x")} on a \lstinline{SubstVarExpAlg} object with \lstinline{x()} returning \lstinline{"x"} immediately returns the result of \lstinline{exp()}, --- the original variable expression is never created. 
+For instance, calling \lstinline{Var("x")} on a \lstinline{SubstVar} object with \lstinline{x()} returning \lstinline{"x"} immediately returns the result of \lstinline{exp()}, --- the original variable expression is never created.
 In the other cases, the original structure is recreated in the algebra \lstinline{expAlg()}.
 
 Again we observe the problem of traversal-only boilerplate code: the \lstinline{Lit} and \lstinline{Add} methods simply delegate to the base algebra \lstinline{expAlg()} without performing any computation.
@@ -40,19 +40,33 @@ In this case, only the  method \lstinline{Var()} is overridden.
 
 
 \begin{figure}[t]
-\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/SubstVarExpAlg.java} % APPLY:linerange=SUBSTVARS_WITH_ID
+\lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITH_ID
 \vspace{-.1in}
 \caption{The transformation interface for substVars}
 \label{substvars_with_id}
 \end{figure}
 
 
-To execute substitution, the \lstinline{SubstVarExpAlg} should be subclassed (either anonymously or explicitly) with implementations for \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}.
+To execute substitution, the \lstinline{SubstVar} should be subclassed (either anonymously or explicitly) with implementations for \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}.
 The base algebra \lstinline{expAlg()} could for instance be an algebra for pretty printing the expression with the substitution applied.
-Note that this allows pipelining of transformations: there is no reason  \lstinline{expAlg()} can not return yet another transformation algebra. 
+Note that this allows pipelining of transformations: there is no reason  \lstinline{expAlg()} can not return yet another transformation algebra.
+
+\haoyuan{Begin: client code.}
+
+Here we also give the client code. With the same expression \lstinline{x + (y + 2)}, a \lstinline{SubstVar} object is created. The base algebra \lstinline{expAlg()} here is implemented with an instance of \lstinline{FreeVars}, and we also override \lstinline{x()} and \lstinline{e()} aiming to substitute another variable \lstinline{"z"} for \lstinline{"x"}. The code is as follows, where the result of execution becomes \lstinline{[y, z]}.
+
+\lstinputlisting[linerange=28-33]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_SUBSTVAR
+
+\haoyuan{End: client code.}
+
+\haoyuan{General template.}
+Figure~\ref{trafoTemplate} shows the general template for \lstinline{Alg<X1, X2, ..., Xn>}.
+
+
 
 
 %Another important characteristic is that we can apply several transformations to the data structure before a query. This pattern is called the \textit{transformation pipeline}. Since the transformation algebra \lstinline{ExpAlgTransform<Exp>} is a sub-interface of \lstinline{ExpAlg<Exp>}, it creates any instance with the same type as the \lstinline{expAlg()} inside. Therefore a programmer can define a number of transformation algebras, and compose them in sequence, like a nested structure. At the meantime, a query algebra is passed to the innermost \lstinline{expAlg()}. In that case, the query is traversed recursively throughout the pipeline and eventually derives a certain composite transformation algebra.
 
 
 %The \lstinline{SubstVarsExpAlg} is still generic, yet something like a pretty printer can be passed to the \lstinline{expAlg()} inside as a query, to display the results. Hence at this moment, a programmer doesn't need to write boilerplate code for traversals. The identity approach and the pipeline of transformations provide users with a generic transformation like a template.
+

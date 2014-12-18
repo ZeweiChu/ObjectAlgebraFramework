@@ -6,27 +6,10 @@ In such multi-sorted Object Algebras each sort is represented by a different typ
 In this section we present \textit{generalized queries}, where each such type parameter can be instantiated to different monoids.
 
 \haoyuan{General template. Some redundant texts.}
-Figure~\ref{gQueryTemplate} shows the general template for \lstinline{Alg<X1, X2, ..., Xn>}.
-Note that interface \lstinline{Alg}$_{GQ}$ extends \lstinline{Alg} and declares one monoid for each sort. As we cannot directly join a monoid over one type with a monoid over another type, for every constructor in \lstinline{Alg}$_{GQ}$, the arguments with different types from its return type are ignored.
+Figure~\ref{gQueryTemplate} shows the general template generated for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
+Note that interface \lstinline{Alg}$_{GQ}$ extends \lstinline{Alg} and declares one monoid for each sort. As we cannot directly join a monoid over one type with a monoid over another type, for every constructor in \lstinline{Alg}$_{GQ}$, the arguments with different type from its return type are ignored.
 
-\begin{figure}[t]
-\begin{lstlisting}[mathescape=true]
-interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
-  Monoid<X$_1$> m$_1$(); $...$; Monoid<X$_n$> m$_n$();
-
-  default X$_i$ f$_j$(X$^1_p$ p$_1$, $...$, X$^k_p$ p$_k$) {
-    X$_i$ res = m$_i$().empty();
-    
-    /* For all $s$ such that X$^s_p$ = X$_i$. */
-    res = m$_i$().join(res, p$_s$);
-    $...$
-  }
-  $...$
-}
-\end{lstlisting}
-\caption{Generic template for generating boilerplate of generalized queries}
-\label{gQueryTemplate}
-\end{figure} 
+ 
 
 
 \subsection{Example: data dependencies}

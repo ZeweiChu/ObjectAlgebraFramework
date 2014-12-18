@@ -17,7 +17,6 @@ illustrate the various different types of traversals supported by
 \Name.  Three different kinds of nodes exist: a numeric literal, a
 variable or the addition of two expressions. Queries are illustrated
 by implementing an operation to compute the free variables in an expression.
-\haoyuan{Figure~\ref{exp_alg}: "@Algebra" removed.}
 
 \begin{comment}
 As a specific type of object algebras, queries allow users to define
@@ -34,7 +33,7 @@ query.
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo2/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/trees/ExpAlg.java} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
@@ -151,8 +150,6 @@ called the \textit{generic query algebra}.
 \caption{A monoid instance defined for sets.}
 \label{freevars_monoid}
 \end{figure}
-\bruno{Naming: Call the monoid SetMonoid, and parametrize it to work
-on any parameters.}
 
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
 define the free variables operation. To use the generic traversal
@@ -173,6 +170,7 @@ needs to be specified.  Secondly only the case for variables needs to
 be defined: the other cases are inherited from
 \lstinline{ExpAlgQuery}.
 
+\begin{comment}
 \haoyuan{Begin: client code.}
 Now one can do some experiments with this approach. First comes an example of the expression built up like this:
 
@@ -184,6 +182,7 @@ The result given by the following code is \lstinline{[x, y]}, which is a set of 
 \lstinputlisting[linerange=19-20]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_FREEVARS
 
 \haoyuan{End: client code. x + (y + 2) and [x, y] in code style?}
+\end{comment}
 
 At this point it is interesting to analise the benefits and drawbacks
 of this approach. A clear benefit is that we have to define less cases
@@ -195,8 +194,9 @@ quite general, so they can be reused accross multiple queries. For example
 the set monoid is useful for any query that returns sets, not just
 free variables. Therefore such monoids are typically included in
 libraries, and do not need to be defined for each query.
-For the generic query it is nice that it can be reused accross multiple
-queries, but it still has to be defined and the definition still
+For the code for the generic query itself (\lstinline{ExpAlgQuery})
+it is nice that the code can be reused accross multiple
+queries, but it still has to be defined. Furthermore the definition still
 consists of boring and tedious code.
 
 %Clearly if
@@ -220,9 +220,36 @@ shared among query algebras with the same data type.
 
 \subsection{Generic Queries in \name}
 
-\name automatically generates generic query classes such as
-\lstinline{ExpAlgQuery}. All a user needs to do to get such classes
-is to annotate the object algebra interface with an ``$@$Algebra''
-annotation. \name also provides a number of common monoids as
-part of the library. These include the set monoid used in free variables.
-Therefore all that a user needs to define is the query itself.
+Fortunately the traversal code in \lstinline{ExpAlgQuery} is entirely
+mechanical and can be automatically generated.  This is precisely what
+\name does. All a user needs to do to get \lstinline{ExpAlgQuery} is
+to annotate the object algebra interface with an ``$@$Algebra''
+annotation. \name also provides a number of common monoids as part of
+the library. These include the set monoid used in free variables.
+Therefore all that a user needs to define is the query itself
+(\lstinline{FreeVars}), which (for large structures) can be
+significantly smaller than a manually written traversal.
+
+\haoyuan{General template.}
+Figure~\ref{queryTemplate} shows the general template that \name generates for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
+Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} with all sorts to be \lstinline{R}.
+
+\begin{figure}[t]
+\begin{lstlisting}[mathescape=true]
+interface Alg$_Q$<R> extends Alg<R,$...$,R> {
+  Monoid<R> m();
+
+  default R f$_j$(R p$_1$, $...$, R p$_k$) {
+    R res = m().empty();
+    res = m().join(res, p$_1$);
+    $...$
+    res = m().join(res, p$_k$);
+    return res;
+  }
+  $...$
+}
+\end{lstlisting}
+\caption{Generic template for generating boilerplate of queries}
+\label{queryTemplate}
+\end{figure}
+

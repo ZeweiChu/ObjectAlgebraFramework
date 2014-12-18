@@ -1,13 +1,53 @@
 \section{Contextual Transformations}\label{sec:contexttrans}
 
-In the previous section, our identity approach introduces a simple template for transformations, in which users can just override a few methods to construct a transformation algebra, rather than build up the traversal framework, which can be very complicated with boring code.
+The previous section introduced a simple template for defining transformations.
+Transformations in this style may only depend on global context information (e.g., \lstinline{x()}, \lstinline{e()}).
+Many transformations, however, require context information that might change during the traversal itself.
+In this section we instantiate algebras over function types to obtain transformation which pass information down during traversal.
+%Here we show how to eliminate boilerplate from such transformation b...  by constructing functions that build into an algebra.
+%The solution is the same is in the non-contextual transformations of the previous sub-section: a generic super interface captures the general traversal strategy
+Instead of having the algebra methods delegate directly to base algebra (e.g., \lstinline{expAlg()}), this now happens indirectly through closures that propagate the context information.
 
-\hl{citation?}
+Figure~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
+Note that interface \lstinline{Alg}$_T$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$.
+Each constructor method now creates an anonymous function which, when invoked, calls the functions received as parameters (\lstinline{p}$_1$ to \lstinline{p}$_k$) and only then creates a structure over the \lstinline{alg()} algebra.
 
-\subsection{Capture-avoiding substitution: a contextual transformation}\label{subsec:captureavoidsubst}
+\begin{figure}[t]
+\begin{lstlisting}[mathescape=true]
+interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
+  Alg<X$_1$, ..., X$_n$> alg();
 
-\textbf{SUBST}
+  default Function<C, X$_i$> f$_j$(Function<C,X$^1_p$> p$_1$, $...$, Function<C,X$^k_{q}$> p$_k$) {
+    return  (c) -> alg().f$_j$(p$_1$.apply(c), $...$, p$_k$.apply(c));
+  }
+  $...$
+}
+\end{lstlisting}
+\caption{Generic template for generating boilerplate of contextual transformations}
+\label{ctxTrafoTemplate}
+\end{figure}
 
-\subsection{Generic traversal for contextual transformations}\label{subsec:genericcontexttrans}
+\subsection{Example: conversion to De Bruijn indices}
 
-\subsection{Solving SUBST with generic transformation algebra}\label{subsec:solvingsubst}
+%The template shown in Fig.~\ref{ctxTrafoTemplate} supports tranformations where traversal dependent context informations flows down the created structure.
+An example of a contextual transformation is converting variables to De Bruijn indices in the lambda calculus~\cite{deBruijn1972381}.
+Using De Bruijn indices, a variable occurrence is identified by a natural number equal to the number of lambda terms between the variable occurrence and its binding lambda term.
+Lambda terms expressed using De Bruijn indices are useful because they are invariant with respect to alpha conversion.
+
+To implement the conversion to De Bruijn indices we assume an expression interface \lstinline{LamAlg} with constructors for lambda abstraction (\lstinline{Lam}) and application (\lstinline{App}).
+This interface can be used together with the \lstinline{ExpAlg} interface introduced ealier.
+Furthermore we assume that the generic template shown in Fig.~\ref{ctxTrafoTemplate} is instantiated for both interfaces as \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform} respectively.
+Using these interfaces, the conversion to De Bruijn indices can be realized as shown in Fig.~\ref{DeBruijn}.
+Note again that only the relevant cases are overridden: \lstinline{Var} (from \lstinline{ExpAlg}) and \lstinline{Lam} (from \lstinline{LamAlg}).
+
+
+\begin{figure}[h]
+\lstinputlisting[linerange=12-20]{../ObjectAlgebras/src/debruijn/DeBruijn.java} % APPLY:linerange=DEBRUIJN
+\vspace{-.1in}
+\caption{Converting variables to De Bruijn indices}
+\label{DeBruijn}
+\end{figure}
+
+
+
+

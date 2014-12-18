@@ -230,3 +230,26 @@ Therefore all that a user needs to define is the query itself
 (\lstinline{FreeVars}), which (for large structures) can be
 significantly smaller than a manually written traversal.
 
+\haoyuan{General template.}
+Figure~\ref{queryTemplate} shows the general template in \name for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
+Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} with all sorts to be \lstinline{R}.
+
+\begin{figure}[t]
+\begin{lstlisting}[mathescape=true]
+interface Alg$_Q$<R> extends Alg<R,$...$,R> {
+  Monoid<R> m();
+
+  default R f$_j$(R p$_1$, $...$, R p$_k$) {
+    R res = m().empty();
+    res = m().join(res, p$_1$);
+    $...$
+    res = m().join(res, p$_k$);
+    return res;
+  }
+  $...$
+}
+\end{lstlisting}
+\caption{Generic template for generating boilerplate of queries}
+\label{queryTemplate}
+\end{figure}
+

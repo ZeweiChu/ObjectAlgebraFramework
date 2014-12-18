@@ -59,6 +59,24 @@ Here we also give the client code. With the same expression \lstinline{x + (y + 
 
 \haoyuan{End: client code.}
 
+\haoyuan{General template.}
+Figure~\ref{trafoTemplate} shows the general template for \lstinline{Alg<X1, X2, ..., Xn>}. Here \lstinline{Alg}$_T$ extends \lstinline{Alg} with the same sorts. And the base algebra \lstinline{alg()} is declared inside.
+
+\begin{figure}[t]
+\begin{lstlisting}[mathescape=true]
+interface Alg$_T$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
+  Alg<X$_1$, ..., X$_n$> alg();
+
+  default X$_i$ f$_j$(X$^1_p$ p$_1$, $...$, X$^k_p$ p$_k$) {
+    return alg().f$_j$(p$_1$, $...$, p$_k$);
+  }
+  $...$
+}
+\end{lstlisting}
+\caption{Generic template for generating boilerplate of transformations}
+\label{trafoTemplate}
+\end{figure}
+
 
 %Another important characteristic is that we can apply several transformations to the data structure before a query. This pattern is called the \textit{transformation pipeline}. Since the transformation algebra \lstinline{ExpAlgTransform<Exp>} is a sub-interface of \lstinline{ExpAlg<Exp>}, it creates any instance with the same type as the \lstinline{expAlg()} inside. Therefore a programmer can define a number of transformation algebras, and compose them in sequence, like a nested structure. At the meantime, a query algebra is passed to the innermost \lstinline{expAlg()}. In that case, the query is traversed recursively throughout the pipeline and eventually derives a certain composite transformation algebra.
 
