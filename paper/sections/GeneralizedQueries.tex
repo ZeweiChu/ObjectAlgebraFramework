@@ -53,8 +53,8 @@ monoids,---one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
 impossible to automatically join a monoid over one type with a monoid
-over another type, the \lstinline{p1} argument in \lstinline{Assign}
-is ignored \tijs{TODO: fix code to have better names}.  As a result, a
+over another type, the \lstinline{e} argument in \lstinline{Assign}
+is ignored.  As a result, a
 concrete implementation has to override this case to deal with the
 transition from expressions to statements.
 
@@ -90,7 +90,7 @@ be implemented: the variable (\lstinline{Var}) case from the
 \lstinline{ExpAlg} signature; and the assignment (\lstinline{Assign})
 case from the \lstinline{StatAlg} signature.  The implementation is
 shown in Fig.\ref{deps2}.  Note that the \lstinline{Assign} case takes
-in the input \lstinline{Set<String> p1} and uses it to create the
+the input \lstinline{Set<String> e} and uses it to create the
 dependency relation.  The propagation of dependencies across
 sequential composition is automatic, as is the propagation of the set
 of variables through the different types of expressions.
