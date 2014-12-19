@@ -79,7 +79,7 @@ even hundreds of constructors such code becomes a significant burden.
 %approach: you still have to write a bunch of similar stuff with a
 %different query raised, for instance, a pretty printer.
 
-\subsection{Abstracting the Generic Traversal Code}\label{subsec:genericquery}
+\subsection{Abstracting Generic Traversal Code}\label{subsec:genericquery}
 
 Clearly a better approach would be to abstract the generic traversal
 code for queries. This way, when programmers need to implement query
@@ -92,28 +92,31 @@ focus only on dealing with the nodes that do something interesting.
 %the traversal. Hence we introduce the concept of monoid and generic
 %traversal here in our query algebras.
 
-\begin{figure}[tb]
-\lstinputlisting[linerange=6-12]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
-\vspace{-.1in}
-\caption{The monoid interface.}
-\label{monoid}
-\end{figure}
+%% \begin{figure}[tb]
+%% \lstinputlisting[linerange=5-5]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
+%% \vspace{-.1in}
+%% \caption{The monoid interface.}
+%% \label{monoid}
+%% \end{figure}
 
 The code that captures the aggregation and collection of information
 can be captured by a well-known algebraic structure called a
 \emph{monoid}. Monoids are commonly used in functional programming
 for such purposes, but they are perhaps less commonly known in
-object-oriented programming.  The interface of a monoid is defined in
-Figure~\ref{monoid}. Intuitively, the \lstinline{join()} method is
+object-oriented programming.  The interface of a monoid is defined as follows:
+\begin{quote}
+\lstinputlisting[linerange=5-5]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
+\end{quote}
+Intuitively, the \lstinline{join()} method is
 used to combine the information from substructures, and the
-\lstinline{empty()} is just an indicator of ``no information''.
-The monoid interface also includes one additional operation
-called \lstinline{fold}, which takes a list of \lstinline{R}
-and returns an aggregated \lstinline{R}. Finally, note that
-even though \lstinline{Monoid} is an interface, the
-\lstinline{fold} operation is defined. This is a new feature
-of Java 8 called default methods, which allow default implementations
-of methods in interfaces.
+\lstinline{empty()} is an indicator of ``no information''.
+%% The monoid interface also includes one additional operation
+%% called \lstinline{fold}, which takes a list of \lstinline{R}
+%% and returns an aggregated \lstinline{R}. Finally, note that
+%% even though \lstinline{Monoid} is an interface, the
+%% \lstinline{fold} operation is defined. This is a new feature
+%% of Java 8 called default methods, which allow default implementations
+%% of methods in interfaces.
 
 Using the monoid operations alone, it is possible to write a ``generic
 query''. Figure~\ref{generic_query} shows how this is achieved. In
@@ -121,6 +124,8 @@ nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
 \lstinline{Lit}, the query returns \lstinline{empty}.
+Note that \lstinline{ExpAlgQuery} is an interface containing \lstinline{default} methods introduced in Java 8.
+This allows concrete queries to be implemented by overriding methods from multiple, different algebras. 
 
 \begin{figure}[tb]
 \lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
@@ -153,7 +158,7 @@ called the \textit{generic query algebra}.
 
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
 define the free variables operation. To use the generic traversal
-code, a monoid is defined in Figure~\ref{freevars_monoid}. The set monoid
+code, a monoid is defined in Fig.~\ref{freevars_monoid}. The set monoid
 uses an empty set to define the \lstinline{empty} operation, and set
 union to define the \lstinline{join} operation. Using this monoid
 the free variables operation is defined as follows:
@@ -184,7 +189,7 @@ The result given by the following code is \lstinline{[x, y]}, which is a set of 
 \haoyuan{End: client code. x + (y + 2) and [x, y] in code style?}
 \end{comment}
 
-At this point it is interesting to analise the benefits and drawbacks
+At this point it is interesting to analyze the benefits and drawbacks
 of this approach. A clear benefit is that we have to define less cases
 in specific queries. For large structures, this is can amount to
 significantly less code. However we have create the generic

@@ -9,7 +9,7 @@ import query.G_ExpAlgQuery;
 import query.G_StatAlgQuery;
 
 //BEGIN_DEPS2
-public interface DepGraph extends G_ExpAlgQuery<Set<String>>, G_StatAlgQuery<Set<String>, Set<Pair<String,String>>> {
+interface DepGraph extends G_ExpAlgQuery<Set<String>>, G_StatAlgQuery<Set<String>, Set<Pair<String,String>>> {
 	default Set<String> Var(String x) { return singleton(x); }
 	default Set<Pair<String, String>> Assign(String x, Set<String> e) {
 		return e.stream().map(y -> new Pair<>(x, y)).collect(toSet());
