@@ -151,7 +151,7 @@ implementation:
 
 \begin{lstlisting}[numbers=none]
 class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
-	public SybAlg<C,D,U,E,P,S> alg;
+	private OneOhOneAlg<C,D,U,E,P,S> alg;
 	public Float C(List<Dept> depts) { return alg.C(depts); }
 	...
 	public Salary S(float salary) { return alg.S(1.1f * salary); }
@@ -202,7 +202,7 @@ transformations and contextual aware transformations with Object
 Algebras, which can be easily inherited by real cases of queries and
 transformations. Furthermore, we designed an object algebra framework
 \name. With our framework, the generic query and transformation
-classes can be generated automatically by adding an ``$@$Algebra''
+classes can be generated automatically by adding the $@$Algebra''
 annotation.
 \end{comment}
 
@@ -215,7 +215,7 @@ common types of traversals. In particular \name supports generic
 traversals are useful to capture, respectively, the salary bill and
 increase salary operations.
 
-With \Name, programmers just need to add an ``$@$Algebra'' annotation
+With \Name, programmers just need to add the \lstinline{@Algebra} annotation
 to the definition of \lstinline{OneOhOneAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Figure~\ref{syb_tree}. With that annotation several classes
