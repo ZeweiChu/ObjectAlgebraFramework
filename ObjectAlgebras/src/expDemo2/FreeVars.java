@@ -9,10 +9,10 @@ import static java.util.stream.Collectors.toSet;
 
 
 //BEGIN_FREEVARS_WITHOUT_MONOID
-class FreeVars implements ExpAlg<Set<String>> {
-	public Set<String> Var(String s) { return singleton(s); }
-	public Set<String> Lit(int i) { return emptySet(); }
-	public Set<String> Add(Set<String> e1, Set<String> e2) {
+interface FreeVars extends ExpAlg<Set<String>> {
+	default Set<String> Var(String s) { return singleton(s); }
+	default Set<String> Lit(int i) { return emptySet(); }
+	default Set<String> Add(Set<String> e1, Set<String> e2) {
 		return concat(e1.stream(), e2.stream()).collect(toSet());
 	}
 }
