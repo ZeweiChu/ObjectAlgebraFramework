@@ -6,7 +6,7 @@ import trees.StatAlg;
 //BEGIN_GSTAT_QUERY
 interface G_StatAlgQuery<Exp, Stat> extends StatAlg<Exp, Stat> {
 	Monoid<Exp> mExp(); Monoid<Stat> mStat();
-	default Stat Assign(String p0, Exp p1) { return mStat().empty(); }
-	default Stat Seq(Stat p0, Stat p1) { return mStat().join(p0, p1); }
+	default Stat Assign(String x, Exp e) { return mStat().empty(); }
+	default Stat Seq(Stat s1, Stat s2) { return mStat().join(s1, s2); }
 }
 //END_GSTAT_QUERY
