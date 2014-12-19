@@ -1,11 +1,11 @@
 \section{Related Work}\label{sec:related}
 
-%To the best of our knowledge, our work proposes the first solution 
-%working entirely on a mainstream OO languages, that deals with the 
-%problem boilerplate code in traversals. 
+%To the best of our knowledge, our work proposes the first solution
+%working entirely on a mainstream OO languages, that deals with the
+%problem boilerplate code in traversals.
 
-Structur shy traversal has been an active research topic.
-Our approach to structure shy traversal is unique in that it supports separate compilation, modular type checking and data type extension. Furthermore, it can be applied in mainstream languages such as Java. While some approaches support some of these 
+Structure shy traversal has been an active research topic.
+Our approach to structure shy traversal is unique in that it supports separate compilation, modular type checking and data type extension. Furthermore, it can be applied in mainstream languages such as Java. While some approaches support some of these
 features, to the best of our knowledge, no approach supports all of them.
 Below we provide a detailed comparison.
 
@@ -43,7 +43,7 @@ The key tenet of strategic programming is separation of concerns:  actual comput
 In \name, the traversal of a data structure is also specified separately (in a super-interface), however, it is fixed for specific styles of queries and transformations.
 For instance, both queries and transformations employ an innermost, bottom-up strategy.
 
-The distinction between queries and transformations also originates from existing work in strategic programming. 
+The distinction between queries and transformations also originates from existing work in strategic programming.
 L\"ammel et al.~\cite{lammel2002typed} discuss type unifying and type preserving traversals.
 Type unifying traversals correspond to our queries, where all data type constructors are unified into a single monoid.
 Analogously, \name transformations are type preserving in the sense that a transformation is an algebra which maps constructor calls to another algebra of the same type.
@@ -131,22 +131,22 @@ advanced form of \emph{generic programming}~\cite{GP}, where generic
 functions are usually defined by inspecting the structure of
 types.  Different approaches to DGP in Haskell have been extensively studied and documented~\cite{ComparingGPHaskellRodriquez,ComparingGPHaskellHinze}.
 DGP can be used to implement structure-shy traversals as combinators,
-similar to the traversals provided by SyB~\cite{hinze2003fun}. 
+similar to the traversals provided by SyB~\cite{hinze2003fun}.
 Bringert~\cite{bjorn08acf}
-introduced a DGP approach that can also be used to express queries 
-and transformations. Closest to \name is a DGP approach proposed by 
+introduced a DGP approach that can also be used to express queries
+and transformations. Closest to \name is a DGP approach proposed by
 L\"ammel et al.~\cite{lammel00dealing} for dealing with so-called
 ``\emph{large bananas}''. A large banana corresponds to the fold
-algebra of a complex structure. Object algebras, which we use in our 
+algebra of a complex structure. Object algebras, which we use in our
 work, are an OO encoding of fold algebras~\cite{Oliveira08visitor,bruno12oa}.
-However L\"ammel et al. work has not dealt with extensibility. Interestingly 
-in their future work  L\"ammel et al. did mention that they would like ``to cope 
-with incomplete or extensible systems of datatypes''. 
+However L\"ammel et al. work has not dealt with extensibility. Interestingly
+in their future work  L\"ammel et al. did mention that they would like ``to cope
+with incomplete or extensible systems of datatypes''.
 
 %\tijs{Bruno: should we add this one: \cite{lammel2002typed}}
 
 
-\begin{comment} 
+\begin{comment}
 In that
 approach for generalized and basic folds. These fold algebras scale up
 applications involving large systems of mutually recursive

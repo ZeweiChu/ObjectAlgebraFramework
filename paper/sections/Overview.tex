@@ -100,7 +100,7 @@ nodes; and new operations over the structure.
 %algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
+\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/OneOhOneAlg.java} % APPLY:linerange=SYB_TREE
 \vspace{-.1in}
 \caption{Company structure represented by an object algebra interface}
 \label{syb_tree}
@@ -122,7 +122,7 @@ The following code show a partial implementation of the salary bill
 operation.
 
 \begin{lstlisting}[numbers=none,mathescape=true]
-class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
+class SalaryBill implements OneOhOneAlg<Float, $...$, Float> {
   public Float C(List<Float> depts) {
     return depts.stream().reduce(0.0f, (x, y) -> x + y);
   }
@@ -130,6 +130,7 @@ class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
   public Float S(float salary) { return salary; }
 }
 \end{lstlisting}
+
 
 The \lstinline{SalaryBill} class provides an implementation for each
 of the methods in the object algebra interface, which defines the
@@ -149,7 +150,7 @@ with all salaries updated. The following code shows part of the
 implementation:
 
 \begin{lstlisting}[numbers=none]
-class IncreaseSalary<C,D,U,E,P,S> implements SybAlg<C,D,U,E,P,S> {
+class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
 	public SybAlg<C,D,U,E,P,S> alg;
 	public Float C(List<Dept> depts) { return alg.C(depts); }
 	...
@@ -215,15 +216,15 @@ traversals are useful to capture, respectively, the salary bill and
 increase salary operations.
 
 With \Name, programmers just need to add an ``$@$Algebra'' annotation
-to the definition of \lstinline{SybAlg} to get the code for generic
+to the definition of \lstinline{OneOhOneAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Figure~\ref{syb_tree}. With that annotation several classes
-are generated automatically, including \lstinline{SybAlgQuery} and
-\lstinline{SybAlgTrans}. Using those classes the code needed to write
+are generated automatically, including \lstinline{OneOhOneAlgQuery} and
+\lstinline{OneOhOneAlgTrans}. Using those classes the code needed to write
 the salary bill and increase salary object algebras is much
 shorter. The code for the two operations is shown in
 Figure~\ref{query_with_oaframework}. By implementing the
-\lstinline{SybAlgQuery} and \lstinline{SybAlgTrans} classes, only the
+\lstinline{OneOhOneAlgQuery} and \lstinline{OneOhOneAlgTrans} classes, only the
 \lstinline{S} method needs to be overriden: all the other methods,
 which do a simple generic traversal, are inherited. For queries the
 only extra thing a programmer has to do is to provide an instance of a

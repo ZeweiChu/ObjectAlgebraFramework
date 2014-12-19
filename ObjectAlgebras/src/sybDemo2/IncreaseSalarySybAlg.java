@@ -2,13 +2,13 @@ package sybDemo2;
 
 import java.util.List;
 
-import trees.SybAlg;
+import trees.OneOhOneAlg;
 
-public class IncreaseSalarySybAlg implements SybAlg<Float, Float, Float, Float, Float, Float> {
+public class IncreaseSalarySybAlg implements OneOhOneAlg<Float, Float, Float, Float, Float, Float> {
 
-	public SybAlg<Float, Float, Float, Float, Float, Float> alg;
+	public OneOhOneAlg<Float, Float, Float, Float, Float, Float> alg;
 
-	public IncreaseSalarySybAlg(SybAlg<Float, Float, Float, Float, Float, Float> alg) { this.alg = alg; }
+	public IncreaseSalarySybAlg(OneOhOneAlg<Float, Float, Float, Float, Float, Float> alg) { this.alg = alg; }
 	
 	@Override
 	public Float C(List<Float> depts) {

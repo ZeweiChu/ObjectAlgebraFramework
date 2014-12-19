@@ -2,7 +2,7 @@ package sybDemo1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 //BEGIN_OOP_COMPANY
 class Company {
@@ -14,7 +14,7 @@ class Company {
 	}
 	Company increaseSalary() {
 		return new Company(depts.stream().map(d -> d.increaseSalary())
-                                         .collect((Collectors.toList())));
+                                         .collect(toList()));
 	}
 }
 class Salary {

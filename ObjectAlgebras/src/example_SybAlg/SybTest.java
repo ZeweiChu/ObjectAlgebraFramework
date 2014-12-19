@@ -4,12 +4,12 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import java.util.List;
 
-import trees.SybAlg;
+import trees.OneOhOneAlg;
 
 public class SybTest {
 
 //BEGIN_GEN_COM
-<C,D,U,E,P,S> C makeCompany(SybAlg<C,D,U,E,P,S> alg) {
+<C,D,U,E,P,S> C makeCompany(OneOhOneAlg<C,D,U,E,P,S> alg) {
 	E ralf  = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
 	E joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
 	E simon = alg.E(alg.P("Simon", "Cambridge"), alg.S(2000.0f));

@@ -2,10 +2,10 @@ package example_SybAlg;
 
 import library.Monoid;
 import monoid.FloatMonoid;
-import query.SybAlgQuery;
+import query.OneOhOneAlgQuery;
 
 //BEGIN_QUERY_WITH_OAFRAMEWORK
-class SalaryBill implements SybAlgQuery<Float> {
+class SalaryBill implements OneOhOneAlgQuery<Float> {
 	public Monoid<Float> m() {return new FloatMonoid();}
 	public Float S(float sal) {return sal;}
 }

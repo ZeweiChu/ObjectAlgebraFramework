@@ -1,10 +1,10 @@
 package sybDemo2;
 
 import java.util.List;
-import trees.SybAlg;
+import trees.OneOhOneAlg;
 
 //BEGIN_QUERY_SALARY
-public class SalaryQuerySybAlg implements SybAlg<Float,Float,Float,Float,Float,Float> {
+public class SalaryQuerySybAlg implements OneOhOneAlg<Float,Float,Float,Float,Float,Float> {
 	@Override
 	public Float C(List<Float> depts){
 		return depts.stream().reduce(0.0f, (x, y) -> x + y);

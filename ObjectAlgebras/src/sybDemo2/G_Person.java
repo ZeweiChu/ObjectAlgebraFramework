@@ -1,7 +1,7 @@
 package sybDemo2;
 
-import trees.SybAlg;
+import trees.OneOhOneAlg;
 
 public interface G_Person {
-	<Company,Dept,SubUnit,Employee,Person,Salary> Person accept(SybAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg);
+	<Company,Dept,SubUnit,Employee,Person,Salary> Person accept(OneOhOneAlg<Company,Dept,SubUnit,Employee,Person,Salary> alg);
 }
