@@ -9,7 +9,8 @@ import transform.G_ExpAlgTransform;
 import transform.G_LamAlgTransform;
 
 //BEGIN_DEBRUIJN
-public interface DeBruijn<E> extends G_ExpAlgTransform<List<String>, E>, G_LamAlgTransform<List<String>, E> {
+interface DeBruijn<E> extends G_ExpAlgTransform<List<String>, E>, 
+                                        G_LamAlgTransform<List<String>, E> {
 	default Function<List<String>, E> Var(String p0) {
 		return xs -> expAlg().Var("" + xs.indexOf(p0) + 1);
 	}

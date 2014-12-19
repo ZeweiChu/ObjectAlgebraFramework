@@ -30,7 +30,7 @@ form HouseOwning {
 \label{FIG:houseowning}
 \end{figure}
 
-\subsection{QL queries and transformation}
+\subsection{QL Queries and Transformations}
 
 The queries extract derived information from a QL program, such as the set of used variables, the data and control dependencies between questions and the global type environment.
 The transformations include two transformations of language extensions to the base language.
@@ -102,7 +102,7 @@ The cases required for desugaring include the case of the language extension (e.
 %% It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
 %% The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
 
-\subsection{Chaining transformations}
+\subsection{Chaining Transformations}
 
 A typical compiler consists of many transformations chained together in a pipeline.
 \name transformations support this pattern by passing transformation algebras as the base algebra to the implementation of another transformation.
@@ -135,7 +135,7 @@ The (renamed) condition \lstinline{y} is now negated, because of the desugaring 
 Finally, the result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement.
 
   
-\subsection{\name performance vs Vanilla ASTs}
+\subsection{\name Performance vs Vanilla ASTs}
 
 \begin{figure}[t]
   \hspace*{-.1\textwidth}

@@ -33,14 +33,14 @@ query.
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
 \begin{figure}[!htbp]
-\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/trees/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
 \end{figure}
 
 Figure~\ref{freevars_without_monoid} shows a
-standard approach for computing free variables using object algebras.
+standard approach for computing free variables using object algebras\footnote{Here and in the following we will use interfaces with \lstinline{default}-methods (as introduced in Java 8) to combine queries and transformations using multiple inheritance.} .
 A set of strings is used to store the names of the free variables. The
 \lstinline{Var} method returns a singleton set of \lstinline{s},
 whereas the \lstinline{Lit} method returns an empty set. The
