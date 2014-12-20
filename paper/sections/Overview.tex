@@ -57,7 +57,7 @@ the method \lstinline{increaseSalary} in other classes will
 construct corresponding new objects with updated salaries.
 
 \begin{comment}
-Just as in functional programming, modelling such company structure in
+Just as in functional programming, modeling such company structure in
 a conventional OO way leads to significant amounts of boilerplate
 code. Object algebras provide an alternative way to model the company
 structure, with benefits in terms of extensibility, but there is still
@@ -115,7 +115,7 @@ method \lstinline{C} constructs an instance of a company; whereas the
 method \lstinline{S} creates an instance of a salary. From an
 object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
-resemblance to constructors of  (a system of) algebraic datatypes should be clear.
+resemblance to constructors of  (a system of) algebraic data types should be clear.
 
 Operations are defined by implementing the object algebra interface.
 The following code show a partial implementation of the salary bill
@@ -158,7 +158,7 @@ class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
 }
 \end{lstlisting}
 
-The class \lstinline{IncreaseSalary} is parametrized by six types,
+The class \lstinline{IncreaseSalary} is parameterized by six types,
 which represent the kinds of nodes in the company structure. Each
 constructor needs to build an instance of the right type of nodes.
 Note that, due to the lack of better type-inference in Java, there is
