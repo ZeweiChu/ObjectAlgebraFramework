@@ -17,7 +17,7 @@ form HouseOwning {
   if (soldHouse) {
     sellingPrice: "Selling price:" integer
     privateDebt: "Private debts:" integer
-    valueResidue: "Value residue:" integer 
+    valueResidue: "Value residue:" integer
        = (sellingPrice - privateDebt)
   }
 }
@@ -36,13 +36,13 @@ The queries extract derived information from a QL program, such as the set of us
 The transformations include two transformations of language extensions to the base language.
 The first realizes a simple desugaring of ``unless(c){...}'' to ``if(not(c)){...}''.
 The second desugaring statically unfolds a constant bound loop construct (``repeat (i){...}'') and renames variables occurring below it accordingly.
-Finally, we have implemented a simple rename variable operation, and a normalizer which inlines the conditions of nested if-then constructs.  
+Finally, we have implemented a simple rename variable operation, and a normalizer which inlines the conditions of nested if-then constructs.
 
 Table~\ref{TBL:qlresults} shows the number of cases that had to be overridden to implement each particular operation. The second column shows the number of  constructs for each sort in QL (Form, Stmt, and Exp).
 As can be seen, none of the operations required implementing all cases.
 The bottom row shows the number of overridden cases as a percentage.
 For this set of queries and transformations, almost no expression cases needed to be overridden, except the ``Var'' case in collect variables, rename variable and desugar ``repeat''\footnote{Note, however, that the dependency extraction queries reuse the collect variables query on expressions.}.
-The cases required for desugaring include the case of the language extension (e.g. \lstinline{Unless} and \lstinline{Repeat}, respectively). These cases are not counted in the total in the second column but are used to compute the percentage. 
+The cases required for desugaring include the case of the language extension (e.g. \lstinline{Unless} and \lstinline{Repeat}, respectively). These cases are not counted in the total in the second column but are used to compute the percentage.
 
 %% \begin{table}[t]
 %%   \centering
@@ -68,12 +68,12 @@ The cases required for desugaring include the case of the language extension (e.
   \begin{tabular}{lccccccccc}
     Sort & \rot{\#Cases} & \rot{Collect vars} & \rot{Data deps} & \rot{Control deps} & \rot{Type env} & \rot{Rename var} & \rot{Inline conds} & \rot{\texttt{unless}} & \rot{\texttt{repeat}} \\\hline
     Form & 1             &                    & 1               & 1                  &                &                  &                    &                       &                       \\
-    Stmt & 5             &                    & 3               & 4                  & 2              & 2                & 4                  & 1                     & 3                     \\ 
+    Stmt & 5             &                    & 3               & 4                  & 2              & 2                & 4                  & 1                     & 3                     \\
     Exp  & 18            & 1                  &                 &                    &                & 1                &                    &                       & 1                     \\\hline
          &               & 4\%                & 17\%            & 21\%               & 8\%            & 13\%             & 17\%               & 4\%                   & 16\%                  \\
   \end{tabular}
   \vspace*{.1in}
-  \caption{Number of overriden cases per query and transformation in
+  \caption{Number of overridden cases per query and transformation in
     the context of the QL implementation\label{TBL:qlresults}}
 \end{table}
 
@@ -100,7 +100,7 @@ The cases required for desugaring include the case of the language extension (e.
 
 %% Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unless}) is analogous to the implementation for ``if''.
 %% It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
-%% The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}). 
+%% The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}).
 
 \subsection{Chaining Transformations}
 
@@ -114,7 +114,7 @@ In the context of QL, ``unless'' desugaring, condition inlining and variable ren
   \lstinputlisting[linerange=162-162]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
 
 The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames variables according to the map \lstinline{ren}.
-The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL. 
+The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL.
 
 The algebra \lstinline{alg} can now be used to create questionnaires:
 
@@ -134,7 +134,7 @@ Calling this function with a boolean expression representing \lstinline{true} wi
 The (renamed) condition \lstinline{y} is now negated, because of the desugaring of ``unless''.
 Finally, the result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement.
 
-  
+
 \subsection{\name Performance vs Vanilla ASTs}
 
 \begin{figure}[t]
@@ -148,7 +148,7 @@ We compared the performance characteristics of the operations implemented using 
 The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
-For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function. 
+For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function.
 To make the comparison as fair as possible, the vanilla query implementations use the same monoid structures as in \name.
 
 The comparison of the control dependencies query is shown on the left of Fig.~\ref{FIG:performance}.
@@ -157,8 +157,8 @@ On average, the \name implementation of the query seems a little slower.
 This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes
 %\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 For transformations the performance difference is slightly more pronounced.
-The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation. 
-The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls. 
+The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation.
+The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls.
 
 
 

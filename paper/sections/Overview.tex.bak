@@ -17,7 +17,7 @@ and Java annotations.
 \end{figure}
 
 We start by considering the company structure introduced in
-Figure~\ref{company_structure}. The example is inspired by L\"ammel
+Fig.~\ref{company_structure}. The example is inspired by L\"ammel
 and Peyton Jones company structure, used to motivate their ``Scrap
 your Boilerplate'' approach~\cite{ralf03syb}. It is also closely
 related to the 101 companies system~\cite{Inauguration101}.  A
@@ -28,8 +28,8 @@ either a \lstinline{Department} or an \lstinline{Employee}. An
 \lstinline{Employee} has a \lstinline{Person} and
 \lstinline{Salary} information.
 
-\begin{figure}[tb]
-\lstinputlisting[linerange=8-24]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
+\begin{figure}[t]
+\lstinputlisting[linerange=8-25]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
   implementing part of the company structure.}
@@ -43,7 +43,7 @@ have methods \lstinline{salaryBill}, which returns salary as a float
 number, and \lstinline{increaseSalary}, which constructs a company
 with updated salaries.
 
-Figure~\ref{oop_company} shows the Java implementation of the
+Fig.~\ref{oop_company} shows the Java implementation of the
 \lstinline{Salary} and \lstinline{Company} classes. The implementation
 of other classes is ommitted for space reasons.  In the
 implementation, querying the salary bill of the whole company is done
@@ -53,7 +53,7 @@ other classes. Increasing the salary for the whole company by 10\%,
 following L\"ammel and Peyton Jones approach, can be implemented
 similarly. The \lstinline{Salary} class will construct a new
 \lstinline{Salary} object with increased salary information, and
-the method \lstinline{increaseSalary} in classes will
+the method \lstinline{increaseSalary} in other classes will
 construct corresponding new objects with updated salaries.
 
 \begin{comment}
@@ -100,13 +100,13 @@ nodes; and new operations over the structure.
 %algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
 \begin{figure}[tb]
-\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/SybAlg.java} % APPLY:linerange=SYB_TREE
+\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/OneOhOneAlg.java} % APPLY:linerange=SYB_TREE
 \vspace{-.1in}
 \caption{Company structure represented by an object algebra interface}
 \label{syb_tree}
 \end{figure}
 
-Figure~\ref{syb_tree} shows the approach to model the company
+Fig.~\ref{syb_tree} shows the approach to model the company
 structure as an object algebra interface. Each kind of node (for
 example \lstinline{Salary} or \lstinline{Company}) is represented as a
 type parameter. Each method in the object algebra interface models a
@@ -122,7 +122,7 @@ The following code show a partial implementation of the salary bill
 operation.
 
 \begin{lstlisting}[numbers=none,mathescape=true]
-class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
+class SalaryBill implements OneOhOneAlg<Float, $...$, Float> {
   public Float C(List<Float> depts) {
     return depts.stream().reduce(0.0f, (x, y) -> x + y);
   }
@@ -130,6 +130,7 @@ class SalaryBill implements SybAlg<Float,Float,Float,Float,Float,Float> {
   public Float S(float salary) { return salary; }
 }
 \end{lstlisting}
+
 
 The \lstinline{SalaryBill} class provides an implementation for each
 of the methods in the object algebra interface, which defines the
@@ -149,8 +150,8 @@ with all salaries updated. The following code shows part of the
 implementation:
 
 \begin{lstlisting}[numbers=none]
-class IncreaseSalary<C,D,U,E,P,S> implements SybAlg<C,D,U,E,P,S> {
-	public SybAlg<C,D,U,E,P,S> alg;
+class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
+	private OneOhOneAlg<C,D,U,E,P,S> alg;
 	public Float C(List<Dept> depts) { return alg.C(depts); }
 	...
 	public Salary S(float salary) { return alg.S(1.1f * salary); }
@@ -201,7 +202,7 @@ transformations and contextual aware transformations with Object
 Algebras, which can be easily inherited by real cases of queries and
 transformations. Furthermore, we designed an object algebra framework
 \name. With our framework, the generic query and transformation
-classes can be generated automatically by adding an ``$@$Algebra''
+classes can be generated automatically by adding the $@$Algebra''
 annotation.
 \end{comment}
 
@@ -214,16 +215,16 @@ common types of traversals. In particular \name supports generic
 traversals are useful to capture, respectively, the salary bill and
 increase salary operations.
 
-With \Name, programmers just need to add an ``$@$Algebra'' annotation
-to the definition of \lstinline{SybAlg} to get the code for generic
+With \Name, programmers just need to add the \lstinline{@Algebra} annotation
+to the definition of \lstinline{OneOhOneAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
-shown in Figure~\ref{syb_tree}. With that annotation several classes
-are generated automatically, including \lstinline{SybAlgQuery} and
-\lstinline{SybAlgTrans}. Using those classes the code needed to write
+shown in Fig.~\ref{syb_tree}. With that annotation several classes
+are generated automatically, including \lstinline{OneOhOneAlgQuery} and
+\lstinline{OneOhOneAlgTrans}. Using those classes the code needed to write
 the salary bill and increase salary object algebras is much
 shorter. The code for the two operations is shown in
-Figure~\ref{query_with_oaframework}. By implementing the
-\lstinline{SybAlgQuery} and \lstinline{SybAlgTrans} classes, only the
+Fig.~\ref{query_with_oaframework}. By implementing the
+\lstinline{OneOhOneAlgQuery} and \lstinline{OneOhOneAlgTrans} classes, only the
 \lstinline{S} method needs to be overriden: all the other methods,
 which do a simple generic traversal, are inherited. For queries the
 only extra thing a programmer has to do is to provide an instance of a
@@ -256,7 +257,7 @@ Some client code is shown as follows: %, using those two algebras based on our f
 \lstinputlisting[linerange=12-21]{../ObjectAlgebras/src/example_SybAlg/SybTest.java} % APPLY:linerange=GEN_COM
 
 This method is used to create a particular company structure, in the
-usual object algebras style. 
+usual object algebras style.
 Using this company structure, we can use the \lstinline{SalaryBill}
 and \lstinline{IncreaseSalary} to compute some information about the company:
 
