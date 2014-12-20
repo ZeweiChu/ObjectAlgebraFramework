@@ -109,7 +109,7 @@ A typical compiler consists of many transformations chained together in a pipeli
 For instance, the desugar unless transformation desugars the ``unless'' statement to ``if'' statements in another algebra.
 The latter can represent yet another transformation.
 
-In the context of QL, ``unless'' desugaring, condition inlinging and variable renaming can be chained together as follows:
+In the context of QL, ``unless'' desugaring, condition inlining and variable renaming can be chained together as follows:
 
   \lstinputlisting[linerange=162-162]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
 

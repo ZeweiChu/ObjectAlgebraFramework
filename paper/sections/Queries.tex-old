@@ -10,7 +10,7 @@ Boilerplate''~\cite{ralf03syb}.
 %We motivate queries by walking through a number
 %of different ways in which such operations are implemented.
 
-Figure~\ref{exp_alg} shows a simple type of expressions, represented
+Fig.~\ref{exp_alg} shows a simple type of expressions, represented
 as the object algebra interface \lstinline{ExpAlg}. We will use this
 minimal object algebra interface throughout the rest of the paper to
 illustrate the various different types of traversals supported by
@@ -32,14 +32,14 @@ query.
 
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
-\begin{figure}[!htbp]
+\begin{figure}[t]
 \lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
 \end{figure}
 
-Figure~\ref{freevars_without_monoid} shows a
+Fig.~\ref{freevars_without_monoid} shows a
 standard approach for computing free variables using object algebras\footnote{Here and in the following we will use interfaces with \lstinline{default}-methods (as introduced in Java 8) to combine queries and transformations using multiple inheritance.} .
 A set of strings is used to store the names of the free variables. The
 \lstinline{Var} method returns a singleton set of \lstinline{s},
@@ -47,7 +47,7 @@ whereas the \lstinline{Lit} method returns an empty set. The
 more interesting case is in the \lstinline{Add} method, where the two
 sets are joined into one.
 
-\begin{figure}[tb]
+\begin{figure}[t]
 \lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \vspace{-.1in}
 \caption{Free variables as an object algebra.}
@@ -119,7 +119,7 @@ used to combine the information from substructures, and the
 %% of methods in interfaces.
 
 Using the monoid operations alone, it is possible to write a ``generic
-query''. Figure~\ref{generic_query} shows how this is achieved. In
+query''. Fig.~\ref{generic_query} shows how this is achieved. In
 nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
@@ -169,7 +169,7 @@ the free variables operation is defined as follows:
 \lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 
 There are two important differences to the implementation in
-Figure~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
+Fig.~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
 needs to be specified.  Secondly only the case for variables needs to
 be defined: the other cases are inherited from
 \lstinline{ExpAlgQuery}.
@@ -229,7 +229,7 @@ mechanical and can be automatically generated.  This is precisely what
 \name does. Annotating algebra interfaces, such as \lstinline{ExpAlg}, with the annotation \lstinline{@Algebra},
 triggers automatic generation of generic query interfaces, such as \lstinline{ExpAlgQuery}. 
 %\name also provides implementatations of a number of common monoids over sets, lists, and numbers. 
-Figure~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
+Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
 All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}.
 

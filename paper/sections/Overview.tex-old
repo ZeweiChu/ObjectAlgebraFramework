@@ -28,7 +28,7 @@ either a \lstinline{Department} or an \lstinline{Employee}. An
 \lstinline{Employee} has a \lstinline{Person} and
 \lstinline{Salary} information.
 
-\begin{figure}[tb]
+\begin{figure}[t]
 \lstinputlisting[linerange=8-25]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
 \vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
@@ -53,7 +53,7 @@ other classes. Increasing the salary for the whole company by 10\%,
 following L\"ammel and Peyton Jones approach, can be implemented
 similarly. The \lstinline{Salary} class will construct a new
 \lstinline{Salary} object with increased salary information, and
-the method \lstinline{increaseSalary} in classes will
+the method \lstinline{increaseSalary} in other classes will
 construct corresponding new objects with updated salaries.
 
 \begin{comment}

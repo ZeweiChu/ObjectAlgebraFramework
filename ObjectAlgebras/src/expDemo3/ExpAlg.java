@@ -1,6 +1,7 @@
 package expDemo3;
 
 //BEGIN_EXP_ALG
+@Algebra
 interface ExpAlg<Exp> {
 	Exp Var(String s);
 	Exp Lit(int i);
