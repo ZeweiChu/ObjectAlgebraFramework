@@ -1,5 +1,7 @@
 package expDemo3;
 
+import com.zewei.annotation.processor.Algebra;
+
 //BEGIN_EXP_ALG
 @Algebra
 interface ExpAlg<Exp> {
