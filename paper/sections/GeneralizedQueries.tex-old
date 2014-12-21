@@ -49,7 +49,7 @@ consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
 Fig.~\ref{LST:gstatquery}.  Note that the interface declares two
-monoids,---one for each sort.  Since the \lstinline{Assign} and
+monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
 impossible to automatically join a monoid over one type with a monoid

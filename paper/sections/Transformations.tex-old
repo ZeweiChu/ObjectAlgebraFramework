@@ -72,7 +72,7 @@ To execute substitution, the \lstinline{SubstVar} should be subclassed
 algebra \lstinline{expAlg()} could for instance be an algebra for
 pretty printing the expression with the substitution applied. Note
 that this allows pipelining of transformations: there is no reason
-\lstinline{expAlg()} can not return yet another transformation
+\lstinline{expAlg()} cannot return yet another transformation
 algebra.
 
 \begin{comment}
