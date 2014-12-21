@@ -30,7 +30,7 @@ of programs.  Most AOOP approaches, however, are not type-safe. The
 exception is DemeterF where a custom type system was designed to
 ensure type-safety of generic functions. Unlike DemeterF, which is a
 separate language, \name is Java library.  Moreover, compilation of
-DemeterF is implemented through static weaving, and thus appears to
+DemeterF programs is implemented through static weaving, and thus appears to
 preclude separate compilation.
 
 \paragraph{Strategic Programming}
@@ -138,7 +138,7 @@ This design supports extensibility of traversals, but not of the
 traversed structures.
 
 In functional programming there has also been an important line of
-work on \emph{datatype-generic programming} (DGP)~\cite{Gibbons07dgp}.  DGP is an
+work on \emph{data-type-generic programming} (DGP)~\cite{Gibbons07dgp}.  DGP is an
 advanced form of \emph{generic programming}~\cite{GP}, where generic
 functions are usually defined by inspecting the structure of
 types.  Different approaches to DGP in Haskell have been extensively studied and documented~\cite{ComparingGPHaskellRodriquez,ComparingGPHaskellHinze}.

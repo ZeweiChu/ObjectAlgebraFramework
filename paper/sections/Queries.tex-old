@@ -33,7 +33,7 @@ query.
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
 \begin{figure}[t]
-\lstinputlisting[linerange=4-8]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
 \vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
@@ -124,7 +124,6 @@ nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
 \lstinline{Lit}, the query returns \lstinline{empty}.
-Note that \lstinline{ExpAlgQuery} is an interface containing \lstinline{default} methods introduced in Java 8.
 This allows concrete queries to be implemented by overriding methods from multiple, different algebras. 
 
 \begin{figure}[tb]

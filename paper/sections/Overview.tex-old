@@ -17,7 +17,7 @@ and Java annotations.
 \end{figure}
 
 We start by considering the company structure introduced in
-Figure~\ref{company_structure}. The example is inspired by L\"ammel
+Fig.~\ref{company_structure}. The example is inspired by L\"ammel
 and Peyton Jones company structure, used to motivate their ``Scrap
 your Boilerplate'' approach~\cite{ralf03syb}. It is also closely
 related to the 101 companies system~\cite{Inauguration101}.  A
@@ -43,9 +43,9 @@ have methods \lstinline{salaryBill}, which returns salary as a float
 number, and \lstinline{increaseSalary}, which constructs a company
 with updated salaries.
 
-Figure~\ref{oop_company} shows the Java implementation of the
+Fig.~\ref{oop_company} shows the Java implementation of the
 \lstinline{Salary} and \lstinline{Company} classes. The implementation
-of other classes is ommitted for space reasons.  In the
+of other classes is omitted for space reasons.  In the
 implementation, querying the salary bill of the whole company is done
 by returning the salary in instances of the \lstinline{Salary} class,
 and delegating the method \lstinline{salaryBill} to the child nodes in
@@ -57,7 +57,7 @@ the method \lstinline{increaseSalary} in other classes will
 construct corresponding new objects with updated salaries.
 
 \begin{comment}
-Just as in functional programming, modelling such company structure in
+Just as in functional programming, modeling such company structure in
 a conventional OO way leads to significant amounts of boilerplate
 code. Object algebras provide an alternative way to model the company
 structure, with benefits in terms of extensibility, but there is still
@@ -106,7 +106,7 @@ nodes; and new operations over the structure.
 \label{syb_tree}
 \end{figure}
 
-Figure~\ref{syb_tree} shows the approach to model the company
+Fig.~\ref{syb_tree} shows the approach to model the company
 structure as an object algebra interface. Each kind of node (for
 example \lstinline{Salary} or \lstinline{Company}) is represented as a
 type parameter. Each method in the object algebra interface models a
@@ -115,7 +115,7 @@ method \lstinline{C} constructs an instance of a company; whereas the
 method \lstinline{S} creates an instance of a salary. From an
 object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
-resamblance to constructors of  (a system of) algebraic datatypes should be clear.
+resemblance to constructors of  (a system of) algebraic data types should be clear.
 
 Operations are defined by implementing the object algebra interface.
 The following code show a partial implementation of the salary bill
@@ -158,7 +158,7 @@ class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
 }
 \end{lstlisting}
 
-The class \lstinline{IncreaseSalary} is parametrized by six types,
+The class \lstinline{IncreaseSalary} is parameterized by six types,
 which represent the kinds of nodes in the company structure. Each
 constructor needs to build an instance of the right type of nodes.
 Note that, due to the lack of better type-inference in Java, there is
@@ -218,14 +218,14 @@ increase salary operations.
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation
 to the definition of \lstinline{OneOhOneAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
-shown in Figure~\ref{syb_tree}. With that annotation several classes
+shown in Fig.~\ref{syb_tree}. With that annotation several classes
 are generated automatically, including \lstinline{OneOhOneAlgQuery} and
 \lstinline{OneOhOneAlgTrans}. Using those classes the code needed to write
 the salary bill and increase salary object algebras is much
 shorter. The code for the two operations is shown in
-Figure~\ref{query_with_oaframework}. By implementing the
+Fig.~\ref{query_with_oaframework}. By implementing the
 \lstinline{OneOhOneAlgQuery} and \lstinline{OneOhOneAlgTrans} classes, only the
-\lstinline{S} method needs to be overriden: all the other methods,
+\lstinline{S} method needs to be overridden: all the other methods,
 which do a simple generic traversal, are inherited. For queries the
 only extra thing a programmer has to do is to provide an instance of a
 monoid, which is used to specify how to accumulate the results during

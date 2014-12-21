@@ -34,7 +34,7 @@ The following code shows how this can be done in a modular fashion:
 
 \lstinputlisting[linerange=4-6]{../ObjectAlgebras/src/expDemo3/UniqueWithLambda.java} % APPLY:linerange=EXTEND_UNIQUEVARS
 
-Note that the transformation uses the \lstinline{lamAlg()} algebra (generated in \lstinline{Lam\-Alg\-Transform}),
+\noindent Note that the transformation uses the \lstinline{lamAlg()} algebra (from \lstinline{LamAlgTransform}),
 to create lambda expressions.
 
 
@@ -54,9 +54,9 @@ to create lambda expressions.
 
 Figure~\ref{FIG:extension} gives a high level overview of query and transformation extension using the examples for \lstinline{FreeVars} and \lstinline{Unique}. 
 In the case of queries, the abstract \lstinline{m()} method will be shared by both the \lstinline{FreeVars} and \lstinline{FreeVarsWithLambda} interfaces.
-On the other hand, transformations are based on multiple base algebras, for set of data stype constructors (e.g., \lstinline{expAlg()} and \lstinline{lamAlg()}. 
+On the other hand, transformations are based on multiple base algebras, for sets of data type constructors (e.g., \lstinline{expAlg()} and \lstinline{lamAlg()}). 
 
-Note finally that the current implementation of \name transformations, it is assumed that the language signatures \lstinline{ExpAlg} and \lstinline{LamAlg} are completely independent.
+Note finally that, in the current implementation of \name transformations, it is assumed that the language signatures \lstinline{ExpAlg} and \lstinline{LamAlg} are completely independent.
 This is however, not an essential requirement.
 An alternative design could have \lstinline{LamAlg} be a proper extension of \lstinline{ExpAlg} (i.e. \lstinline{LamAlg<E> extends ExpAlg<E>}).
 In that case, the generated \lstinline{LamAlgTransform} would need to refine the return type of the \lstinline{expAlg()} method. 
