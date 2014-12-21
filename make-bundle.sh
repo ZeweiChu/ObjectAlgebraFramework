@@ -17,3 +17,9 @@ zip -r Shy.zip Shy
 
 cd ..
 mv tempdir/Shy.zip .
+
+cp Shy.zip test-shy
+cd test-shy
+rm -rf Shy
+unzip Shy.zip
+cd ..
