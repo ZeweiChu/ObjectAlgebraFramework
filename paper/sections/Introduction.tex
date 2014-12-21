@@ -5,12 +5,12 @@ abound, for example, in language processing tools/libraries for programming
 languages, domain-specific languages, mark-up languages like HTML, or
 data-interchange languages like XML or JSON. In those applications
 Abstract Syntax Trees (ASTs) are the key data structure needed to
-model the various constructs of the languages. Such ASTs have various
+model the various constructs of these languages. Such ASTs have various
 different types of nodes, which can range from a few dozen to
-several hundred nodes (for example in the ASTs of languages like Java).
+several hundred kindes of nodes (for example in the ASTs of languages like Java).
+\tijs{This is probably not true... Should we mention Cobol?}
 
-Static types are helpful to deal with such complex structures.  With
-static types it is easy to distinguish between different kinds of
+Static types are helpful to deal with such complex structures.  Static types formalize the distinction between different kinds of
 nodes. Furthermore the distinctions are helpful to ensure that
 traversals over these structures have an appropriate piece of code that
 deals with each different type of node. This can prevent a large class
@@ -30,7 +30,7 @@ structure shy operations the ``interesting'' code is limited to only a small por
 A typical example is computing the free
 variables of an expression in some programming language. In this
 case, the interesting code occurs in the nodes representing the
-binding constructs. In all other cases, the code would just deal with
+binding and variable constructs. In all other cases, the code would just deal with
 walking the structure. In data structures with dozens or hundreds of
 kinds of nodes, having to explicitly write code for each kind of node is both tedious and error-prone.
 %In summary, structure shy operations
