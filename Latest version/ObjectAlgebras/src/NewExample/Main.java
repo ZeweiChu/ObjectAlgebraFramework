@@ -46,14 +46,7 @@ class SalaryBillAlg implements CompanyAlgQuery<SalaryBill> {
 
 	@Override
 	public Monoid<SalaryBill> m() {
-		return new Monoid<SalaryBill>() {
-			public SalaryBill empty() {
-				return () -> 0.0d;
-			}
-			public SalaryBill join(SalaryBill x, SalaryBill y) {
-				return () -> x.salaryBill() + y.salaryBill();
-			}
-		};
+		return new SalaryBillMonoid();
 	}
 	
 }
