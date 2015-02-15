@@ -1,9 +1,6 @@
-We thank the reviewers for their extensive comments on our paper. Most
-criticism expressed by the reviewers (especially reviewer 2), seems
-related to the Non-OO style used by us, and questions regarding of
-generality or applicability. Below we would like to take the
-opportunity to clarify these issues and address concrete questions by
-the reviewers. Minor comments will be addressed in the final copy.
+We would like to thank the reviewers for their extensive comments on our paper. 
+Below we would like to take the opportunity to clarify the main 
+issues raised by the reviewers. 
 
 * Non-OO style, applicability and generality (reviewers 2, 4 and 5)
 
@@ -31,8 +28,8 @@ in the paper.
 * Missing code
 
 Some reviewers complained about missing code, especially about the
-code for Monoids. We will include that code in the paper, but for
-reference we include it here too:
+code for Monoids. We will include that code in the paper and provide 
+a detailed explanation. For reference we include it here too:
 
 class FloatMonoid implements Monoid<Float>{
 	public Float join(Float x, Float y){
@@ -62,29 +59,26 @@ containing default "no-op" traversal methods from which concrete
 visitors can inherit and only the relevant cases need then to be
 overridden. Indeed this is very similar to how Shy operates, except
 for one important difference: ordinary visitors are not extensible in
-a type safe way if a new data type variant is added. We will emphasize
-this better in the related work section of the paper.
+a type safe way if a new data type variant is added. We will emphasise
+this better in the related work section of the paper. We will also 
+improve the introduction to discuss the general pattern of having 
+a default implementation, and specialising this pattern to get various 
+kinds of interesting traversals.
 
 ## Reviewer 2
 
-Reviewer 2 presents the strongest criticism of the approach. The main
-objections are 1) that the 101companies example is remarkably non-OO,
-2) that Shy breaks with convential OO design principles, and 3) that
-related work on transitive member access is missing.
+Reviewer 2 presents the strongest criticism of the approach. 
 
-We addressed points 1) and 2) in our first point above. Moreover, as
+We addressed his two first concerns in our first point above. Moreover, as
 requested by the reviewer, we send the full code of the Company
 example using Shy attached with comments illustrating the benefits of the
 approach. 
 
-Regarding 3) we would like to thank the reviewer for pointing 
+Regarding his 3rd point we would like to thank the reviewer for pointing 
 us to this line of work. It is clearly related and we will provide a
 detailed comparison in related work.
 
-One final remark is that the separation of queries and transformations
-supported by Shy has the benefit that new transformations and queries
-can be added without changing existing code (this is one half of the
-expression problem). The suggestion that the code calls for "replace
+One final remark is that the suggestion that the code calls for "replace
 conditional with polymorphism" is incorrect. All case distinctions
 happen through method dispatch, so this an "open choice": both
 interface and implementation can be extended without the need for
@@ -92,11 +86,11 @@ shotgun surgery.
 
 ## Reviewer 3
 
-Reviewer 3 questions whether Shy is less error-prone than writing
+Reviewer 3 ask to substantiate why Shy is less error-prone than writing
 standard boilerplate. The reason for this simple: code that
 programmers don't write can't have bugs. Assuming the Shy code
 generation is correct, this avoids whole classes of bugs that could be
-introduced by programmers in uninteresting traversal code.
+introduced by programmers when writing uninteresting traversal code.
 
 ## Reviewer 4
 
@@ -121,20 +115,20 @@ same approach as taken in JJTraveler (see reference [31]). We refer to
 our related work for a comparison with JJTraveler.
 
 
-====== CODE FOR THE COMPANY EXAMPLE ==============
+====== EXTRA: CODE&COMMENTS FOR THE COMPANY EXAMPLE (REVIEWER 2) ==============
 /* This is the all the code someone would need to write to execute all 
-     of our company example. Note that the paper already includes all
-     the code, except for the definition of FloatMonoid (that
-     definition is actually part of Shy's library, so it does not need
-     to be defined).
+   of our company example. Note that the paper already includes all
+   the code, except for the definition of FloatMonoid (that
+   definition is actually part of Shy's library, so it does not need
+   to be defined).
 
-     The code can also be found in the bundle that we have submitted 
-     together with the paper. It is under the ObjectAlgebras project.
-     The package is:
+   The code can also be found in the bundle that we have submitted 
+   together with the paper. It is under the ObjectAlgebras project.
+   The package is:
 
-     example_Sybalg
+   example_Sybalg
 
-     In the bundle, the code is distributed across several files.
+   In the bundle, the code is distributed across several files.
 */
 
 
@@ -159,14 +153,22 @@ public interface OneOhOneAlg<Company,Dept,Unit,Employee,Person,Salary> {
 // (See S3 and S5 for how the code is generated)
 //
 // The user only needs 4 lines of code to define each operation. 
-// Even if the Company structure would have 50 different types 
-// of nodes, the code would remain the same. 
-//
+// ***Even if the Company structure would have 50 different types 
+// of nodes, the code would remain the same.*** 
 // In contrast with the reviewers approach, if there were 50 different 
 // types of nodes, there would be substantially more
 // traversal code.
 //
-// So we would claim 3 advantages:
+// The above is an important point that the reviewer should note. 
+// None of the papers dealing 
+// with structure-shy traversals actually present examples that 
+// are big enough to make the presence of boilerplate really painful. 
+// The reason for not presenting such examples is simple: they don’t 
+// fit in a conference paper! The company example is agreeably a contrived 
+// example that is big enough to show a bit of pain, but small enough to fit
+// in a paper.  
+//
+// We would claim 3 advantages in Shy's approach:
 //   1)  Substantially less code in large tree structures;
 //   2)  Operation is modular with respect to the data structure (so
 //        easier to add new operations)
