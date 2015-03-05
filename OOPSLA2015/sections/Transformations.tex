@@ -18,8 +18,8 @@ variables. A manual implementation based on Object Algebras is shown
 in Fig.~\ref{substvars_without_id}.
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
-\vspace{-.1in}
 \caption{A normal algebra-based implementation of variable substitution}
 \label{substvars_without_id}
 \end{figure}
@@ -51,16 +51,16 @@ this case, only the method \lstinline{Var()} is overridden.
 
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgTransform.java} % APPLY:linerange=GENERIC_TRANSFORM
-\vspace{-.1in}
 \caption{Traversal-only base interface for implementing transformations of expressions}
 \label{generic_transform}
 \end{figure}
 
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/expDemo3/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITH_ID
-\vspace{-.1in}
 \caption{Implementation of variable substitution using \name}
 \label{substvars_with_id}
 \end{figure}
@@ -96,6 +96,7 @@ the general template for the generated code. Here
 the base algebra \lstinline{alg()} is declared inside.
 
 \begin{figure}[t]
+\nocaptionrule
 \begin{lstlisting}[mathescape=true]
 interface Alg$_T$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
   Alg<X$_1$, ..., X$_n$> alg();

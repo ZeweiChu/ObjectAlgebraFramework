@@ -7,7 +7,7 @@ statements.  In such multi-sorted Object Algebras each sort is
 represented by a different type parameter in the algebra interface.
 In this section we present \textit{generalized queries}, where each
 such type parameter can be instantiated to different monoids.
-It turns out that, for some operations, this generalized version 
+It turns out that, for some operations, this generalized version
 of queries is needed.
 
 \begin{comment}
@@ -59,16 +59,16 @@ concrete implementation has to override this case to deal with the
 transition from expressions to statements.
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
-\vspace{-.1in}
 \caption{Statement Algebra Interface}
 \label{statalg}
 \end{figure}
 
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=7-11]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
-\vspace{-.1in}
 \caption{Default implementation of queries over many-sorted statement algebra}
 \label{LST:gstatquery}
 \end{figure}
@@ -97,8 +97,8 @@ of variables through the different types of expressions.
 
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=12-17]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
-\vspace{-.1in}
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}
 \end{figure}

@@ -33,8 +33,8 @@ query.
 \subsection{Boilerplate Queries}\label{subsec:freevars}
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
-\vspace{-.1in}
 \caption{The \lstinline{ExpAlg} object algebra interface.}
 \label{exp_alg}
 \end{figure}
@@ -48,8 +48,8 @@ more interesting case is in the \lstinline{Add} method, where the two
 sets are joined into one.
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
-\vspace{-.1in}
 \caption{Free variables as an object algebra.}
 \label{freevars_without_monoid}
 \end{figure}
@@ -124,11 +124,11 @@ nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
 \lstinline{Lit}, the query returns \lstinline{empty}.
-This allows concrete queries to be implemented by overriding methods from multiple, different algebras. 
+This allows concrete queries to be implemented by overriding methods from multiple, different algebras.
 
 \begin{figure}[tb]
+\nocaptionrule
 \lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
-\vspace{-.1in}
 \caption{Generic queries using a monoid.}
 \label{generic_query}
 \end{figure}
@@ -226,13 +226,14 @@ shared among query algebras with the same data type.
 The traversal code in \lstinline{ExpAlgQuery} is entirely
 mechanical and can be automatically generated.  This is precisely what
 \name does. Annotating algebra interfaces, such as \lstinline{ExpAlg}, with the annotation \lstinline{@Algebra},
-triggers automatic generation of generic query interfaces, such as \lstinline{ExpAlgQuery}. 
-%\name also provides implementatations of a number of common monoids over sets, lists, and numbers. 
+triggers automatic generation of generic query interfaces, such as \lstinline{ExpAlgQuery}.
+%\name also provides implementatations of a number of common monoids over sets, lists, and numbers.
 Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
 All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}.
 
 \begin{figure}[t]
+\nocaptionrule
 \begin{lstlisting}[mathescape=true]
 interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   Monoid<R> m();

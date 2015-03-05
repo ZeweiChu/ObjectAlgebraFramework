@@ -13,6 +13,7 @@ Note that interface \lstinline{Alg}$_{CT}$ extends \lstinline{Alg} and instantia
 Each constructor method now creates an anonymous function which, when invoked, calls the functions received as parameters (\lstinline{p}$_1$ to \lstinline{p}$_k$) and only then creates a structure over the \lstinline{alg()} algebra.
 
 \begin{figure}[t]
+\nocaptionrule
 \begin{lstlisting}[mathescape=true]
 interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
   Alg<X$_1$, ..., X$_n$> alg();
@@ -42,8 +43,8 @@ Note again that only the relevant cases are overridden: \lstinline{Var} (from \l
 
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=12-21]{../ObjectAlgebras/src/debruijn/DeBruijn.java} % APPLY:linerange=DEBRUIJN
-\vspace{-.1in}
 \caption{Converting variables to De Bruijn indices}
 \label{DeBruijn}
 \end{figure}

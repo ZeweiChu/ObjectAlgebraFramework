@@ -12,6 +12,7 @@ and Java annotations.
 
 \begin{figure}[t]
 \centering
+\nocaptionrule
 \includegraphics[width=0.9\linewidth]{101companies}
 \caption{Variant of the 101 Companies data model\label{company_structure}}
 \end{figure}
@@ -29,8 +30,8 @@ either a \lstinline{Department} or an \lstinline{Employee}. An
 \lstinline{Salary} information.
 
 \begin{figure}[t]
+\nocaptionrule
 \lstinputlisting[linerange=8-25]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
-\vspace{-.1in}
 \caption{The \lstinline{Company} and \lstinline{Salary} classes
   implementing part of the company structure.}
 \label{oop_company}
@@ -100,8 +101,8 @@ nodes; and new operations over the structure.
 %algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
 \begin{figure}[tb]
+\nocaptionrule
 \lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/OneOhOneAlg.java} % APPLY:linerange=SYB_TREE
-\vspace{-.1in}
 \caption{Company structure represented by an object algebra interface}
 \label{syb_tree}
 \end{figure}
@@ -234,9 +235,9 @@ pass an algebra for providing the constructors for the transformation
 code.
 
 \begin{figure}[tb]
+\nocaptionrule
 \lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/example_SybAlg/SalaryBill.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
 \lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/example_SybAlg/IncreaseSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
-\vspace{-.1in}
 \caption{Salary bill and increase salary with \Name.}
 \label{query_with_oaframework}
 \end{figure}

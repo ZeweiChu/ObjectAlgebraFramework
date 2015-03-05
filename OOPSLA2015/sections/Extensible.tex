@@ -17,7 +17,7 @@ Instead of reimplementing the query from scratch, it is possible to modularly ex
 \lstinputlisting[linerange=18-22]{../ObjectAlgebras/src/expDemo3/FreeVarsWithLambda.java} % APPLY:linerange=EXTENDFREEVARS
 
 The interface \lstinline{FreeVarsWithLambda} extends both the original \lstinline{FreeVars} query and the base query implementation that was generated for the \lstinline{LamAlg} interface defining the language extension.
-Note again, that only the relevant method (\lstinline{Lam}) needs to be overridden. 
+Note again, that only the relevant method (\lstinline{Lam}) needs to be overridden.
 
 
 For transformations the pattern is similar.
@@ -40,25 +40,25 @@ to create lambda expressions.
 
 \begin{figure}[t]
   \centering
-
+  \nocaptionrule
   \includegraphics[width=0.45\linewidth]{extendQuery}
   \hspace*{2pt}
   \vline
   \hspace*{2pt}
   \includegraphics[width=0.45\linewidth]{extendTransform}
-  
+
   \caption{Extension of the \lstinline{FreeVars} query (left) and the \lstinline{Unique} transformation (right)}
   \label{FIG:extension}
 \end{figure}
 
 
-Figure~\ref{FIG:extension} gives a high level overview of query and transformation extension using the examples for \lstinline{FreeVars} and \lstinline{Unique}. 
+Figure~\ref{FIG:extension} gives a high level overview of query and transformation extension using the examples for \lstinline{FreeVars} and \lstinline{Unique}.
 In the case of queries, the abstract \lstinline{m()} method will be shared by both the \lstinline{FreeVars} and \lstinline{FreeVarsWithLambda} interfaces.
-On the other hand, transformations are based on multiple base algebras, for sets of data type constructors (e.g., \lstinline{expAlg()} and \lstinline{lamAlg()}). 
+On the other hand, transformations are based on multiple base algebras, for sets of data type constructors (e.g., \lstinline{expAlg()} and \lstinline{lamAlg()}).
 
 Note finally that, in the current implementation of \name transformations, it is assumed that the language signatures \lstinline{ExpAlg} and \lstinline{LamAlg} are completely independent.
 This is however, not an essential requirement.
 An alternative design could have \lstinline{LamAlg} be a proper extension of \lstinline{ExpAlg} (i.e. \lstinline{LamAlg<E> extends ExpAlg<E>}).
-In that case, the generated \lstinline{LamAlgTransform} would need to refine the return type of the \lstinline{expAlg()} method. 
+In that case, the generated \lstinline{LamAlgTransform} would need to refine the return type of the \lstinline{expAlg()} method.
 
 

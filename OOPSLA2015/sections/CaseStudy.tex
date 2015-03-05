@@ -9,6 +9,7 @@ Questions can be answerable, meaning the user has to enter some data, or compute
 A conditional if-then-else construct allows questions to visually appear only when a certain condition is true.
 
 \begin{figure}[t]
+\nocaptionrule
 \hspace*{-5pt}\begin{minipage}{0.6\linewidth}
 \begin{lstlisting}[language=ql]
 form HouseOwning {
@@ -65,6 +66,8 @@ The cases required for desugaring include the case of the language extension (e.
 
 \begin{table}[t]
   \centering
+  \nocaptionrule
+  \hspace*{-.05\textwidth}
   \begin{tabular}{lccccccccc}
     Sort & \rot{\#Cases} & \rot{Collect vars} & \rot{Data deps} & \rot{Control deps} & \rot{Type env} & \rot{Rename var} & \rot{Inline conds} & \rot{\texttt{unless}} & \rot{\texttt{repeat}} \\\hline
     Form & 1             &                    & 1               & 1                  &                &                  &                    &                       &                       \\
@@ -72,7 +75,7 @@ The cases required for desugaring include the case of the language extension (e.
     Exp  & 18            & 1                  &                 &                    &                & 1                &                    &                       & 1                     \\\hline
          &               & 4\%                & 17\%            & 21\%               & 8\%            & 13\%             & 17\%               & 4\%                   & 16\%                  \\
   \end{tabular}
-  \vspace*{.1in}
+  %\vspace*{.1in}
   \caption{Number of overridden cases per query and transformation in
     the context of the QL implementation\label{TBL:qlresults}}
 \end{table}
@@ -138,8 +141,10 @@ Finally, the result of inlining conditions can be observed from the conjunction 
 \subsection{\name Performance vs Vanilla ASTs}
 
 \begin{figure}[t]
+  \nocaptionrule
   \hspace*{-.1\textwidth}
   \includegraphics[width=0.56\textwidth]{plots/controldeps}
+  \hspace*{-.1\textwidth}
   \includegraphics[width=0.56\textwidth]{plots/inline}
   \caption{Performance comparison of control dependencies query (left) and inline conditions transformation (right) implemented using normal ASTs vs using the \name framework\label{FIG:performance}}
 \end{figure}
