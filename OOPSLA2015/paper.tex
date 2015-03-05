@@ -1,0 +1,210 @@
+\documentclass[preprint]{llncs}
+
+\usepackage{color}
+
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{fancyvrb}
+\usepackage{url}
+\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{theorem}
+\usepackage{bbm}
+\usepackage{pgf}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{ql}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.85]{beramono}
+\usepackage{dirtree}
+
+\lstset{ %
+language=Java,                % choose the language of the code
+columns=flexible,
+lineskip=-1pt,
+basicstyle=\ttfamily\small,       % the size of the fonts that are used for the code
+numbers=none,                   % where to put the line-numbers
+numberstyle=\ttfamily\tiny,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+morekeywords={var},
+%  frame=single,                   % adds a frame around the code
+tabsize=2,                  % sets default tabsize to 2 spaces
+captionpos=none,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+title=\lstname,                 % show the filename of files included with \lstinputlisting; also try caption instead of title
+escapeinside={(*}{*)},          % if you want to add a comment within your code
+keywordstyle=\ttfamily\bfseries,
+% commentstyle=\color{Gray},
+% stringstyle=\color{Green}
+}
+
+\pagestyle{plain}
+
+
+\newcommand{\authornote}[3]{{\color{#2} {\sc #1}: #3}}
+\newcommand\jason[1]{\authornote{jason}{green}{#1}}
+\newcommand\haoyuan[1]{\authornote{haoyuan}{red}{#1}}
+\newcommand\bruno[1]{\authornote{bruno}{red}{#1}}
+\newcommand\tijs[1]{\authornote{tijs}{blue}{#1}}
+
+\newcommand\name{{\bf Shy}\xspace}
+\newcommand\Name{{\bf Shy}\xspace}
+
+\newcommand{\hl}[1]{\textcolor{red}{#1}}
+
+\newcommand\sem[1]{\llbracket #1 \rrbracket_r}
+\newcommand\sems[1]{\llbracket #1 \rrbracket_s}
+\newcommand\tsem[1]{\llbracket #1 \rrbracket}
+\newcommand{\rbm}[1]{\raisebox{-2.0ex}[0.5ex]{#1}}
+\newcommand\nat[0]{\mathbb{N}}
+\newcommand\unit[0]{\mathbbm{1}}
+
+\begin{comment}
+\author{Author1$^{\textrm{1}}$ Author2$^{\textrm{2}}$ }
+\institute{$^{\textrm{1}}$The University of Hong Kong\\
+\email{author1@cs.hku.hk}\\
+$^{\textrm{2}}$ The University of Hong Kong\\
+\email{author2@cs.hku.hk}}
+\authorrunning{Author1 and Author2} % abbreviated author list (for running head)
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%\conferenceinfo{POPL'10} {}
+%%\CopyrightYear{2010}
+
+
+\title{Scrap your Boilerplate with Object Algebras}
+
+\maketitle
+
+\begin{abstract}
+
+Traversing complex data structures typically requires large amounts of
+tedious boilerplate code. For many operations most of the code simply
+walks the structure, and only a small portion of the code implements
+the functionality that motivated the traversal in the first place.
+This paper present a type-safe Java framework called \name that
+removes much of this boilerplate code. In \name \emph{object algebras}
+are used to describe complex \emph{extensible} data structures. Using
+Java annotations generic boilerplate code is generated for various
+types of traversals, including queries and transformations.  Thus,
+using \Name, programmers can inherit the generic traversal code to
+focus only on writing the interesting parts of the
+traversals. Consequently, the amount of code that programmers need to
+write is significantly smaller. Moreover, traversals using the \name framework
+are also much more \emph{structure shy}, becoming more adaptive
+to future changes or extensions to the data structure.
+%An additional benefit of \name is that traversal code can be easily
+%reused by extensions of the
+To prove the effectiveness of the approach, we employeed \name
+on the implementation of a domain-specific questionaire
+language. Our results show that for a large number of traversals
+there was a significant reduction in the amount of user-defined code.
+%\bruno{Say something more about extensibility and type-safety!}
+
+\begin{comment}
+
+Static types are useful to distinguish between different kinds
+of nodes in a structure and to prevent misuses. The
+distinction between different types of nodes also means that code for
+dealing with each type of node is needed. However, in large structures,
+such as the Abstract Syntax Tree (AST) of a programming language,
+the amount of required code can be a problem. For some operations,
+which traverse large structures, most of the code amounts to recursively
+delegating the traversal to the child nodes. Only for some nodes
+of the structure the code needs to do something different. Still
+the programmer needs to diligently and tediously write the error-prone
+traversal code for all nodes.
+
+In this paper we present a framework
+
+This approach works well for many operations,
+which need different (and non-trivial) code for each different type
+of node
+
+%Unfortunately, for some operations the interesting
+
+%%In large structures,
+%%such as the Abstract Syntax Tree (AST) of a programming language,
+%%the code required to traverse the whole structure is proportionaly large.
+
+
+The problem is particularly prominent
+in statically typed languages, where the typing discipline
+enforces strict distinctions between different cases
+
+Operations that traverse complex structures often require large and
+tedious amounts of boilerplate code. In those operations there are
+typically a few
+
+A pervasive problem in programming occurs when large tree tr
+
+\end{comment}
+
+\end{abstract}
+
+%if False
+
+%\category{D.3.2}{Programming Languages}
+%                {Language Classifications}
+%                [Functional Languages]
+%\category{F.3.3}{Logics and Meanings of Programs}
+%                {Studies of Program Constructs}
+%                []
+
+%\terms
+%Languages
+%
+%\keywords
+%Mixins, explicit effects, monads, aspect-oriented programming, parametricity,
+%interference
+
+%endif
+
+%===============================================================================
+
+\input{sections/Introduction.tex}
+
+\input{sections/Overview.tex}
+
+\input{sections/Queries.tex}
+
+\input{sections/GeneralizedQueries.tex}
+
+\input{sections/Transformations.tex}
+
+\input{sections/ContexualTransformations.tex}
+
+\input{sections/Extensible.tex}
+
+\input{sections/Framework.tex}
+
+\input{sections/CaseStudy.tex}
+
+\input{sections/RelatedWork.tex}
+
+\input{sections/Conclusion.tex}
+
+
+\bibliographystyle{splncs}
+\bibliography{paper}
+
+\appendix
+
+\end{document}

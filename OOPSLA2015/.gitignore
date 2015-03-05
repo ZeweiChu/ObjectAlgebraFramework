@@ -1,0 +1,8 @@
+*.aux
+*.toc
+*.log
+*.bbl
+*.blg
+paper.pdf
+paper.tex-old
+footempfile.txt

@@ -1,0 +1,719 @@
+@INPROCEEDINGS{ralf03syb,
+	author = {Ralf Lammel, Simon Peyton Jones},
+	title = {Scrap Your Boilerplate: A Practical Design Pattern for Generic Programming},
+	booktitle = {TLDI'03},
+	year = {2003}
+}
+
+@inproceedings{Gibbons07dgp,
+  title = "Datatype-Generic Programming",
+  author = "Jeremy Gibbons",
+  year = "2007",
+  booktitle = "Spring School on Datatype-Generic Programming",
+  editor = "Roland Backhouse and Jeremy Gibbons and Ralf Hinze and Johan Jeuring",
+  publisher = "Springer-Verlag",
+  series = "Lecture Notes in Computer Science",
+  url = "http://www.comlab.ox.ac.uk/jeremy.gibbons/publications/dgp.pdf",
+  volume = "4719",
+}
+
+@article{hinze2003fun,
+  title={Fun with phantom types},
+  author={Hinze, Ralf and others},
+  journal={{The Fun of Programming}},
+  pages={245--262},
+  year={2003}
+}
+
+@inproceedings{Inauguration101,
+  author    = {Jean-Marie Favre and Ralf L{\"a}mmel and Thomas Schmorleiz and Andrei Varanovich},
+  title     = "{\emph{101companies}: a community project on software technologies and software languages}",
+  booktitle = "{Proceedings of TOOLS 2012}",
+  publisher = "Springer",
+  series    = "LNCS",
+  year      = {2012}
+}
+
+
+@incollection{ComparingGPHaskellHinze,
+  title = "Comparing Approaches to Generic Programming in {Haskell}",
+  author = "Hinze, R. and Jeuring, J. and Loeh, A.",
+  year = "2007",
+  booktitle = "Datatype-Generic Programming",
+  location = "Nottingham, UK",
+  publisher = "Springer Berlin/Heidelberg",
+  volume = "4719",
+}
+
+@inproceedings{GP,
+ author = {Musser, D. R. and Stepanov, A. A.},
+ title = {Generic Programming},
+ booktitle = {ISAAC '88},
+ year = {1989}
+}
+
+@inproceedings{ComparingGPHaskellRodriquez,
+ author = {Rodriguez, A. and Jeuring, J. and Jansson, P. and Gerdes, A. and Kiselyov, O. and Oliveira, B. C. d. S.},
+ title = {Comparing Libraries for Generic Programming in {Haskell}},
+ booktitle = {Haskell'08},
+ year = {2008}
+}
+
+@article{lammel05syb,
+ author = {L\"{a}mmel, Ralf and Jones, Simon Peyton},
+ title = {Scrap Your Boilerplate with Class: Extensible Generic Functions},
+ journal = {SIGPLAN Not.},
+ issue_date = {September 2005},
+ volume = {40},
+ number = {9},
+ month = sep,
+ year = {2005}
+} 
+
+@INPROCEEDINGS{lammel00dealing,
+  author =      {Ralf L{\"a}mmel and Joost Visser and Jan Kort},
+  title  =      {Dealing with Large Bananas},
+  booktitle =   {Workshop on Generic Programming},
+  editor =      {Johan Jeuring},
+  address =     {Ponte de Lima},
+  month =       jul,
+  year =        2000,
+  publisher =   {Technical Report UU-CS-2000-19, Universiteit Utrecht},
+}
+
+@inproceedings{wadler89type-classes,
+ author = {Wadler, P. and Blott, S.},
+ title = {How to Make Ad-hoc Polymorphism Less Ad Hoc},
+ booktitle = {Proceedings of the 16th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '89},
+ year = {1989}
+} 
+
+@inproceedings{adams2012tyb,
+  author = {Adams, Michael D. and DuBuisson, Thomas M.},
+  title = {Template Your Boilerplate: Using {T}emplate {H}askell for Efficient Generic Programming},
+  booktitle = {Proceedings of the 2012 ACM SIGPLAN Haskell symposium},
+  pages = {13--24},
+  year = {2012},
+  series = {Haskell '12}
+}
+
+@inproceedings{lammel04syb,
+ author = {L\"{a}mmel, Ralf and Jones, Simon Peyton},
+ title = {Scrap More Boilerplate: Reflection, Zips, and Generalised Casts},
+ booktitle = {Proceedings of the Ninth ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '04},
+ year = {2004}
+} 
+
+@inproceedings{DJ,
+    title           = {{DJ}: {Dynamic} Adaptive Programming in {Java}},
+    author          = {Orleans, D. and Lieberherr, K. J.},
+    booktitle           = {Reflection 2001},
+    year            = 2001,
+    publisher       = {Springer-Verlag}
+}
+
+@inproceedings{OOGP,
+ author = {Chadwick, B. and Lieberherr, K.},
+ title = {Weaving Generic Programming and Traversal Performance},
+ booktitle = {AOSD'10},
+ year = {2010}
+}
+
+@book{gof,
+ author = {Gamma, Erich and Helm, Richard and Johnson, Ralph and Vlissides, John},
+ title = {Design Patterns: Elements of Reusable Object-oriented Software},
+ year = {1995},
+ isbn = {0-201-63361-2},
+ publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+ address = {Boston, MA, USA},
+} 
+
+
+@Book{DemeterBook,
+  author =	 {K. J. Lieberherr},
+  title = 	 {Adaptive Object Oriented Software: The Demeter Method with Propagation Patterns},
+  publisher = 	 {PWS Publishing},
+  year = 	 {1996},
+}%% from patterns.bib
+
+@INPROCEEDINGS{bruno12oa,
+	author = {Bruno C. d. S. Oliveira, William R. Cook},
+	title = {Extensibility for the Masses, Practical Extensibility with Object Algebras},
+	booktitle = {ECOOP'12},
+	year = {2004}
+}
+
+@INPROCEEDINGS{ralf00banana,
+	author = {Ralf Lammel, Joost Visser, Jan Kort},
+	title = {Dealing with Large Bananas},
+	booktitle = {},
+	year = {2000}
+}
+
+@article{bjorn08acf,
+ author = {Bjorn Bringert, Aarne Ranta},
+ title = {A pattern for almost compositional functions},
+ journal = {Journal of Functional Programming},
+ volume = {18},
+ issue = {5-6},
+ month = {September},
+ year = {2008},
+ pages = {567-598}
+} 
+
+
+@INPROCEEDINGS{torgersen04theexpression,
+    author = {Mads Torgersen},
+    title = {The Expression Problem Revisited -- Four new solutions using generics},
+    booktitle = {ECOOP'04},
+    year = {2004}
+}
+
+@Misc{wadler98expression-problem,
+    author = "Philip Wadler",
+    title  = "The {E}xpression {P}roblem",
+    month  = nov,
+    year   = 1998,
+    howpublished = "Email",
+    note = "Discussion on the Java Genericity mailing list"
+}
+
+
+@article{borovansky1996elan,
+  title={{ELAN}: A logical framework based on computational systems},
+  author={Borovansk{\`y}, Peter and Kirchner, Claude and Kirchner, H{\'e}l{\`e}ne and Moreau, Pierre-Etienne and Vittek, Marian},
+  journal={Electronic Notes in Theoretical Computer Science},
+  volume={4},
+  pages={35--50},
+  year={1996},
+  publisher={Elsevier}
+}
+
+@article{visser1998core,
+  title={A core language for rewriting},
+  author={Visser, Eelco and Benaissa, Zine-el-Abidine},
+  journal={Electronic Notes in Theoretical Computer Science},
+  volume={15},
+  pages={422--441},
+  year={1998},
+  publisher={Elsevier}
+}
+
+@inproceedings{lammel2003strategic,
+  title={Strategic programming meets adaptive programming},
+  author={L{\"a}mmel, Ralf and Visser, Eelco and Visser, Joost},
+  booktitle={Proceedings of the 2nd international conference on Aspect-oriented software development},
+  pages={168--177},
+  year={2003},
+  organization={ACM}
+}
+
+@InCollection{reynolds75user-defined,
+Author="J. C. Reynolds",
+Title="User-defined Types and Procedural Data Structures as Complementary
+           Approaches to Type Abstraction",
+Booktitle="New Directions in Algorithmic Languages",
+Organization="IFIP Working Group 2.1",
+Year=1975,
+Editor="S. A. Schuman",
+Publisher=IRIA,
+Pages="157-168"
+}
+
+
+
+
+@inproceedings{Cook90ooadt,
+ author = {Cook, William R.},
+ title = {Object-Oriented Programming Versus Abstract Data Types},
+ booktitle = {Proceedings of the REX School/Workshop on Foundations of Object-Oriented Languages},
+ year = {1991},
+ pages = {151--178},
+ publisher = {Springer-Verlag}
+} 
+
+@article{kim03challenging,
+title = "Some Challenging Typing Issues in Object-Oriented Languages: Extended Abstract",
+journal = "Electronic Notes in Theoretical Computer Science",
+volume = "82",
+number = "8",
+pages = "1 - 29",
+year = "2003",
+author = "Kim Bruce"
+}
+
+@article{deBruijn1972381,
+title = {Lambda calculus notation with nameless dummies, a tool for automatic formula manipulation, with application to the {Church-Rosser} theorem},
+journal = "Indagationes Mathematicae (Proceedings)",
+volume = "75",
+number = "5",
+pages = {381--392},
+year = "1972",
+note = "",
+author = "N.G de Bruijn"
+}
+
+
+
+@inproceedings{gouseti14extensible,
+ author = {Gouseti, Maria and Peters, Chiel and Storm, Tijs van der},
+ title = {Extensible Language Implementation with {Object Algebras} (Short Paper)},
+ booktitle = {GPCE'14},
+ year = {2014}
+} 
+
+@inproceedings{oliveira13fop,
+ author = {Oliveira, Bruno C. d. S. and van der Storm, Tijs and Loh, Alex and Cook, William R.},
+ title = {Feature-Oriented Programming with Object Algebras},
+ booktitle = {Proceedings of the 27th European Conference on Object-Oriented Programming},
+ series = {ECOOP'13},
+ year = {2013}
+} 
+
+@inproceedings{rendel14attributes,
+ author = {Rendel, Tillmann and Brachth\"{a}user, Jonathan Immanuel and Ostermann, Klaus},
+ title = {From Object Algebras to Attribute Grammars},
+ booktitle = {Proceedings of the 2014 ACM International Conference on Object Oriented Programming Systems Languages \&\#38; Applications},
+ series = {OOPSLA '14},
+ year = {2014}
+} 
+
+
+@inproceedings{krishnamurthi98synthesizing,
+ author = {Krishnamurthi, Shriram and Felleisen, Matthias and Friedman, Daniel P.},
+ title = {Synthesizing Object-Oriented and Functional Design to Promote Re-Use},
+ booktitle = {ECOOP'98},
+ year = {1998}
+} 
+
+@inproceedings{palsberg98essence,
+ author = {Palsberg, Jens and Jay, C. Barry},
+ title = {The Essence of the Visitor Pattern},
+ booktitle = {COMPSAC'98},
+ year = {1998}
+} 
+
+@INPROCEEDINGS{hinze04generics,
+AUTHOR = "Ralf Hinze",
+TITLE = "Generics for the masses.",
+booktitle = "ICFP'04",
+YEAR = {2004}  
+}
+
+@inproceedings{oliveira05typecase,
+ author = {Oliveira, Bruno C. d. S. and Gibbons, Jeremy},
+ title = {TypeCase: a design pattern for type-indexed functions},
+ booktitle = {Haskell '05},
+ year = {2005}
+} 
+
+@ARTICLE{bohm85automatic,
+AUTHOR = "Corrado Böhm and Alessandro Berarducci",
+TITLE = "Automatic Synthesis of Typed Lambda-Programs on Term Algebras.",
+JOURNAL = "Theor. Comput. Sci.",
+PAGES = {135-154},
+YEAR = {1985}  
+}
+
+@article{parigot92recursive,
+ author = {Parigot, Michel},
+ title = {Recursive programming with proofs},
+ journal = {Theor. Comput. Sci.},
+ volume = {94},
+ issue = {2},
+ month = {March},
+ year = {1992},
+ pages = {335--356}
+} 
+
+@inproceedings{oliveira06extensible,
+    author = {Oliveira, Bruno C. d. S. and Hinze, Ralf and L\"{o}h, Andres},
+    booktitle = {Trends in Functional Programming},
+    title = {Extensible and Modular Generics for the Masses},
+    year = {2006}
+}
+
+@article{vandenBrand:2003:TRT:941566.941568,
+ author = {van den Brand, Mark G. J. and Klint, Paul and Vinju, Jurgen J.},
+ title = {Term Rewriting with Traversal Functions},
+ journal = {ACM Trans. Softw. Eng. Methodol.},
+ volume = {12},
+ number = {2},
+ month = apr,
+ year = {2003},
+ pages = {152--190},
+ publisher = {ACM}
+} 
+
+@techreport{bravenboer2001guiding,
+  title={Guiding visitors: Separating navigation from computation},
+  author={Bravenboer, Martin and Visser, Eelco},
+  year={2001},
+  number={UU-CS-2001-42},
+  institution={Institute of Information and Computing Sciences, Utrecht University}
+}
+
+@incollection{lammel2002typed,
+  title={Typed combinators for generic traversal},
+  author={L{\"a}mmel, Ralf and Visser, Joost},
+  booktitle={Practical Aspects of Declarative Languages},
+  pages={137--154},
+  year={2002},
+  publisher={Springer}
+}
+
+@article{carette09finally,
+ author = {Carette, Jacques and Kiselyov, Oleg and Shan, Chung-chieh},
+ title = {Finally tagless, partially evaluated: Tagless staged interpreters for simpler typed languages},
+ journal = {J. Funct. Program.},
+ volume = {19},
+ issue = {5},
+ month = {September},
+ year = {2009},
+ pages = {509--543}
+} 
+
+@inproceedings{hofer08polymorphic,
+ author = {Hofer, Christian and Ostermann, Klaus and Rendel, Tillmann and Moors, Adriaan},
+ title = {Polymorphic embedding of {DSLs}},
+ booktitle = {GPCE '08},
+ year = {2008}
+}
+
+@inproceedings{moors08generics,
+ author = {Moors, Adriaan and Piessens, Frank and Odersky, Martin},
+ title = {Generics of a higher kind},
+ booktitle = {OOPSLA '08},
+ year = {2008}
+} 
+
+@incollection {Fomega,
+   author = {Reynolds, John},
+   title = {Towards a theory of type structure},
+   booktitle = {Programming Symposium},
+   series = {Lecture Notes in Computer Science},
+   pages = {408-425},
+   volume = {19},
+   year = {1974}
+}
+
+@article{buchlovsky06type-theoretic,
+title = "A Type-theoretic Reconstruction of the Visitor Pattern",
+journal = "Electronic Notes in Theoretical Computer Science",
+volume = "155",
+number = "0",
+pages = "309 - 329",
+year = "2006",
+author = "Peter Buchlovsky and Hayo Thielecke"
+}
+
+@phdthesis{oliveira07genericity,
+  title = "Genericity, extensibility and type-safety in the Visitor pattern",
+  author = "Oliveira, Bruno C. d. S. ",
+  school = "Oxford University Computing Laboratory",
+  year = "2007"
+}
+
+@BOOK{girard,
+ Author = "J.-Y. Girard and Y. Lafont and P.  Taylor",
+ Title = "Proofs and Types",
+ Publisher = "Cambridge University Press",
+ Year = 1989,
+ Series = "Cambridge Tracts in Theoretical Computer Science",
+ Volume = 7
+}
+
+
+@inproceedings{oliveira08visitor,
+ author = {Oliveira, Bruno C. d. S. and Wang, Meng and Gibbons, Jeremy},
+ title = {The visitor pattern as a reusable, generic, type-safe component},
+ booktitle = {OOPSLA'08},
+ year = {2008}
+} 
+
+@inproceedings{oliveira09modular,
+ author = {Oliveira, Bruno C. d. S.},
+ title = {Modular Visitor Components},
+ booktitle = {ECOOP'09},
+ year = {2009}
+} 
+
+@inproceedings{peyton-jones06gadts,
+ author = {Peyton Jones, Simon and Vytiniotis, Dimitrios and Weirich, Stephanie and Washburn, Geoffrey},
+ title = {Simple unification-based type inference for {GADTs}},
+ booktitle = {ICFP '06},
+ year = {2006}
+} 
+
+@MISC{duponcheel95catamorphisms,
+    author = {Luc Duponcheel},
+    title = {Using Catamorphisms, Subtypes and Monad Transformers for Writing Modular Functional Interpreters.},
+    url   = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.7093},
+    year = {1995}
+}
+
+@article{wouter08datatypes,
+  author = "Wouter Swierstra",
+  title = "Data types \`a la carte",
+  journal = "Journal of Functional Programming",
+  year = 2008,
+  volume = 18,
+  number = 4, 
+  pages = "423 -- 436"
+} 
+
+@article{hinze06generics,
+author = {Hinze, Ralf},
+title = {Generics for the masses},
+journal = {Journal of Functional Programming},
+volume = {16},
+number = {4-5},
+pages = {451-483},
+year = {2006}
+}
+
+@inproceedings{clifton00multiJava,
+ author = {Clifton, Curtis and Leavens, Gary T. and Chambers, Craig and Millstein, Todd},
+ title = {{MultiJava}: modular open classes and symmetric multiple dispatch for Java},
+ booktitle = {OOPSLA '00},
+ year = {2000}
+} 
+
+@article{chambers95multimethods,
+ author = {Chambers, Craig and Leavens, Gary T.},
+ title = {Typechecking and modules for multimethods},
+ journal = {ACM Trans. Program. Lang. Syst.},
+ volume = {17},
+ issue = {6},
+ month = {November},
+ year = {1995},
+ pages = {805--843}
+} 
+
+@inproceedings{McDirmid01jiazzi,
+ author = {McDirmid, Sean and Flatt, Matthew and Hsieh, Wilson C.},
+ title = {Jiazzi: new-age components for old-fashioned Java},
+ booktitle = {OOPSLA '01},
+ year = {2001}
+} 
+
+@inproceedings{nystrom06j,
+ author = {Nystrom, Nathaniel and Qi, Xin and Myers, Andrew C.},
+ title = {J\&: nested intersection for scalable software composition},
+ booktitle = {OOPSLA '06},
+ year = {2006}
+} 
+
+@inproceedings{madsen89virtual,
+ author = {Madsen, O. L. and Moller-Pedersen, B.},
+ title = {Virtual classes: a powerful mechanism in object-oriented programming},
+ booktitle = {OOPSLA '89},
+ year = {1989}
+} 
+
+@INPROCEEDINGS{bruce98astatically,
+    author = {Kim B. Bruce and Martin Odersky and Philip Wadler},
+    title = {A Statically Safe Alternative to Virtual Types},
+    booktitle = {ECOOP'98},
+    year = {1998}
+}
+
+@article{garrigue98polymorphic,
+author = {Jacques Garrigue}, 
+title = {Programming with polymorphic variants}, 
+booktitle = {{ML} Workshop}, 
+year = {1998} 
+} 
+
+@INPROCEEDINGS{zenger05independentlyextensible,
+    author = {Matthias Zenger and Martin Odersky},
+    title = {Independently extensible solutions to the expression problem},
+    booktitle = {FOOL'05},
+    year = {2005}
+}
+
+@inproceedings{visser01visitor,
+ author = {Visser, Joost},
+ title = {Visitor combination and traversal control},
+ booktitle = {OOPSLA '01},
+ year = {2001}
+} 
+
+@inproceedings{gibbons06design,
+ author = {Gibbons, Jeremy},
+ title = {Design patterns as higher-order datatype-generic programs},
+ booktitle = {WGP '06},
+ year = {2006}
+} 
+
+@article{wehr11javaGI,
+ author = {Wehr, Stefan and Thiemann, Peter},
+ title = {{JavaGI}: The Interaction of Type Classes with Interfaces and Inheritance},
+ journal = {ACM Trans. Program. Lang. Syst.},
+ volume = {33},
+ issue = {4},
+ month = {July},
+ year = {2011}
+} 
+
+@inproceedings{zenger01extensible,
+ author = {Zenger, Matthias and Odersky, Martin},
+ title = {Extensible algebraic datatypes with defaults},
+ booktitle = {ICFP '01},
+ year = {2001}
+} 
+
+@inproceedings{loh06open,
+ author = {L\"{o}h, Andres and Hinze, Ralf},
+ title = {Open data types and open functions},
+ booktitle = {PPDP '06},
+ year = {2006}
+} 
+
+@inproceedings{bracha90mixin,
+ author = {Bracha, Gilad and Cook, William},
+ title = {Mixin-based inheritance},
+ booktitle =  {OOPSLA/ECOOP '90},
+ year = {1990}
+} 
+
+@INPROCEEDINGS{scharli03traits,
+AUTHOR = "Nathanael Scharli and Stéphane Ducasse and Oscar Nierstrasz and Andrew P. Black",
+TITLE = "Traits: Composable Units of Behaviour.",
+booktitle = "ECOOP'03",
+YEAR = {2003}  
+}
+
+@inproceedings{oliveira10typeclasses,
+ author = {Oliveira, Bruno C. d. S. and Moors, Adriaan and Odersky, Martin},
+ title = {Type classes as objects and implicits},
+ booktitle = {OOPSLA '10},
+ year = {2010}
+} 
+
+@inproceedings{bierman07lost,
+ author = {Bierman, Gavin M. and Meijer, Erik and Torgersen, Mads},
+ title = {Lost in translation: formalizing proposed extensions to {C\#}},
+ booktitle = {OOPSLA '07},
+ year = {2007}
+} 
+
+@inproceedings{ernst01family,
+ author = {Ernst, Erik},
+ title = {Family Polymorphism},
+ booktitle = {ECOOP '01},
+ year = {2001}
+} 
+
+@ARTICLE{saito08essence,
+AUTHOR = "Chieri Saito and Atsushi Igarashi",
+TITLE = "The Essence of Lightweight Family Polymorphism.",
+JOURNAL = "Journal of Object Technology",
+PAGES = {67-99},
+YEAR = {2008}  }
+
+@INPROCEEDINGS{hoogendijk97whendo,
+    author = {Paul Hoogendijk and Roland Backhouse},
+    title = {When Do Datatypes Commute?},
+    booktitle = {Category Theory and Computer Science, 7th International Conference, volume 1290 of LNCS},
+    year = {1997}
+}
+
+@inproceedings{canning89f-bounded,
+ author = {Canning, Peter and Cook, William and Hill, Walter and Olthoff, Walter and Mitchell, John C.},
+ title = {F-bounded polymorphism for object-oriented programming},
+ booktitle = {FPCA '89},
+ year = {1989}
+} 
+
+@inproceedings{torgersen04wildcards,
+ author = {Torgersen, Mads and Hansen, Christian Plesner and Ernst, Erik and von der Ah\'{e}, Peter and Bracha, Gilad and Gafter, Neal},
+ title = {Adding wildcards to the {Java} programming language},
+ booktitle = {SAC '04},
+ year = {2004}
+} 
+
+@book{gamma94design,
+author = {Gamma, E. and Helm, R. and Johnson, R. and Vlissides, J.},
+title = {Design Patterns : Elements of Reusable Object-Oriented Software},
+publisher = {Addisson-Wesley},
+year = {1994},
+series = {Addisson-Wesley professional computing series}
+}
+
+@article {SPE:SPE616,
+author = {van Deursen, Arie and Visser, Joost},
+title = {Source model analysis using the {JJTraveler} visitor combinator framework},
+journal = {Software: Practice and Experience},
+volume = {34},
+number = {14},
+pages = {1345--1379},
+year = {2004}
+}
+
+
+@phdthesis{malcolm90thesis,
+	author = {G. Malcolm},
+	title = {Algebraic Data Types and Program Transformation},
+	school = {Rijksuniversiteit Groningen},
+	month = {September},
+	year = {1990},
+}
+
+@Article{guttag78algebraic,
+	Key = "Guttag",
+	Author = "J. V. Guttag and J. J. Horning",
+	Title = "The Algebraic Specification of Abstract Data Types",
+	Journal = "Acta Informatica",
+        Year = "1978"
+}
+
+@article{hinze05church,
+ author = {Hinze, Ralf},
+ title = {THEORETICAL PEARL: Church numerals, twice!},
+ journal = {J. Funct. Program.},
+ volume = {15},
+ issue = {1},
+ month = {January},
+ year = {2005},
+ pages = {1--13}
+} 
+
+@INPROCEEDINGS{ghani04build,
+    author = {Neil Ghani and Tarmo Uustalu and Varmo Vene},
+    title = {Build, augment and destroy. Universally},
+    booktitle = {APLAS'04},
+    year = {2004}
+}
+
+@inproceedings{ibrahim09remote,
+ author = {Ibrahim, Ali and Jiao, Yang and Tilevich, Eli and Cook, William R.},
+ title = {Remote Batch Invocation for Compositional Object Services},
+ booktitle = {ECOOP'09},
+ year = {2009}
+} 
+
+@INPROCEEDINGS{Wiedermann11,
+  AUTHOR = {Ben Wiedermann and William R. Cook},
+  TITLE = {Remote Batch Invocation for {SQL} Databases},
+  BOOKTITLE = {The 13th International Symposium on Database Programming Languages (DBPL)},
+  YEAR = 2011
+}
+
+
+
+@inproceedings{Visser:1998:BPO:289423.289425,
+ author = {Visser, Eelco and Benaissa, Zine-el-Abidine and Tolmach, Andrew},
+ title = {Building Program Optimizers with Rewriting Strategies},
+ booktitle = {Proceedings of the Third ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '98},
+ year = {1998},
+ pages = {13--26},
+ publisher = {ACM}
+} 
+
+
+
+

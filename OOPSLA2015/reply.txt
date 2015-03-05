@@ -1,0 +1,219 @@
+We would like to thank the reviewers for their extensive comments on our paper. 
+Below we would like to take the opportunity to clarify the main 
+issues raised by the reviewers. 
+
+* Non-OO style, applicability and generality (reviewers 2, 4 and 5)
+
+We agree that the paper is not very clear about the
+applications domains and generality of the approach. We will 
+make this clear in the revision of the paper. 
+
+Our main motivation is to use Shy for doing traversals over large
+ASTs, as suggested in the 1st paragraph of the Introduction. We are
+indeed focusing on tree structures and functional style
+transformations, which we believe are well suited for doing language
+processing. Indeed most applications using object algebras are focused 
+on language processing (DSL implementation [11,22], 
+general language implementation [27], grammar processing [23]). 
+
+Reviewer 2 strongly objected to the non OOP-style of the 101companies
+example. We certainly understand the objection. However, we would like
+to remark that this is an example taken from the functional SyB
+literature (see reference [14]), represented in Java. As a result:
+101companies is strictly a tree structure and transformations never
+mutate. We used this example simply because it has become a flagship
+example in the area of structure-shy traversals. We will clarify this
+in the paper.
+
+* Missing code
+
+Some reviewers complained about missing code, especially about the
+code for Monoids. We will include that code in the paper and provide 
+a detailed explanation. For reference we include it here too:
+
+class FloatMonoid implements Monoid<Float>{
+	public Float join(Float x, Float y){
+		return x + y;
+	}
+	public Float empty(){
+		return 0f;
+	}
+}
+
+public class SetMonoid<X> implements Monoid<Set<X>> {
+	public Set<X> join(Set<X> x, Set<X> y) {
+		Set<X> tmp = new HashSet<>(x);
+		tmp.addAll(y);
+		return tmp;
+	}
+
+	public Set<X> empty() {
+		return Collections.emptySet();
+	}
+}
+
+## Reviewer 1
+
+Reviewer 1 mentions the common OO idiom of having Visitor base classes
+containing default "no-op" traversal methods from which concrete
+visitors can inherit and only the relevant cases need then to be
+overridden. Indeed this is very similar to how Shy operates, except
+for one important difference: ordinary visitors are not extensible in
+a type safe way if a new data type variant is added. We will emphasise
+this better in the related work section of the paper. We will also 
+improve the introduction to discuss the general pattern of having 
+a default implementation, and specialising this pattern to get various 
+kinds of interesting traversals.
+
+## Reviewer 2
+
+Reviewer 2 presents the strongest criticism of the approach. 
+
+We addressed his two first concerns in our first point above. Moreover, as
+requested by the reviewer, we send the full code of the Company
+example using Shy attached with comments illustrating the benefits of the
+approach. 
+
+Regarding his 3rd point we would like to thank the reviewer for pointing 
+us to this line of work. It is clearly related and we will provide a
+detailed comparison in related work.
+
+One final remark is that the suggestion that the code calls for "replace
+conditional with polymorphism" is incorrect. All case distinctions
+happen through method dispatch, so this an "open choice": both
+interface and implementation can be extended without the need for
+shotgun surgery.
+
+## Reviewer 3
+
+Reviewer 3 ask to substantiate why Shy is less error-prone than writing
+standard boilerplate. The reason for this simple: code that
+programmers don't write can't have bugs. Assuming the Shy code
+generation is correct, this avoids whole classes of bugs that could be
+introduced by programmers when writing uninteresting traversal code.
+
+## Reviewer 4
+
+Reviewer 4 is most positive about our work (Strong accept). One
+question asks whether all Visitor like code in Java can be rewritten
+in the Shy style. This is a difficult question to answer, since there
+are quite a few variants of the visitor pattern. What we can say is
+that many of the uses of visitors can be modelled with OAs and in Shy.
+Object Algebras are known to express all code written with one
+specific type of visitors, called internal visitors (see reference
+[22]). For Shy in particular, the kinds of visitor related code that
+can be expressed is similar to the default visitors mentioned by
+reviewer 1.
+
+## Reviewer 5
+
+Reviewer 5 has concerns about the applicability of the Shy, which we 
+clarified in the first point above. 
+
+Regarding the simpler API using getChildren(): this is essentially the
+same approach as taken in JJTraveler (see reference [31]). We refer to
+our related work for a comparison with JJTraveler.
+
+
+====== EXTRA: CODE&COMMENTS FOR THE COMPANY EXAMPLE (REVIEWER 2) ==============
+/* This is the all the code someone would need to write to execute all 
+   of our company example. Note that the paper already includes all
+   the code, except for the definition of FloatMonoid (that
+   definition is actually part of Shy's library, so it does not need
+   to be defined).
+
+   The code can also be found in the bundle that we have submitted 
+   together with the paper. It is under the ObjectAlgebras project.
+   The package is:
+
+   example_Sybalg
+
+   In the bundle, the code is distributed across several files.
+*/
+
+
+// A Shy user should first declare the Object algebra interface with
+// an @Algebra annotation. Given this annotation, 
+// OneOhOneAlgQuery and OneOhOneAlgTrans (among other things) 
+// will be generated.
+@Algebra
+public interface OneOhOneAlg<Company,Dept,Unit,Employee,Person,Salary> {
+  Company C(List<Dept> depts);
+  Dept D(String name, Employee manager, List<Unit> units);
+  Unit PU(Employee employee);
+  Unit DU(Dept dept);
+  Employee E(Person p, Salary s);
+  Person P(String name, String address);
+  Salary S(float salary);
+}
+
+// The salary bill and increase salary operations simply inherits
+// generic traversal code from
+// OneOhOneAlgQuery and OneOhOneAlgTrans respectively.
+// (See S3 and S5 for how the code is generated)
+//
+// The user only needs 4 lines of code to define each operation. 
+// ***Even if the Company structure would have 50 different types 
+// of nodes, the code would remain the same.*** 
+// In contrast with the reviewers approach, if there were 50 different 
+// types of nodes, there would be substantially more
+// traversal code.
+//
+// The above is an important point that the reviewer should note. 
+// None of the papers dealing 
+// with structure-shy traversals actually present examples that 
+// are big enough to make the presence of boilerplate really painful. 
+// The reason for not presenting such examples is simple: they don’t 
+// fit in a conference paper! The company example is agreeably a contrived 
+// example that is big enough to show a bit of pain, but small enough to fit
+// in a paper.  
+//
+// We would claim 3 advantages in Shy's approach:
+//   1)  Substantially less code in large tree structures;
+//   2)  Operation is modular with respect to the data structure (so
+//        easier to add new operations)
+//   3) Code is more robust to changes: altering the original
+//       structure, often does not require changes in the traversal code
+
+class SalaryBill implements OneOhOneAlgQuery<Float> {
+	public Monoid<Float> m() {return new FloatMonoid();}
+	public Float S(float sal) {return sal;}
+}
+
+class IncreaseSalary<C,D,U,E,P,S> extends OneOhOneAlgTrans<C,D,U,E,P,S> {
+	IncreaseSalary(OneOhOneAlg<C,D,U,E,P,S> alg) { super(alg); }
+	public S S(float salary) { return oneOhOneAlg().S(1.1f * salary); }
+}
+
+// For completeness, here is the definition of FloatMonoid. The user
+// actually does not need to provide this definition since it is part 
+// of Shy's library.
+class FloatMonoid implements Monoid<Float>{
+	public Float join(Float x, Float y){
+		return x + y;
+	}
+	public Float empty(){
+		return 0f;
+	}
+}
+
+// The following is the client code.
+public class Main {
+	static <C,D,U,E,P,S> C makeCompany(OneOhOneAlg<C,D,U,E,P,S> alg) {
+		E ralf  = alg.E(alg.P("Ralf", "Amsterdam"), alg.S(8000.0f));
+		E joost = alg.E(alg.P("Joost", "Amsterdam"), alg.S(1000.0f));
+		E simon = alg.E(alg.P("Simon", "Cambridge"), alg.S(2000.0f));
+		E blair = alg.E(alg.P("Blair", "London"), alg.S(100000.0f));
+		List<U> us = asList(alg.PU(joost), alg.PU(simon));
+		List<D> ds = asList(alg.D("Research", ralf, us), 
+	                        alg.D("Strategy", blair, emptyList()));
+		return alg.C(ds);
+	}
+	
+	public static void main(String[] args) {
+		SalaryBill salaryBill = new SalaryBill();
+		System.out.println(makeCompany(salaryBill));
+		IncreaseSalary<Float,Float,Float,Float,Float,Float> incSalary 
+		  = new IncreaseSalary<>(salaryBill);
+		System.out.println(makeCompany(incSalary));
+	}

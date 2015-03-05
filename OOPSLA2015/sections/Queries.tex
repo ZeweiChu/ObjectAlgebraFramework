@@ -1,0 +1,249 @@
+\section{Queries}\label{sec:queries}
+
+This section shows the ideas behind generic queries and how they are
+implemented in \Name.  A query is an operation that traverses a
+structure and computes some aggregate value. The inspiration for
+queries comes from similar types of traversals used in functional
+programming libraries, such as ``Scrap your
+Boilerplate''~\cite{ralf03syb}.
+
+%We motivate queries by walking through a number
+%of different ways in which such operations are implemented.
+
+Fig.~\ref{exp_alg} shows a simple type of expressions, represented
+as the object algebra interface \lstinline{ExpAlg}. We will use this
+minimal object algebra interface throughout the rest of the paper to
+illustrate the various different types of traversals supported by
+\Name.  Three different kinds of nodes exist: a numeric literal, a
+variable or the addition of two expressions. Queries are illustrated
+by implementing an operation to compute the free variables in an expression.
+
+\begin{comment}
+As a specific type of object algebras, queries allow users to define
+new operations handling a user-defined data structure\bruno{This
+  definition of queries is just too broad. Please
+look at papers like Syb to see how they describe queries and transformations}. A \textit{query
+  algebra} is a class implementing an object algebra interface by a
+top-down traversal throughout the hierarchy. It is something
+supporting the program to gather information from the substructures of
+a data type recursively, and make a response at the root node to the
+query.
+\end{comment}
+
+\subsection{Boilerplate Queries}\label{subsec:freevars}
+
+\begin{figure}[t]
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
+\vspace{-.1in}
+\caption{The \lstinline{ExpAlg} object algebra interface.}
+\label{exp_alg}
+\end{figure}
+
+Fig.~\ref{freevars_without_monoid} shows a
+standard approach for computing free variables using object algebras\footnote{Here and in the following we will use interfaces with \lstinline{default}-methods (as introduced in Java 8) to combine queries and transformations using multiple inheritance.}.
+A set of strings is used to store the names of the free variables. The
+\lstinline{Var} method returns a singleton set of \lstinline{s},
+whereas the \lstinline{Lit} method returns an empty set. The
+more interesting case is in the \lstinline{Add} method, where the two
+sets are joined into one.
+
+\begin{figure}[t]
+\lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\vspace{-.1in}
+\caption{Free variables as an object algebra.}
+\label{freevars_without_monoid}
+\end{figure}
+\begin{comment}
+\bruno{put code in a figure, add a caption and refer
+  to the figure in the text.}
+\end{comment}
+
+The typical pattern of a query is to collect some information from
+some of the nodes of the structure, and to aggregate the information
+that comes from multiple child nodes. For example, in the case of free
+variables, the strings from the \lstinline{Var} nodes are collected,
+and in the \lstinline{Add} nodes the information from multiple
+children is merged into a single set. An important observation about
+queries is that the code to aggregate information tends to be the
+same: if we had a subtraction node, the code would be essentially
+identical to \lstinline{Add}. Moreover, there are only very few types
+of nodes that contain relevant information for the query. For nodes
+that contain information that is not relevant to the query, we simply
+return the a neutral value (such as the empty set in \lstinline{Lit}).
+Nonetheless, a programmer has to write this boring boilerplate code
+handling the traversals.  While for the small structure presented here
+this may not look too daunting, in a large structure with dozens or
+even hundreds of constructors such code becomes a significant burden.
+
+%Moreover, it is a query-based
+%approach: you still have to write a bunch of similar stuff with a
+%different query raised, for instance, a pretty printer.
+
+\subsection{Abstracting Generic Traversal Code}\label{subsec:genericquery}
+
+Clearly a better approach would be to abstract the generic traversal
+code for queries. This way, when programmers need to implement query
+operations, they can simply reuse the generic traversal code and
+focus only on dealing with the nodes that do something interesting.
+
+%Queries are so similar actually: a user has to indicate the rules in
+%which the program may address cases on primitive types and ``append''
+%the information. With these two issues, everything becomes simple in
+%the traversal. Hence we introduce the concept of monoid and generic
+%traversal here in our query algebras.
+
+%% \begin{figure}[tb]
+%% \lstinputlisting[linerange=5-8]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
+%% \vspace{-.1in}
+%% \caption{The monoid interface.}
+%% \label{monoid}
+%% \end{figure}
+
+The code that captures the aggregation and collection of information
+can be captured by a well-known algebraic structure called a
+\emph{monoid}. Monoids are commonly used in functional programming
+for such purposes, but they are perhaps less commonly known in
+object-oriented programming.  The interface of a monoid is defined as follows:
+\begin{quote}
+\lstinputlisting[linerange=5-8]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
+\end{quote}
+Intuitively, the \lstinline{join()} method is
+used to combine the information from substructures, and the
+\lstinline{empty()} is an indicator of ``no information''.
+%% The monoid interface also includes one additional operation
+%% called \lstinline{fold}, which takes a list of \lstinline{R}
+%% and returns an aggregated \lstinline{R}. Finally, note that
+%% even though \lstinline{Monoid} is an interface, the
+%% \lstinline{fold} operation is defined. This is a new feature
+%% of Java 8 called default methods, which allow default implementations
+%% of methods in interfaces.
+
+Using the monoid operations alone, it is possible to write a ``generic
+query''. Fig.~\ref{generic_query} shows how this is achieved. In
+nodes that contain child nodes, such as \lstinline{Add}, the
+information is aggregated using \lstinline{join}. In nodes that
+contain other information, such as \lstinline{Var} and
+\lstinline{Lit}, the query returns \lstinline{empty}.
+This allows concrete queries to be implemented by overriding methods from multiple, different algebras. 
+
+\begin{figure}[tb]
+\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
+\vspace{-.1in}
+\caption{Generic queries using a monoid.}
+\label{generic_query}
+\end{figure}
+
+\begin{comment}
+And now we find everything goes in an easier way: we don't care about
+what kind of query it is any more during the traversal. Despite
+whether it asks for all the names of free variables or a printer
+showing the hierarchy of an expression, at first we can simply
+override the method \lstinline{m()}, which provides an instance of
+\lstinline{Monoid}, in the return statement. As the next step, we only
+need to override a few other methods to meet the requirements. This is
+the progress, once we have such a template dealing with the traversal,
+all query algebras can be addressed in a more concise way, which is
+called the \textit{generic query algebra}.
+\end{comment}
+
+\subsection{Free Variables with Generic Queries}\label{subsec:solvingfreevars}
+
+%% \begin{figure}[t]
+%% \lstinputlisting[linerange=9-14]{../ObjectAlgebras/src/expDemo3/SetMonoid.java} % APPLY:linerange=FREEVARS_MONOID
+%% \vspace{-.1in}
+%% \caption{A monoid instance defined for sets.}
+%% \label{freevars_monoid}
+%% \end{figure}
+
+The \lstinline{ExpAlgQuery} interface provides an alternative way to
+define the free variables operation.
+Since the result of free variables is a set, the monoid returned by \lstinline{m()} is an implementation of the \lstinline{Monoid} interface, where \lstinline{empty()} corresponds to the empty set, and \lstinline{join()} is implemented as union.
+Using this monoid
+the free variables operation is defined as follows:
+
+%As an alternative way to handle the freeVars query, the query algebra
+%is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic
+%algebra, with generic type to be \lstinline{List<String>}.
+
+\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
+
+There are two important differences to the implementation in
+Fig.~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
+needs to be specified.  Secondly only the case for variables needs to
+be defined: the other cases are inherited from
+\lstinline{ExpAlgQuery}.
+
+\begin{comment}
+\haoyuan{Begin: client code.}
+Now one can do some experiments with this approach. First comes an example of the expression built up like this:
+
+\lstinputlisting[linerange=11-13]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=GEN_EXP
+
+The method \lstinline{genExp()} just gives the expression \lstinline{x + (y + 2)}. And then an instance of \lstinline{FreeVars} is passed to \lstinline{genExp()} to get the names of free variables.
+The result given by the following code is \lstinline{[x, y]}, which is a set of strings.
+
+\lstinputlisting[linerange=19-20]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_FREEVARS
+
+\haoyuan{End: client code. x + (y + 2) and [x, y] in code style?}
+\end{comment}
+
+%% At this point it is interesting to analyze the benefits and drawbacks
+%% of this approach. A clear benefit is that we have to define fewer cases
+%% in specific queries. For large structures, this is can amount to
+%% significantly less code. However we have to create the generic
+%% classes for each object algebra interface as well as to use (and
+%% perhaps define) some monoids. The monoid structures tend to be
+%% quite general, so they can be reused accross multiple queries. For example
+%% the set monoid is useful for any query that returns sets, not just
+%% free variables. Therefore such monoids are typically included in
+%% libraries, and do not need to be defined for each query.
+%% For the code for the generic query itself (\lstinline{ExpAlgQuery})
+%% it is nice that the code can be reused accross multiple
+%% queries, but it still has to be defined. Furthermore the definition still
+%% consists of boring and tedious code.
+
+%Clearly if
+%there are only a few types of nodes (as in our minimal example)
+%and a few operations, the effort does not seem worthwhile. But
+
+\begin{comment}
+But the result for an expression can only be a null list based on the
+monoid. Thus in the freeVars query, furthermore, we expect the
+variables to store their names into a list, and by using the monoid,
+freeVars can be implemented. See Fig.~\ref{freevars_with_monoid}.
+
+
+When the interface \lstinline{FreeVarsExpAlg} is used, an object of
+the \lstinline{FreeVarsMonoid} is then created. As we can see, it is
+needless for a user to write an exclusive traversal fully for a data
+structure. Nothing but a monoid is required together with a few
+methods being overwritten. And furthermore, a monoid can usually be
+shared among query algebras with the same data type.
+\end{comment}
+
+%\subsection{Generic Queries in \name}
+
+The traversal code in \lstinline{ExpAlgQuery} is entirely
+mechanical and can be automatically generated.  This is precisely what
+\name does. Annotating algebra interfaces, such as \lstinline{ExpAlg}, with the annotation \lstinline{@Algebra},
+triggers automatic generation of generic query interfaces, such as \lstinline{ExpAlgQuery}. 
+%\name also provides implementatations of a number of common monoids over sets, lists, and numbers. 
+Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
+Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
+All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}.
+
+\begin{figure}[t]
+\begin{lstlisting}[mathescape=true]
+interface Alg$_Q$<R> extends Alg<R,$...$,R> {
+  Monoid<R> m();
+
+  default R f$_j$(R p$_1$, $...$, R p$_k$) {
+    return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(p$_{k-1}$, p$_k$)$...$)));
+  }
+  $...$
+}
+\end{lstlisting}
+\caption{Generic template for generating boilerplate of queries}
+\label{queryTemplate}
+\end{figure}
+
