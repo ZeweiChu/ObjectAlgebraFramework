@@ -1,4 +1,4 @@
-\documentclass[preprint]{llncs}
+\documentclass[preprint]{sigplanconf}
 
 \usepackage{color}
 
@@ -81,15 +81,41 @@ $^{\textrm{2}}$ The University of Hong Kong\\
 \authorrunning{Author1 and Author2} % abbreviated author list (for running head)
 \end{comment}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-%%\conferenceinfo{POPL'10} {}
-%%\CopyrightYear{2010}
+\special{papersize=8.5in,11in}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
 
+\begin{comment}
+\conferenceinfo{SPLASH '15}{October 25--30, 2015, Pittsburgh, Pennsylvania, USA.}
+\copyrightyear{2015}
+\copyrightdata{978-1-nnnn-nnnn-n/yy/mm}
+\doi{nnnnnnn.nnnnnnn}
+
+% Uncomment one of the following two, if you are not going for the
+% traditional copyright transfer agreement.
+
+%\exclusivelicense                % ACM gets exclusive license to publish,
+                                  % you retain copyright
+
+%\permissiontopublish             % ACM gets nonexclusive license to publish
+                                  % (paid open-access papers,
+                                  % short abstracts)
+
+\titlebanner{banner above paper title}        % These are ignored unless
+\preprintfooter{short description of paper}   % 'preprint' option specified.
+\end{comment}
 
 \title{Scrap your Boilerplate with Object Algebras}
+%\subtitle{Subtitle Text, if any}
+
+\authorinfo{Name1}
+           {Affiliation1}
+           {Email1}
+\authorinfo{Name2\and Name3}
+           {Affiliation2/3}
+           {Email2/3}
 
 \maketitle
 
@@ -159,6 +185,16 @@ A pervasive problem in programming occurs when large tree tr
 
 \end{abstract}
 
+\category{CR-number}{subcategory}{third-level}
+
+% general terms are not compulsory anymore,
+% you may leave them out
+\terms
+term1, term2
+
+\keywords
+keyword1, keyword2
+
 %if False
 
 %\category{D.3.2}{Programming Languages}
@@ -179,32 +215,56 @@ A pervasive problem in programming occurs when large tree tr
 
 %===============================================================================
 
-\input{sections/Introduction.tex}
+%\input{sections/Introduction.tex}
 
-\input{sections/Overview.tex}
+%\input{sections/Overview.tex}
 
-\input{sections/Queries.tex}
+%\input{sections/Queries.tex}
 
-\input{sections/GeneralizedQueries.tex}
+%\input{sections/GeneralizedQueries.tex}
 
-\input{sections/Transformations.tex}
+%\input{sections/Transformations.tex}
 
-\input{sections/ContexualTransformations.tex}
+%\input{sections/ContexualTransformations.tex}
 
-\input{sections/Extensible.tex}
+%\input{sections/Extensible.tex}
 
-\input{sections/Framework.tex}
+%\input{sections/Framework.tex}
 
-\input{sections/CaseStudy.tex}
+%\input{sections/CaseStudy.tex}
 
-\input{sections/RelatedWork.tex}
+%\input{sections/RelatedWork.tex}
 
-\input{sections/Conclusion.tex}
+%\input{sections/Conclusion.tex}
 
 
-\bibliographystyle{splncs}
-\bibliography{paper}
+%\bibliographystyle{splncs}
+%\bibliography{paper}
 
 \appendix
+
+\begin{comment}
+\section{Appendix Title}
+
+This is the text of the appendix, if you need one.
+
+\acks
+
+Acknowledgments, if needed.
+
+% We recommend abbrvnat bibliography style.
+
+\bibliographystyle{abbrvnat}
+
+% The bibliography should be embedded for final submission.
+
+\begin{thebibliography}{}
+\softraggedright
+
+\bibitem[Smith et~al.(2009)Smith, Jones]{smith02}
+P. Q. Smith, and X. Y. Jones. ...reference text...
+
+\end{thebibliography}
+\end{comment}
 
 \end{document}
