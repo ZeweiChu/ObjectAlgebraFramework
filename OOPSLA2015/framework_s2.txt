@@ -1,0 +1,36 @@
+2. Overview
+
+This section ... annotations.
+
+2.1 A Questionnaire Structure and Object Oriented Solution
+
+We start by considering the questionnaire structure introduced in <Figure>. The example is actually closely related to the case study <Section>, but appears in a much more simplified form to illustrate our work clearly. To start with, <Intro to QL, 3 parts>. Therefore in this structure, an identified "Form" comprises a list of "Statements". Each "Statement" can either be a question (a variable initialized with an "Expression" or depending on users' input) or a condition statement. Furthermore, an "Expression" is based on several primitive types, and is obtained from certain values, variables, and some possible arithmetic operations. In this example, the primitive types are "integer", "boolean" and "string". And in addition, the logical operator ">=" is for boolean values.
+
+With such an interface, a concrete example for questionnaire would be like <Figure>.
+// Driver's License
+
+Two operations are supported by the QL structure: collecting the set of free variables in the questionnaire; and substituting a specific variable which appears in an expression by another given expression. To support those operations, an OO solution is to have methods "freeVars", which returns a set of strings representing those free variables, and "substVar", which constructs an updated questionnaire.
+
+<Figure> shows the Java implementation of ... <Code, Explanation>
+
+However, this simple OO solution has two important problems: <1> <2>
+
+2.2 Modelling the QL structure with Object Algebras
+
+Object algebras ... over the structure.
+
+<Figure> shows the approach to model the simplified QL structure as an object algebra interface. <Code, Explanation>.
+
+Operations are defined by implementing the object algebra interface. The following code ... <Code>
+
+<Code, More Code, Explanation>
+
+Although we solved ... tedious traversal code.
+
+2.3 Shy: An Object Algebra Framework for Traversals
+
+<Introduction>
+
+Some client code is shown as follows:
+
+<Code, Explanation, Results, Conclusion>
