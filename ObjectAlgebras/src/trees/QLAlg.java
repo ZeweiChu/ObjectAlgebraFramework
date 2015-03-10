@@ -4,13 +4,12 @@ import java.util.List;
 import com.zewei.annotation.processor.Algebra;
 
 @Algebra
-public interface QLAlg<E, S, F> {
-	F form(String id, List<S> statements);
-	S iff(E cond, S then);
-	S question(String id, String label, String type);
-	E lit(int x);
-	E bool(boolean b);
-	E var(String varName);
-	E geq(E lhs, E rhs);
+public interface QLAlg<Exp, Stmt, Form> {
+	Form form(String id, List<Stmt> statements);
+	Stmt iff(Exp cond, Stmt then);
+	Stmt question(String id, String label, String type);
+	Exp lit(int x);
+	Exp var(String varName);
+	Exp geq(Exp lhs, Exp rhs);
 }
 

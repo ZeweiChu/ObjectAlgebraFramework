@@ -29,10 +29,6 @@ class UsedVars implements QLAlg<Set<String>, Set<String>, Set<String>>{
 		return Collections.emptySet();
 	}
 
-	public Set<String> bool(boolean b) {
-		return Collections.emptySet();
-	}
-
 	public Set<String> var(String varName) {
 		return Collections.singleton(varName);
 	}

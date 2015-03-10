@@ -5,65 +5,21 @@ traversals of complex structures. It then shows how \name addresses
 the problem using a combination of object algebras~\cite{bruno12oa}
 and Java annotations.
 
+\subsection{A Questionnaire Structure and an Object Oriented Solution}
 
-%Thus we introduce generic queries and transformations to make traversal code reusable and modular. Finally we present our framework \name which a%utomatically generate generic queries, generalized generic queries, transformations and contextual aware transformations based on Object Algebra Int%erfaces with Java annotation.
+%Figure needed for the model.
 
-\subsection{A Company Structure and an Object Oriented Solution}
+%Duplicate texts.
 
-\begin{figure}[t]
-\centering
-\nocaptionrule
-\includegraphics[width=0.9\linewidth]{101companies}
-\caption{Variant of the 101 Companies data model\label{company_structure}}
-\end{figure}
+We start by considering the questionnaire structure introduced in [Figure]. The example is actually closely based on our case study [Section], but appears in a much more simplified form to illustrate our work clearly. To start with, a questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed. A simplified DSL for questionnaires (QL), has its syntax in our example with a data structure. Three sorts of components, Form, Stmt and Exp help to compose questionnaires.
 
-We start by considering the company structure introduced in
-Fig.~\ref{company_structure}. The example is inspired by L\"ammel
-and Peyton Jones company structure, used to motivate their ``Scrap
-your Boilerplate'' approach~\cite{ralf03syb}. It is also closely
-related to the 101 companies system~\cite{Inauguration101}.  A
-\lstinline{Company} comprises a list of \lstinline{Department}s. Each
-\lstinline{Department} is managed by an \lstinline{Employee}, and
-contains a list of \lstinline{Units}. A \lstinline{Unit} can be
-either a \lstinline{Department} or an \lstinline{Employee}. An
-\lstinline{Employee} has a \lstinline{Person} and
-\lstinline{Salary} information.
+In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=8-25]{../ObjectAlgebras/src/sybDemo1/Company.java} % APPLY:linerange=OOP_COMPANY
-\caption{The \lstinline{Company} and \lstinline{Salary} classes
-  implementing part of the company structure.}
-\label{oop_company}
-\end{figure}
+A concrete example QL questionnaire is shown in [Figure], regarding driver's license. The questionnaire firstly asks for a user's name and age, and for an adult, furthermore, it asks whether the user has a driver's license.
 
-Two operations are supported by the company structure: querying the
-salary bill for the whole company; and increasing the salary of each
-employee by 10\%. To support those operations, an OO solution is to
-have methods \lstinline{salaryBill}, which returns salary as a float
-number, and \lstinline{increaseSalary}, which constructs a company
-with updated salaries.
+Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{renaming}, which updates the names of all variables in a questionnaire.
 
-Fig.~\ref{oop_company} shows the Java implementation of the
-\lstinline{Salary} and \lstinline{Company} classes. The implementation
-of other classes is omitted for space reasons.  In the
-implementation, querying the salary bill of the whole company is done
-by returning the salary in instances of the \lstinline{Salary} class,
-and delegating the method \lstinline{salaryBill} to the child nodes in
-other classes. Increasing the salary for the whole company by 10\%,
-following L\"ammel and Peyton Jones approach, can be implemented
-similarly. The \lstinline{Salary} class will construct a new
-\lstinline{Salary} object with increased salary information, and
-the method \lstinline{increaseSalary} in other classes will
-construct corresponding new objects with updated salaries.
-
-\begin{comment}
-Just as in functional programming, modeling such company structure in
-a conventional OO way leads to significant amounts of boilerplate
-code. Object algebras provide an alternative way to model the company
-structure, with benefits in terms of extensibility, but there is still
-boilerplate code.
-\end{comment}
+[Figure] shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{renaming}. The renaming operation updates some information stored in the private members of those classes.
 
 However, this simple OO solution has two important problems:
 
@@ -73,14 +29,14 @@ However, this simple OO solution has two important problems:
   representation of data structures is cumbersome and
   inflexible due to the bound relationship between classes. For
   instance, adding a new operation such as pretty
-  printing the company structure requires pervasive changes across all
+  printing the QL structure requires pervasive changes across all
   existing classes.
 
 \item {\bf Boilerplate traversal code} Another issue is that we
   usually need to write a large amount of boilerplate code to
   implement traversals. In our example, we implemented
-  \lstinline{increaseSalary} and \lstinline{salaryBill} in all
-  classes. However only the \lstinline{Salary} class does some
+  \lstinline{usedVars} and \lstinline{renaming} in all
+  classes. However only the \lstinline{Question} and \lstinline{Var} classes do some
   interesting work. All other classes simply delegate the task to the
   child nodes. This problem becomes more severe with bigger tree
   structures. The interesting code can become a very small portion of
@@ -89,7 +45,7 @@ However, this simple OO solution has two important problems:
 
 \end{enumerate}
 
-\subsection{Modeling the Company Structure with Object Algebras}
+\subsection{Modeling the QL Structure with Object Algebras}
 
 Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem.
 Object algebras are a design pattern that is useful to model complex
@@ -97,115 +53,126 @@ structures, while providing a lot of flexibility in terms of
 modularity and extensibility. In particular, object algebras allow
 extensibility in two dimensions: it is easy to add new types of
 nodes; and new operations over the structure.
-%As a result, object
-%algebras provide a solution to the \emph{expression problem}~\cite{wadler98expression-problem}.
 
-\begin{figure}[tb]
-\nocaptionrule
-\lstinputlisting[linerange=8-17]{../ObjectAlgebras/src/trees/OneOhOneAlg.java} % APPLY:linerange=SYB_TREE
-\caption{Company structure represented by an object algebra interface}
-\label{syb_tree}
-\end{figure}
-
-Fig.~\ref{syb_tree} shows the approach to model the company
-structure as an object algebra interface. Each kind of node (for
-example \lstinline{Salary} or \lstinline{Company}) is represented as a
-type parameter. Each method in the object algebra interface models a
-constructor of some node in the company structure. For example the
-method \lstinline{C} constructs an instance of a company; whereas the
-method \lstinline{S} creates an instance of a salary. From an
+[Figure] shows the approach to model the QL
+structure as an object algebra interface. Each kind of node (\lstinline{Exp}, \lstinline{Stmt}, \lstinline{Form})
+is represented as a type parameter. Each method in the object algebra interface models a
+constructor of some node in the QL structure. For example the
+method \lstinline{form} constructs an instance of a form; whereas the
+method \lstinline{question} creates an instance of a statement. From an
 object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
 resemblance to constructors of  (a system of) algebraic data types should be clear.
 
 Operations are defined by implementing the object algebra interface.
-The following code show a partial implementation of the salary bill
+The following code show an implementation of the used variables
 operation.
 
 \begin{lstlisting}[numbers=none,mathescape=true]
-class SalaryBill implements OneOhOneAlg<Float, $...$, Float> {
-  public Float C(List<Float> depts) {
-    return depts.stream().reduce(0.0f, (x, y) -> x + y);
-  }
-  $...$
-  public Float S(float salary) { return salary; }
+class UsedVars implements QLAlg<Set<String>, Set<String>, Set<String>> {
+
+	public Set<String> form(String id, List<Set<String>> statements) {
+		Set<String> res = new HashSet<String>();
+		for (Set<String> s : statements)
+			res.addAll(s);
+		return res;
+	}
+
+	public Set<String> iff(Set<String> cond, Set<String> then) {
+		Set<String> res = new HashSet<String>(cond);
+		res.addAll(then);
+		return res;
+	}
+
+	public Set<String> question(String id, String label, String type) {
+		return Collections.emptySet();
+	}
+
+	public Set<String> lit(int x) {
+		return Collections.emptySet();
+	}
+
+	public Set<String> var(String varName) {
+		return Collections.singleton(varName);
+	}
+
+	public Set<String> geq(Set<String> lhs, Set<String> rhs) {
+		Set<String> res = new HashSet<String>(lhs);
+		res.addAll(rhs);
+		return res;
+	}
+
 }
 \end{lstlisting}
 
 
-The \lstinline{SalaryBill} class provides an implementation for each
+The \lstinline{UsedVars} class provides an implementation for each
 of the methods in the object algebra interface, which defines the
-overall salary bill operation. Since the result of computing the
-salary bill is a \lstinline{Float}, all the type parameters are set to
+overall used variables operation. Since the result of collecting those
+variables is \lstinline{Set<String>}, all the type parameters are set to
 that type. Most of the method implementations simply traverse the
 child nodes and accumulate the salaries. That is the case, for
-example, for \lstinline{C}. The only method implementation that does
-something different is \lstinline{S}, which returns the salary
+example, for \lstinline{form}. The only method implementation that does
+something different is \lstinline{var}, which returns the salary
 argument.
-%Note that the way operations are deifined with object
-%algebras resembles the definition of operations by case analysis in
-%functional programming.
 
-For the increase salary operation the result is itself a structure
-with all salaries updated. The following code shows part of the
+For the renaming operation the result is itself a structure
+with all variable names updated. The following code shows the
 implementation:
 
 \begin{lstlisting}[numbers=none]
-class IncreaseSalary<C,D,U,E,P,S> implements OneOhOneAlg<C,D,U,E,P,S> {
-	private OneOhOneAlg<C,D,U,E,P,S> alg;
-	public Float C(List<Dept> depts) { return alg.C(depts); }
-	...
-	public Salary S(float salary) { return alg.S(1.1f * salary); }
+class Renaming<E, S, F> implements QLAlg<E, S, F> {
+
+	private QLAlg<E, S, F> alg;
+	
+	public Renaming(QLAlg<E, S, F> alg) { this.alg = alg; }
+	
+	public F form(String id, List<S> statements) {
+		return alg.form(id, statements);
+	}
+
+	public S iff(E cond, S then) {
+		return alg.iff(cond, then);
+	}
+
+	public S question(String id, String label, String type) {
+		return alg.question(id + "_", label, type);
+	}
+
+	public E lit(int x) {
+		return alg.lit(x);
+	}
+
+	public E var(String varName) {
+		return alg.var(varName + "_");
+	}
+
+	public E geq(E lhs, E rhs) {
+		return alg.geq(lhs, rhs);
+	}
+
 }
 \end{lstlisting}
 
-The class \lstinline{IncreaseSalary} is parameterized by six types,
-which represent the kinds of nodes in the company structure. Each
+The class \lstinline{Renaming} is parameterized by three types,
+which represent the kinds of nodes in the QL structure. Each
 constructor needs to build an instance of the right type of nodes.
 Note that, due to the lack of better type-inference in Java, there is
 some repetition of type-annotations. In order to create the updated
-company structure another algebra called \lstinline{alg} is used.
+QL structure another algebra called \lstinline{alg} is used.
 Almost all the method implementations reconstruct the structure with
-no changes using the methods in \lstinline{alg}. The exception is the
-method \lstinline{S} where the structure is also reconstructed, but
-the salary is increased by 10\%.
-
-%In the method
-%IncreaseSalary will modify an old algebra and return a new algebra
-%based on specific implementations. More specifically, the old algebra
-%is set as a field in \lstinline{IncreaseSalarySybAlg}, method
-%\lstinline{Salary S(float salary)} increases the salary by 10\%, and
-%other methods simply delegates to the same methods in the old algebra.
-
-%When programming with Object Algebras, the code can be very generic based on the object algebra interfaces. \lstinline{alg} can be used as an abstract factory to construct algebras, while the algebras can be instantiated by specific object algebras later by passing in type parameters.
+no changes using the methods in \lstinline{alg}. Two exceptions are the
+methods \lstinline{question} and \lstinline{var}, where the structure is also reconstructed, but
+the names are modified with ``\_'' appended to the end.
 
 Although we solved the problem of extensibility with object
 algebras, the traversal code is still lengthy and we are still writing
-tedious traversal code. In both operations, the only interesting code
-is in the \lstinline{S} method. Ideally, we would like to write only
+tedious traversal code. In those two operations, the only interesting code
+is in the methods \lstinline{question} and \lstinline{var}. Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
 remainder tedious traversal code.
 
-%It will be better if we can
-%design some generic classes for queries and transformations. Hence
-%specific algebras can be generated by implementing interesting cases
-%of generic queries and transformations. Moreover, it will be even
-%better if the boilerplate code can be generated automatically so we
-%can focus our attention on the interesting cases.
-
 \subsection{\Name: An Object Algebra Framework for Traversals}
-
-
-\begin{comment}
-Motivated by this problem of writing generic code for tree structure
-traversals, we introduce generic queries, generalized generic queries,
-transformations and contextual aware transformations with Object
-Algebras, which can be easily inherited by real cases of queries and
-transformations. Furthermore, we designed an object algebra framework
-\name. With our framework, the generic query and transformation
-classes can be generated automatically by adding the $@$Algebra''
-annotation.
-\end{comment}
 
 To deal with the boilerplate problem we created \Name: a Java object
 algebras framework, which provides a number of generic traversals at
@@ -213,20 +180,20 @@ the cost of a simple annotation. The key idea in \name is to
 automatically create highly generic object algebras, which encapsulate
 common types of traversals. In particular \name supports generic
 \emph{queries} and \emph{transformations}. Those two types of
-traversals are useful to capture, respectively, the salary bill and
-increase salary operations.
+traversals are useful to capture, respectively, the used variables and
+renaming operations.
 
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation
-to the definition of \lstinline{OneOhOneAlg} to get the code for generic
+to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
-shown in Fig.~\ref{syb_tree}. With that annotation several classes
-are generated automatically, including \lstinline{OneOhOneAlgQuery} and
-\lstinline{OneOhOneAlgTrans}. Using those classes the code needed to write
-the salary bill and increase salary object algebras is much
+shown in [Figure]. With that annotation several classes
+are generated automatically, including \lstinline{QLAlgQuery} and
+\lstinline{QLAlgTrans}. Using those classes the code needed to write
+the used variables and renaming object algebras is much
 shorter. The code for the two operations is shown in
-Fig.~\ref{query_with_oaframework}. By implementing the
-\lstinline{OneOhOneAlgQuery} and \lstinline{OneOhOneAlgTrans} classes, only the
-\lstinline{S} method needs to be overridden: all the other methods,
+[Figure]. By implementing the
+\lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} classes, only the methods
+\lstinline{question} and \lstinline{var} needs to be overridden: all the other methods,
 which do a simple generic traversal, are inherited. For queries the
 only extra thing a programmer has to do is to provide an instance of a
 monoid, which is used to specify how to accumulate the results during
@@ -234,40 +201,36 @@ the traversal. Similarly, for transformations, the programmer needs to
 pass an algebra for providing the constructors for the transformation
 code.
 
-\begin{figure}[tb]
-\nocaptionrule
-\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/example_SybAlg/SalaryBill.java} % APPLY:linerange=QUERY_WITH_OAFRAMEWORK
-\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/example_SybAlg/IncreaseSalary.java} % APPLY:linerange=TRANSFORM_WITH_OAFRAMEWORK
-\caption{Salary bill and increase salary with \Name.}
-\label{query_with_oaframework}
-\end{figure}
-
-\begin{comment}
-\begin{figure}[tb]
-
-\vspace{-.1in}
-\caption{Increase salary with \Name.}
-\label{transform_with_oaframework}
-\end{figure}\bruno{Should we create a simple auxiliary class to make
-  the code shorter?}\bruno{I think it is better to merge the 2 figures
-(for queries and transformations) into a single figure.}
-\end{comment}
-
 Some client code is shown as follows: %, using those two algebras based on our framework.
 
-\lstinputlisting[linerange=12-21]{../ObjectAlgebras/src/example_SybAlg/SybTest.java} % APPLY:linerange=GEN_COM
+\begin{lstlisting}[numbers=none]
+<E, S, F> F makeQL(QLAlg<E, S, F> alg) {
+	S s0 = alg.question("name", "What is your name?", "string");
+	S s1 = alg.question("age", "What is your age?", "integer");
+	E ifStmt = alg.geq(alg.var("age"), alg.lit(18));
+	S thenStmt = alg.question("license", "Do you have a driver's license?", "boolean");
+	S s2 = alg.iff(ifStmt, thenStmt);
+	return alg.form("DriverLicense", Arrays.asList(s0, s1, s2));		
+}
+\end{lstlisting}
 
-This method is used to create a particular company structure, in the
+This method is used to create a particular QL structure, in the
 usual object algebras style.
-Using this company structure, we can use the \lstinline{SalaryBill}
-and \lstinline{IncreaseSalary} to compute some information about the company:
+Using this QL structure, we can use the \lstinline{UsedVars}
+and \lstinline{Renaming} to compute some information about the questionnaire:
 
-\lstinputlisting[linerange=27-31]{../ObjectAlgebras/src/example_SybAlg/SybTest.java} % APPLY:linerange=CLIENTCODE_COMPANY
+\begin{lstlisting}[numbers=none]
+UsedVars usedVars = new UsedVars();
+	System.out.println(makeQL(usedVars));
+	Renaming<Set<String>, Set<String>, Set<String>> renaming = new Renaming<Set<String>, Set<String>, Set<String>>(usedVars);
+	System.out.println(makeQL(renaming));
+\end{lstlisting}
 
-The results give \lstinline{111000.0} and \lstinline{122100.0}, which
-is respectively the salary before and after increase.
+The results give \lstinline{[age]} and \lstinline{[age_]}, which
+is respectively the set of used variables before and after renaming.
 
 The remainder of the paper provides the details and implementation
 techniques used in \Name. Besides basic queries and transformations,
 \name also supports two generalizations of these types of traversals
 called \emph{generalized queries} and \emph{contextual transformations}.
+

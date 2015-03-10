@@ -26,10 +26,6 @@ class Renaming<E, S, F> implements QLAlg<E, S, F> {
 		return alg.lit(x);
 	}
 
-	public E bool(boolean b) {
-		return alg.bool(b);
-	}
-
 	public E var(String varName) {
 		return alg.var(varName + "_");
 	}

@@ -63,11 +63,6 @@ class Lit extends Exp {
 	Lit(int x) { this.x = x; }
 }
 
-class Bool extends Exp {
-	private boolean b;
-	Bool(boolean b) { this.b = b; }
-}
-
 class Var extends Exp {
 	private String varName;
 	Var(String varName) { this.varName = varName; }
