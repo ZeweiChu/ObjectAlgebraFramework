@@ -1,145 +1,197 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{32}
+\providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{adams2012tyb}
-Adams, M.D., DuBuisson, T.M.: Template your boilerplate: Using {T}emplate
-  {H}askell for efficient generic programming. In: Proceedings of the 2012 ACM
-  SIGPLAN Haskell symposium. pp. 13--24. Haskell '12 (2012)
+\bibitem[Adams and DuBuisson(2012)]{adams2012tyb}
+M.~D. Adams and T.~M. DuBuisson.
+\newblock Template your boilerplate: Using {T}emplate {H}askell for efficient
+  generic programming.
+\newblock In \emph{Proceedings of the 2012 ACM SIGPLAN Haskell symposium},
+  Haskell '12, pages 13--24, 2012.
 
-\bibitem{borovansky1996elan}
-Borovansk{\`y}, P., Kirchner, C., Kirchner, H., Moreau, P.E., Vittek, M.:
-  {ELAN}: A logical framework based on computational systems. Electronic Notes
-  in Theoretical Computer Science  4,  35--50 (1996)
+\bibitem[Borovansk{\`y} et~al.(1996)Borovansk{\`y}, Kirchner, Kirchner, Moreau,
+  and Vittek]{borovansky1996elan}
+P.~Borovansk{\`y}, C.~Kirchner, H.~Kirchner, P.-E. Moreau, and M.~Vittek.
+\newblock {ELAN}: A logical framework based on computational systems.
+\newblock \emph{Electronic Notes in Theoretical Computer Science}, 4:\penalty0
+  35--50, 1996.
 
-\bibitem{vandenBrand:2003:TRT:941566.941568}
-van~den Brand, M.G.J., Klint, P., Vinju, J.J.: Term rewriting with traversal
-  functions. ACM Trans. Softw. Eng. Methodol.  12(2),  152--190 (Apr 2003)
+\bibitem[Bravenboer and Visser(2001)]{bravenboer2001guiding}
+M.~Bravenboer and E.~Visser.
+\newblock Guiding visitors: Separating navigation from computation.
+\newblock Technical Report UU-CS-2001-42, Institute of Information and
+  Computing Sciences, Utrecht University, 2001.
 
-\bibitem{bravenboer2001guiding}
-Bravenboer, M., Visser, E.: Guiding visitors: Separating navigation from
-  computation. Tech. Rep. UU-CS-2001-42, Institute of Information and Computing
-  Sciences, Utrecht University (2001)
+\bibitem[Bringert and Ranta(2008)]{bjorn08acf}
+B.~Bringert and A.~Ranta.
+\newblock A pattern for almost compositional functions.
+\newblock \emph{Journal of Functional Programming}, 18:\penalty0 567--598,
+  September 2008.
 
-\bibitem{bjorn08acf}
-Bringert, B., Ranta, A.: A pattern for almost compositional functions. Journal
-  of Functional Programming  18,  567--598 (September 2008)
+\bibitem[Chadwick and Lieberherr(2010)]{OOGP}
+B.~Chadwick and K.~Lieberherr.
+\newblock Weaving generic programming and traversal performance.
+\newblock In \emph{AOSD'10}, 2010.
 
-\bibitem{deBruijn1972381}
-de~Bruijn, N.: Lambda calculus notation with nameless dummies, a tool for
-  automatic formula manipulation, with application to the {Church-Rosser}
-  theorem. Indagationes Mathematicae (Proceedings)  75(5),  381--392 (1972)
+\bibitem[de~Bruijn(1972)]{deBruijn1972381}
+N.~de~Bruijn.
+\newblock Lambda calculus notation with nameless dummies, a tool for automatic
+  formula manipulation, with application to the {Church-Rosser} theorem.
+\newblock \emph{Indagationes Mathematicae (Proceedings)}, 75\penalty0
+  (5):\penalty0 381--392, 1972.
 
-\bibitem{OOGP}
-Chadwick, B., Lieberherr, K.: Weaving generic programming and traversal
-  performance. In: AOSD'10 (2010)
+\bibitem[Gamma et~al.(1995)Gamma, Helm, Johnson, and Vlissides]{gof}
+E.~Gamma, R.~Helm, R.~Johnson, and J.~Vlissides.
+\newblock \emph{Design Patterns: Elements of Reusable Object-oriented
+  Software}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 1995.
+\newblock ISBN 0-201-63361-2.
 
-\bibitem{Inauguration101}
-Favre, J.M., L{\"a}mmel, R., Schmorleiz, T., Varanovich, A.:
-  {\emph{101companies}: a community project on software technologies and
-  software languages}. In: {Proceedings of TOOLS 2012}. LNCS, Springer (2012)
+\bibitem[Gibbons(2007)]{Gibbons07dgp}
+J.~Gibbons.
+\newblock Datatype-generic programming.
+\newblock In R.~Backhouse, J.~Gibbons, R.~Hinze, and J.~Jeuring, editors,
+  \emph{Spring School on Datatype-Generic Programming}, volume 4719 of
+  \emph{Lecture Notes in Computer Science}. Springer-Verlag, 2007.
 
-\bibitem{gof}
-Gamma, E., Helm, R., Johnson, R., Vlissides, J.: Design Patterns: Elements of
-  Reusable Object-oriented Software. Addison-Wesley Longman Publishing Co.,
-  Inc., Boston, MA, USA (1995)
+\bibitem[Gouseti et~al.(2014)Gouseti, Peters, and Storm]{gouseti14extensible}
+M.~Gouseti, C.~Peters, and T.~v.~d. Storm.
+\newblock Extensible language implementation with {Object Algebras} (short
+  paper).
+\newblock In \emph{GPCE'14}, 2014.
 
-\bibitem{Gibbons07dgp}
-Gibbons, J.: Datatype-generic programming. In: Backhouse, R., Gibbons, J.,
-  Hinze, R., Jeuring, J. (eds.) Spring School on Datatype-Generic Programming.
-  Lecture Notes in Computer Science, vol. 4719. Springer-Verlag (2007)
+\bibitem[Hinze et~al.(2007)Hinze, Jeuring, and Loeh]{ComparingGPHaskellHinze}
+R.~Hinze, J.~Jeuring, and A.~Loeh.
+\newblock Comparing approaches to generic programming in {Haskell}.
+\newblock In \emph{Datatype-Generic Programming}, volume 4719. Springer Berlin
+  Heidelberg, 2007.
 
-\bibitem{gouseti14extensible}
-Gouseti, M., Peters, C., Storm, T.v.d.: Extensible language implementation with
-  {Object Algebras} (short paper). In: GPCE'14 (2014)
+\bibitem[Hinze et~al.(2003)]{hinze2003fun}
+R.~Hinze et~al.
+\newblock Fun with phantom types.
+\newblock \emph{{The Fun of Programming}}, pages 245--262, 2003.
 
-\bibitem{ComparingGPHaskellHinze}
-Hinze, R., Jeuring, J., Loeh, A.: Comparing approaches to generic programming
-  in {Haskell}. In: Datatype-Generic Programming, vol. 4719. Springer Berlin
-  Heidelberg (2007)
+\bibitem[Lammel and Jones(2003)]{ralf03syb}
+R.~Lammel and S.~P. Jones.
+\newblock Scrap your boilerplate: A practical design pattern for generic
+  programming.
+\newblock In \emph{TLDI'03}, 2003.
 
-\bibitem{hinze2003fun}
-Hinze, R., et~al.: Fun with phantom types. {The Fun of Programming} pp.
-  245--262 (2003)
+\bibitem[L\"{a}mmel and Jones(2004)]{lammel04syb}
+R.~L\"{a}mmel and S.~P. Jones.
+\newblock Scrap more boilerplate: Reflection, zips, and generalised casts.
+\newblock In \emph{ICFP '04}, 2004.
 
-\bibitem{ralf03syb}
-Lammel, R., Jones, S.P.: Scrap your boilerplate: A practical design pattern for
-  generic programming. In: TLDI'03 (2003)
+\bibitem[L\"{a}mmel and Jones(2005)]{lammel05syb}
+R.~L\"{a}mmel and S.~P. Jones.
+\newblock Scrap your boilerplate with class: Extensible generic functions.
+\newblock 2005.
 
-\bibitem{lammel04syb}
-L\"{a}mmel, R., Jones, S.P.: Scrap more boilerplate: Reflection, zips, and
-  generalised casts. In: ICFP '04 (2004)
+\bibitem[L{\"a}mmel and Visser(2002)]{lammel2002typed}
+R.~L{\"a}mmel and J.~Visser.
+\newblock Typed combinators for generic traversal.
+\newblock In \emph{Practical Aspects of Declarative Languages}, pages 137--154.
+  Springer, 2002.
 
-\bibitem{lammel05syb}
-L\"{a}mmel, R., Jones, S.P.: Scrap your boilerplate with class: Extensible
-  generic functions  (2005)
+\bibitem[L{\"a}mmel et~al.(2000)L{\"a}mmel, Visser, and Kort]{lammel00dealing}
+R.~L{\"a}mmel, J.~Visser, and J.~Kort.
+\newblock Dealing with large bananas.
+\newblock In J.~Jeuring, editor, \emph{Workshop on Generic Programming}, Ponte
+  de Lima, July 2000. Technical Report UU-CS-2000-19, Universiteit Utrecht.
 
-\bibitem{lammel2003strategic}
-L{\"a}mmel, R., Visser, E., Visser, J.: Strategic programming meets adaptive
-  programming. In: AOSD '03 (2003)
+\bibitem[L{\"a}mmel et~al.(2003)L{\"a}mmel, Visser, and
+  Visser]{lammel2003strategic}
+R.~L{\"a}mmel, E.~Visser, and J.~Visser.
+\newblock Strategic programming meets adaptive programming.
+\newblock In \emph{AOSD '03}, 2003.
 
-\bibitem{lammel2002typed}
-L{\"a}mmel, R., Visser, J.: Typed combinators for generic traversal. In:
-  Practical Aspects of Declarative Languages, pp. 137--154. Springer (2002)
+\bibitem[Lieberherr(1996)]{DemeterBook}
+K.~J. Lieberherr.
+\newblock \emph{Adaptive Object Oriented Software: The Demeter Method with
+  Propagation Patterns}.
+\newblock PWS Publishing, 1996.
 
-\bibitem{lammel00dealing}
-L{\"a}mmel, R., Visser, J., Kort, J.: Dealing with large bananas. In: Jeuring,
-  J. (ed.) Workshop on Generic Programming. Technical Report UU-CS-2000-19,
-  Universiteit Utrecht, Ponte de Lima (Jul 2000)
+\bibitem[Musser and Stepanov(1989)]{GP}
+D.~R. Musser and A.~A. Stepanov.
+\newblock Generic programming.
+\newblock In \emph{ISAAC '88}, 1989.
 
-\bibitem{DemeterBook}
-Lieberherr, K.J.: Adaptive Object Oriented Software: The Demeter Method with
-  Propagation Patterns. PWS Publishing (1996)
+\bibitem[Oliveira and Cook(2004)]{bruno12oa}
+B.~C. d.~S. Oliveira and W.~R. Cook.
+\newblock Extensibility for the masses, practical extensibility with object
+  algebras.
+\newblock In \emph{ECOOP '12}, 2004.
 
-\bibitem{GP}
-Musser, D.R., Stepanov, A.A.: Generic programming. In: ISAAC '88 (1989)
+\bibitem[Oliveira et~al.(2008)Oliveira, Wang, and Gibbons]{Oliveira08visitor}
+B.~C. d.~S. Oliveira, M.~Wang, and J.~Gibbons.
+\newblock The visitor pattern as a reusable, generic, type-safe component.
+\newblock In \emph{OOPSLA'08}, 2008.
 
-\bibitem{bruno12oa}
-Oliveira, B.C.d.S., Cook, W.R.: Extensibility for the masses, practical
-  extensibility with object algebras. In: ECOOP '12 (2004)
+\bibitem[Oliveira et~al.(2013)Oliveira, van~der Storm, Loh, and
+  Cook]{oliveira13fop}
+B.~C. d.~S. Oliveira, T.~van~der Storm, A.~Loh, and W.~R. Cook.
+\newblock Feature-oriented programming with object algebras.
+\newblock In \emph{ECOOP '13}, 2013.
 
-\bibitem{oliveira13fop}
-Oliveira, B.C.d.S., van~der Storm, T., Loh, A., Cook, W.R.: Feature-oriented
-  programming with object algebras. In: ECOOP '13 (2013)
+\bibitem[Orleans and Lieberherr(2001)]{DJ}
+D.~Orleans and K.~J. Lieberherr.
+\newblock {DJ}: {Dynamic} adaptive programming in {Java}.
+\newblock In \emph{Reflection 2001}. Springer-Verlag, 2001.
 
-\bibitem{Oliveira08visitor}
-Oliveira, B.C.d.S., Wang, M., Gibbons, J.: The visitor pattern as a reusable,
-  generic, type-safe component. In: OOPSLA'08 (2008)
+\bibitem[Palsberg and Jay(1998)]{palsberg98essence}
+J.~Palsberg and C.~B. Jay.
+\newblock The essence of the visitor pattern.
+\newblock In \emph{COMPSAC'98}, 1998.
 
-\bibitem{DJ}
-Orleans, D., Lieberherr, K.J.: {DJ}: {Dynamic} adaptive programming in {Java}.
-  In: Reflection 2001. Springer-Verlag (2001)
+\bibitem[Rendel et~al.(2014)Rendel, Brachth\"{a}user, and
+  Ostermann]{rendel14attributes}
+T.~Rendel, J.~I. Brachth\"{a}user, and K.~Ostermann.
+\newblock From object algebras to attribute grammars.
+\newblock In \emph{OOPSLA '14}, 2014.
 
-\bibitem{palsberg98essence}
-Palsberg, J., Jay, C.B.: The essence of the visitor pattern. In: COMPSAC'98
-  (1998)
+\bibitem[Rodriguez et~al.(2008)Rodriguez, Jeuring, Jansson, Gerdes, Kiselyov,
+  and Oliveira]{ComparingGPHaskellRodriquez}
+A.~Rodriguez, J.~Jeuring, P.~Jansson, A.~Gerdes, O.~Kiselyov, and B.~C. d.~S.
+  Oliveira.
+\newblock Comparing libraries for generic programming in {Haskell}.
+\newblock In \emph{Haskell'08}, 2008.
 
-\bibitem{rendel14attributes}
-Rendel, T., Brachth\"{a}user, J.I., Ostermann, K.: From object algebras to
-  attribute grammars. In: OOPSLA '14 (2014)
+\bibitem[van~den Brand et~al.(2003)van~den Brand, Klint, and
+  Vinju]{vandenBrand:2003:TRT:941566.941568}
+M.~G.~J. van~den Brand, P.~Klint, and J.~J. Vinju.
+\newblock Term rewriting with traversal functions.
+\newblock \emph{ACM Trans. Softw. Eng. Methodol.}, 12\penalty0 (2):\penalty0
+  152--190, Apr. 2003.
 
-\bibitem{ComparingGPHaskellRodriquez}
-Rodriguez, A., Jeuring, J., Jansson, P., Gerdes, A., Kiselyov, O., Oliveira,
-  B.C.d.S.: Comparing libraries for generic programming in {Haskell}. In:
-  Haskell'08 (2008)
+\bibitem[Visser and Benaissa(1998)]{visser1998core}
+E.~Visser and Z.-e.-A. Benaissa.
+\newblock A core language for rewriting.
+\newblock \emph{Electronic Notes in Theoretical Computer Science}, 15:\penalty0
+  422--441, 1998.
 
-\bibitem{visser1998core}
-Visser, E., Benaissa, Z.e.A.: A core language for rewriting. Electronic Notes
-  in Theoretical Computer Science  15,  422--441 (1998)
+\bibitem[Visser et~al.(1998)Visser, Benaissa, and
+  Tolmach]{Visser:1998:BPO:289423.289425}
+E.~Visser, Z.-e.-A. Benaissa, and A.~Tolmach.
+\newblock Building program optimizers with rewriting strategies.
+\newblock In \emph{ICFP '98}, 1998.
 
-\bibitem{Visser:1998:BPO:289423.289425}
-Visser, E., Benaissa, Z.e.A., Tolmach, A.: Building program optimizers with
-  rewriting strategies. In: ICFP '98 (1998)
+\bibitem[Visser(2001)]{visser01visitor}
+J.~Visser.
+\newblock Visitor combination and traversal control.
+\newblock In \emph{OOPSLA '01}, 2001.
 
-\bibitem{visser01visitor}
-Visser, J.: Visitor combination and traversal control. In: OOPSLA '01 (2001)
+\bibitem[Wadler(1998)]{wadler98expression-problem}
+P.~Wadler.
+\newblock The {E}xpression {P}roblem.
+\newblock Email, Nov. 1998.
+\newblock Discussion on the Java Genericity mailing list.
 
-\bibitem{wadler89type-classes}
-Wadler, P., Blott, S.: How to make ad-hoc polymorphism less ad hoc. In: POPL
-  '89 (1989)
-
-\bibitem{wadler98expression-problem}
-Wadler, P.: The {E}xpression {P}roblem. Email (Nov 1998), discussion on the
-  Java Genericity mailing list
+\bibitem[Wadler and Blott(1989)]{wadler89type-classes}
+P.~Wadler and S.~Blott.
+\newblock How to make ad-hoc polymorphism less ad hoc.
+\newblock In \emph{POPL '89}, 1989.
 
 \end{thebibliography}
