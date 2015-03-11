@@ -1,5 +1,6 @@
 package example_QLAlg1;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ class Form extends QL {
 	private List<Stmt> statements;
 	Form(String id, List<Stmt> statements) {
 		this.id = id;
-		this.statements = statements;
+		this.statements = new ArrayList<Stmt>(statements);
 	}
 	Set<String> usedVars() {
 		Set<String> res = new HashSet<String>();

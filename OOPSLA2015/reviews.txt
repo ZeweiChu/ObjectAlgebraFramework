@@ -39,8 +39,12 @@
 > code on pg 4:
 > -not even a Java master can guess that you are not showing a 
 > static import to Collectors.toList()
+
 > -this.depts=depts is a terrible idea, in the super duper extensible setting you try to place yourself.
 > Defensive cloning would be needed. I know, Java is a horrible language with horrible libraries but that is what we have.
+
+Fixed.
+
 > -s,x please call them salary and dep
 > Class Salary have a "Float" but later OneOhOneAlg have a corresponding constructor taking "float".
 > None of those two options make sense for a money stuff, please use BigInteger.
@@ -54,9 +58,13 @@
 > "OneOhOneAlg.Query" and make everyone happier and safer.
 > 
 > I see that method m is lowercase while the other algebra method are uppercase by convention so they can not clash, this is a good idea and you may mention it.
+
 > 
 > Pg 10: all arguments are combined
 > This is false, how you deal with non algebraic types, like float before or better as the Lam that you show, that have both a string and a Term?
+
+Fixed.
+
 > 
 > pg11: the argument in assign is ignored
 > This looks like an horrible idea, why do not leave that method abstract?
