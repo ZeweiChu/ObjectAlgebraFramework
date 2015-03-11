@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//BEGIN_OO_APPROACH
 class QL {
 	Set<String> usedVars() { return Collections.emptySet(); }
 	void renaming() {}
@@ -83,3 +84,5 @@ class Geq extends Exp {
 		rhs.renaming();
 	}
 }
+//END_OO_APPROACH
+

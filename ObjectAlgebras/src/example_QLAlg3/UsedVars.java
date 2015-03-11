@@ -6,14 +6,13 @@ import library.Monoid;
 import monoid.SetMonoid;
 import query.QLAlgQuery;
 
+//BEGIN_QL_QUERY_WITH_OAFRAMEWORK
 class UsedVars implements QLAlgQuery<Set<String>> {
-
 	public Monoid<Set<String>> m() {
 		return new SetMonoid<String>();
 	}
-	
 	public Set<String> var(String varName) {
 		return Collections.singleton(varName);
 	}
-
 }
+//END_QL_QUERY_WITH_OAFRAMEWORK

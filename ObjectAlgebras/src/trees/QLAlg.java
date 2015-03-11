@@ -3,6 +3,7 @@ package trees;
 import java.util.List;
 import com.zewei.annotation.processor.Algebra;
 
+//BEGIN_QL_TREE
 @Algebra
 public interface QLAlg<Exp, Stmt, Form> {
 	Form form(String id, List<Stmt> statements);
@@ -12,4 +13,4 @@ public interface QLAlg<Exp, Stmt, Form> {
 	Exp var(String varName);
 	Exp geq(Exp lhs, Exp rhs);
 }
-
+//END_QL_TREE

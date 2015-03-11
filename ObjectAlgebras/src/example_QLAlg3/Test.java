@@ -7,6 +7,7 @@ import trees.QLAlg;
 
 public class Test {
 	
+	//BEGIN_CLIENTCODE_MAKEQL
 	<E, S, F> F makeQL(QLAlg<E, S, F> alg) {
 		S s0 = alg.question("name", "What is your name?", "string");
 		S s1 = alg.question("age", "What is your age?", "integer");
@@ -15,12 +16,15 @@ public class Test {
 		S s2 = alg.iff(ifStmt, thenStmt);
 		return alg.form("DriverLicense", Arrays.asList(s0, s1, s2));		
 	}
+	//END_CLIENTCODE_MAKEQL
 	
 	void go() {
+		//BEGIN_CLIENTCODE_QLTEST
 		UsedVars usedVars = new UsedVars();
 		System.out.println(makeQL(usedVars));
 		Renaming<Set<String>, Set<String>, Set<String>> renaming = new Renaming<Set<String>, Set<String>, Set<String>>(usedVars);
 		System.out.println(makeQL(renaming));
+		//END_CLIENTCODE_QLTEST
 	}
 	
 	public static void main(String args[]) {
