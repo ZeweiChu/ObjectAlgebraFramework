@@ -36,9 +36,12 @@
 > Moreover, in many points you sort of suggest that the only alternative to your work is to write manually the code for all the operation without attempting to use some sort of inheritance between operations as is common with visitors.
 > ---
 > Minor comments:
+
 > code on pg 4:
 > -not even a Java master can guess that you are not showing a 
 > static import to Collectors.toList()
+
+Static imports added.
 
 > -this.depts=depts is a terrible idea, in the super duper extensible setting you try to place yourself.
 > Defensive cloning would be needed. I know, Java is a horrible language with horrible libraries but that is what we have.
