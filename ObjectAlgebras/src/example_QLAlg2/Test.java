@@ -18,7 +18,7 @@ public class Test {
 	void go() {
 		UsedVars usedVars = new UsedVars();
 		System.out.println(makeQL(usedVars));
-		Renaming<Set<String>, Set<String>, Set<String>> renaming = new Renaming<Set<String>, Set<String>, Set<String>>(usedVars);
+		Rename<Set<String>, Set<String>, Set<String>> renaming = new Rename<Set<String>, Set<String>, Set<String>>(usedVars);
 		System.out.println(makeQL(renaming));
 	}
 	

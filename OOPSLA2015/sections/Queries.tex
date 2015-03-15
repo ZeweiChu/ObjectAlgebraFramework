@@ -230,7 +230,7 @@ triggers automatic generation of generic query interfaces, such as \lstinline{Ex
 %\name also provides implementatations of a number of common monoids over sets, lists, and numbers.
 Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
-All \hl{algebraic} arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}.
+All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. \hl{Whereas those arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.}
 
 \begin{figure}[t]
 \nocaptionrule

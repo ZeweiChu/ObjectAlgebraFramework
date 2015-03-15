@@ -6,9 +6,9 @@ import com.zewei.annotation.processor.Algebra;
 //BEGIN_QL_TREE
 @Algebra
 public interface QLAlg<Exp, Stmt, Form> {
-	Form form(String id, List<Stmt> statements);
+	Form form(String id, List<Stmt> stmts);
 	Stmt iff(Exp cond, Stmt then);
-	Stmt question(String id, String label, String type);
+	Stmt question(String id, String lbl, String type);
 	Exp lit(int x);
 	Exp var(String varName);
 	Exp geq(Exp lhs, Exp rhs);
