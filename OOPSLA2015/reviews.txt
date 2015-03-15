@@ -320,8 +320,12 @@ class Salary {
 > - Sec 4.1. You could show the overridden method for Assign in G_StatAlgQuery, to make the required redefinition explicit in the paper.
 > 
 > - To use DepGraph, I believe you would first need to convert Exp to Set<String>? Where do you do that? Does this generate boilerplate code in your context?
+
 > 
 > - Bottom of page 12, you say "the result of exp()". I believe this should be "the result of e()"?
+
+Fixed.
+
 > 
 > - Sec 6.1. In my opinion, you leave too much of the code implicit here, which makes it hard to follow the example.
 > - Fig. 17: What is "xs" here? Where is xs defined?
@@ -361,6 +365,7 @@ class Salary {
 > The above sentence is not specific about the statistics.
 > 
 > others
+
 > 
 > abstract) employeed -> employed
 > abstract) questionaire -> questionnaire
@@ -368,6 +373,8 @@ class Salary {
 > p. 22) Syb -> SyB
 > p. 23)  There are many of avenues for future work. ->  There are many avenues for future work.
 > p. 15)  Shy queries and transformation ->  Shy queries and transformations
+
+Fixed.
 
 ===========================================================================
                           ECOOP 2015 Review #61E
