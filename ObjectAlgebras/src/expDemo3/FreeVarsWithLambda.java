@@ -16,8 +16,11 @@ class FreeVarsWithLambdas {
 
 	// BEGIN_EXTENDFREEVARS
 	interface FreeVarsWithLambda extends FreeVars, LamAlgQuery<Set<String>> {
-		default Set<String> Lam(String x, Set<String> fv) {
-			return fv.stream().filter((y) -> !y.equals(x)).collect(toSet());
+		default Set<String> Lam(String x,
+				Set<String> fv) {
+			return fv.stream()
+					.filter((y) -> !y.equals(x))
+					.collect(toSet());
 		}
 	}
 	// END_EXTENDFREEVARS

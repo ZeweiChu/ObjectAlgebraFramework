@@ -32,7 +32,7 @@ form DriverLicense {
 
 A concrete example QL questionnaire is shown in Fig.~\ref{driver_license}, regarding driver's license. The questionnaire firstly asks for a user's name and age, and for an adult, furthermore, it asks whether the user has a driver's license.
 
-Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{renaming}, which updates the names of all variables in a questionnaire.
+Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
 
 \begin{figure}[t]
 \nocaptionrule
@@ -41,7 +41,7 @@ Two operations are supported by the QL structure: collecting the set of used var
 \label{ql_oo_approach}
 \end{figure}
 
-Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{renaming}. The renaming operation updates some information stored in the private members of those classes.
+Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{rename}. The renaming operation updates some information stored in the private members of those classes.
 
 However, this simple OO solution has two important problems:
 
@@ -57,7 +57,7 @@ However, this simple OO solution has two important problems:
 \item {\bf Boilerplate traversal code} Another issue is that we
   usually need to write a large amount of boilerplate code to
   implement traversals. In our example, we implemented
-  \lstinline{usedVars} and \lstinline{renaming} in all
+  \lstinline{usedVars} and \lstinline{rename} in all
   classes. However only the \lstinline{Question} and \lstinline{Var} classes do some
   interesting work. All other classes simply delegate the task to the
   child nodes. This problem becomes more severe with bigger tree
@@ -115,7 +115,7 @@ implementation:
 
 \lstinputlisting[linerange=36-45]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
-The class \lstinline{Renaming} is parameterized by three types,
+The class \lstinline{Rename} is parameterized by three types,
 which represent the kinds of nodes in the QL structure. Each
 constructor needs to build an instance of the right type of nodes.
 Note that, due to the lack of better type-inference in Java, there is
@@ -178,7 +178,7 @@ Some client code is shown as follows: %, using those two algebras based on our f
 This method is used to create a particular QL structure, in the
 usual object algebras style.
 Using this QL structure, we can use the \lstinline{UsedVars}
-and \lstinline{Renaming} to compute some information about the questionnaire:
+and \lstinline{Rename} to compute some information about the questionnaire:
 
 \lstinputlisting[linerange=27-31]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 

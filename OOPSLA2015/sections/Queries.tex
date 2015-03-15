@@ -49,7 +49,7 @@ sets are joined into one.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\lstinputlisting[linerange=9-21]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \caption{Free variables as an object algebra.}
 \label{freevars_without_monoid}
 \end{figure}
@@ -128,7 +128,7 @@ This allows concrete queries to be implemented by overriding methods from multip
 
 \begin{figure}[tb]
 \nocaptionrule
-\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
+\lstinputlisting[linerange=4-11]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
 \caption{Generic queries using a monoid.}
 \label{generic_query}
 \end{figure}
@@ -165,7 +165,7 @@ the free variables operation is defined as follows:
 %is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic
 %algebra, with generic type to be \lstinline{List<String>}.
 
-\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
+\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 
 There are two important differences to the implementation in
 Fig.~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
