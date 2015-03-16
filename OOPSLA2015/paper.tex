@@ -1,4 +1,4 @@
-\documentclass[10pt,preprint]{sigplanconf}
+\documentclass[10pt,nocopyrightspace,preprint]{sigplanconf}
 
 \usepackage{color}
 
@@ -125,14 +125,14 @@ Traversing complex \emph{Abstract Syntax Trees} (ASTs) typically requires
 large amounts of tedious boilerplate code. For many operations most of
 the code simply walks the structure, and only a small portion of the
 code implements the functionality that motivated the traversal in the
-first place.  This paper present a type-safe Java framework called
+first place.  This paper presents a type-safe Java framework called
 \name that removes much of this boilerplate code. In \name
 \emph{object algebras} are used to describe complex \emph{extensible}
-ASTs structures. Using Java annotations generic boilerplate code is
-generated for various types of traversals, including queries and
-transformations.  Thus, using \Name, programmers can inherit the
+ASTs structures. 
+Using Java annotations \name generates generic boilerplate code 
+for various types of traversals. Users of \name can inherit the
 generic traversal code to focus only on writing the interesting parts
-of the traversals. Consequently, the amount of code that programmers
+of the traversals. Consequently, the amount of code that users
 need to write is significantly smaller. Moreover, traversals using the
 \name framework are also much more \emph{structure shy}, becoming more
 adaptive to future changes or extensions to the AST structure.
