@@ -1,27 +1,27 @@
 \section{Introduction}
 
-Many applications require complex recursive data structures. Examples
-abound, for example, in language processing tools/libraries for programming
+Various language processing tools or libraries for programming
 languages, domain-specific languages, mark-up languages like HTML, or
-data-interchange languages like XML or JSON. In those applications
-Abstract Syntax Trees (ASTs) are the key data structure needed to
-model the various constructs of these languages. Such ASTs have various
-different types of nodes, which can range from a few dozen to
-several hundred kinds of nodes (for example in the ASTs of languages
-like Java or Cobol).
+data-interchange languages like XML or JSON typically require complex
+\emph{Abstract Syntax Tree} (AST) structures. In those applications
+ASTs are the key data structure needed to model the various constructs
+of these languages. Such ASTs have various different types of nodes,
+which can range from a few dozen to several hundred kinds of nodes
+(for example in the ASTs of languages like Java).
 
-Static types are helpful to deal with such complex structures.  Static types formalize the distinction between different kinds of
+Static types are helpful to deal with such complex ASTs.  Static
+types formalize the distinction between different kinds of
 nodes. Furthermore the distinctions are helpful to ensure that
-traversals over these structures have an appropriate piece of code that
-deals with each different type of node. This can prevent a large class
-of run-time errors that would not otherwise be detected.
+traversals over these ASTs have an appropriate piece of code
+that deals with each different type of node. This can prevent a large
+class of run-time errors that would not otherwise be detected.
 
 %For example static types prevent errors that would arize from
 %applying the code intended for a certain kind of node to another kind
 %of node. Static types can also ensure that all nodes are dealt with by
 %an appropriate piece of code.
 
-Unfortunately, when traversing such structures, the number of nodes and the
+Unfortunately, when traversing such ASTs, the number of nodes and the
 enforced type distinctions between nodes can lead to so-called
 \emph{boilerplate code}~\cite{ralf03syb}: code that is similar for most types of nodes and which
 essentially just walks the structure. Traversals where such boilerplate
@@ -31,7 +31,7 @@ A typical example is computing the free
 variables of an expression in some programming language. In this
 case, the interesting code occurs in the nodes representing the
 binding and variable constructs. In all other cases, the code would just deal with
-walking the structure. In data structures with dozens or hundreds of
+walking the structure. In ASTs with dozens or hundreds of
 kinds of nodes, having to explicitly write code for each kind of node is both tedious and error-prone.
 %In summary, structure shy operations
 %suffer from the static typing discipline, because the type
@@ -63,7 +63,7 @@ limited in terms of extensibility.
 
 This paper presents a Java framework called \name that allows users to
 define \emph{type-safe and extensible structure-shy operations}. \name uses
-\emph{object algebras}~\cite{bruno12oa} to describe complex data structures. Object
+\emph{object algebras}~\cite{bruno12oa} to describe ASTs. Object
 algebras are a recently introduced technique, which has been shown to
 have significant advantages for software extensibility.  In \name
 object algebra interfaces are combined with Java annotations to
@@ -85,11 +85,10 @@ written in \name are:
   future changes or extensions to the data type.
 
 \item {\bf Simple and general:} \name traversals work for any
-  structure that can be expressed as a (multi-sorted) object
-  algebra. This includes complex OO hierarchies or ASTs for large
-  languages. Very often traversals are quite simple, being
+  AST that can be expressed as a (multi-sorted) object
+  algebra. Very often traversals are quite simple, being
   implementable in just a few lines of code, even for complex
-  structures with hundreds of different types of nodes.
+  ASTs with hundreds of different types of nodes.
 
 \item {\bf Implemented in plain Java:} \name traversals do not require
   a new tool or language. The approach is library based and uses only
@@ -101,9 +100,9 @@ written in \name are:
   code. Furthermore \name traversals support separate compilation.
 
 \item {\bf Extensible:} Traversals inherit type-safe
-  extensibility from object algebras. Both traversals and structures
+  extensibility from object algebras. Both traversals and the AST structures
   are extensible. Therefore it is possible to
-  reuse traversal code in structures that are extended with additional
+  reuse traversal code for ASTs that are extended with additional
   node types.
 
 %\item {\bf Performant:} Traversals written with \name have performance that
@@ -188,7 +187,7 @@ patterns for various types of traversals using object algebras. These include:
       Note to Reviewers:} Due to the anonymous review process we
     submit a file bundle with the implementation together with the paper submission. If the
     paper is accepted we will make the code publicly available.} a
-  Java framework that can be used to describe complex structures using
+  Java framework that can be used to describe complex ASTs using
   object algebras; and to eliminate boilerplate code. The framework
   uses Java annotations to automatically generate generic traversals.
 

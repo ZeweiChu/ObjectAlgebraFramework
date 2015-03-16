@@ -121,21 +121,21 @@ $^{\textrm{2}}$ The University of Hong Kong\\
 
 \begin{abstract}
 
-Traversing complex data structures typically requires large amounts of
-tedious boilerplate code. For many operations most of the code simply
-walks the structure, and only a small portion of the code implements
-the functionality that motivated the traversal in the first place.
-This paper present a type-safe Java framework called \name that
-removes much of this boilerplate code. In \name \emph{object algebras}
-are used to describe complex \emph{extensible} data structures. Using
-Java annotations generic boilerplate code is generated for various
-types of traversals, including queries and transformations.  Thus,
-using \Name, programmers can inherit the generic traversal code to
-focus only on writing the interesting parts of the
-traversals. Consequently, the amount of code that programmers need to
-write is significantly smaller. Moreover, traversals using the \name framework
-are also much more \emph{structure shy}, becoming more adaptive
-to future changes or extensions to the data structure.
+Traversing complex \emph{Abstract Syntax Trees} (ASTs) typically requires
+large amounts of tedious boilerplate code. For many operations most of
+the code simply walks the structure, and only a small portion of the
+code implements the functionality that motivated the traversal in the
+first place.  This paper present a type-safe Java framework called
+\name that removes much of this boilerplate code. In \name
+\emph{object algebras} are used to describe complex \emph{extensible}
+ASTs structures. Using Java annotations generic boilerplate code is
+generated for various types of traversals, including queries and
+transformations.  Thus, using \Name, programmers can inherit the
+generic traversal code to focus only on writing the interesting parts
+of the traversals. Consequently, the amount of code that programmers
+need to write is significantly smaller. Moreover, traversals using the
+\name framework are also much more \emph{structure shy}, becoming more
+adaptive to future changes or extensions to the AST structure.
 %An additional benefit of \name is that traversal code can be easily
 %reused by extensions of the
 To prove the effectiveness of the approach, we employed \name
@@ -185,15 +185,15 @@ A pervasive problem in programming occurs when large tree tr
 
 \end{abstract}
 
-\category{CR-number}{subcategory}{third-level}
+%\category{CR-number}{subcategory}{third-level}
 
 % general terms are not compulsory anymore,
 % you may leave them out
-\terms
-term1, term2
+%\terms
+%term1, term2
 
-\keywords
-keyword1, keyword2
+%\keywords
+%keyword1, keyword2
 
 %if False
 
