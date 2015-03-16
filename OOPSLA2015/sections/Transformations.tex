@@ -19,7 +19,7 @@ in Fig.~\ref{substvars_without_id}.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo2/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
+\lstinputlisting[linerange=4-14]{../ObjectAlgebras/src/expDemo2/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITHOUT_ID
 \caption{A normal algebra-based implementation of variable substitution}
 \label{substvars_without_id}
 \end{figure}
@@ -31,7 +31,7 @@ respectively. \lstinline{expAlg()} is an instance of
 Algebras are factories, the transformation is executed immediately
 during construction. For instance, calling \lstinline{Var("x")} on a
 \lstinline{SubstVar} object with \lstinline{x()} returning
-\lstinline{"x"} immediately returns the result of \lstinline{exp()},
+\lstinline{"x"} immediately returns the result of \lstinline{e()},
 --- the original variable expression is never created. In the other
 cases, the original structure is recreated in the algebra
 \lstinline{expAlg()}.

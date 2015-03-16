@@ -16,7 +16,7 @@ class Test {
 	void go() {
 		Form f = makeQL();
 		System.out.println(f.usedVars());
-		f.renaming();
+		f.rename();
 		System.out.println(f.usedVars());
 	}
 	

@@ -164,8 +164,7 @@ public class TestPipelining {
 		
 		//BEGIN_PIPELINEQL_CALL
 		Function<IFormatWithPrecedence, IFormat> pp 
-		  = alg.form("myForm", asList(alg.unless(alg.var("x"), 
-				  							alg.question("x", "X?", new TBoolean()))));
+		  = alg.form("myForm", asList(alg.unless(alg.var("x"),  alg.question("x", "X?", new TBoolean()))));
 		//END_PIPELINEQL_CALL
 
 		StringWriter w = new StringWriter();
