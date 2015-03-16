@@ -78,14 +78,24 @@ traversals.
 \subsection{Complete Code}
 
 \haoyuan{More code, e.g., generated code for mini-QL example.}
-\subsubsection{OO Approach for \lstinline{usedVars} and \lstinline{rename}\\ (Figure \ref{ql_oo_approach})}
+\subsubsection{OO Approach for \lstinline{usedVars} and \lstinline{rename}}
 
-\lstinputlisting[linerange=6-99]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
+Below is the complete code for Fig.~\ref{ql_oo_approach}, which implements \lstinline{usedVars} and \lstinline{rename} in the QL example, as an OO approach.
+
+\lstinputlisting[linerange=6-107]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
 
 \subsubsection{\lstinline{UsedVars} implementing the \lstinline{QLAlg} interface}
+
+Below is the class \lstinline{UsedVars} implementing \lstinline{QLAlg} by hand, which is the QL example encoded by object algebras. See Section~\ref{subsec:model_ql_with_oa}.
 
 \lstinputlisting[linerange=7-40]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG
 
 \subsubsection{\lstinline{Rename} implementing the \lstinline{QLAlg} interface}
 
+Similarly, the following code gives the implementation of \lstinline{Rename} that implements \lstinline{QLAlg} in Section~\ref{subsec:model_ql_with_oa}.
+
 \lstinputlisting[linerange=8-30]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG
+
+\subsubsection{\lstinline{SetMonoid} in Fig.~\ref{ql_with_oaframework}}
+
+\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID

@@ -21,8 +21,8 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 		return alg.question(id + "_", lbl, type);
 	}
 	public E lit(int x) { return alg.lit(x); }
-	public E var(String varName) {
-		return alg.var(varName + "_");
+	public E var(String name) {
+		return alg.var(name + "_");
 	}
 	public E geq(E lhs, E rhs) {
 		return alg.geq(lhs, rhs);
@@ -38,8 +38,8 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	public Rename(QLAlg<E, S, F> alg) {
 		this.alg = alg;
 	}
-	public E var(String varName) {
-		return alg.var(varName + "_");
+	public E var(String name) {
+		return alg.var(name + "_");
 	}
 	...
 }

@@ -21,3 +21,18 @@ public class SetMonoid<X> implements Monoid<Set<X>> {
 	}
 
 }
+
+/*
+//BEGIN_SET_MONOID
+class SetMonoid<X> implements Monoid<Set<X>> {
+	public Set<X> empty() {
+		return Collections.emptySet();
+	}
+	public Set<X> join(Set<X> x, Set<X> y) {
+		Set<X> tmp = new HashSet<>(x);
+		tmp.addAll(y);
+		return tmp;
+	}
+}
+//END_SET_MONOID
+*/

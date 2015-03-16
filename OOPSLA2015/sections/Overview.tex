@@ -33,11 +33,12 @@ form DriverLicense {
 A concrete example QL questionnaire is shown in Fig.~\ref{driver_license}, regarding driver's license. The questionnaire firstly asks for a user's name and age, and for an adult, furthermore, it asks whether the user has a driver's license.
 
 Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
+\haoyuan{Clarify the differences between our solution and a usual OO approach.}
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=105-154]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
-\caption{Java implementation of an OO approach for used variables and renaming}
+\lstinputlisting[linerange=113-156]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\caption{Java implementation of an OO approach for used variables and renaming. Note that the methods \{\lstinline{emptySet}, \lstinline{singleton}\} are statically imported from \lstinline{java.util.Collections}, \{\lstinline{toSet}, \lstinline{toList}\} are from \lstinline{java.util.stream.Collectors}, and \lstinline{concat} is from \lstinline{java.util.stream.Stream}. Full code is available in Appendix.}
 \label{ql_oo_approach}
 \end{figure}
 
@@ -67,7 +68,7 @@ However, this simple OO solution has two important problems:
 
 \end{enumerate}
 
-\subsection{Modeling the QL Structure with Object Algebras}
+\subsection{Modeling the QL Structure with Object Algebras}\label{subsec:model_ql_with_oa}
 
 Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem.
 Object algebras are a design pattern that is useful to model complex
@@ -88,14 +89,14 @@ structure as an object algebra interface. Each kind of node (\lstinline{Exp}, \l
 is represented as a type parameter. Each method in the object algebra interface models a
 constructor of some node in the QL structure. For example the
 method \lstinline{form} constructs an instance of a form; whereas the
-method \lstinline{question} creates an instance of a statement. From an
+method \lstinline{question} creates an instance of a question statement. From an
 object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
 resemblance to constructors of  (a system of) algebraic data types should be clear.
 
-Operations are defined by implementing the object algebra interface.
-The following code show an implementation of the used variables
-operation.
+Operations are defined by implementing the object algebra interface. Appendix gives the complete code for an implementation.
+The following code show the implementation of the used variables
+operation partly.
 
 \lstinputlisting[linerange=46-55]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
 
@@ -104,9 +105,9 @@ of the methods in the object algebra interface, which defines the
 overall used variables operation. Since the result of collecting those
 variables is \lstinline{Set<String>}, all the type parameters are set to
 that type. Most of the method implementations simply traverse the
-child nodes and accumulate the salaries. That is the case, for
+child nodes and accumulate the variable names. That is the case, for
 example, for \lstinline{form}. The only method implementation that does
-something different is \lstinline{var}, which returns the salary
+something different is \lstinline{var}, which returns the name
 argument.
 
 For the renaming operation the result is itself a structure
@@ -158,7 +159,7 @@ to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Fig.~\ref{ql_tree}. With that annotation several classes
 are generated automatically, including \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans}. Using those classes the code needed to write
+\lstinline{QLAlgTrans}. The generated code is available in Appendix. Using those classes the code needed to write
 the used variables and renaming object algebras is much
 shorter. The code for the two operations is shown in
 Fig.~\ref{ql_with_oaframework}. By implementing the

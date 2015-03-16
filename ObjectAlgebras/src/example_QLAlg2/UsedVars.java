@@ -29,8 +29,8 @@ class UsedVars implements QLAlg<Set<String>,
 	public Set<String> lit(int x) {
 		return emptySet();
 	}
-	public Set<String> var(String varName) {
-		return singleton(varName);
+	public Set<String> var(String name) {
+		return singleton(name);
 	}
 	public Set<String> geq(Set<String> lhs,
 			Set<String> rhs) {
@@ -48,8 +48,8 @@ class UsedVars implements QLAlg<Set<String>,
 	public Set<String> lit(int x) {
 		return Collections.emptySet();
 	}
-	public Set<String> var(String varName) {
-		return Collections.singleton(varName);
+	public Set<String> var(String name) {
+		return Collections.singleton(name);
 	}
 	...
 }

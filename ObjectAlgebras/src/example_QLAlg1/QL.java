@@ -9,14 +9,14 @@ import static java.util.stream.Stream.concat;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Collectors.toList;
 
-abstract class Exp {
-	Set<String> usedVars() { return emptySet(); }
-	abstract Exp rename();
+interface Exp {
+	Set<String> usedVars();
+	Exp rename();
 }
 
-abstract class Stmt {
-	Set<String> usedVars() { return emptySet(); }
-	abstract Stmt rename();
+interface Stmt {
+	Set<String> usedVars();
+	Stmt rename();
 }
 
 class Form {
@@ -26,74 +26,82 @@ class Form {
 		this.id = id;
 		this.stmts = new ArrayList<Stmt>(stmts);
 	}
-	Set<String> usedVars() {
+	public Set<String> usedVars() {
 		return stmts.stream()
 				.map(x -> x.usedVars())
 				.reduce(emptySet(),
 					(x, y) -> concat(x.stream(), y.stream())
 				.collect(toSet()));
 	}
-	Form rename() {
+	public Form rename() {
 		return new Form(id, stmts.stream()
 				.map(s -> s.rename())
 				.collect(toList()));
 	}
 }
 
-class Iff extends Stmt {
+class Iff implements Stmt {
 	private Exp cond;
 	private Stmt then;
 	Iff(Exp cond, Stmt then) {
 		this.cond = cond;
 		this.then = then;
 	}
-	Set<String> usedVars() {
+	public Set<String> usedVars() {
 		return concat(cond.usedVars().stream(),
 				then.usedVars().stream()).collect(toSet());
 	}
-	Iff rename() {
+	public Iff rename() {
 		return new Iff(cond.rename(), then.rename());
 	}
 }
 
-class Question extends Stmt {
+class Question implements Stmt {
 	private String id, lbl, type;
 	Question(String id, String lbl, String type) {
 		this.id = id;
 		this.lbl = lbl;
 		this.type = type;
 	}
-	Question rename() {
+	public Set<String> usedVars() {
+		return emptySet();
+	}
+	public Question rename() {
 		return new Question(id + "_", lbl, type);
 	}
 }
 
-class Lit extends Exp {
+class Lit implements Exp {
 	private int x;
 	Lit(int x) { this.x = x; }
-	Lit rename() { return new Lit(x); }
-}
-
-class Var extends Exp {
-	private String varName;
-	Var(String varName) { this.varName = varName; }
-	Set<String> usedVars() {
-		return singleton(varName);
+	public Set<String> usedVars() {
+		return emptySet();
 	}
-	Var rename() { return new Var(varName + "_"); }
+	public Lit rename() { return new Lit(x); }
 }
 
-class Geq extends Exp {
+class Var implements Exp {
+	private String name;
+	Var(String name) { this.name = name; }
+	public Set<String> usedVars() {
+		return singleton(name);
+	}
+	public Var rename() {
+		return new Var(name + "_");
+	}
+}
+
+class Geq implements Exp {
 	private Exp lhs, rhs;
 	Geq(Exp lhs, Exp rhs) {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
-	Set<String> usedVars() {
+	public Set<String> usedVars() {
 		return concat(lhs.usedVars().stream(),
 				rhs.usedVars().stream()).collect(toSet());
 	}
-	Geq rename() {
+	public Geq rename() {
 		return new Geq(lhs.rename(), rhs.rename());
 	}
 }
@@ -102,20 +110,15 @@ class Geq extends Exp {
 /*
 
 //BEGIN_OO_APPROACH_SIMP
-import static java.util.Collections.emptySet;
-import static java.util.Collections.singleton;
-import static java.util.stream.Stream.concat;
-import static java.util.stream.Collectors.toSet;
-import static java.util.stream.Collectors.toList;
 
-abstract class Exp {
-	Set<String> usedVars() { return emptySet(); }
-	abstract Exp rename();
+interface Exp {
+	Set<String> usedVars();
+	Exp rename();
 }
 
-abstract class Stmt {
-	Set<String> usedVars() { return emptySet(); }
-	abstract Stmt rename();
+interface Stmt {
+	Set<String> usedVars();
+	Stmt rename();
 }
 
 class Form {
@@ -125,33 +128,32 @@ class Form {
 		this.id = id;
 		this.stmts = new ArrayList<Stmt>(stmts);
 	}
-	Set<String> usedVars() {
+	public Set<String> usedVars() {
 		return stmts.stream()
 				.map(x -> x.usedVars())
 				.reduce(emptySet(),
 					(x, y) -> concat(x.stream(), y.stream())
 				.collect(toSet()));
 	}
-	Form rename() {
+	public Form rename() {
 		return new Form(id, stmts.stream()
 				.map(s -> s.rename())
 				.collect(toList()));
 	}
 }
 
-class Var extends Exp {
-	private String varName;
-	Var(String varName) { this.varName = varName; }
-	Set<String> usedVars() {
-		return singleton(varName);
+class Var implements Exp {
+	private String name;
+	Var(String name) { this.name = name; }
+	public Set<String> usedVars() {
+		return singleton(name);
 	}
-	Var rename() { return new Var(varName + "_"); }
+	public Var rename() {
+		return new Var(name + "_");
+	}
 }
 
-class Question extends Stmt { ... }
-class Iff extends Stmt { ... }
-class Lit extends Exp { ... }
-class Geq extends Exp { ... }
+...
 //END_OO_APPROACH_SIMP
 
 */

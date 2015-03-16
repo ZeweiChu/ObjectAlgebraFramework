@@ -10,8 +10,8 @@ class Rename<E, S, F> extends QLAlgTrans<E, S, F> {
 			String type) {
 		return qLAlg().question(id + "_", lbl, type);
 	}	
-	public E var(String varName) {
-		return qLAlg().var(varName + "_");
+	public E var(String name) {
+		return qLAlg().var(name + "_");
 	}
 }
 //END_QL_TRANSFORM_WITH_OAFRAMEWORK

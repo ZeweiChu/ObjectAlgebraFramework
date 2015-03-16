@@ -10,7 +10,7 @@ public interface QLAlg<Exp, Stmt, Form> {
 	Stmt iff(Exp cond, Stmt then);
 	Stmt question(String id, String lbl, String type);
 	Exp lit(int x);
-	Exp var(String varName);
+	Exp var(String name);
 	Exp geq(Exp lhs, Exp rhs);
 }
 //END_QL_TREE
