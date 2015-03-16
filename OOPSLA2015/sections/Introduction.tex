@@ -2,12 +2,12 @@
 
 Various language processing tools or libraries for programming
 languages, domain-specific languages, mark-up languages like HTML, or
-data-interchange languages like XML or JSON typically require complex
+data-interchange languages like XML or JSON require complex
 \emph{Abstract Syntax Tree} (AST) structures. In those applications
 ASTs are the key data structure needed to model the various constructs
 of these languages. Such ASTs have various different types of nodes,
 which can range from a few dozen to several hundred kinds of nodes
-(for example in the ASTs of languages like Java).
+(for example in the ASTs of languages like Java or Cobol).
 
 Static types are helpful to deal with such complex ASTs.  Static
 types formalize the distinction between different kinds of
@@ -38,45 +38,47 @@ kinds of nodes, having to explicitly write code for each kind of node is both te
 %distinctions between different kinds of nodes leads to significant
 %boilerplate code.
 
-The boilerplate problem in implementing traversals has
-received considerable attention in the past. For example, both
-\emph{Adaptive Object-Oriented Programming} (AOOP)~\cite{DemeterBook}
-and \emph{Strategic
-  Programming}~\cite{borovansky1996elan,visser1998core}
+The boilerplate problem in implementing traversals has received
+considerable attention in the past. For example, both \emph{Adaptive
+  Object-Oriented Programming} (AOOP)~\cite{DemeterBook} and
+\emph{Strategic Programming}~\cite{borovansky1996elan,visser1998core}
 are aimed partly at solving this problem. Most approaches to AOOP and
 strategic programming use some meta-programming techniques, such as
 code generation or reflection. The use of meta-programming offers
 programmers an easy way to avoid having to write boilerplate code.
-This has important benefits. Firstly the user has
-to write much less code, also removing the possibility of errors in
-the code walking the structure. Secondly the code becomes much more
-adaptive to changes: if a change to the traversed data type  only affects the generated boilerplate code,  the user-defined code
-can remain unchanged.  However such
-meta-programming based approaches  usually come at the cost of
+This has important benefits. Firstly the user has to write much less
+code, also removing the possibility of errors in the code walking the
+structure. Secondly the code becomes much more adaptive to changes: if
+a change to the traversed data type only affects the generated
+boilerplate code, the user-defined code can remain unchanged. However
+such meta-programming based approaches usually come at the cost of
 other desirable properties, such as type-safety, extensibility or
 separate compilation. The functional programming community has also
-studied the problem before. For instance,  the popular
-``Scrap your boilerplate''~\cite{ralf03syb} approach supports type-safety and separate
-compilation.  However most of the techniques used in functional
-languages cannot be easily ported to mainstream OO languages like Java, and are
-limited in terms of extensibility.
+studied the problem before. For instance, the popular ``Scrap your
+boilerplate''~\cite{ralf03syb} approach supports type-safety and
+separate compilation. However most of the techniques used in
+functional languages cannot be easily ported to mainstream OO
+languages like Java, and are limited in terms of extensibility.
 
 This paper presents a Java framework called \name that allows users to
 define \emph{type-safe and extensible structure-shy operations}. \name uses
 \emph{object algebras}~\cite{bruno12oa} to describe ASTs. Object
 algebras are a recently introduced technique, which has been shown to
-have significant advantages for software extensibility.  In \name
+have significant advantages for software extensibility. Using object 
+algebras it is possible to write operations over ASTs in a 
+style similar to pattern matching in functional programming. However 
+unlike pattern matching definitions in functional programming, 
+definitions using object algebras remain extensible. In \name
 object algebra interfaces are combined with Java annotations to
 generate generic and reusable object algebras that deal with
-boilerplate traversal code.  Those object algebras include different
+boilerplate traversal code. Those object algebras include different
 types of traversals: \emph{queries}; \emph{transformations};
 \emph{generalized queries}; and \emph{contextual transformations}. Programmers
 who want to implement structure-shy traversals can inherit the
 generic traversal code, and focus only on writing the interesting
 parts of the traversal. Consequently, the amount of code that
 programmers need to write is significantly smaller.
-Traversals
-written in \name are:
+Moreover, traversals written in \name are:
 
 \begin{itemize}
 
@@ -110,11 +112,13 @@ written in \name are:
 
 \end{itemize}
 
-To prove the effectiveness of the approach, we have applied \name
-in the implementation of the domain-specific questionnaire
-language QL~\cite{gouseti14extensible}.
-Our results show that for a large number of traversals
-there was a significant reduction in the amount of user-defined code.
+To prove the effectiveness of the approach, we have applied \name in
+the implementation of the domain-specific questionnaire language
+QL~\cite{gouseti14extensible}.  Our results (see details in
+Section~\ref{}) show that for a large number of traversals there was a
+significant reduction in the amount of user-defined code: only 4\% to
+21\% of the AST cases had to be implemented in comparison with code
+writen without \name.
 
 Although we have chosen Java as the implementation language for \Name,
 our approach should apply to any OO language with support for generics
