@@ -79,27 +79,22 @@ generated code accounts for four different types of traversals:
 \emph{queries}; \emph{transformations}; \emph{generalized queries};
 and \emph{contextual transformations}.  Each of these four types of
 traversals is implemented as an object algebra. Programmers who want
-to implement structure-shy traversals can inherit from one of these
-four object algebras, and focus only on writing the interesting parts
-of the traversal. Consequently, the amount of code that programmers
-need to write is significantly smaller.  As a result traversals written
-in \name are:
+to implement structure-shy traversals can \emph{inherit} from one of these
+four object algebras, and \emph{override} only the cases that deal with 
+the interesting parts of the traversal. Consequently
+traversals written in \name are:
 
 \begin{itemize*}
+
+\item {\bf Small in size:} With \name the amount of code that
+  programmers need to write a traversal is significantly smaller.
+  Often traversals in \name are implementable in just a few lines
+  of code, even for complex ASTs with hundreds of different types of
+  nodes.
 
 \item {\bf Adaptive and structure shy:}  Traversals writen with \name can omit
   boilerplate code, making traversals more adaptive to
   future changes or extensions to the data type.
-
-\item {\bf Simple and general:} \name traversals work for any
-  AST that can be expressed as a (multi-sorted) object
-  algebra. Very often traversals are quite simple, being
-  implementable in just a few lines of code, even for complex
-  ASTs with hundreds of different types of nodes.
-
-\item {\bf Implemented in plain Java:} \name traversals do not require
-  a new tool or language. The approach is library based and uses only
-  Java annotations.
 
 \item {\bf Type-safe with separate compilation:} \name traversals are directly written in Java
   and the Java type-system ensures type-safety. No run-time casts are
@@ -111,6 +106,10 @@ in \name are:
   are extensible. Thus it is possible to
   reuse traversal code for ASTs extended with additional
   node types.
+
+\item {\bf Implemented in plain Java:} \name traversals do not require
+  a new tool or language. The approach is library based and uses only
+  Java annotations.
 
 %\item {\bf Performant:} Traversals written with \name have performance that
 %is comparable to naive hand-written OO code.
