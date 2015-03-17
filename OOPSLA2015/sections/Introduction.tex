@@ -46,44 +46,49 @@ are aimed partly at solving this problem. Most approaches to AOOP and
 strategic programming use some meta-programming techniques, such as
 code generation or reflection. The use of meta-programming offers
 programmers an easy way to avoid having to write boilerplate code.
-This has important benefits. Firstly the user has to write much less
-code, also removing the possibility of errors in the code walking the
-structure. Secondly the code becomes much more adaptive to changes: if
-a change to the traversed data type only affects the generated
-boilerplate code, the user-defined code can remain unchanged. However
-such meta-programming based approaches usually come at the cost of
+This has important benefits: users have to write much less code; and 
+the code becomes much more adaptive to changes.\bruno{mention default visitors?}
+%Firstly the user has to write much less
+%code, also removing the possibility of errors in the code walking the
+%structure. Secondly the code becomes much more adaptive to changes: if
+%a change to the traversed data type only affects the generated
+%boilerplate code, the user-defined code can remain unchanged. 
+However such meta-programming based approaches usually come at the cost of
 other desirable properties, such as type-safety, extensibility or
 separate compilation. The functional programming community has also
-studied the problem before. For instance, the popular ``Scrap your
-boilerplate''~\cite{ralf03syb} approach supports type-safety and
+studied the problem before. For instance, the popular ``\emph{Scrap your
+boilerplate}''~\cite{ralf03syb} approach supports type-safety and
 separate compilation. However most of the techniques used in
 functional languages cannot be easily ported to mainstream OO
 languages like Java, and are limited in terms of extensibility.
 
+
+%Object
+%algebras are a recently introduced technique, which has been shown to
+%have significant advantages for software extensibility. 
+
 This paper presents a Java framework called \name that allows users to
-define \emph{type-safe and extensible structure-shy operations}. \name uses
-\emph{object algebras}~\cite{bruno12oa} to describe ASTs. Object
-algebras are a recently introduced technique, which has been shown to
-have significant advantages for software extensibility. Using object 
-algebras it is possible to write operations over ASTs in a 
-style similar to pattern matching in functional programming. However 
-unlike pattern matching definitions in functional programming, 
-definitions using object algebras remain extensible. In \name
-object algebra interfaces are combined with Java annotations to
-generate generic and reusable object algebras that deal with
-boilerplate traversal code. Those object algebras include different
-types of traversals: \emph{queries}; \emph{transformations};
-\emph{generalized queries}; and \emph{contextual transformations}. Programmers
-who want to implement structure-shy traversals can inherit the
-generic traversal code, and focus only on writing the interesting
-parts of the traversal. Consequently, the amount of code that
-programmers need to write is significantly smaller.
-Moreover, traversals written in \name are:
+define \emph{type-safe and extensible structure-shy operations}. \name
+uses \emph{object algebras}~\cite{bruno12oa} to describe ASTs, and to
+write operations over ASTs in a style similar to pattern matching in
+functional programming. However unlike pattern matching definitions in
+functional programming, definitions using object algebras remain
+\emph{extensible}. In \name object algebra interfaces are combined
+with Java annotations to generate \emph{generic traversal code} automatically. The
+generated code accounts for four different types of traversals:
+\emph{queries}; \emph{transformations}; \emph{generalized queries};
+and \emph{contextual transformations}.  Each of these four types of
+traversals is implemented as an object algebra. Programmers who want
+to implement structure-shy traversals can inherit from one of these
+four object algebras, and focus only on writing the interesting parts
+of the traversal. Consequently, the amount of code that programmers
+need to write is significantly smaller.  As a result traversals written
+in \name are:
 
 \begin{itemize}
 
-\item {\bf Adaptive and structure shy:} \name traversals can omit
-  boilerplate code, allowing these traversals to be more adaptive to
+\item {\bf Adaptive and structure shy:}  Traversals writen with \name can omit
+  boilerplate code, making traversals more adaptive to
   future changes or extensions to the data type.
 
 \item {\bf Simple and general:} \name traversals work for any
@@ -103,8 +108,8 @@ Moreover, traversals written in \name are:
 
 \item {\bf Extensible:} Traversals inherit type-safe
   extensibility from object algebras. Both traversals and the AST structures
-  are extensible. Therefore it is possible to
-  reuse traversal code for ASTs that are extended with additional
+  are extensible. Thus it is possible to
+  reuse traversal code for ASTs extended with additional
   node types.
 
 %\item {\bf Performant:} Traversals written with \name have performance that
@@ -120,9 +125,9 @@ significant reduction in the amount of user-defined code: only 4\% to
 21\% of the AST cases had to be implemented in comparison with code
 writen without \name.
 
-Although we have chosen Java as the implementation language for \Name,
+Although Java was chosen as the implementation language for \Name,
 our approach should apply to any OO language with support for generics
-and annotations. For example it should be easy to port \name to
+and annotations. It should be easy to port \name to
 languages such as Scala or C\#.
 
 \begin{comment}
@@ -187,14 +192,13 @@ patterns for various types of traversals using object algebras. These include:
 \emph{queries}, \emph{transformations},
 \emph{generalized queries} and \emph{contextual transformations}.
 
-\item {\bf The Shy Java framework.} We have implemented\footnote{{\bf
+\item {\bf The Shy Java framework.} We show that those design patterns
+  can be automatically generated for a given object algebra
+  interface. The \name framework\footnote{{\bf
       Note to Reviewers:} Due to the anonymous review process we
     submit a file bundle with the implementation together with the paper submission. If the
-    paper is accepted we will make the code publicly available.} a
-  Java framework that can be used to describe complex ASTs using
-  object algebras; and to eliminate boilerplate code. The framework
-  uses Java annotations to automatically generate generic traversals.
-
+    paper is accepted we will make the code publicly available.} realizes this idea by using
+   Java annotations to automatically generate generic traversals.
 
 \item {\bf Case study and empirical evaluation.} We evaluate the
   approach using a case study based on the QL domain-specific
