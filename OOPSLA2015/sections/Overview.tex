@@ -38,7 +38,7 @@ Two operations are supported by the QL structure: collecting the set of used var
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=113-156]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
-\caption{Java implementation of an OO approach for used variables and renaming. Note that the methods \{\lstinline{emptySet}, \lstinline{singleton}\} are statically imported from \lstinline{java.util.Collections}, \{\lstinline{toSet}, \lstinline{toList}\} are from \lstinline{java.util.stream.Collectors}, and \lstinline{concat} is from \lstinline{java.util.stream.Stream}. Full code is available in Appendix.}
+\caption{Java implementation of an OO approach for used variables and renaming. \hl{Note that the methods \{\lstinline{emptySet}, \lstinline{singleton}\} are statically imported from \lstinline{java.util.Collections}, \{\lstinline{toSet}, \lstinline{toList}\} are from \lstinline{java.util.stream.Collectors}, and \lstinline{concat} is from \lstinline{java.util.stream.Stream}. Full code is available in Appendix~\ref{subsec:appendix_code_oo_approach}.}}
 \label{ql_oo_approach}
 \end{figure}
 
@@ -94,7 +94,7 @@ object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
 resemblance to constructors of  (a system of) algebraic data types should be clear.
 
-Operations are defined by implementing the object algebra interface. Appendix gives the complete code for an implementation.
+Operations are defined by implementing the object algebra interface. \hl{Appendix~\ref{subsec:appendix_code_usedvars} and \ref{subsec:appendix_code_rename} gives the complete code for an implementation.}
 The following code show the implementation of the used variables
 operation partly.
 
@@ -159,7 +159,7 @@ to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Fig.~\ref{ql_tree}. With that annotation several classes
 are generated automatically, including \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans}. The generated code is available in Appendix. Using those classes the code needed to write
+\lstinline{QLAlgTrans}. \hl{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.} Using those classes the code needed to write
 the used variables and renaming object algebras is much
 shorter. The code for the two operations is shown in
 Fig.~\ref{ql_with_oaframework}. By implementing the

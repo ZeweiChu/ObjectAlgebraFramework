@@ -239,7 +239,8 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   Monoid<R> m();
 
   default R f$_j$(R p$_1$, $...$, R p$_k$) {
-    return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(p$_{k-1}$, p$_k$)$...$)));
+    return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(
+        p$_{k-1}$, p$_k$)$...$)));
   }
   $...$
 }

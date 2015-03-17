@@ -48,7 +48,8 @@ imperative programs.  To express this query, the simple
 consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
-Fig.~\ref{LST:gstatquery}.  Note that the interface declares two
+Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions is
+presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}}.  Note that the interface declares two
 monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
