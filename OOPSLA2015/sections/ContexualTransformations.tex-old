@@ -15,7 +15,8 @@ Each constructor method now creates an anonymous function which, when invoked, c
 \begin{figure}[t]
 \nocaptionrule
 \begin{lstlisting}[mathescape=true]
-interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$> extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
+interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$>
+    extends Alg<Function<C,X$_1$>,$...$,Function<C,X$_n$>> {
   Alg<X$_1$, ..., X$_n$> alg();
 
   default Function<C, X$_i$> f$_j$(Function<C,X$^1_p$> p$_1$, $...$, Function<C,X$^k_p$> p$_k$) {
@@ -37,14 +38,14 @@ Lambda terms expressed using De Bruijn indices are useful because they are invar
 
 To implement the conversion to De Bruijn indices we assume an expression interface \lstinline{LamAlg} with constructors for lambda abstraction (\lstinline{Lam}) and application (\lstinline{App}).
 This interface can be used together with the \lstinline{ExpAlg} interface introduced earlier.
-Furthermore we assume that the generic template shown in Fig.~\ref{ctxTrafoTemplate} is instantiated for both interfaces as \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform} respectively.
+Furthermore we assume that the generic template shown in Fig.~\ref{ctxTrafoTemplate} is instantiated for both interfaces as \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform} respectively. \hl{See the full generated code in Appendix~\ref{subsec:appendix_code_g_explam_transform}.}
 Using these interfaces, the conversion to De Bruijn indices can be realized as shown in Fig.~\ref{DeBruijn}.
 Note again that only the relevant cases are overridden: \lstinline{Var} (from \lstinline{ExpAlg}) and \lstinline{Lam} (from \lstinline{LamAlg}).
 
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=12-21]{../ObjectAlgebras/src/debruijn/DeBruijn.java} % APPLY:linerange=DEBRUIJN
+\lstinputlisting[linerange=12-24]{../ObjectAlgebras/src/debruijn/DeBruijn.java} % APPLY:linerange=DEBRUIJN
 \caption{Converting variables to De Bruijn indices}
 \label{DeBruijn}
 \end{figure}

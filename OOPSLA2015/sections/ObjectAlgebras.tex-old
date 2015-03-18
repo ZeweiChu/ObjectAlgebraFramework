@@ -7,7 +7,7 @@ data variants and operations. Object Algebras can be used conveniently model rec
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_ALG_INTERFACE
-\caption{A simple expression language}
+\caption{Int Alg Interface}
 \label{int_alg_interface}
 \end{figure}
 
@@ -16,15 +16,15 @@ A concrete Object Algebra will implement such an interface instantiate the type 
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=27-34]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
-\caption{Evaluating expressions}
+\lstinputlisting[linerange=26-33]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
+\caption{Exp Factory}
 \label{exp_factory}
 \end{figure}
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=38-45]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_PRINT
-\caption{Printing expressions}
+\lstinputlisting[linerange=37-44]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_PRINT
+\caption{Int Print Factory}
 \label{int_print_factory}
 \end{figure}
 
@@ -35,7 +35,7 @@ Both examples illustrate extension in the dimension of operations.
 
 %% \begin{figure}[t]
 %% \nocaptionrule
-%% \lstinputlisting[linerange=51-61]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=OA_TEST_CODE
+%% \lstinputlisting[linerange=50-60]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=OA_TEST_CODE
 %% \caption{Object Algebra Test Code}
 %% \label{oa_test_code}
 %% \end{figure}
@@ -50,7 +50,7 @@ Both examples illustrate extension in the dimension of operations.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=17-22]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=MUL_EVAL
+\lstinputlisting[linerange=17-21]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=MUL_EVAL
 \caption{Extending expression evaluation to support multiplication}
 \label{mul_eval}
 \end{figure}
@@ -59,8 +59,7 @@ Both examples illustrate extension in the dimension of operations.
 The other dimension of extensibility (adding data variants) is  realized by extending the object algebra interface itself. Figure~\ref{int_bool_alg_interface} extends the original \lstinline{ExpAlg} with multiplication expressions.
 The key feature of Object Algebras is that the existing operations (evaluation and printing) can now be extended to support multiplication without having to change the existing \lstinline{Eval} and \lstinline{Print} classes. Figure~\ref{mul_eval} shows how this is realized for evaluation. 
 
-In summary, Object Algebra interfaces are used to describe recursive data types, and implementations of those interfaces represent operations. Extending the interface allows developers to introduce new data variants, whereas implementing the interface allows developers to define operations.
-%What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.
+In summary, \emph{object algebras} introduces \emph{object algebra interfaces} as generic models to depict abstract structures. Extending the \emph{object algebra interface} allows developers to introduce new data variants to the original structure, while implementing methods of \emph{object algebra interfaces} with specific class parameters give developers flexibility of extending new operations. What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.
 
 
 \begin{comment}

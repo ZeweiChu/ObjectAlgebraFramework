@@ -48,7 +48,8 @@ imperative programs.  To express this query, the simple
 consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
-Fig.~\ref{LST:gstatquery}.  Note that the interface declares two
+Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions is
+presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}}.  Note that the interface declares two
 monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
@@ -68,7 +69,7 @@ transition from expressions to statements.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=7-11]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
+\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
 \caption{Default implementation of queries over many-sorted statement algebra}
 \label{LST:gstatquery}
 \end{figure}
@@ -98,7 +99,7 @@ of variables through the different types of expressions.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=12-17]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
+\lstinputlisting[linerange=12-23]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
 \caption{Dependency Graph with Generalized Query Algebra}
 \label{deps2}
 \end{figure}

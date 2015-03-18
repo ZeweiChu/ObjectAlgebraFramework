@@ -49,7 +49,7 @@ sets are joined into one.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=12-18]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
+\lstinputlisting[linerange=9-21]{../ObjectAlgebras/src/expDemo2/FreeVars.java} % APPLY:linerange=FREEVARS_WITHOUT_MONOID
 \caption{Free variables as an object algebra.}
 \label{freevars_without_monoid}
 \end{figure}
@@ -128,7 +128,7 @@ This allows concrete queries to be implemented by overriding methods from multip
 
 \begin{figure}[tb]
 \nocaptionrule
-\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
+\lstinputlisting[linerange=4-11]{../ObjectAlgebras/src/expDemo3/ExpAlgQuery.java} % APPLY:linerange=GENERIC_QUERY
 \caption{Generic queries using a monoid.}
 \label{generic_query}
 \end{figure}
@@ -165,7 +165,7 @@ the free variables operation is defined as follows:
 %is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic
 %algebra, with generic type to be \lstinline{List<String>}.
 
-\lstinputlisting[linerange=8-11]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
+\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 
 There are two important differences to the implementation in
 Fig.~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
@@ -230,7 +230,7 @@ triggers automatic generation of generic query interfaces, such as \lstinline{Ex
 %\name also provides implementatations of a number of common monoids over sets, lists, and numbers.
 Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
-All \hl{algebraic} arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}.
+All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. \hl{Whereas those arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.}
 
 \begin{figure}[t]
 \nocaptionrule
@@ -239,7 +239,8 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   Monoid<R> m();
 
   default R f$_j$(R p$_1$, $...$, R p$_k$) {
-    return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(p$_{k-1}$, p$_k$)$...$)));
+    return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(
+        p$_{k-1}$, p$_k$)$...$)));
   }
   $...$
 }

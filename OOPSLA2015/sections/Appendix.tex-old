@@ -1,75 +1,52 @@
 \section{Appendix}\label{sec:appendix}
 
 \clearpage
-\subsection{Brief Review of Object Algebras}\label{subsec:ObjectAlgebras}
+\subsection{Complete Code}
 
-Object Algebras is a design pattern targeted to solve the famous Expression Problem, in a sense that it supports extensibility in two dimensions of both new data variants and new operations with type safety. We use object algebras to model the tree structures introduced in this paper and it shows the ability to depict complex tree structures with flexibility and extensibility. The following section gives a brief introduction of object algebras. 
+\subsubsection{OO Approach for \lstinline{usedVars} and \lstinline{rename}}\label{subsec:appendix_code_oo_approach}
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=4-6]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_ALG_INTERFACE
-\caption{Int Alg Interface}
-\label{int_alg_interface}
-\end{figure}
+Below is the complete code for Fig.~\ref{ql_oo_approach}, which implements \lstinline{usedVars} and \lstinline{rename} in the QL example, as an OO approach.
 
-Fig.~\ref{int_alg_interface} is an \emph{object algebra interface} which models \lstinline{lit} and \lstinline{add} expressions of integers. The object algebra interface resembles abstract factory, but it adds an extra layer of abstraction in terms of the generics defined with interface. Thus the developer has the flexibility of delay the specific implementation of the object type produced by the factory to later stages. 
+\lstinputlisting[linerange=6-107]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=16-29]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
-\caption{Exp Factory}
-\label{exp_factory}
-\end{figure}
+\subsubsection{\lstinline{UsedVars} implementing the \lstinline{QLAlg} interface}\label{subsec:appendix_code_usedvars}
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=33-43]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_PRINT
-\caption{Int Print Factory}
-\label{int_print_factory}
-\end{figure}
+Below is the class \lstinline{UsedVars} implementing \lstinline{QLAlg} by hand, which is the QL example encoded by object algebras. See Section~\ref{subsec:model_ql_with_oa}.
 
-An \emph{object algebra} is a class implementing an object algebra interface. Fig.~\ref{exp_factory} extends the \lstinline{IntAlg} to be \lstinline{IntFactory}, which represents Expressions as a form of integers. This retroactive implementation of interfaces is commonly used in object algebras to extend operations. Fig.~\ref{int_print_factory} gives another example of extending \lstinline{IntAlg} with pretty printing operations.  
+\lstinputlisting[linerange=7-40]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=49-59]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=OA_TEST_CODE
-\caption{Object Algebra Test Code}
-\label{oa_test_code}
-\end{figure}
+\subsubsection{\lstinline{Rename} implementing the \lstinline{QLAlg} interface}\label{subsec:appendix_code_rename}
 
-As shown in Fig.~\ref{oa_test_code}, object algebras provides a very generic method of writing code with object algebra interfaces, and later instantiate objects with specific object algebras. 
+Similarly, the following code gives the implementation of \lstinline{Rename} that implements \lstinline{QLAlg} in Section~\ref{subsec:model_ql_with_oa}.
 
-Another dimension of extensibility can be realized by extending the original object algebra interface with new data variants. Fig.~\ref{int_bool_alg_interface} extends the original \lstinline{IntAlg} with Boolean variables, and the extended object algebra interface can be further extended with proper operations in the same fashion as we discussed previously. 
+\lstinputlisting[linerange=8-30]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG
 
-In summary, object algebras introduces object algebra interfaces as generic models to depict abstract structures. Extending the object algebra interface allows developers to introduce new data variants to the original structure, while implementing methods of object algebra interfaces give developers flexibility of extending new operations. What makes object algebras a useful design pattern is that it does not rely on any advanced language features, and it is both extensible and type-safe. 
+\subsubsection{\lstinline{SetMonoid}}\label{subsec:appendix_code_setmonoid}
 
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=10-12]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_BOOL_ALG_INTERFACE
-\caption{Int Bool Alg Interface}
-\label{int_bool_alg_interface}
-\end{figure}
+The implementation of \lstinline{SetMonoid} for Fig.~\ref{ql_with_oaframework} and Section~\ref{subsec:solvingfreevars}.
 
-\begin{comment}
+\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 
-This paper showed how various types of traversals for complex
-structures can be automatically provided by \Name. \name traversals are
-written directly in Java and are type-safe, extensible and separately
-compilable. There has always been a tension between the 
-correctness guarantees of static typing, and the flexibility of
-untyped/dynamically-typed approaches. \name shows that even
-in type systems like Java's, it is possible to get considerable
-flexibility and adaptability for the problem of boilerplate code in
-traversals of complex structures, without giving up modular static typing. 
-%\name offers the best of both worlds: the
-%static typing guarantees; and flexibility and adaptability.
+\subsubsection{\lstinline{QLAlgQuery}: generated code}\label{subsec:appendix_code_qlalgquery}
 
-There are many of avenues for future work. One area of research is to
-extend \name traversals to support flexible traversal strategies,
-similarly to strategic
-programming~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}. Another
-line of work worth exploring is to adopt generalizations of object
-algebras~\cite{oliveira13fop} for added expressiveness of \name
-traversals.
+The generated code for \lstinline{QLAlgQuery} by \Name in Fig.~\ref{ql_with_oaframework}.
 
-\end{comment}
+\lstinputlisting[linerange=16-58]{../ObjectAlgebras/src/generated_code/Comments.java} % APPLY:linerange=QLALGQUERY_GENERATED
+
+\subsubsection{\lstinline{QLAlgTransform} and \lstinline{QLAlgTrans}: generated code}\label{subsec:appendix_code_qlalgtransform}
+
+The code for \lstinline{QLAlgTransform} and its class representation \lstinline{QLAlgTrans} for use, generated by \Name. See Fig.~\ref{ql_with_oaframework}.
+
+\lstinputlisting[linerange=62-112]{../ObjectAlgebras/src/generated_code/Comments.java} % APPLY:linerange=QLALGTRANSFORM_GENERATED
+
+\subsubsection{\lstinline{G_ExpAlgQuery}: generated code}\label{subsec:appendix_code_g_expalgquery}
+
+The generated code for \lstinline{G_ExpAlgQuery} by \Name in Fig.~\ref{deps2}.
+
+\lstinputlisting[linerange=116-141]{../ObjectAlgebras/src/generated_code/Comments.java} % APPLY:linerange=G_EXPALGQUERY_GENERATED
+
+\subsubsection{\lstinline{G_ExpAlgTransform} and \lstinline{G_LamAlgTransform}: generated code}\label{subsec:appendix_code_g_explam_transform}
+
+The generated code for \lstinline{G_ExpAlgTransform} and \lstinline{G_LamAlgTransform} by \Name in Fig.~\ref{DeBruijn}.
+
+\lstinputlisting[linerange=145-198]{../ObjectAlgebras/src/generated_code/Comments.java} % APPLY:linerange=G_EXPALG_LAMALG_TRANSFORM_GENERATED

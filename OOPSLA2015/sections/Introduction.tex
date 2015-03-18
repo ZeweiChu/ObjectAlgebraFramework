@@ -24,9 +24,7 @@ class of run-time errors that would not otherwise be detected.
 Unfortunately, when traversing such ASTs, the number of nodes and the
 enforced type distinctions between nodes can lead to so-called
 \emph{boilerplate code}~\cite{ralf03syb}: code that is similar for most types of nodes and which
-essentially just walks the structure. Traversals where such boilerplate
-code dominates are called \emph{structure shy}~\cite{DemeterBook}. In
-structure shy operations the ``interesting'' code is limited to only a small portion of nodes.
+essentially just walks the structure. Operations where the ``interesting'' code is limited to only a small portion of nodes are called \emph{structure shy}~\cite{DemeterBook}.
 A typical example is computing the free
 variables of an expression in some programming language. In this
 case, the interesting code occurs in the nodes representing the
@@ -47,7 +45,7 @@ strategic programming use some meta-programming techniques, such as
 code generation or reflection. The use of meta-programming offers
 programmers an easy way to avoid having to write boilerplate code.
 This has important benefits: users have to write much less code; and 
-the code becomes much more adaptive to changes.\bruno{mention default visitors?}
+the code becomes much more adaptive to changes.
 %Firstly the user has to write much less
 %code, also removing the possibility of errors in the code walking the
 %structure. Secondly the code becomes much more adaptive to changes: if
@@ -68,26 +66,28 @@ languages like Java, and are limited in terms of extensibility.
 %have significant advantages for software extensibility. 
 
 This paper presents a Java framework called \name that allows users to
-define \emph{type-safe and extensible structure-shy operations}. \name
-uses \emph{object algebras}~\cite{bruno12oa} to describe ASTs, and to
-write operations over ASTs in a style similar to pattern matching in
-functional programming. However unlike pattern matching definitions in
-functional programming, definitions using object algebras remain
-\emph{extensible}. In \name object algebra interfaces are combined
-with Java annotations to generate \emph{generic traversal code} automatically. The
+define type-safe and extensible structure-shy operations. \name
+uses \emph{Object Algebras}~\cite{bruno12oa} to describe ASTs, and to
+write operations over ASTs in a style similar to writing folds in
+functional programming. However unlike standard folds in
+functional programming, Object Algebras are
+\emph{extensible}: when new kinds of nodes are introduced in the data type, the operations can be extended as well, without changing exsting code. 
+
+In \name Object Algebra interfaces are combined
+with Java annotations to generate generic traversal code automatically. The
 generated code accounts for four different types of traversals:
 \emph{queries}; \emph{transformations}; \emph{generalized queries};
 and \emph{contextual transformations}.  Each of these four types of
-traversals is implemented as an object algebra. Programmers who want
-to implement structure-shy traversals can \emph{inherit} from one of these
-four object algebras, and \emph{override} only the cases that deal with 
+traversals is implemented as an Object Algebra. Programmers who want
+to implement structure-shy traversals can then inherit from one of these
+four object algebras, and override only the cases that deal with 
 the interesting parts of the traversal. Consequently
 traversals written in \name are:
 
 \begin{itemize*}
 
 \item {\bf Small in size:} With \name the amount of code that
-  programmers need to write a traversal is significantly smaller.
+  programmers need to write a structure-shy traversal is significantly smaller.
   Often traversals in \name are implementable in just a few lines
   of code, even for complex ASTs with hundreds of different types of
   nodes.
@@ -96,19 +96,19 @@ traversals written in \name are:
   boilerplate code, making traversals more adaptive to
   future changes or extensions to the data type.
 
-\item {\bf Type-safe with separate compilation:} \name traversals are directly written in Java
+\item {\bf Type-safe:} \name traversals are directly written in Java
   and the Java type-system ensures type-safety. No run-time casts are
   needed for generic traversal code or for user-defined traversal
-  code. Furthermore \name traversals support separate compilation.
+  code. 
 
-\item {\bf Extensible:} Traversals inherit type-safe
+\item {\bf Extensible with separate compilation:} Traversals inherit type-safe
   extensibility from object algebras. Both traversals and the AST structures
   are extensible. Thus it is possible to
   reuse traversal code for ASTs extended with additional
-  node types.
+  node types. Furthermore \name traversals support separate compilation.
 
 \item {\bf Implemented in plain Java:} \name traversals do not require
-  a new tool or language. The approach is library based and uses only
+  a new tool or language. The approach is library based and only uses
   Java annotations.
 
 %\item {\bf Performant:} Traversals written with \name have performance that
@@ -117,8 +117,7 @@ traversals written in \name are:
 \end{itemize*}
 
 To prove the effectiveness of the approach, we have applied \name in
-the implementation of the domain-specific questionnaire language
-QL~\cite{gouseti14extensible}.  Our results (see details in
+the implementation of QL, a domain-specific language (DSL) for defining questionnaires that has been used before as a benchmark language~\cite{gouseti14extensible,erdweg2013state}.  Our results (see details in
 Section~\ref{sec:case_study}) show that for a large number of traversals there was a
 significant reduction in the amount of user-defined code: only 4\% to
 21\% of the AST cases had to be implemented in comparison with code
@@ -128,7 +127,7 @@ Although \name's functional programming inspired idioms are new to
 mainstream Java programmers, its basis on standard Java 
 mechanisms makes \name easy to implement, integrate in existing
 environments, and use.  Moreover, although Java was chosen as the
-implementation language for \Name, our approach should apply to any OO
+implementation language for \Name, our approach should apply to any object-oriented
 language with support for generics and annotations (for example Scala or C\#).
 
 \begin{comment}
@@ -201,8 +200,7 @@ patterns for various types of traversals using object algebras. These include:
     paper is accepted we will make the code publicly available.} realizes this idea by using
    Java annotations to automatically generate generic traversals.
 
-\item {\bf Case study and empirical evaluation.} We evaluate the
-  approach using a case study based on the QL domain-specific
+\item {\bf Case study.} We illustrate the benefits of \name using a case study based on the QL domain-specific
   language. The results of our case study show significant savings in
-  terms of user-defined traversal code.
+  terms of user-defined traversal code. The case study also shows that \name does not incur significant performance overhead compared to a regular AST-based implementation. 
 \end{itemize*}
