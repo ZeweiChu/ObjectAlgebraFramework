@@ -9,12 +9,12 @@ public class Test {
 	
 	//BEGIN_CLIENTCODE_MAKEQL
 	<E, S, F> F makeQL(QLAlg<E, S, F> alg) {
-		return alg.form("DriverLicense", Arrays.asList(
-				alg.question("name", "Name?", "string"), 
-				alg.question("age", "Age?", "integer"), 
-				alg.iff(alg.geq(alg.var("age"), 
-						               alg.lit(18)), 
-					           alg.question("license", 
+		return alg.Form("DriverLicense", Arrays.asList(
+				alg.Question("name", "Name?", "string"), 
+				alg.Question("age", "Age?", "integer"), 
+				alg.If(alg.Geq(alg.Var("age"), 
+						               alg.Lit(18)), 
+					           alg.Question("license", 
 					        		   "License?", "boolean"))));		
 	}
 	//END_CLIENTCODE_MAKEQL

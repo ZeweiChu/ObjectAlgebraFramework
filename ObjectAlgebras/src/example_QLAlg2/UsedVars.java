@@ -11,31 +11,31 @@ import trees.QLAlg;
 class UsedVars implements 
    QLAlg<Set<String>, Set<String>, Set<String>> {
 	
-	public Set<String> form(String n, 
+	public Set<String> Form(String n, 
 			               List<Set<String>> b) {
 		Set<String> vars = new HashSet<>();
 		b.forEach(s -> vars.addAll(s));
 		return vars;
 	}
-	public Set<String> iff(Set<String> c, Set<String> t) {
+	public Set<String> If(Set<String> c, Set<String> t) {
 		Set<String> vars = new HashSet<>(c);
 		vars.addAll(t);
 		return vars;
 	}
 	
-	public Set<String> question(String n, String l, String t) {
+	public Set<String> Question(String n, String l, String t) {
 		return Collections.emptySet();
 	}
 	
-	public Set<String> lit(int x) { 
+	public Set<String> Lit(int x) { 
 		return Collections.emptySet(); 
 	}
 	
-	public Set<String> var(String x) { 
+	public Set<String> Var(String x) { 
 		return Collections.singleton(x); 
 	}
 
-	public Set<String> geq(Set<String> l, Set<String> r) {
+	public Set<String> Geq(Set<String> l, Set<String> r) {
 		Set<String> vars = new HashSet<>(l);
 		vars.addAll(r);
 		return vars;
@@ -49,22 +49,22 @@ class UsedVars implements
 class UsedVars implements 
    QLAlg<Set<String>, Set<String>, Set<String>> {
 	
-	Set<String> form(String n, List<Set<String>> b) {
+	Set<String> Form(String n, List<Set<String>> b) {
 		Set<String> vars = new HashSet<>();
 		b.forEach(s -> vars.addAll(s));
 		return vars;
 	}
-	Set<String> iff(Set<String> c, Set<String> t) {
+	Set<String> If(Set<String> c, Set<String> t) {
 		Set<String> vars = new HashSet<>(c);
 		vars.addAll(t);
 		return vars;
 	}
 	
-	Set<String> question(String n,String l,String t) {
+	Set<String> Question(String n,String l,String t) {
 		return Collections.emptySet();
 	}
 	
-	Set<String> lit(int x) { 
+	Set<String> Lit(int x) { 
 		return Collections.emptySet(); 
 	}
 	
@@ -72,7 +72,7 @@ class UsedVars implements
 		return Collections.singleton(x); 
 	}
 
-	Set<String> geq(Set<String> l, Set<String> r) {
+	Set<String> Geq(Set<String> l, Set<String> r) {
 		Set<String> vars = new HashSet<>(l);
 		vars.addAll(r);
 		return vars;

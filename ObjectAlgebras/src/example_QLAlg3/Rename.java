@@ -7,10 +7,10 @@ import util.QLAlgTrans;
 class Rename<E, S, F> extends QLAlgTrans<E, S, F> {	
 	public Rename(QLAlg<E, S, F> alg) { super(alg); }	
 	public S question(String n, String l, String t) {
-		return qLAlg().question(n + "_", l, t);
+		return qLAlg().Question(n + "_", l, t);
 	}	
 	public E var(String x) {
-		return qLAlg().var(x + "_");
+		return qLAlg().Var(x + "_");
 	}
 }
 //END_QL_TRANSFORM_WITH_OAFRAMEWORK

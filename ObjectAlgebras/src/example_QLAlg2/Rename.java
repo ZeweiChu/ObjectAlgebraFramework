@@ -10,22 +10,22 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	public Rename(QLAlg<E, S, F> alg) {
 		this.alg = alg;
 	}	
-	public F form(String id, List<S> stmts) {
-		return alg.form(id, stmts);
+	public F Form(String id, List<S> stmts) {
+		return alg.Form(id, stmts);
 	}
-	public S iff(E cond, S then) {
-		return alg.iff(cond, then);
+	public S If(E cond, S then) {
+		return alg.If(cond, then);
 	}
-	public S question(String id, String lbl,
+	public S Question(String id, String lbl,
 			String type) {
-		return alg.question(id + "_", lbl, type);
+		return alg.Question(id + "_", lbl, type);
 	}
-	public E lit(int x) { return alg.lit(x); }
-	public E var(String name) {
-		return alg.var(name + "_");
+	public E Lit(int x) { return alg.Lit(x); }
+	public E Var(String name) {
+		return alg.Var(name + "_");
 	}
-	public E geq(E lhs, E rhs) {
-		return alg.geq(lhs, rhs);
+	public E Geq(E lhs, E rhs) {
+		return alg.Geq(lhs, rhs);
 	}
 }
 //END_QL_TRANSFORM_ALG
@@ -38,14 +38,14 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	public Rename(QLAlg<E, S, F> alg) {
 		this.alg = alg;
 	}
-	public F form(String n, List<S> b) {
+	public F Form(String n, List<S> b) {
 		return alg.form(n, b);
 	}
-	public S question(String n, String l, String t) {
+	public S Question(String n, String l, String t) {
 		return alg.question(n + "_", l, t);
 	}
 	...
-	public E var(String x) {
+	public E Var(String x) {
 		return alg.var(x+ "_");
 	}
 }
