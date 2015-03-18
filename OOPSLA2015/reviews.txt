@@ -39,13 +39,20 @@
 > visits, that can be general enough that an user can extend them in so
 > many different way to turn them in most of all the algorithms he/she
 > will ever need while working with ASTs.
-> 
+
+Improved the text a bit in the introduction to mention the generic pattern 
+and 4 instances of the idea. I think more emphasis needs to be added in S2. 
+ 
 > Then is important to compare it with the conventional way Visitors are
 > used in practice as I mentioned before.
-> 
+
+TODO
+
 > Another fundamental point that is left half in the dark is Section 7,
 > that should be expanded and explained much more.
-> 
+
+TODO (Tijs?)
+
 > For the code generation part, Is interesting, and is worth explaining
 > it, also you many underlined that many design patterns can not easily
 > be structured well enough to be suited for metaprogramming generation,
@@ -55,7 +62,9 @@
 > with manifests can automatically inject them into the compilation
 > process. This is still not so widely known in the community that you
 > can expect us to "guess it".
-> 
+
+TODO (Mention the nice structure of object algebras?)
+
 > To conclude: I love your ideas, but the current
 > discussion/presentation organization do not give them the value they
 > deserve.  Moreover, in many points you sort of suggest that the only
@@ -78,7 +87,9 @@ Defensive cloning with "new ArrayList<>()".
 
 > 
 > -What is the meaning of the name OneOhOne? is not explained anywhere...
-> 
+
+NOT NEEDED
+ 
 > Code in page 6 is Weird: C returns Fload and S return Salary... should
 > it be C and S, right? since your article is on complex and novel code
 > patterns, your code must be perfect otherwise you get misunderstood
@@ -88,12 +99,15 @@ Defensive cloning with "new ArrayList<>()".
 > class at the same level of the user class OneOhOneAlg, otherwise you
 > are polluting its own namespace. Java support nested classes and you
 > can generate "OneOhOneAlg.Query" and make everyone happier and safer.
-> 
+
+TODO?
+
 > I see that method m is lowercase while the other algebra method are
 > uppercase by convention so they can not clash, this is a good idea and
 > you may mention it.
 
-> 
+NOT NEEDED?
+ 
 > Pg 10: all arguments are combined This is false, how you deal with non
 > algebraic types, like float before or better as the Lam that you show,
 > that have both a string and a Term?
@@ -103,16 +117,22 @@ Texts revised.
 > 
 > pg11: the argument in assign is ignored This looks like an horrible
 > idea, why do not leave that method abstract?
-> 
+
+Do we want to do anything about this?
+
 > pg 12 section 5 all the terminology here is sort of messed up when
 > embedded in a non functional language like Java.  "code that actually
 > change the structure" means something very different in java or in
 > Haskell.
-> 
+
+TODO
+
 > pg 15
 > Please, call Lam  Lambda
 > I have no Idea what G_ExpAlg is...
-> 
+
+TODO
+ 
 > pg 19: the vanilla query implementation [is forced to] use the same
 > monoid structure as in shy (for fairness) Please, look at
 > http://4.bp.blogspot.com/-SwE2n7GGfcY/TcKv0AXBcbI/AAAAAAAAAHQ/OJsurB4FWSM/s400/Fair+test.JPG
@@ -123,7 +143,9 @@ Texts revised.
 > it said what you wanted it to say.  The only think you show is that
 > there is a (family of?) pattern that allows .... and that nicely build
 > on top of object algebras.
-> 
+
+TODO?
+
 > ===========================================================================
 >                           ECOOP 2015 Review #61B
 >                      Updated 9 Feb 2015 11:54:12am EST
@@ -157,10 +179,14 @@ Texts revised.
 > principles (such as responsibility and collaboration, representation
 > encapsulation, open closed principle) without offering a significant
 > gain; and
-> 
+
+DONE: REPLACED S2
+
 > 3. it lacks comparison with related work that is applicable to one
 > half of the example (at least).
-> 
+
+TODO
+
 > Regarding 1:
 > 
 > In object-oriented programming, objects are usually linked using
@@ -271,7 +297,9 @@ Texts revised.
 > 
 > * Figure 2: Why are you using ternary reduce in the example? toList()
 >   lacks a receiver (or static import).
-> 
+
+IGNORE
+ 
 > * Page 6, middle, class IncreaseSalary: Shouldn’t the return type of C
 >   be Company rather than Float? Looks like the object algebras are the
 >   next boilerplate (if they are created using copy and paste ;).
@@ -449,7 +477,9 @@ Texts revised.
 > - Whereas I agree that writing standard boilerplate code can be
 >   tedious, the claim that it is error-prone should perhaps be
 >   substantiated. Do you believe your approach is less error-prone?
-> 
+
+TODO (maybe add a small sentence?)
+ 
 > - The main contributions of the proposed paper seems to lie in taking
 >   results from the functional world (e.g., [14]) and applying them to
 >   object algebras in Java. It would have been interesting to learn
@@ -472,24 +502,32 @@ Texts revised.
 >  generated traversal code, but otherwise it contains little
 >  information and one needs to look in many other places to find the
 >  information requ ired to understand the code.
-> 
+
+TODO (double-check: have we addressed those issues?)
+
 > - Sec 4.1. You could show the overridden method for Assign in
 >   G_StatAlgQuery, to make the required redefinition explicit in the
 >   paper.
-> 
+
+TODO?
+
 > - To use DepGraph, I believe you would first need to convert Exp to
 >   Set<String>? Where do you do that? Does this generate boilerplate
 >   code in your context?
 
-> 
+TODO?
+
 > - Bottom of page 12, you say "the result of exp()". I believe this
 >   should be "the result of e()"?
-> 
+
+TODO?
+
 > - Sec 6.1. In my opinion, you leave too much of the code implicit
 >   here, which makes it hard to follow the example.
-> 
+
+TODO?
+
 > - Fig. 17: What is "xs" here? Where is xs defined?
-> 
 
 Fixed. Full code in appendix.
 
@@ -556,11 +594,14 @@ Fixed. Full code in appendix.
 > OneOhOneAlgTrans) are missing. As another example, same (conflicting)
 > names are used to to refer to type parameters and method names in the
 > code snippets on pages 6 and 7.
-> 
+
+TODO? (Related to other concerns)
+
 > p. 3) "Our results show that for a large number of traversals there
 > was a significant reduction in the amount of user-defined code."  The
 > above sentence is not specific about the statistics.
-> 
+
+DONE 
 
 > others
 > 
@@ -641,12 +682,15 @@ Fixed typos.
 > 
 > - Sec 3.2. Is there any reason why a custom Monoid class was used, instead
 > of the standard solution used by Stream.reduce() methods from Java 8?
-> 
+
+TODO?
+
 > - p 19. "In case of Shy constructing the AST corresponds to executing the
 > query." Do you mean Shy transformations actually parse the QL program?
 > Could describe how parsing is performed?
-> 
-> 
+
+TODO (Tijs)
+ 
 > ===========================================================================
 >            Response by Bruno C. d. S. Oliveira <bruno@cs.hku.hk>
 >           Paper #61: Scrap your Boilerplate with Object Algebras
