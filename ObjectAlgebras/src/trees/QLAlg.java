@@ -5,12 +5,12 @@ import com.zewei.annotation.processor.Algebra;
 
 //BEGIN_QL_TREE
 @Algebra
-public interface QLAlg<Exp, Stmt, Form> {
-	Form form(String id, List<Stmt> stmts);
-	Stmt iff(Exp cond, Stmt then);
-	Stmt question(String id, String lbl, String type);
-	Exp lit(int x);
-	Exp var(String name);
-	Exp geq(Exp lhs, Exp rhs);
+public interface QLAlg<E, S, F> {
+	F form(String name, List<S> body);
+	S iff(E cond, S then);
+	S question(String name,String label,String type);
+	E lit(int n);
+	E var(String x);
+	E geq(E lhs, E rhs);
 }
 //END_QL_TREE

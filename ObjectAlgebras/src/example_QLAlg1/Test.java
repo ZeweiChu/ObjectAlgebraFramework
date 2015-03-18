@@ -8,7 +8,7 @@ class Test {
 		Stmt name = new Question("name", "What is your name?", "string");
 		Stmt age = new Question("age", "What is your age?", "integer");
 		Stmt license = new Question("license", "Do yu have a driver's license?", "boolean");
-		Exp geq = new Geq(new Var("age"), new Lit(18));
+		Exp geq = new GEq(new Var("age"), new Lit(18));
 		Stmt iff = new Iff(geq, license);
 		return new Form("DriverLicense", Arrays.asList(name, age, iff));
 	}
