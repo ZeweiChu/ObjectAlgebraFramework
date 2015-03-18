@@ -53,7 +53,7 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=122-166]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\lstinputlisting[linerange=120-162]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
 \caption{A traditional OO implementation of the miniQL AST in Java including an operation to collect used variables (slightly abbreviated for presentation purposes; the full code is available in Appendix~\ref{subsec:appendix_code_oo_approach}).}
 \label{ql_oo_approach}
 \end{figure}
@@ -63,15 +63,16 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
 In addition to the significant amount of boilerplate code, there is another  drawback to the traditional OO solution, which is that it does  does not support extensibility along the dimension of operations. Each new operation requires pervasive change across the AST classes.
 [lead out]
 
-\subsection{Modeling MiniQL with Object Algebras}\label{subsec:model_ql_with_oa}
-
-
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
 \caption{Object Algebra interface of the MiniQL abstract syntax}
 \label{ql_tree}
 \end{figure}
+
+\subsection{Modeling MiniQL with Object Algebras}\label{subsec:model_ql_with_oa}
+
+
 
 Fig.~\ref{ql_tree} shows how  to model the abstract syntax of MiniQL
 using an Object Algebra interface. Each kind of node (\lstinline{Exp}, \lstinline{Stmt}, \lstinline{Form})
@@ -107,44 +108,40 @@ something different is \lstinline{var}, which returns the name
 argument.
 
 For the renaming operation the result is itself a structure
-with all variable names updated. The following code shows the
+with all variable names updated. The following code shows a fragment of the
 implementation:
 
-\lstinputlisting[linerange=36-45]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
+\lstinputlisting[linerange=36-51]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
-The class \lstinline{Rename} is parameterized by three types,
-which represent the kinds of nodes in the QL structure. Each
+Each
 constructor needs to build an instance of the right type of nodes.
-Note that, due to the lack of better type-inference in Java, there is
-some repetition of type-annotations. In order to create the updated
+In order to create the new
 QL structure another algebra called \lstinline{alg} is used.
 Almost all the method implementations reconstruct the structure with
-no changes using the methods in \lstinline{alg}. Two exceptions are the
-methods \lstinline{question} and \lstinline{var}, where the structure is also reconstructed, but
-the names are modified with ``\_'' appended to the end.
+no changes using the methods in \lstinline{alg}. For instance, the \lstinline{form} method just recreates the form in the algebra \lstinline{alg}.  The two exceptions are the
+methods \lstinline{question} and \lstinline{var}, where the identifiers are suffixed with ``\_''.
 
-Although we solved the problem of extensibility with object
-algebras, the traversal code is still lengthy and we are still writing
-tedious traversal code. In those two operations, the only interesting code
-is in the methods \lstinline{question} and \lstinline{var}. Ideally, we would like to write only
+Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
+In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
+is in a small number of cases.  Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
-remainder tedious traversal code.
+tedious traversal code.
 
 \subsection{\Name: An Object Algebra Framework for Traversals}
 
 To deal with the boilerplate problem we created \Name: a Java object
 algebras framework, which provides a number of generic traversals at
-the cost of a simple annotation. The key idea in \name is to
-automatically create highly generic object algebras, which encapsulate
+the cost of a single annotation. The key idea in \name is to
+automatically create highly generic Object Algebras, which encapsulate
 common types of traversals. In particular \name supports generic
-\emph{queries} and \emph{transformations}. Those two types of
-traversals are useful to capture, respectively, the used variables and
+\emph{queries} and \emph{transformations}. The two types of
+traversals are, for instance,  sufficient to capture the used variables and
 renaming operations.
 
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=10-17]{../ObjectAlgebras/src/example_QLAlg3/UsedVars.java} % APPLY:linerange=QL_QUERY_WITH_OAFRAMEWORK
-\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Used variables and renaming with \Name.}
 \label{ql_with_oaframework}
@@ -153,31 +150,32 @@ renaming operations.
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation
 to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
-shown in Fig.~\ref{ql_tree}. With that annotation several classes
-are generated automatically, including \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans}. \hl{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.} Using those classes the code needed to write
-the used variables and renaming object algebras is much
-shorter. The code for the two operations is shown in
-Fig.~\ref{ql_with_oaframework}. By implementing the
-\lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} classes, only the methods
-\lstinline{question} and \lstinline{var} needs to be overridden: all the other methods,
-which do a simple generic traversal, are inherited. For queries the
+shown in Figure~\ref{ql_tree}.
+Triggered by the annotation, \name generates base traversal interfaces with Java 8 \lstinline{default} methods which can then overridden to implement specific behavior.
+For instance, for the MiniQL algebra, \name generates interfaces . 
+\lstinline{QLAlgQuery} and
+\lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.}.
+
+The \name-based implementation of both operations is shown in Figure~\ref{ql_with_oaframework}.  
+By implementing the
+\lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} interface, only the methods
+\lstinline{question} and \lstinline{var} need to be overridden: all the other methods perform basic accumulation for queries and basic identity reconstruction in the case of transformation. 
+For queries the
 only extra thing a programmer has to do is to provide an instance of a
 monoid, which is used to specify how to accumulate the results during
 the traversal. Similarly, for transformations, the programmer needs to
-pass an algebra for providing the constructors for the transformation
-code.
+pass an algebra for providing the constructors for creating the result of a transformation.
 
 Some client code is shown as follows: %, using those two algebras based on our framework.
 
-\lstinputlisting[linerange=11-22]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
+\lstinputlisting[linerange=11-19]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
 This method is used to create a particular QL structure, in the
 usual object algebras style.
 Using this QL structure, we can use the \lstinline{UsedVars}
 and \lstinline{Rename} to compute some information about the questionnaire:
 
-\lstinputlisting[linerange=27-31]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
+\lstinputlisting[linerange=24-25]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
 The results give \lstinline{[age]} and \lstinline{[age_]}, which
 is respectively the set of used variables before and after renaming.

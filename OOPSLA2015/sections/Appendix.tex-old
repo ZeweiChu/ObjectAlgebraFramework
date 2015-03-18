@@ -7,7 +7,7 @@
 
 Below is the complete code for Fig.~\ref{ql_oo_approach}, which implements \lstinline{usedVars} and \lstinline{rename} in the QL example, as an OO approach.
 
-\lstinputlisting[linerange=12-116]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
+\lstinputlisting[linerange=12-114]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
 
 \subsubsection{\lstinline{UsedVars} implementing the \lstinline{QLAlg} interface}\label{subsec:appendix_code_usedvars}
 
