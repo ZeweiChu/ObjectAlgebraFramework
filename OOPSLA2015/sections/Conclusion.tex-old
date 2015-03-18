@@ -3,16 +3,16 @@
 This paper showed how various types of traversals for complex
 structures can be automatically provided by \Name. \name traversals are
 written directly in Java and are type-safe, extensible and separately
-compilable. There has always been a tension between the 
+compilable. There has always been a tension between the
 correctness guarantees of static typing, and the flexibility of
 untyped/dynamically-typed approaches. \name shows that even
 in type systems like Java's, it is possible to get considerable
 flexibility and adaptability for the problem of boilerplate code in
-traversals of complex structures, without giving up modular static typing. 
+traversals of complex structures, without giving up modular static typing.
 %\name offers the best of both worlds: the
 %static typing guarantees; and flexibility and adaptability.
 
-There are many of avenues for future work. One area of research is to
+There are many avenues for future work. One area of research is to
 extend \name traversals to support flexible traversal strategies,
 similarly to strategic
 programming~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}. Another

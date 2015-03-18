@@ -7,12 +7,11 @@ and Java annotations.
 
 \subsection{A Questionnaire Structure and an Object Oriented Solution}
 
-\haoyuan{Figure needed for the model.}\\
 \haoyuan{Duplicate texts.}\\
 \haoyuan{One reference is missing.}\\
 \haoyuan{Style of presenting Java code.}
 
-We start by considering the questionnaire structure introduced in [Figure]. The example is actually closely based on our case study, but appears in a much more simplified form to illustrate our work clearly. To start with, a questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed. A simplified DSL for questionnaires (QL), has its syntax in our example with a data structure. Three sorts of components, Form, Stmt and Exp help to compose questionnaires.
+We start by considering the questionnaire structure. The example is actually closely based on our case study, but appears in a much more simplified form to illustrate our work clearly. To start with, a questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed. A simplified DSL for questionnaires (QL), has its syntax in our example with a data structure. Three sorts of components, Form, Stmt and Exp help to compose questionnaires.
 
 In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
@@ -33,16 +32,17 @@ form DriverLicense {
 
 A concrete example QL questionnaire is shown in Fig.~\ref{driver_license}, regarding driver's license. The questionnaire firstly asks for a user's name and age, and for an adult, furthermore, it asks whether the user has a driver's license.
 
-Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{renaming}, which updates the names of all variables in a questionnaire.
+Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
+\haoyuan{Clarify the differences between our solution and a usual OO approach.}
 
-\begin{figure}[htbp]
+\begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=6-81]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH
-\caption{Java implementation of an OO approach for used variables and renaming}
+\lstinputlisting[linerange=113-156]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\caption{Java implementation of an OO approach for used variables and renaming. \hl{Note that the methods \{\lstinline{emptySet}, \lstinline{singleton}\} are statically imported from \lstinline{java.util.Collections}, \{\lstinline{toSet}, \lstinline{toList}\} are from \lstinline{java.util.stream.Collectors}, and \lstinline{concat} is from \lstinline{java.util.stream.Stream}. Full code is available in Appendix~\ref{subsec:appendix_code_oo_approach}.}}
 \label{ql_oo_approach}
 \end{figure}
 
-Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{renaming}. The renaming operation updates some information stored in the private members of those classes.
+Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{rename}. The renaming operation updates some information stored in the private members of those classes.
 
 However, this simple OO solution has two important problems:
 
@@ -58,7 +58,7 @@ However, this simple OO solution has two important problems:
 \item {\bf Boilerplate traversal code} Another issue is that we
   usually need to write a large amount of boilerplate code to
   implement traversals. In our example, we implemented
-  \lstinline{usedVars} and \lstinline{renaming} in all
+  \lstinline{usedVars} and \lstinline{rename} in all
   classes. However only the \lstinline{Question} and \lstinline{Var} classes do some
   interesting work. All other classes simply delegate the task to the
   child nodes. This problem becomes more severe with bigger tree
@@ -68,7 +68,7 @@ However, this simple OO solution has two important problems:
 
 \end{enumerate}
 
-\subsection{Modeling the QL Structure with Object Algebras}
+\subsection{Modeling the QL Structure with Object Algebras}\label{subsec:model_ql_with_oa}
 
 Object algebras~\cite{bruno12oa} provide a solution to the extensibility problem.
 Object algebras are a design pattern that is useful to model complex
@@ -89,35 +89,34 @@ structure as an object algebra interface. Each kind of node (\lstinline{Exp}, \l
 is represented as a type parameter. Each method in the object algebra interface models a
 constructor of some node in the QL structure. For example the
 method \lstinline{form} constructs an instance of a form; whereas the
-method \lstinline{question} creates an instance of a statement. From an
+method \lstinline{question} creates an instance of a question statement. From an
 object-oriented perspective the methods in the interface are factory
 methods. For the reader familiar with functional programming, the
 resemblance to constructors of  (a system of) algebraic data types should be clear.
 
-Operations are defined by implementing the object algebra interface.
-The following code show an implementation of the used variables
-operation.
+Operations are defined by implementing the object algebra interface. \hl{Appendix~\ref{subsec:appendix_code_usedvars} and \ref{subsec:appendix_code_rename} gives the complete code for an implementation.}
+The following code show the implementation of the used variables
+operation partly.
 
-\lstinputlisting[linerange=7-25]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG
+\lstinputlisting[linerange=46-55]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
 
 The \lstinline{UsedVars} class provides an implementation for each
 of the methods in the object algebra interface, which defines the
 overall used variables operation. Since the result of collecting those
 variables is \lstinline{Set<String>}, all the type parameters are set to
 that type. Most of the method implementations simply traverse the
-child nodes and accumulate the salaries. That is the case, for
+child nodes and accumulate the variable names. That is the case, for
 example, for \lstinline{form}. The only method implementation that does
-something different is \lstinline{var}, which returns the salary
+something different is \lstinline{var}, which returns the name
 argument.
-\haoyuan{Some key words: int, var, label, are highlighted.}
 
 For the renaming operation the result is itself a structure
 with all variable names updated. The following code shows the
 implementation:
 
-\lstinputlisting[linerange=8-29]{../ObjectAlgebras/src/example_QLAlg2/Renaming.java} % APPLY:linerange=QL_TRANSFORM_ALG
+\lstinputlisting[linerange=36-45]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
-The class \lstinline{Renaming} is parameterized by three types,
+The class \lstinline{Rename} is parameterized by three types,
 which represent the kinds of nodes in the QL structure. Each
 constructor needs to build an instance of the right type of nodes.
 Note that, due to the lack of better type-inference in Java, there is
@@ -149,7 +148,7 @@ renaming operations.
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=10-17]{../ObjectAlgebras/src/example_QLAlg3/UsedVars.java} % APPLY:linerange=QL_QUERY_WITH_OAFRAMEWORK
-\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/example_QLAlg3/Renaming.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 \vspace{-.1in}
 \caption{Used variables and renaming with \Name.}
 \label{ql_with_oaframework}
@@ -160,7 +159,7 @@ to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Fig.~\ref{ql_tree}. With that annotation several classes
 are generated automatically, including \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans}. Using those classes the code needed to write
+\lstinline{QLAlgTrans}. \hl{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.} Using those classes the code needed to write
 the used variables and renaming object algebras is much
 shorter. The code for the two operations is shown in
 Fig.~\ref{ql_with_oaframework}. By implementing the
@@ -175,14 +174,14 @@ code.
 
 Some client code is shown as follows: %, using those two algebras based on our framework.
 
-\lstinputlisting[linerange=11-18]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
+\lstinputlisting[linerange=11-22]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
 This method is used to create a particular QL structure, in the
 usual object algebras style.
 Using this QL structure, we can use the \lstinline{UsedVars}
-and \lstinline{Renaming} to compute some information about the questionnaire:
+and \lstinline{Rename} to compute some information about the questionnaire:
 
-\lstinputlisting[linerange=23-26]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
+\lstinputlisting[linerange=27-31]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
 The results give \lstinline{[age]} and \lstinline{[age_]}, which
 is respectively the set of used variables before and after renaming.

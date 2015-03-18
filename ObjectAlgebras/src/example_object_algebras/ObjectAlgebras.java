@@ -1,59 +1,61 @@
 package example_object_algebras;
 
 //BEGIN_INT_ALG_INTERFACE
-interface IntAlg<A> {
-	A lit(int x);
-	A add(A e1, A e2);}
+interface ExpAlg<E> {
+	E lit(int n);
+	E add(E l, E r);
+}
 //END_INT_ALG_INTERFACE
 
 //BEGIN_INT_BOOL_ALG_INTERFACE
-interface IntBoolAlg<A> extends IntAlg<A>{
-	A bool(Boolean x);
-	A iff(A e1, A e2, A e3);}
+interface MulAlg<E> extends ExpAlg<E> {
+	E mul(E l, E r);
+}
 //END_INT_BOOL_ALG_INTERFACE
 
-//BEGIN_EXP_FACTORY
-interface Exp{
-	public int eval();
+//BEGIN_MUL_EVAL
+class MulEval extends Eval 
+ implements MulAlg<Integer> {
+	public Integer mul(Integer l, Integer r) {
+		return l * r;
+	}
 }
-class IntFactory implements IntAlg<Exp> {
-	public Exp lit(int x){
-		return new Exp(){
-			public int eval(){return x;}
-		};}
-	
-	public Exp add(Exp e1, Exp e2){
-		return new Exp(){
-			public int eval(){return e1.eval() + e2.eval();}
-		};}
+//END_MUL_EVAL
+
+
+//BEGIN_EXP_FACTORY
+class Eval implements ExpAlg<Integer> {
+	public Integer lit(int n) {
+		return n; 
+	}
+	public Integer add(Integer l, Integer r) {
+		return l + r;
+	}
 }
 //END_EXP_FACTORY
 
 //BEGIN_INT_PRINT
-interface IPrint{String print();}
-class IntPrint implements IntAlg<IPrint> {
-	public IPrint lit(final int x){
-		return new IPrint(){
-			public String print(){return new Integer(x).toString();}
-		};}
-	public IPrint add(final IPrint e1, final IPrint e2) {
-		return new IPrint(){
-			public String print(){return e1.print() + " + " + e2.print();}
-		};}
+class Print implements ExpAlg<String> {
+	public String lit(int n){
+		return "" + n; 
+	}
+	public String add(String l, String r) {
+		return l + " + " + r;
+	}
 }
 //END_INT_PRINT
 
 public class ObjectAlgebras {
 
 	//BEGIN_OA_TEST_CODE
-	public static <A> A make3Plus5(IntAlg<A> alg){
+	public static <E> E make3Plus5(ExpAlg<E> alg){
 		return alg.add(alg.lit(3), alg.lit(5));
 	}
 	public static void test(){
-		IntFactory base = new IntFactory();
-		IntPrint print = new IntPrint();	
-		int x = make3Plus5(base).eval();
-		String s = make3Plus5(print).print();
+		Eval eval = new Eval();
+		Print print = new Print();	
+		int x = make3Plus5(eval);
+		String s = make3Plus5(print);
 		System.out.println("int: " + x); //int: 8
 		System.out.println("String: " + s); //String: 3 + 5
 	}
