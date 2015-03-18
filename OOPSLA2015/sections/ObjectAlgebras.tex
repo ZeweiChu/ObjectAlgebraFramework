@@ -1,6 +1,6 @@
 \section{Object Algebras}\label{subsec:ObjectAlgebras}
 
-Object Algebras is a design pattern targeted to solve the famous Expression Problem, in the sense that this programming model supports extensibility in two dimensions of both new data variants and new operations, without sacrificing extensibility. We use object algebras to model the tree structures in this paper and it shows the ability to depict complex tree structures with flexibility and extensibility. The following section gives a brief introduction of object algebras.
+Object Algebras is a design pattern targeted to solve the famous Expression Problem, in the sense that this programming model supports extensibility in two dimensions of both data variants and operations, without sacrificing extensibility. We use object algebras to model the tree structures in this paper and it shows the ability to depict complex tree structures with flexibility and extensibility. The following section gives a brief introduction to object algebras.
 
 \begin{figure}[t]
 \nocaptionrule
@@ -25,7 +25,7 @@ Fig.~\ref{int_alg_interface} is an \emph{object algebra interface} which models 
 \label{int_print_factory}
 \end{figure}
 
-An \emph{object algebra} is a class implementing an object algebra interface. Fig.~\ref{exp_factory} extends the \lstinline{IntAlg} to be \lstinline{IntFactory}, which represents Expressions as a form of integers. This retroactive implementation of interfaces is commonly used in object algebras to extend operations, as mentioned as one dimension of extensibility of Expression Problem. Fig.~\ref{int_print_factory} gives another example of extending \lstinline{IntAlg} with pretty printing operations.
+An \emph{object algebra} is a class implementing an \emph{object algebra interface}. Fig.~\ref{exp_factory} extends the \lstinline{IntAlg} to be \lstinline{IntFactory}, which represents Expressions as a form of integers. This retroactive implementation of interfaces is commonly used in \emph{object algebras} to extend operations, as mentioned as one dimension of extensibility of Expression Problem. Fig.~\ref{int_print_factory} gives another example of extending \lstinline{IntAlg} with pretty printing operations.
 
 \begin{figure}[t]
 \nocaptionrule
@@ -34,11 +34,11 @@ An \emph{object algebra} is a class implementing an object algebra interface. Fi
 \label{oa_test_code}
 \end{figure}
 
-As shown in Fig.~\ref{oa_test_code}, object algebras provides a very generic method of writing code with object algebra interfaces, and later instantiate objects with specific object algebras.
+As shown in Fig.~\ref{oa_test_code}, \emph{object algebras} provides a very generic method of writing code with \emph{object algebra interfaces}, and later instantiate objects with specific \emph{object algebras}.
 
-Another dimension of extensibility can be realized by extending the original object algebra interface with new data variants. Fig.~\ref{int_bool_alg_interface} extends the original \lstinline{IntAlg} with Boolean variables, and the extended object algebra interface can be further extended with proper operations in the same fashion as we discussed previously.
+Another dimension of extensibility can be realized by extending the original \emph{object algebra interface} with new data variants. Fig.~\ref{int_bool_alg_interface} extends the original \lstinline{IntAlg} with Boolean variables, and the extended \emph{object algebra interface} can be further extended with proper operations in the same fashion as we discussed previously.
 
-In summary, object algebras introduces object algebra interfaces as generic models to depict abstract structures. Extending the object algebra interface allows developers to introduce new data variants to the original structure, while implementing methods of object algebra interfaces with specific class parameters give developers flexibility of extending new operations. What makes object algebras a useful design pattern is that it does not rely on any advanced language features, and it is both extensible and type-safe.
+In summary, \emph{object algebras} introduces \emph{object algebra interfaces} as generic models to depict abstract structures. Extending the \emph{object algebra interface} allows developers to introduce new data variants to the original structure, while implementing methods of \emph{object algebra interfaces} with specific class parameters give developers flexibility of extending new operations. What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.
 
 \begin{figure}[t]
 \nocaptionrule
