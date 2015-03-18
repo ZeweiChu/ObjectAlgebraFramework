@@ -128,18 +128,18 @@ the code simply walks the structure, and only a small portion of the
 code implements the functionality that motivated the traversal in the
 first place.  This paper presents a type-safe Java framework called
 \name that removes much of this boilerplate code. In \name
-\emph{object algebras} are used to describe complex \emph{extensible}
+\emph{object algebras} are used to describe complex and extensible
 AST structures. Using Java annotations \name generates generic boilerplate code 
 for various types of traversals. For a concrete traversal, users of
-\name can \emph{inherit} fom the generated code 
-and \emph{override} only the interesting cases. Consequently, the amount of code that users
+\name can then inherit fom the generated code 
+and override only the interesting cases. Consequently, the amount of code that users
 need to write is significantly smaller. Moreover, traversals using the
 \name framework are also much more \emph{structure shy}, becoming more
 adaptive to future changes or extensions to the AST structure.
 %An additional benefit of \name is that traversal code can be easily
 %reused by extensions of the
-To prove the effectiveness of the approach, we employed \name
-on the implementation of a domain-specific questionnaire
+To prove the effectiveness of the approach, we applied \name
+in the implementation of a domain-specific questionnaire
 language. Our results show that for a large number of traversals
 there was a significant reduction in the amount of user-defined code.
 %\bruno{Say something more about extensibility and type-safety!}
