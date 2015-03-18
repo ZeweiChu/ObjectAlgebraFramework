@@ -59,7 +59,8 @@ Both examples illustrate extension in the dimension of operations.
 The other dimension of extensibility (adding data variants) is  realized by extending the object algebra interface itself. Figure~\ref{int_bool_alg_interface} extends the original \lstinline{ExpAlg} with multiplication expressions.
 The key feature of Object Algebras is that the existing operations (evaluation and printing) can now be extended to support multiplication without having to change the existing \lstinline{Eval} and \lstinline{Print} classes. Figure~\ref{mul_eval} shows how this is realized for evaluation. 
 
-In summary, Object Algebra interfaces are used to describe recursive data types, and implementations of those interfaces represent operations. Extending the interface allows developers to introduce new data variants, whereas implementing the interface allows developers to define operations.
+In summary, Object Algebra interfaces  describe recursive data types, and implementations of those interfaces represent operations. Extending the interface allows developers to extend the data type with new data variants, and (re)implementing the interface allows developers to define operations.
+Finally, extension in both dimensions is fully type safe and does not compromise separate compilation.
 %What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.
 
 
