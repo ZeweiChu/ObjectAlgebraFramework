@@ -885,4 +885,16 @@ TODO (Tijs)
 > 
 > 
 > 
-> 
+>
+
+PS: TODOLIST
+
+Typos: exsting, writen, superclases, constructo, but [it] instead of constructing,
+such an interface (instantiate), shows [the] a simple printing, it [does] does not,
+QL -> MiniQL.
+
+Figure 1, 2, 3, 4, 5 (Section 2).
+Figure 11, 13 (Section 4: ExpAlg interface, Generic queries).
+Figure 15 (Section 5: StatAlg interface).
+Figure 20 (Section 6: SubstVar by Shy).
+Embedded in texts.
