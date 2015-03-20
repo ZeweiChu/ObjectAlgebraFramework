@@ -2,21 +2,21 @@ package example_object_algebras;
 
 //BEGIN_INT_ALG_INTERFACE
 interface ExpAlg<E> {
-	E lit(int n);
-	E add(E l, E r);
+	E Lit(int n);
+	E Add(E l, E r);
 }
 //END_INT_ALG_INTERFACE
 
 //BEGIN_INT_BOOL_ALG_INTERFACE
 interface MulAlg<E> extends ExpAlg<E> {
-	E mul(E l, E r);
+	E Mul(E l, E r);
 }
 //END_INT_BOOL_ALG_INTERFACE
 
 //BEGIN_MUL_EVAL
 class MulEval extends Eval 
  implements MulAlg<Integer> {
-	public Integer mul(Integer l, Integer r) {
+	public Integer Mul(Integer l, Integer r) {
 		return l * r;
 	}
 }
@@ -25,10 +25,10 @@ class MulEval extends Eval
 
 //BEGIN_EXP_FACTORY
 class Eval implements ExpAlg<Integer> {
-	public Integer lit(int n) {
+	public Integer Lit(int n) {
 		return n; 
 	}
-	public Integer add(Integer l, Integer r) {
+	public Integer Add(Integer l, Integer r) {
 		return l + r;
 	}
 }
@@ -36,8 +36,8 @@ class Eval implements ExpAlg<Integer> {
 
 //BEGIN_INT_PRINT
 class Print implements ExpAlg<String> {
-	public String lit(int n) { return "" + n; }
-	public String add(String l, String r) {
+	public String Lit(int n) { return "" + n; }
+	public String Add(String l, String r) {
 		return l + " + " + r;
 	}
 }
@@ -47,7 +47,7 @@ public class ObjectAlgebras {
 
 	//BEGIN_OA_TEST_CODE
 	public static <E> E make3Plus5(ExpAlg<E> alg){
-		return alg.add(alg.lit(3), alg.lit(5));
+		return alg.Add(alg.Lit(3), alg.Lit(5));
 	}
 	public static void test(){
 		Eval eval = new Eval();

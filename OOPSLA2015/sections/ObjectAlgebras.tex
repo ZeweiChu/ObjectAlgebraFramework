@@ -6,7 +6,7 @@ data variants and operations. Object Algebras can be used conveniently to model 
 
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_ALG_INTERFACE
 
-The above code shows an \emph{Object Algebra interface} which models \lstinline{lit} and \lstinline{add} expressions of \lstinline{ExpAlg}. The interface resembles abstract factory interface, but instead of constructing objects of a concrete type, the result is abstract through the type parameter \lstinline{E}.
+The above code shows an \emph{Object Algebra interface} which models \lstinline{Lit} and \lstinline{Add} expressions of \lstinline{ExpAlg}. The interface resembles abstract factory interface, but instead of constructing objects of a concrete type, the result is abstract through the type parameter \lstinline{E}.
 A concrete Object Algebra will implement such an interface instantiating the type parameter to construct objects for a particular purpose.
 
 For instance, the class \lstinline{Eval} which implements evaluation of expression is as follows:
@@ -20,12 +20,12 @@ To add another operation the interface is simply implemented again. As an exampl
 
 %% \begin{figure}[t]
 %% \nocaptionrule
-%% \lstinputlisting[linerange=51-61]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=OA_TEST_CODE
+%% \lstinputlisting[linerange=49-59]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=OA_TEST_CODE
 %% \caption{Object Algebra Test Code}
 %% \label{oa_test_code}
 %% \end{figure}
 
-The other dimension of extensibility (adding data variants) is  realized by extending the object algebra interface itself. For instance, 
+The other dimension of extensibility (adding data variants) is  realized by extending the object algebra interface itself. For instance,
 the interface \lstinline{MulAlg} defined below extends the original \lstinline{ExpAlg} with multiplication expressions.
 
 \lstinputlisting[linerange=11-13]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_BOOL_ALG_INTERFACE

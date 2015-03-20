@@ -3,11 +3,11 @@ package generated_code;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-
 import library.Monoid;
+import transform.QLAlgTransform;
 import trees.ExpAlg;
 import trees.LamAlg;
-
+import trees.QLAlg;
 
 public class Comments {}
 
@@ -18,39 +18,39 @@ public interface QLAlgQuery<R>
 
 	Monoid<R> m();
 
-	default R form(java.lang.String p0,
+	default R Form(java.lang.String p0,
 			java.util.List<R> p1) {
 		R res = m().empty();
 		res = m().join(res, m().fold(p1));
 		return res;
 	}
 
-	default R geq(R p0, R p1) {
+	default R Geq(R p0, R p1) {
 		R res = m().empty();
 		res = m().join(res, p0);
 		res = m().join(res, p1);
 		return res;
 	}
 
-	default R iff(R p0, R p1) {
+	default R If(R p0, R p1) {
 		R res = m().empty();
 		res = m().join(res, p0);
 		res = m().join(res, p1);
 		return res;
 	}
 
-	default R lit(int p0) {
+	default R Lit(int p0) {
 		R res = m().empty();
 		return res;
 	}
 
-	default R question(java.lang.String p0,
+	default R Question(java.lang.String p0,
 			java.lang.String p1, java.lang.String p2) {
 		R res = m().empty();
 		return res;
 	}
 
-	default R var(java.lang.String p0) {
+	default R Var(java.lang.String p0) {
 		R res = m().empty();
 		return res;
 	}
@@ -65,35 +65,35 @@ public interface QLAlgTransform<A0, A1, A2>
 	QLAlg<A0, A1, A2> qLAlg();
 
 	@Override
-	default A2 form(java.lang.String p0,
+	default A2 Form(java.lang.String p0,
 			java.util.List<A1> p1) {
-		return qLAlg().form(p0, p1);
+		return qLAlg().Form(p0, p1);
 	}
 
 	@Override
-	default A0 geq(A0 p0, A0 p1) {
-		return qLAlg().geq(p0, p1);
+	default A0 Geq(A0 p0, A0 p1) {
+		return qLAlg().Geq(p0, p1);
 	}
 
 	@Override
-	default A1 iff(A0 p0, A1 p1) {
-		return qLAlg().iff(p0, p1);
+	default A1 If(A0 p0, A1 p1) {
+		return qLAlg().If(p0, p1);
 	}
 
 	@Override
-	default A0 lit(int p0) {
-		return qLAlg().lit(p0);
+	default A0 Lit(int p0) {
+		return qLAlg().Lit(p0);
 	}
 
 	@Override
-	default A1 question(java.lang.String p0,
+	default A1 Question(java.lang.String p0,
 			java.lang.String p1, java.lang.String p2) {
-		return qLAlg().question(p0, p1, p2);
+		return qLAlg().Question(p0, p1, p2);
 	}
 
 	@Override
-	default A0 var(java.lang.String p0) {
-		return qLAlg().var(p0);
+	default A0 Var(java.lang.String p0) {
+		return qLAlg().Var(p0);
 	}
 
 }

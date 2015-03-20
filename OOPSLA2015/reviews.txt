@@ -100,13 +100,13 @@ NOT NEEDED
 > are polluting its own namespace. Java support nested classes and you
 > can generate "OneOhOneAlg.Query" and make everyone happier and safer.
 
-TODO?
+TODO? (Haoyuan: personally tend not to make big changes; a matter of engineering)
 
 > I see that method m is lowercase while the other algebra method are
 > uppercase by convention so they can not clash, this is a good idea and
 > you may mention it.
 
-NOT NEEDED?
+Mentioned in texts (in red).
  
 > Pg 10: all arguments are combined This is false, how you deal with non
 > algebraic types, like float before or better as the Lam that you show,
