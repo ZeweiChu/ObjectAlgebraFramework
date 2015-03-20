@@ -12,7 +12,7 @@ import query.G_StatAlgQuery;
 interface DepGraph extends
 		G_ExpAlgQuery<Set<String>>,
 		G_StatAlgQuery<Set<String>,
-		Set<Pair<String,String>>> {
+				Set<Pair<String, String>>> {
 	default Set<String> Var(String x) {
 		return Collections.singleton(x);
 	}

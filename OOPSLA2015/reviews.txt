@@ -100,7 +100,8 @@ NOT NEEDED
 > are polluting its own namespace. Java support nested classes and you
 > can generate "OneOhOneAlg.Query" and make everyone happier and safer.
 
-TODO? (Haoyuan: personally tend not to make big changes; a matter of engineering)
+TODO?
+(Haoyuan: personally tend not to make big changes; a matter of engineering)
 
 > I see that method m is lowercase while the other algebra method are
 > uppercase by convention so they can not clash, this is a good idea and
@@ -126,12 +127,16 @@ Do we want to do anything about this?
 > Haskell.
 
 TODO
+(Haoyuan: not really understand what it means)
 
 > pg 15
 > Please, call Lam  Lambda
 > I have no Idea what G_ExpAlg is...
 
-TODO
+1. TODO
+(Haoyuan: should we rename Lam with Lambda?)
+2. DONE
+(Haoyuan: generated code for G_ExpAlg in Appendix now)
  
 > pg 19: the vanilla query implementation [is forced to] use the same
 > monoid structure as in shy (for fairness) Please, look at
@@ -503,33 +508,38 @@ TODO (maybe add a small sentence?)
 >  information and one needs to look in many other places to find the
 >  information requ ired to understand the code.
 
-TODO (double-check: have we addressed those issues?)
+Done. (Full code in Appendix)
 
 > - Sec 4.1. You could show the overridden method for Assign in
 >   G_StatAlgQuery, to make the required redefinition explicit in the
 >   paper.
 
-TODO?
+There is already an example in DepGraph with Assign method overridden.
+That is to say, G_StatAlgQuery is based on the generalized query template;
+the Assign method is only expected to be overridden in concrete examples.
+(Does this solve that issue?)
 
 > - To use DepGraph, I believe you would first need to convert Exp to
 >   Set<String>? Where do you do that? Does this generate boilerplate
 >   code in your context?
 
-TODO?
+Shouldn't be a problem. Exp is a generic sort and is assigned to Set<String>
+in the DepGraph example. Seems that the Generalized Queries Section is confusing
+for readers?
 
 > - Bottom of page 12, you say "the result of exp()". I believe this
 >   should be "the result of e()"?
 
-TODO?
+Fixed.
 
 > - Sec 6.1. In my opinion, you leave too much of the code implicit
 >   here, which makes it hard to follow the example.
 
-TODO?
+Full code in appendix.
 
 > - Fig. 17: What is "xs" here? Where is xs defined?
 
-Fixed. Full code in appendix.
+Not a problem actually. It's the lambda syntax in Java.
 
 
 > ===========================================================================
