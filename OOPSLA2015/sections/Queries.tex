@@ -10,7 +10,9 @@ Boilerplate''~\cite{ralf03syb}.
 %We motivate queries by walking through a number
 %of different ways in which such operations are implemented.
 
-Fig.~\ref{exp_alg} shows a simple type of expressions, represented
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
+
+The above code shows a simple type of expressions, represented
 as the object algebra interface \lstinline{ExpAlg}. We will use this
 minimal object algebra interface throughout the rest of the paper to
 illustrate the various different types of traversals supported by
@@ -31,13 +33,6 @@ query.
 \end{comment}
 
 \subsection{Boilerplate Queries}\label{subsec:freevars}
-
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
-\caption{The \lstinline{ExpAlg} object algebra interface.}
-\label{exp_alg}
-\end{figure}
 
 Fig.~\ref{freevars_without_monoid} shows a
 standard approach for computing free variables using object algebras\footnote{Here and in the following we will use interfaces with \lstinline{default}-methods (as introduced in Java 8) to combine queries and transformations using multiple inheritance.}.

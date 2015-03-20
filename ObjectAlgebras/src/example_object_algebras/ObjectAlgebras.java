@@ -36,9 +36,7 @@ class Eval implements ExpAlg<Integer> {
 
 //BEGIN_INT_PRINT
 class Print implements ExpAlg<String> {
-	public String lit(int n){
-		return "" + n; 
-	}
+	public String lit(int n) { return "" + n; }
 	public String add(String l, String r) {
 		return l + " + " + r;
 	}
