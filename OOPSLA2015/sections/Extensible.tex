@@ -41,18 +41,22 @@ to create lambda expressions.
 \begin{figure}[t]
   \centering
   \nocaptionrule
-  \includegraphics[width=0.45\linewidth]{extendQuery}
-  \hspace*{2pt}
-  \vline
-  \hspace*{2pt}
-  \includegraphics[width=0.45\linewidth]{extendTransform}
-
-  \caption{Extension of the \lstinline{FreeVars} query (left) and the \lstinline{Unique} transformation (right)}
-  \label{FIG:extension}
+  \includegraphics[width=0.9\linewidth]{extendQuery}
+  \caption{Extension of the \lstinline{FreeVars} query}
+  \label{FIG:extensionQuery}
 \end{figure}
 
 
-Figure~\ref{FIG:extension} gives a high level overview of query and transformation extension using the examples for \lstinline{FreeVars} and \lstinline{Unique}.
+\begin{figure}[h]
+  \centering
+  \nocaptionrule
+  \includegraphics[width=0.9\linewidth]{extendTransform}
+  \caption{Extension of the \lstinline{Unique} transformation}
+  \label{FIG:extensionTrafo}
+\end{figure}
+
+
+Figures~\ref{FIG:extensionQuery} and~\ref{FIG:extensionTrafo} give a high level overview of query and transformation extension using the examples for \lstinline{FreeVars} and \lstinline{Unique}, respectively.
 In the case of queries, the abstract \lstinline{m()} method will be shared by both the \lstinline{FreeVars} and \lstinline{FreeVarsWithLambda} interfaces.
 On the other hand, transformations are based on multiple base algebras, for sets of data type constructors (e.g., \lstinline{expAlg()} and \lstinline{lamAlg()}).
 
