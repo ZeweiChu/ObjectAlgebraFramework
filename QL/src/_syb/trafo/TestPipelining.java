@@ -1,6 +1,7 @@
 package _syb.trafo;
 
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static java.util.Arrays.asList;
@@ -156,15 +157,17 @@ public class TestPipelining {
 		   Function<IFormatWithPrecedence, IFormat>> alg;
 
 		
-		Map<String, String> ren = singletonMap("x",  "y");
-		
 		//BEGIN_PIPELINEQL
-		alg = new Desugar<>(new Inline<>(new Rename<>(ren, new Format())));
+alg = new Desugar<>(new Inline<>(
+		new Rename<>(Collections.singletonMap("x",  "y"), 
+			new Format())));
 		//END_PIPELINEQL
 		
 		//BEGIN_PIPELINEQL_CALL
 		Function<IFormatWithPrecedence, IFormat> pp 
-		  = alg.form("myForm", asList(alg.unless(alg.var("x"),  alg.question("x", "X?", new TBoolean()))));
+		  = alg.form("myForm", Arrays.asList(
+				  alg.unless(alg.var("x"),  
+				  alg.question("x", "X?", new TBoolean()))));
 		//END_PIPELINEQL_CALL
 
 		StringWriter w = new StringWriter();

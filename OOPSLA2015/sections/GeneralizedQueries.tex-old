@@ -44,11 +44,14 @@ A simple example of a generalized query is the extraction of the data
 dependencies between assignment statements and variables in simple
 imperative programs.  To express this query, the simple
 \lstinline{ExpAlg} is first extended with statements using the
-\lstinline{StatAlg} interface of Fig.~\ref{statalg}.  The extension
-consists of statement constructors for sequential composition
+\lstinline{StatAlg} interface defined as follows:
+
+\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
+
+The extension consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
-Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions is
+Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions (\lstinline{G_ExpAlgQuery}) is
 presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}}.  Note that the interface declares two
 monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
@@ -58,14 +61,6 @@ over another type, the \lstinline{e} argument in \lstinline{Assign}
 is ignored.  As a result, a
 concrete implementation has to override this case to deal with the
 transition from expressions to statements.
-
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
-\caption{Statement Algebra Interface}
-\label{statalg}
-\end{figure}
-
 
 \begin{figure}[t]
 \nocaptionrule

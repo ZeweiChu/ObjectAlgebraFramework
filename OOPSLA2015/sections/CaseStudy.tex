@@ -1,43 +1,46 @@
 \section{Case Study}\label{sec:case_study}
 
-To illustrate the utility of \name we have implemented a number of queries and transformations in the context of QL, a simple DSL for questionnaires implemented using Object Algebras~\cite{gouseti14extensible}.
-A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed.
-An example QL questionnaire is shown on the left of Fig.~\ref{FIG:houseowning} together with its rendering on the right.
+To illustrate the utility of \name we have implemented a number of queries and transformations in the context of QL, a DSL for questionnaires which has been implemented using Object Algebras before~\cite{gouseti14extensible}.
+QL is similar MiniQL, except that it additionally features an if-then-else construct, computed questions (which will appear read only), and a richer expression language.
+For more information on the features of QL we refer to~\cite{erdweg2013state}. 
 
-QL programs consist of lists of labeled, typed questions.
-Questions can be answerable, meaning the user has to enter some data, or computed, in which case the question is defined by an expression.
-A conditional if-then-else construct allows questions to visually appear only when a certain condition is true.
+%% A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed.
+%% An example QL questionnaire is shown on the left of Fig.~\ref{FIG:houseowning} together with its rendering on the right.
 
-\begin{figure}[t]
-\nocaptionrule
-\hspace*{-5pt}\begin{minipage}{0.6\linewidth}
-\begin{lstlisting}[language=ql]
-form HouseOwning {
-  soldHouse: "Did you sell a house?" boolean
-  boughtHouse: "Did you buy a house?" boolean
-  if (soldHouse) {
-    sellingPrice: "Selling price:" integer
-    privateDebt: "Private debts:" integer
-    valueResidue: "Value residue:" integer
-       = (sellingPrice - privateDebt)
-  }
-}
-\end{lstlisting}
-\end{minipage}
-\begin{minipage}{0.5\linewidth}
-  \includegraphics[width=\linewidth]{sections/screenshot}
-\end{minipage}
-\caption{Example QL questionnaire (left) and its rendering (right)}
-\label{FIG:houseowning}
-\end{figure}
+%% QL programs consist of lists of labeled, typed questions.
+%% Questions can be answerable, meaning the user has to enter some data, or computed, in which case the question is defined by an expression.
+%% A conditional if-then-else construct allows questions to visually appear only when a certain condition is true.
+
+%% \begin{figure}[t]
+%% \nocaptionrule
+%% \hspace*{-5pt}\begin{minipage}{0.6\linewidth}
+%% \begin{lstlisting}[language=ql]
+%% form HouseOwning {
+%%   soldHouse: "Did you sell a house?" boolean
+%%   boughtHouse: "Did you buy a house?" boolean
+%%   if (soldHouse) {
+%%     sellingPrice: "Selling price:" integer
+%%     privateDebt: "Private debts:" integer
+%%     valueResidue: "Value residue:" integer
+%%        = (sellingPrice - privateDebt)
+%%   }
+%% }
+%% \end{lstlisting}
+%% \end{minipage}
+%% \begin{minipage}{0.5\linewidth}
+%%   \includegraphics[width=\linewidth]{sections/screenshot}
+%% \end{minipage}
+%% \caption{Example QL questionnaire (left) and its rendering (right)}
+%% \label{FIG:houseowning}
+%% \end{figure}
 
 \subsection{QL Queries and Transformations}
 
-The queries extract derived information from a QL program, such as the set of used variables, the data and control dependencies between questions and the global type environment.
+The queries extract derived information from a QL program, such as the set of used variables, the data and control dependencies between questions, and the global type environment.
 The transformations include two transformations of language extensions to the base language.
 The first realizes a simple desugaring of ``unless(c){...}'' to ``if(not(c)){...}''.
 The second desugaring statically unfolds a constant bound loop construct (``repeat (i){...}'') and renames variables occurring below it accordingly.
-Finally, we have implemented a simple rename variable operation, and a normalizer which inlines the conditions of nested if-then constructs.
+Finally, we have implemented a simple rename variable operation, and a flattening normalizer which inlines the conditions of nested if-then constructs.
 
 Table~\ref{TBL:qlresults} shows the number of cases that had to be overridden to implement each particular operation. The second column shows the number of  constructs for each sort in QL (Form, Stmt, and Exp).
 As can be seen, none of the operations required implementing all cases.
@@ -45,40 +48,40 @@ The bottom row shows the number of overridden cases as a percentage.
 For this set of queries and transformations, almost no expression cases needed to be overridden, except the ``Var'' case in collect variables, rename variable and desugar ``repeat''\footnote{Note, however, that the dependency extraction queries reuse the collect variables query on expressions.}.
 The cases required for desugaring include the case of the language extension (e.g. \lstinline{Unless} and \lstinline{Repeat}, respectively). These cases are not counted in the total in the second column but are used to compute the percentage.
 
-%% \begin{table}[t]
-%%   \centering
-%%   \begin{tabular}{l|c|c|c}
-%%     Operation            & Exp (18) & Stmt (5) & Form (1) \\\hline
-%%     Collect variables    & 1        &          &          \\
-%%     Data dependencies    &          & 3        & 1        \\
-%%     Control dependencies &          & 4        & 1        \\
-%%     Type environment     &          & 2        &          \\\hline
-%%     Rename variable      & 1        & 2        &          \\
-%%     Inline conditions    &          & 4        &          \\
-%%     Desugar ``unless''   &          & 1        &          \\
-%%     Desugar ``repeat''   & 1        & 3        &          \\
-%%   \end{tabular}
-%%   \caption{Number of overriden cases per query and transformation in
-%%     the context of the QL implementation\label{TBL:qlresults}}
-%% \end{table}
-
-\def\rot#1{\rotatebox{90}{#1}}
-
 \begin{table}[t]
   \centering
-  \nocaptionrule
-  \hspace*{-.05\textwidth}
-  \begin{tabular}{lccccccccc}
-    Sort & \rot{\#Cases} & \rot{Collect vars} & \rot{Data deps} & \rot{Control deps} & \rot{Type env} & \rot{Rename var} & \rot{Inline conds} & \rot{\texttt{unless}} & \rot{\texttt{repeat}} \\\hline
-    Form & 1             &                    & 1               & 1                  &                &                  &                    &                       &                       \\
-    Stmt & 5             &                    & 3               & 4                  & 2              & 2                & 4                  & 1                     & 3                     \\
-    Exp  & 18            & 1                  &                 &                    &                & 1                &                    &                       & 1                     \\\hline
-         &               & 4\%                & 17\%            & 21\%               & 8\%            & 13\%             & 17\%               & 4\%                   & 16\%                  \\
+  \begin{tabular}{@{}llll@{}}\toprule
+    Operation            & Exp (18) & Stmt (5) & Form (1) \\\hline
+    Collect variables    & 1        &          &          \\
+    Data dependencies    &          & 3        & 1        \\
+    Control dependencies &          & 4        & 1        \\
+    Type environment     &          & 2        &          \\\hline
+    Rename variable      & 1        & 2        &          \\
+    Inline conditions    &          & 4        &          \\
+    Desugar ``unless''   &          & 1        &          \\
+    Desugar ``repeat''   & 1        & 3        &          \\\bottomrule
   \end{tabular}
-  %\vspace*{.1in}
-  \caption{Number of overridden cases per query and transformation in
+\nocaptionrule   \caption{Number of overriden cases per query and transformation in
     the context of the QL implementation\label{TBL:qlresults}}
 \end{table}
+
+%% \def\rot#1{\rotatebox{90}{#1}}
+
+%% \begin{table}[t]
+%%   \centering
+%%   \nocaptionrule
+%%   \hspace*{-.05\textwidth}
+%%   \begin{tabular}{lccccccccc}
+%%     Sort & \rot{\#Cases} & \rot{Collect vars} & \rot{Data deps} & \rot{Control deps} & \rot{Type env} & \rot{Rename var} & \rot{Inline conds} & \rot{\texttt{unless}} & \rot{\texttt{repeat}} \\\hline
+%%     Form & 1             &                    & 1               & 1                  &                &                  &                    &                       &                       \\
+%%     Stmt & 5             &                    & 3               & 4                  & 2              & 2                & 4                  & 1                     & 3                     \\
+%%     Exp  & 18            & 1                  &                 &                    &                & 1                &                    &                       & 1                     \\\hline
+%%          &               & 4\%                & 17\%            & 21\%               & 8\%            & 13\%             & 17\%               & 4\%                   & 16\%                  \\
+%%   \end{tabular}
+%%   %\vspace*{.1in}
+%%   \caption{Number of overridden cases per query and transformation in
+%%     the context of the QL implementation\label{TBL:qlresults}}
+%% \end{table}
 
 
 %% \subsection{Extending queries and transformations}
@@ -114,26 +117,24 @@ The latter can represent yet another transformation.
 
 In the context of QL, ``unless'' desugaring, condition inlining and variable renaming can be chained together as follows:
 
-  \lstinputlisting[linerange=162-162]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
+  \lstinputlisting[linerange=161-163]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
 
-The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames variables according to the map \lstinline{ren}.
+The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames \lstinline{x}s to \lstinline{y}s.
 The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL.
 
 The algebra \lstinline{alg} can now be used to create questionnaires:
 
-  \lstinputlisting[linerange=166-167]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
+  \lstinputlisting[linerange=167-170]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
 
 The result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire after desugaring.
-The \lstinline{IFormatWithPrecedence} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
+The {\small\texttt{IFor\-mat\-With\-Pre\-cedence}} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
 Calling this function with a boolean expression representing \lstinline{true} will trigger inlining of conditions and renaming. The result is then a formatting object (\lstinline{IFormat}) which can be used to print out the transformed questionnaire:
 
   \begin{lstlisting}[language=ql]
-    form myForm {
-      if (true && !y) y "X?" boolean
-    }
+  form myForm { if (true && !y) y "X?" boolean }
   \end{lstlisting}
 
-  As can be seen, the variable \lstinline{x} has been renamed to \lstinline{y}.
+\noindent As can be seen, the variable \lstinline{x} has been renamed to \lstinline{y}.
 The (renamed) condition \lstinline{y} is now negated, because of the desugaring of ``unless''.
 Finally, the result of inlining conditions can be observed from the conjunction in the \lstinline[language=ql]{if} statement.
 
@@ -142,11 +143,9 @@ Finally, the result of inlining conditions can be observed from the conjunction 
 
 \begin{figure}[t]
   \nocaptionrule
-  \hspace*{-.1\textwidth}
+  \hspace*{-.05\textwidth}
   \includegraphics[width=0.56\textwidth]{plots/controldeps}
-  \hspace*{-.1\textwidth}
-  \includegraphics[width=0.56\textwidth]{plots/inline}
-  \caption{Performance comparison of control dependencies query (left) and inline conditions transformation (right) implemented using normal ASTs vs using the \name framework\label{FIG:performance}}
+  \caption{Performance comparison of control dependencies query\label{FIG:controlPerf}}
 \end{figure}
 
 We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes with ordinary methods representing the transformations and queries.
@@ -154,16 +153,24 @@ The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
 For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function.
-To make the comparison as fair as possible, the vanilla query implementations use the same monoid structures as in \name.
+The vanilla query implementations use the same monoid structures as in \name.
 
-The comparison of the control dependencies query is shown on the left of Fig.~\ref{FIG:performance}.
+The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
 On average, the \name implementation of the query seems a little slower.
 This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes
 %\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 For transformations the performance difference is slightly more pronounced.
-The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation.
+Figure~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
 The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls.
+
+\begin{figure}[t]
+  \nocaptionrule
+  \hspace*{-.05\textwidth}
+  \includegraphics[width=0.56\textwidth]{plots/inline}
+  \caption{Performance comparison of inline conditions transformation\label{FIG:inlinePerf}}
+\end{figure}
+
 
 
 

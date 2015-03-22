@@ -46,9 +46,10 @@ The boilerplate code in transformations can be avoided by creating a
 super-interface containing default methods performing the traversal
 (shown in Fig.~\ref{generic_transform}). A concrete transformation can
 then selectively override the cases of interest. Variable substitution
-can now be implemented as shown in Fig.~\ref{substvars_with_id}. In
+can now be implemented as below. In
 this case, only the method \lstinline{Var()} is overridden.
 
+\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo3/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITH_ID
 
 \begin{figure}[t]
 \nocaptionrule
@@ -56,15 +57,6 @@ this case, only the method \lstinline{Var()} is overridden.
 \caption{Traversal-only base interface for implementing transformations of expressions}
 \label{generic_transform}
 \end{figure}
-
-
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo3/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITH_ID
-\caption{Implementation of variable substitution using \name}
-\label{substvars_with_id}
-\end{figure}
-
 
 To execute substitution, the \lstinline{SubstVar} should be subclassed
 (either anonymously or explicitly) with implementations for

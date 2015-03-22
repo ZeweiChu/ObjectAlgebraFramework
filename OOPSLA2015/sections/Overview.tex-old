@@ -11,20 +11,6 @@ and Java annotations.
 %\haoyuan{One reference is missing.}\\
 %\haoyuan{Style of presenting Java code.}
 
-\begin{figure}[t]
-\nocaptionrule
-\begin{lstlisting}[language=ql]
-form DriverLicense {
-  name: "What is your name?" string
-  age: "What is your age?" integer
-  if (age >= 18) 
-    license: "Have a driver's license?" boolean
-}
-\end{lstlisting}
-\caption{Example QL questionnaire: driver's license}
-\label{driver_license}
-\end{figure}
-
 
 We start by introducing the problem boilerplate code by considering a simplified variant of the QL language used in our case study~\cite{gouseti14extensible}.
 Just like QL, miniQL can be used to describe interactive questionnaires. An example is shown in Figure~\ref{driver_license}.
@@ -32,21 +18,35 @@ The questionnaire first asks for the user's name and age, and then, if the age i
 Because of the conditional construct, the last question only will appear when the user is actually eligible to have driver's license.
 
 MiniQL's abstract syntax contains forms, statements (if-then and question) and expressions (only literals, variables and greater-than-or-equal).
-A traditional OO implementation is shown in Figure~\ref{ql_oo_approach}. 
+A traditional OO implementation is shown in Figure~\ref{ql_oo_approach}.
 A form has a name and consists of a list of statements.
-Conditionals contain an expression and a statement body. Expressions are standard. 
+Conditionals contain an expression and a statement body. Expressions are standard.
+
+\begin{figure}[t]
+\nocaptionrule
+\begin{lstlisting}[language=ql]
+form DriverLicense {
+  name: "What is your name?" string
+  age: "What is your age?" integer
+  if (age >= 18)
+    license: "Have a driver's license?" boolean
+}
+\end{lstlisting}
+\caption{Example QL questionnaire: driver's license}
+\label{driver_license}
+\end{figure}
 
 %In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
 The code in Figure~\ref{ql_oo_approach} also shows a query over MiniQL structures, namely the collection of used variables.
-The operation is defined using the method \lstinline{usedVars}, declared in the abstract superclases  \lstinline{Stmt} and \lstinline{Exp}, and implemented in each concrete statement and expression. 
+The operation is defined using the method \lstinline{usedVars}, declared in the abstract superclasses  \lstinline{Stmt} and \lstinline{Exp}, and implemented in each concrete statement and expression.
 As can be seen, the only interesting bit of code is the \lstinline{usedVars} method in class \lstinline{Var}.
 All other implementations merely deal with aggregating results of their child nodes.
 
 The boilerplate code exhibited in the \lstinline{usedVars} query also applies to transformations.
 Consider for example a rename transformation which takes a \lstinline{Form} and returns another form where all variables are renamed.
 Again, the only interesting case is in the \lstinline{Var} class, where the actual renaming is applied. All other classes, however, require boilerplate to recreate the structure.
-The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simple example of such a rename as well. 
+The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simple example of such a rename as well.
 
 %Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
 %\haoyuan{Clarify the differences between our solution and a usual OO approach.}
@@ -60,7 +60,7 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
 
 %Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{rename}. The renaming operation updates some information stored in the private members of those classes.
 
-In addition to the significant amount of boilerplate code, there is another  drawback to the traditional OO solution, which is that it does  does not support extensibility along the dimension of operations. Each new operation requires pervasive change across the AST classes.
+In addition to the significant amount of boilerplate code, there is another  drawback to the traditional OO solution, which is that it does not support extensibility along the dimension of operations. Each new operation requires pervasive change across the AST classes.
 [lead out]
 
 \begin{figure}[t]
@@ -78,7 +78,7 @@ Fig.~\ref{ql_tree} shows how  to model the abstract syntax of MiniQL
 using an Object Algebra interface. Each kind of node (\lstinline{Exp}, \lstinline{Stmt}, \lstinline{Form})
 is represented as a type parameter (\lstinline{E}, \lstinline{S}, and \lstinline{F} respectively).
 Each method in the interface represents a data variant
-constructo. For example the
+constructor. For example the
 method \lstinline{form} constructs an instance of a form; whereas the
 method \lstinline{question} creates an instance of a question statement.
 %From an
@@ -116,7 +116,7 @@ implementation:
 Each
 constructor needs to build an instance of the right type of nodes.
 In order to create the new
-QL structure another algebra called \lstinline{alg} is used.
+MiniQL structure another algebra called \lstinline{alg} is used.
 Almost all the method implementations reconstruct the structure with
 no changes using the methods in \lstinline{alg}. For instance, the \lstinline{form} method just recreates the form in the algebra \lstinline{alg}.  The two exceptions are the
 methods \lstinline{question} and \lstinline{var}, where the identifiers are suffixed with ``\_''.
@@ -152,33 +152,30 @@ to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Figure~\ref{ql_tree}.
 Triggered by the annotation, \name generates base traversal interfaces with Java 8 \lstinline{default} methods which can then overridden to implement specific behavior.
-For instance, for the MiniQL algebra, \name generates interfaces . 
+For instance, for the MiniQL algebra, \name generates interfaces .
 \lstinline{QLAlgQuery} and
 \lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.}.
 
-The \name-based implementation of both operations is shown in Figure~\ref{ql_with_oaframework}.  
+The \name-based implementation of both operations is shown in Figure~\ref{ql_with_oaframework}.
 By implementing the
 \lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} interface, only the methods
-\lstinline{question} and \lstinline{var} need to be overridden: all the other methods perform basic accumulation for queries and basic identity reconstruction in the case of transformation. 
+\lstinline{question} and \lstinline{var} need to be overridden: all the other methods perform basic accumulation for queries and basic identity reconstruction in the case of transformation.
 For queries the
 only extra thing a programmer has to do is to provide an instance of a
 monoid, which is used to specify how to accumulate the results during
 the traversal. Similarly, for transformations, the programmer needs to
 pass an algebra for providing the constructors for creating the result of a transformation.
 
-Some client code is shown as follows: %, using those two algebras based on our framework.
+To use the queries and operations on a questionnaire like the one in Figure~\ref{driver_license}. we again need a function to create a structure using the generic MiniQL interface:
 
 \lstinputlisting[linerange=11-19]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
-This method is used to create a particular QL structure, in the
-usual object algebras style.
-Using this QL structure, we can use the \lstinline{UsedVars}
-and \lstinline{Rename} to compute some information about the questionnaire:
+Since both queries and transformations are implementations of the MiniQL interface, they can be passed to the \lstinline{makeQL} function defined above:
+\lstinputlisting[linerange=28-29]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
-\lstinputlisting[linerange=24-25]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
-
-The results give \lstinline{[age]} and \lstinline{[age_]}, which
-is respectively the set of used variables before and after renaming.
+This code prints out  \lstinline{[age]} and \lstinline{[age_]}, which
+are the set of used variables before and after renaming, respectively.
+Note how the \lstinline{Rename} transformation transforms the questionnaire into the the \lstinline{UsedVars} algebra.
 
 The remainder of the paper provides the details and implementation
 techniques used in \Name. Besides basic queries and transformations,
