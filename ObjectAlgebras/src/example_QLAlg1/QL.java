@@ -117,8 +117,6 @@ class GEq extends Exp {
 /*
 
 //BEGIN_OO_APPROACH_SIMP
-
-
 class Form {
 	String name; List<Stmt> body;
 	Set<String> usedVars() {
@@ -127,6 +125,7 @@ class Form {
 		return vars;
 	}
 }
+
 class If extends Stmt {
 	Exp cond; Stmt then;
 	Set<String> usedVars() {
@@ -135,18 +134,22 @@ class If extends Stmt {
 		return vars;
 	}
 }
+
 class Question extends Stmt {
 	String name, label, type;
 	Set<String> usedVars() { return emptySet(); }
 }
+
 class Lit extends Exp {
 	int n;
 	Set<String> usedVars() { return emptySet(); }
 }
+
 class Var extends Exp {
 	String x;
 	Set<String> usedVars() { return singleton(x); }
 }
+
 class GEq extends Exp {
 	Exp lhs, rhs;
 	Set<String> usedVars() {

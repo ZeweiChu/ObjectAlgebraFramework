@@ -112,6 +112,10 @@ used to combine the information from substructures, and the
 %% \lstinline{fold} operation is defined. This is a new feature
 %% of Java 8 called default methods, which allow default implementations
 %% of methods in interfaces.
+For instance, accumulate results in a set, we could use the following \lstinline{SetMonoid}:
+
+\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
+
 
 Using the monoid operations alone, it is possible to write a ``generic
 query''. Fig.~\ref{generic_query} shows how this is achieved. In
@@ -120,8 +124,8 @@ information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
 \lstinline{Lit}, the query returns \lstinline{empty}.
 This allows concrete queries to be implemented by overriding methods from multiple, different algebras.
-\hl{Note that the method \lstinline{m()} holding the monoid is named in lowercase, so that it won't clash with
-the uppercase constructors.}
+%\hl{Note that the method \lstinline{m()} holding the monoid is named in lowercase, so that it won't clash with
+%the uppercase constructors.}
 
 \begin{figure}[tb]
 \nocaptionrule

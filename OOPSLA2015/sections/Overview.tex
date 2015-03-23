@@ -54,12 +54,12 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
 \begin{figure*}[t]
   \nocaptionrule
   \begin{minipage}[t]{0.48\textwidth}
-\lstinputlisting[linerange=120-157]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\lstinputlisting[linerange=120-160]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
   \end{minipage}
   \vline
   \hspace*{2pt}
   \begin{minipage}[t]{0.48\textwidth}
-  \lstinputlisting[linerange=50-88]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
+  \lstinputlisting[linerange=50-82]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
   \end{minipage}
   
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right)}\label{LST:usedVars}
@@ -99,7 +99,7 @@ argument.
 Although the implementation still exhibits the same amount of boilerplate code as the traditional AST-based implementation, the Object Algebra style support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized as follows:
 
-\lstinputlisting[linerange=36-49]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
+\lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
 constructor reconstructs a new node using an auxilar MiniQL algebra  called \lstinline{alg}.
@@ -128,11 +128,16 @@ renaming operations.
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=10-17]{../ObjectAlgebras/src/example_QLAlg3/UsedVars.java} % APPLY:linerange=QL_QUERY_WITH_OAFRAMEWORK
+\caption{MiniQL used variables, implemented with \Name}
+\label{usedvars_with_oaframework}
+\end{figure}
+
+\begin{figure}
+\nocaptionrule
 \lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
-\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
-\vspace{-.1in}
-\caption{Used variables and renaming with \Name.}
-\label{ql_with_oaframework}
+%\vspace{-.1in}
+\caption{MiniQL renaming, implemented with  \Name.}
+\label{rename_with_oaframework}
 \end{figure}
 
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation

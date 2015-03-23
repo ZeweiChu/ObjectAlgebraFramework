@@ -54,12 +54,12 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
 \begin{figure*}[t]
   \nocaptionrule
   \begin{minipage}[t]{0.48\textwidth}
-\lstinputlisting[linerange=120-157]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\lstinputlisting[linerange=120-160]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
   \end{minipage}
   \vline
   \hspace*{2pt}
   \begin{minipage}[t]{0.48\textwidth}
-  \lstinputlisting[linerange=50-88]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
+  \lstinputlisting[linerange=50-82]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
   \end{minipage}
   
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right)}\label{LST:usedVars}
@@ -99,7 +99,7 @@ argument.
 Although the implementation still exhibits the same amount of boilerplate code as the traditional AST-based implementation, the Object Algebra style support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized as follows:
 
-\lstinputlisting[linerange=36-51]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
+\lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
 constructor reconstructs a new node using an auxilar MiniQL algebra  called \lstinline{alg}.
@@ -112,7 +112,7 @@ In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
 is in a small number of cases.  Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
 tedious traversal code.
-\name eliminates this generates base classes to do exactly that. 
+%\name  generates base algebra interfaces to support exactly that. 
 
 \subsection{\Name: An Object Algebra Framework for Traversals}
 

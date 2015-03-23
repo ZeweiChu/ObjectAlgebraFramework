@@ -43,9 +43,7 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 		return alg.question(n + "_", l, t);
 	}
 	...
-	E Var(String x) {
-		return alg.var(x+ "_");
-	}
+	E Var(String x) { return alg.var(x+ "_"); }
 }
 //END_QL_TRANSFORM_ALG_SIMP
 
