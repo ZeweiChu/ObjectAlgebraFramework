@@ -12,8 +12,8 @@ public interface QLAlgTransform<A0, A1, A2> extends QLAlg<A0, A1, A2> {
 	}
 
 	@Override
-	default A0 Geq(A0 p0, A0 p1) {
-		return qLAlg().Geq(p0, p1);
+	default A0 GEq(A0 p0, A0 p1) {
+		return qLAlg().GEq(p0, p1);
 	}
 
 	@Override

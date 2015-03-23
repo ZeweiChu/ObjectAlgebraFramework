@@ -9,7 +9,7 @@ class Test {
 		Stmt age = new Question("age", "What is your age?", "integer");
 		Stmt license = new Question("license", "Do yu have a driver's license?", "boolean");
 		Exp geq = new GEq(new Var("age"), new Lit(18));
-		Stmt iff = new Iff(geq, license);
+		Stmt iff = new If(geq, license);
 		return new Form("DriverLicense", Arrays.asList(name, age, iff));
 	}
 	

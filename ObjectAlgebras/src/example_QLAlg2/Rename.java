@@ -24,8 +24,8 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	public E Var(String name) {
 		return alg.Var(name + "_");
 	}
-	public E Geq(E lhs, E rhs) {
-		return alg.Geq(lhs, rhs);
+	public E GEq(E lhs, E rhs) {
+		return alg.GEq(lhs, rhs);
 	}
 }
 //END_QL_TRANSFORM_ALG

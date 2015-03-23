@@ -33,10 +33,10 @@ abstract class Stmt {
 	abstract Stmt rename();
 }
 
-class Iff extends Stmt {
+class If extends Stmt {
 	Exp cond;
 	Stmt then;
-	Iff(Exp cond, Stmt then) {
+	If(Exp cond, Stmt then) {
 		this.cond = cond;
 		this.then = then;
 	}
@@ -45,8 +45,8 @@ class Iff extends Stmt {
 		vars.addAll(then.usedVars());
 		return vars;
 	}
-	Iff rename() {
-		return new Iff(cond.rename(), then.rename());
+	If rename() {
+		return new If(cond.rename(), then.rename());
 	}
 }
 
@@ -117,6 +117,8 @@ class GEq extends Exp {
 /*
 
 //BEGIN_OO_APPROACH_SIMP
+
+
 class Form {
 	String name; List<Stmt> body;
 	Set<String> usedVars() {
@@ -125,8 +127,7 @@ class Form {
 		return vars;
 	}
 }
-
-class Iff extends Stmt {
+class If extends Stmt {
 	Exp cond; Stmt then;
 	Set<String> usedVars() {
 		Set<String> vars=new HashSet<>(cond.usedVars());
@@ -134,24 +135,18 @@ class Iff extends Stmt {
 		return vars;
 	}
 }
-
 class Question extends Stmt {
 	String name, label, type;
 	Set<String> usedVars() { return emptySet(); }
 }
-
 class Lit extends Exp {
 	int n;
 	Set<String> usedVars() { return emptySet(); }
 }
-
 class Var extends Exp {
 	String x;
-	Set<String> usedVars() { 
-	  return Collections.singleton(x); 
-	}
+	Set<String> usedVars() { return singleton(x); }
 }
-
 class GEq extends Exp {
 	Exp lhs, rhs;
 	Set<String> usedVars() {

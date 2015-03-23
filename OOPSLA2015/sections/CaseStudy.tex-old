@@ -117,14 +117,14 @@ The latter can represent yet another transformation.
 
 In the context of QL, ``unless'' desugaring, condition inlining and variable renaming can be chained together as follows:
 
-  \lstinputlisting[linerange=163-164]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
+  \lstinputlisting[linerange=161-163]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
 
-The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames variables according to the map \lstinline{ren}.
+The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames \lstinline{x}s to \lstinline{y}s.
 The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL.
 
 The algebra \lstinline{alg} can now be used to create questionnaires:
 
-  \lstinputlisting[linerange=168-171]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
+  \lstinputlisting[linerange=167-170]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
 
 The result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire after desugaring.
 The {\small\texttt{IFor\-mat\-With\-Pre\-cedence}} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
@@ -143,11 +143,9 @@ Finally, the result of inlining conditions can be observed from the conjunction 
 
 \begin{figure}[t]
   \nocaptionrule
-  \hspace*{-.1\textwidth}
+  \hspace*{-.05\textwidth}
   \includegraphics[width=0.56\textwidth]{plots/controldeps}
-  \hspace*{-.1\textwidth}
-  \includegraphics[width=0.56\textwidth]{plots/inline}
-  \caption{Performance comparison of control dependencies query (left) and inline conditions transformation (right) implemented using normal ASTs vs using the \name framework\label{FIG:performance}}
+  \caption{Performance comparison of control dependencies query\label{FIG:controlPerf}}
 \end{figure}
 
 We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes with ordinary methods representing the transformations and queries.
@@ -155,16 +153,24 @@ The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
 For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function.
-To make the comparison as fair as possible, the vanilla query implementations use the same monoid structures as in \name.
+The vanilla query implementations use the same monoid structures as in \name.
 
-The comparison of the control dependencies query is shown on the left of Fig.~\ref{FIG:performance}.
+The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
 On average, the \name implementation of the query seems a little slower.
 This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes
 %\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 For transformations the performance difference is slightly more pronounced.
-The right of Fig.~\ref{FIG:performance} shows the performance comparison of the inline conditions transformation.
+Figure~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
 The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls.
+
+\begin{figure}[t]
+  \nocaptionrule
+  \hspace*{-.05\textwidth}
+  \includegraphics[width=0.56\textwidth]{plots/inline}
+  \caption{Performance comparison of inline conditions transformation\label{FIG:inlinePerf}}
+\end{figure}
+
 
 
 

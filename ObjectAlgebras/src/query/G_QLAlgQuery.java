@@ -16,7 +16,7 @@ public interface G_QLAlgQuery<A0, A1, A2> extends QLAlg<A0, A1, A2> {
 	}
 
 	@Override
-	default A0 Geq(A0 p0, A0 p1) {
+	default A0 GEq(A0 p0, A0 p1) {
 		A0 res = mE().empty();
 		res = mE().join(res, p0);
 		res = mE().join(res, p1);

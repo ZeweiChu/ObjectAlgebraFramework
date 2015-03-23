@@ -22,8 +22,8 @@ public interface G_QLAlgTransform<A, B0, B1, B2> extends QLAlg<Function<A, B0>, 
 	}
 
 	@Override
-	default Function<A, B0> Geq(Function<A, B0> p0, Function<A, B0> p1) {
-		return acc -> qLAlg().Geq(p0.apply(acc), p1.apply(acc));
+	default Function<A, B0> GEq(Function<A, B0> p0, Function<A, B0> p1) {
+		return acc -> qLAlg().GEq(p0.apply(acc), p1.apply(acc));
 	}
 
 	@Override

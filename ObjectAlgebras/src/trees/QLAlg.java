@@ -11,6 +11,6 @@ public interface QLAlg<E, S, F> {
 	S Question(String name,String label,String type);
 	E Lit(int n);
 	E Var(String x);
-	E Geq(E lhs, E rhs);
+	E GEq(E lhs, E rhs);
 }
 //END_QL_TREE

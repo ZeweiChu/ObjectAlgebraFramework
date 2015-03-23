@@ -17,6 +17,7 @@ class UsedVars implements
 		b.forEach(s -> vars.addAll(s));
 		return vars;
 	}
+	
 	public Set<String> If(Set<String> c, Set<String> t) {
 		Set<String> vars = new HashSet<>(c);
 		vars.addAll(t);
@@ -35,7 +36,7 @@ class UsedVars implements
 		return Collections.singleton(x); 
 	}
 
-	public Set<String> Geq(Set<String> l, Set<String> r) {
+	public Set<String> GEq(Set<String> l, Set<String> r) {
 		Set<String> vars = new HashSet<>(l);
 		vars.addAll(r);
 		return vars;
@@ -47,18 +48,22 @@ class UsedVars implements
 
 //BEGIN_QL_QUERY_ALG_SIMP
 class UsedVars implements 
-   QLAlg<Set<String>, Set<String>, Set<String>> {
-	
+    QLAlg<Set<String>, Set<String>, Set<String>> {	
 	Set<String> Form(String n, List<Set<String>> b) {
 		Set<String> vars = new HashSet<>();
 		b.forEach(s -> vars.addAll(s));
 		return vars;
 	}
+	
+	
+	
 	Set<String> If(Set<String> c, Set<String> t) {
 		Set<String> vars = new HashSet<>(c);
 		vars.addAll(t);
 		return vars;
 	}
+	
+
 	
 	Set<String> Question(String n,String l,String t) {
 		return Collections.emptySet();
@@ -68,15 +73,18 @@ class UsedVars implements
 		return Collections.emptySet(); 
 	}
 	
-	Set<String> var(String x) { 
+	Set<String> Var(String x) { 
 		return Collections.singleton(x); 
 	}
 
-	Set<String> Geq(Set<String> l, Set<String> r) {
+	Set<String> GEq(Set<String> l, Set<String> r) {
 		Set<String> vars = new HashSet<>(l);
 		vars.addAll(r);
 		return vars;
 	}
+	
+	
+	
 }
 //END_QL_QUERY_ALG_SIMP
 

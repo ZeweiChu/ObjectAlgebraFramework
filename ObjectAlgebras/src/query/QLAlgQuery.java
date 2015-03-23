@@ -13,7 +13,7 @@ public interface QLAlgQuery<R> extends QLAlg<R, R, R> {
 		return res;
 	}
 
-	default R Geq(R p0, R p1) {
+	default R GEq(R p0, R p1) {
 		R res = m().empty();
 		res = m().join(res, p0);
 		res = m().join(res, p1);

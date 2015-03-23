@@ -30,8 +30,8 @@ public class CombineQLAlg<A0, A1, A2, B0, B1, B2>
 		return new Pair<A2, B2>(alg1.Form(p0, getPairList(p1).a()), alg2.Form(p0, getPairList(p1).b()));
 	}
 
-	public Pair<A0, B0> Geq(Pair<A0, B0> p0, Pair<A0, B0> p1) {
-		return new Pair<A0, B0>(alg1.Geq(p0.a(), p1.a()), alg2.Geq(p0.b(), p1.b()));
+	public Pair<A0, B0> GEq(Pair<A0, B0> p0, Pair<A0, B0> p1) {
+		return new Pair<A0, B0>(alg1.GEq(p0.a(), p1.a()), alg2.GEq(p0.b(), p1.b()));
 	}
 
 	public Pair<A1, B1> If(Pair<A0, B0> p0, Pair<A1, B1> p1) {
