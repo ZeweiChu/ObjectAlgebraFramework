@@ -142,6 +142,7 @@ renaming operations.
 \nocaptionrule
 \lstinputlisting[linerange=10-17]{../ObjectAlgebras/src/example_QLAlg3/UsedVars.java} % APPLY:linerange=QL_QUERY_WITH_OAFRAMEWORK
 \lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 \vspace{-.1in}
 \caption{Used variables and renaming with \Name.}
 \label{ql_with_oaframework}
@@ -152,9 +153,9 @@ to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
 shown in Figure~\ref{ql_tree}.
 Triggered by the annotation, \name generates base traversal interfaces with Java 8 \lstinline{default} methods which can then overridden to implement specific behavior.
-For instance, for the MiniQL algebra, \name generates interfaces .
+For instance, for the MiniQL algebra, \name generates interfaces
 \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. And the implementation of \lstinline{SetMonoid} in \ref{subsec:appendix_code_setmonoid}.}.
+\lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. \hl{And the interface of \lstinline{Monoid} in Section~\ref{subsec:genericquery}.}}.
 
 The \name-based implementation of both operations is shown in Figure~\ref{ql_with_oaframework}.
 By implementing the
