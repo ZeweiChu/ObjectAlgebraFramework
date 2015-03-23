@@ -34,18 +34,16 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 
 //BEGIN_QL_TRANSFORM_ALG_SIMP
 class Rename<E, S, F> implements QLAlg<E, S, F> {
-	private QLAlg<E, S, F> alg;	
-	public Rename(QLAlg<E, S, F> alg) {
-		this.alg = alg;
-	}
-	public F Form(String n, List<S> b) {
+	QLAlg<E, S, F> alg;	
+	
+	F Form(String n, List<S> b) {
 		return alg.form(n, b);
 	}
-	public S Question(String n, String l, String t) {
+	S Question(String n, String l, String t) {
 		return alg.question(n + "_", l, t);
 	}
 	...
-	public E Var(String x) {
+	E Var(String x) {
 		return alg.var(x+ "_");
 	}
 }
