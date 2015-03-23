@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 import trees.FJAlg;
 
-public interface G_FJAlgTransform<A, B0, B1, B2, B3, B4, B5, B6, B7> extends FJAlg<Function<A, B0>, Function<A, B1>, Function<A, B2>, Function<A, B3>, Function<A, B4>, Function<A, B5>, Function<A, B6>, Function<A, B7>> {
+public interface G_FJAlgTransform<A, B0, B1, B2, B3, B4, B5, B6, B7, B8, B9> extends FJAlg<Function<A, B0>, Function<A, B1>, Function<A, B2>, Function<A, B3>, Function<A, B4>, Function<A, B5>, Function<A, B6>, Function<A, B7>, Function<A, B8>, Function<A, B9>> {
 
-	FJAlg<B0, B1, B2, B3, B4, B5, B6, B7> fJAlg();
+	FJAlg<B0, B1, B2, B3, B4, B5, B6, B7, B8, B9> fJAlg();
 
 	default <B> List<B> substListFJAlg(List<Function<A, B>> list, A acc) {
 		List<B> res = new ArrayList<B>();
@@ -22,8 +22,8 @@ public interface G_FJAlgTransform<A, B0, B1, B2, B3, B4, B5, B6, B7> extends FJA
 	}
 
 	@Override
-	default Function<A, B3> ClassDec(java.lang.String p0, java.util.List<manual.Pair<X,N>> p1, Function<A, B2> p2, java.util.List<manual.Pair<T,java.lang.String>> p3, Function<A, B4> p4, List<Function<A, B5>> p5) {
-		return acc -> fJAlg().ClassDec(p0, p1, p2.apply(acc), p3, p4.apply(acc), substListFJAlg(p5, acc));
+	default Function<A, B3> ClassDec(java.lang.String p0, List<Function<A, B8>> p1, Function<A, B2> p2, List<Function<A, B9>> p3, Function<A, B4> p4, List<Function<A, B5>> p5) {
+		return acc -> fJAlg().ClassDec(p0, substListFJAlg(p1, acc), p2.apply(acc), substListFJAlg(p3, acc), p4.apply(acc), substListFJAlg(p5, acc));
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public interface G_FJAlgTransform<A, B0, B1, B2, B3, B4, B5, B6, B7> extends FJA
 	}
 
 	@Override
-	default Function<A, B4> ConstrDec(java.lang.String p0, java.util.List<manual.Pair<T,java.lang.String>> p1) {
-		return acc -> fJAlg().ConstrDec(p0, p1);
+	default Function<A, B4> ConstrDec(java.lang.String p0, List<Function<A, B9>> p1) {
+		return acc -> fJAlg().ConstrDec(p0, substListFJAlg(p1, acc));
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public interface G_FJAlgTransform<A, B0, B1, B2, B3, B4, B5, B6, B7> extends FJA
 	}
 
 	@Override
-	default Function<A, B5> MethodDec(java.util.List<manual.Pair<X,N>> p0, Function<A, B1> p1, java.lang.String p2, java.util.List<manual.Pair<T,java.lang.String>> p3, Function<A, B6> p4) {
-		return acc -> fJAlg().MethodDec(p0, p1.apply(acc), p2, p3, p4.apply(acc));
+	default Function<A, B5> MethodDec(List<Function<A, B8>> p0, Function<A, B1> p1, java.lang.String p2, List<Function<A, B9>> p3, Function<A, B6> p4) {
+		return acc -> fJAlg().MethodDec(substListFJAlg(p0, acc), p1.apply(acc), p2, substListFJAlg(p3, acc), p4.apply(acc));
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package query;
 import library.Monoid;
 import trees.FJAlg;
 
-public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, A1, A2, A3, A4, A5, A6, A7> {
+public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9> extends FJAlg<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9> {
 
 	Monoid<A0> mJ();
 	Monoid<A1> mT();
@@ -13,6 +13,8 @@ public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, 
 	Monoid<A5> mM();
 	Monoid<A6> mE();
 	Monoid<A7> mX();
+	Monoid<A8> mP1();
+	Monoid<A9> mP2();
 
 	@Override
 	default A6 Cast(A2 p0, A6 p1) {
@@ -22,7 +24,7 @@ public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, 
 	}
 
 	@Override
-	default A3 ClassDec(java.lang.String p0, java.util.List<manual.Pair<X,N>> p1, A2 p2, java.util.List<manual.Pair<T,java.lang.String>> p3, A4 p4, java.util.List<A5> p5) {
+	default A3 ClassDec(java.lang.String p0, java.util.List<A8> p1, A2 p2, java.util.List<A9> p3, A4 p4, java.util.List<A5> p5) {
 		A3 res = mL().empty();
 		return res;
 	}
@@ -40,7 +42,7 @@ public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, 
 	}
 
 	@Override
-	default A4 ConstrDec(java.lang.String p0, java.util.List<manual.Pair<T,java.lang.String>> p1) {
+	default A4 ConstrDec(java.lang.String p0, java.util.List<A9> p1) {
 		A4 res = mK().empty();
 		return res;
 	}
@@ -53,7 +55,7 @@ public interface G_FJAlgQuery<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, 
 	}
 
 	@Override
-	default A5 MethodDec(java.util.List<manual.Pair<X,N>> p0, A1 p1, java.lang.String p2, java.util.List<manual.Pair<T,java.lang.String>> p3, A6 p4) {
+	default A5 MethodDec(java.util.List<A8> p0, A1 p1, java.lang.String p2, java.util.List<A9> p3, A6 p4) {
 		A5 res = mM().empty();
 		return res;
 	}

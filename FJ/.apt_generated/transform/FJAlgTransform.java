@@ -2,9 +2,9 @@ package transform;
 
 import trees.FJAlg;
 
-public interface FJAlgTransform<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0, A1, A2, A3, A4, A5, A6, A7> {
+public interface FJAlgTransform<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9> extends FJAlg<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9> {
 
-	FJAlg<A0, A1, A2, A3, A4, A5, A6, A7> fJAlg();
+	FJAlg<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9> fJAlg();
 
 	@Override
 	default A6 Cast(A2 p0, A6 p1) {
@@ -12,7 +12,7 @@ public interface FJAlgTransform<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0
 	}
 
 	@Override
-	default A3 ClassDec(java.lang.String p0, java.util.List<manual.Pair<X,N>> p1, A2 p2, java.util.List<manual.Pair<T,java.lang.String>> p3, A4 p4, java.util.List<A5> p5) {
+	default A3 ClassDec(java.lang.String p0, java.util.List<A8> p1, A2 p2, java.util.List<A9> p3, A4 p4, java.util.List<A5> p5) {
 		return fJAlg().ClassDec(p0, p1, p2, p3, p4, p5);
 	}
 
@@ -27,7 +27,7 @@ public interface FJAlgTransform<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0
 	}
 
 	@Override
-	default A4 ConstrDec(java.lang.String p0, java.util.List<manual.Pair<T,java.lang.String>> p1) {
+	default A4 ConstrDec(java.lang.String p0, java.util.List<A9> p1) {
 		return fJAlg().ConstrDec(p0, p1);
 	}
 
@@ -37,7 +37,7 @@ public interface FJAlgTransform<A0, A1, A2, A3, A4, A5, A6, A7> extends FJAlg<A0
 	}
 
 	@Override
-	default A5 MethodDec(java.util.List<manual.Pair<X,N>> p0, A1 p1, java.lang.String p2, java.util.List<manual.Pair<T,java.lang.String>> p3, A6 p4) {
+	default A5 MethodDec(java.util.List<A8> p0, A1 p1, java.lang.String p2, java.util.List<A9> p3, A6 p4) {
 		return fJAlg().MethodDec(p0, p1, p2, p3, p4);
 	}
 

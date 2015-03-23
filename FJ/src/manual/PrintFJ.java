@@ -2,10 +2,9 @@ package manual;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import trees.FJAlg;
 
-public class PrintFJ implements FJAlg<String, String, String, String, String, String, String, String> {
+public class PrintFJ implements FJAlg<String, String, String, String, String, String, String, String, Pair<String, String>, Pair<String, String>> {
 	public String Code(List<String> classes) {
 		String res = "";
 		for (String l : classes) res += l + "\n\n";

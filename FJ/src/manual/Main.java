@@ -6,7 +6,7 @@ import java.util.List;
 import trees.FJAlg;
 
 class Main {
-	static <J, T, N, L, K, M, E, X> J genJava(FJAlg<J, T, N, L, K, M, E, X> alg) {
+	static <J, T, N, L, K, M, E, X> J genJava(FJAlg<J, T, N, L, K, M, E, X, Pair<X, N>, Pair<T, String>> alg) {
 		N object = alg.ClassType("Object", Collections.emptyList());
 		List<Pair<T, String>> lineFields = new ArrayList<Pair<T, String>>();
 		lineFields.add(new Pair<T, String>(alg.TypeN(alg.ClassType("Point", Collections.singletonList(alg.TypeX(alg.TVar("T"))))), "p1"));
@@ -34,7 +34,13 @@ class Main {
 	
 	public static void main(String args[]) {
 		PrintFJ print = new PrintFJ();
-		RenameFJ<String, String, String, String, String, String, String, String> renameFJ = new RenameFJ<String, String, String, String, String, String, String, String>(print);
-		System.out.println(genJava(renameFJ));
+		//ManualRenameFJ<String, String, String, String, String, String, String, String> renameFJ = 
+		//		new ManualRenameFJ<String, String, String, String, String, String, String, String>(print);
+		//AutoRenameFJ<String, String, String, String, String, String, String, String> autoRenameFJ = 
+		//		new AutoRenameFJ<String, String, String, String, String, String, String, String>(print);
+		ManualFreeVariables mfv = new ManualFreeVariables();
+		System.out.println(genJava(mfv));
+		System.out.println(genJava(print));
 	}
+
 }
