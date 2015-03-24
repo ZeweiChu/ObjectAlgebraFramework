@@ -100,16 +100,17 @@ of variables through the different types of expressions.
 \label{deps2}
 \end{figure}
 
-\begin{comment}
-\haoyuan{Begin: client code.}
+\paragraph{Client code}
+\hl{Similarly, we need to create a structure using the generic interfaces \lstinline{ExpAlg} and \lstinline{StatAlg} at first.}
 
-\lstinputlisting[linerange=14-17]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
+\lstinputlisting[linerange=14-21]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
 
-\lstinputlisting[linerange=23-27]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
+\hl{Then an instance of \lstinline{DepGraph} is created with the two monoids \lstinline{mExp()} and \lstinline{mStat()} implemented
+by \lstinline{SetMonoid}. Say the name is \lstinline{depGraph}. By passing it to \lstinline{makeExp}:}
 
-\haoyuan{End: client code.}
-\end{comment}
+\lstinputlisting[linerange=32-32]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
 
+\hl{The result is \lstinline{[<x, x>, <y, x>, <y, z>]}, as expected.}
 %The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
 %If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.
 %The default implementation thus can carry over, for instance, query results of expression into the result of statements.

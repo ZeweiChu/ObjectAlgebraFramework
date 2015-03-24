@@ -11,23 +11,30 @@ import monoid.SetMonoid;
 public class TestDepGraph {
 
 //BEGIN_GEN_DEPGRAPH
-<E, S, Alg extends ExpAlg<E> & StatAlg<E, S>> S genExp(Alg alg) {
-	return alg.Seq(alg.Assign("x", alg.Add(alg.Var("x"), alg.Lit(3))), 
-			alg.Assign("y", alg.Add(alg.Var("x"), alg.Var("z"))));
+<E, S, A extends ExpAlg<E> & StatAlg<E, S>>
+		S makeExp(A alg) {
+	return alg.Seq(
+			alg.Assign("x", alg.Add(alg.Var("x"),
+					alg.Lit(3))), 
+			alg.Assign("y", alg.Add(alg.Var("x"),
+					alg.Var("z"))));
 }
 //END_GEN_DEPGRAPH
 
 	void Test() {
 
-//BEGIN_CLIENTCODE_DEPGRAPH
+
 DepGraph depGraph = new DepGraph() {
 	public Monoid<Set<String>> mExp() { return new SetMonoid<>(); }
 	public Monoid<Set<Pair<String, String>>> mStat() { return new SetMonoid<>(); }
 };
-System.out.println(genExp(depGraph));
+//BEGIN_CLIENTCODE_DEPGRAPH
+println(makeExp(depGraph));
 //END_CLIENTCODE_DEPGRAPH
 
 	}
+	
+	void println(Object o) { System.out.println(o); }
 	
 	public static void main(String[] args) {
 		TestDepGraph testDepGraph = new TestDepGraph();
