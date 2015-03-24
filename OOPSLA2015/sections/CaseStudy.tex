@@ -155,13 +155,13 @@ In the case of the \name queries, constructing the ``AST'' corresponds to execut
 For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function.
 The vanilla query implementations use the same monoid structures as in \name.
 
-The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
+The comparison of the control dependencies query is shown in Fig.~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
 On average, the \name implementation of the query seems a little slower.
 This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes.
 %\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 For transformations the performance difference is slightly more pronounced.
-Figure~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
+Fig.~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
 The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls.
 
 \begin{figure}[t]
