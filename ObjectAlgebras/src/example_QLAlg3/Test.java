@@ -1,8 +1,6 @@
 package example_QLAlg3;
 
 import java.util.Arrays;
-import java.util.Set;
-
 import trees.QLAlg;
 
 public class Test {
@@ -12,7 +10,7 @@ public class Test {
 		return alg.Form("DriverLicense", Arrays.asList(
 				alg.Question("name", "Name?", "string"), 
 				alg.Question("age", "Age?", "integer"), 
-				alg.If(alg.Geq(alg.Var("age"), 
+				alg.If(alg.GEq(alg.Var("age"), 
 						               alg.Lit(18)), 
 					           alg.Question("license", 
 					        		   "License?", "boolean"))));		

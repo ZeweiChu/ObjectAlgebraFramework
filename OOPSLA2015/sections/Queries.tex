@@ -2,7 +2,7 @@
 
 This section shows the ideas behind generic queries and how they are
 implemented in \Name.  A query is an operation that traverses a
-structure and computes some aggregate value. The inspiration for
+structure and computes some aggregate value\hl{s?}. The inspiration for
 queries comes from similar types of traversals used in functional
 programming libraries, such as ``Scrap your
 Boilerplate''~\cite{ralf03syb}.
@@ -117,7 +117,7 @@ For instance, accumulate results in a set, we could use the following \lstinline
 \lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 
 
-Using the monoid operations alone, it is possible to write a ``generic
+Using the monoid operations \hl{alone}, it is possible to write a ``generic
 query''. Fig.~\ref{generic_query} shows how this is achieved. In
 nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that

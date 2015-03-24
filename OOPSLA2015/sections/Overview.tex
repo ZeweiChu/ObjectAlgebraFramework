@@ -12,7 +12,7 @@ and Java annotations.
 %\haoyuan{Style of presenting Java code.}
 
 
-We start by introducing the problem boilerplate code by considering a simplified variant of the QL language used in our case study~\cite{gouseti14extensible}, called MiniQl.
+We start by introducing the problem boilerplate code by considering a simplified variant of the QL language used in our case study~\cite{gouseti14extensible}, called MiniQL.
 Just like QL, MiniQL can be used to describe interactive questionnaires. An example is shown in Figure~\ref{driver_license}.
 The questionnaire first asks for the user's name and age, and then, if the age is greater than or equal to 18, asks if the user has a driver's license.
 Because of the conditional construct, the last question only will appear when the user is actually eligible to have driver's license.
@@ -41,12 +41,12 @@ form DriverLicense {
 The code in Figure~\ref{LST:usedVars} also shows a query over MiniQL structures, namely the collection of used variables.
 The operation is defined using the method \lstinline{usedVars}, declared in the abstract superclasses  \lstinline{Stmt} and \lstinline{Exp} (omitted for brevity), and implemented in the concrete statement and expression classes.
 As can be seen, the only interesting bit of code is the \lstinline{usedVars} method in class \lstinline{Var}.
-All other implementations merely deal with aggregating results of their child nodes, or returning a default empty set. 
+All other implementations merely deal with aggregating results of their child nodes, or returning a default empty set.
 
 The boilerplate code exhibited in the \lstinline{usedVars} query often also applies to transformations.
 Consider for example a rename transformation which takes a \lstinline{Form} and returns another form where all variables are renamed.
 Again, the only interesting case is in the \lstinline{Var} class, where the actual renaming is applied. All other classes, however, require boilerplate to recreate the structure.
-The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simple example of such a rename as well.
+The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simple example of such a \hl{rename} as well.
 
 %Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
 %\haoyuan{Clarify the differences between our solution and a usual OO approach.}
@@ -61,7 +61,7 @@ The full code in Appendix~\ref{subsec:appendix_code_oo_approach} contains a simp
   \begin{minipage}[t]{0.48\textwidth}
   \lstinputlisting[linerange=50-82]{../ObjectAlgebras/src/example_QLAlg2/UsedVars.java} % APPLY:linerange=QL_QUERY_ALG_SIMP
   \end{minipage}
-  
+
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right)}\label{LST:usedVars}
 \end{figure*}
 
@@ -82,7 +82,7 @@ In addition to the significant amount of boilerplate code, there is another  dra
 
 
 The right-hand side of Figure~\ref{LST:usedVars} shows the used variables operation implemented in the Object Algebra style.
-The operation is a class implementing the Object Algebra interface (\lstinline{QlAlg} shown in  Figure~\ref{ql_tree}.
+The operation is a class implementing the Object Algebra interface (\lstinline{QlAlg}) shown in  Figure~\ref{ql_tree}.
 
 %Appendix~\ref{subsec:appendix_code_usedvars} and \ref{subsec:appendix_code_rename} gives the complete code for an implementation.}
 
@@ -97,7 +97,7 @@ something different is \lstinline{Var}, which returns the \lstinline{x}
 argument.
 
 Although the implementation still exhibits the same amount of boilerplate code as the traditional AST-based implementation, the Object Algebra style support adding operations without changing existing code.
-For instance, the renaming operation mentioned above could be realized as follows:
+For instance, the renaming operation mentioned above could be realized as follows: \hl{(full code in Appendix~\ref{subsec:appendix_code_rename})}
 
 \lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
@@ -112,7 +112,7 @@ In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
 is in a small number of cases.  Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
 tedious traversal code.
-%\name  generates base algebra interfaces to support exactly that. 
+%\name  generates base algebra interfaces to support exactly that.
 
 \subsection{\Name: An Object Algebra Framework for Traversals}
 
@@ -147,28 +147,28 @@ shown in Figure~\ref{ql_tree}.
 Triggered by the annotation, \name generates base traversal interfaces with Java 8 \lstinline{default} methods which can then overridden to implement specific behavior.
 For instance, for the MiniQL algebra, \name generates interfaces
 \lstinline{QLAlgQuery} and
-\lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. \hl{And the interface of \lstinline{Monoid} in Section~\ref{subsec:genericquery}.}}.
+\lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}. \hl{And the implementation of \lstinline{SetMonoid} in Section~\ref{subsec:genericquery}.}}.
 
-The \name-based implementation of both operations is shown in Figure~\ref{ql_with_oaframework}.
+The \name-based implementation of both operations is shown in Figure~\ref{usedvars_with_oaframework} and \ref{rename_with_oaframework}.
 By implementing the
 \lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} interface, only the methods
-\lstinline{question} and \lstinline{var} need to be overridden: all the other methods perform basic accumulation for queries and basic identity reconstruction in the case of transformation.
+\lstinline{Question} and \lstinline{Var} need to be overridden: all the other methods perform basic accumulation for queries and basic identity reconstruction in the case of transformation\hl{s?}.
 For queries the
 only extra thing a programmer has to do is to provide an instance of a
 monoid, which is used to specify how to accumulate the results during
 the traversal. Similarly, for transformations, the programmer needs to
 pass an algebra for providing the constructors for creating the result of a transformation.
 
-To use the queries and operations on a questionnaire like the one in Figure~\ref{driver_license}. we again need a function to create a structure using the generic MiniQL interface:
+To use the queries and operations on a questionnaire like the one in Figure~\ref{driver_license}, we again need a function to create a structure using the generic MiniQL interface:
 
-\lstinputlisting[linerange=11-19]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
+\lstinputlisting[linerange=9-17]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
 Since both queries and transformations are implementations of the MiniQL interface, they can be passed to the \lstinline{makeQL} function defined above:
-\lstinputlisting[linerange=28-29]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
+\lstinputlisting[linerange=26-27]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
 This code prints out  \lstinline{[age]} and \lstinline{[age_]}, which
 are the set of used variables before and after renaming, respectively.
-Note how the \lstinline{Rename} transformation transforms the questionnaire into the the \lstinline{UsedVars} algebra.
+\hl{Note how the \lstinline{Rename} transformation transforms the questionnaire into the the \lstinline{UsedVars} algebra.}
 
 The remainder of the paper provides the details and implementation
 techniques used in \Name. Besides basic queries and transformations,

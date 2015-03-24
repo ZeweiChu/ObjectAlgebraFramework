@@ -23,9 +23,10 @@ Note again, that only the relevant method (\lstinline{Lam}) needs to be overridd
 For transformations the pattern is similar.
 To illustrate extension of transformation, consider the simple transformation that makes all variable occurrences unique.
 This can be useful to distinguish multiple occurrences of the same name.
+\haoyuan{Always the range is weird.}
 
 %% weird, computepositions does not compute the right range.
-\lstinputlisting[linerange=4-2]{../ObjectAlgebras/src/expDemo3/Unique.java} % APPLY:linerange=UNIQUEVARS
+\lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/Unique.java} % APPLY:linerange=UNIQUEVARS
 
 The \lstinline{Unique} transformation uses a helper method \lstinline{nextInt()} which returns consecutive integers on each call.
 The basic transformation simply renames \lstinline{Var} expressions.
@@ -42,7 +43,7 @@ to create lambda expressions.
   \centering
   \nocaptionrule
   \includegraphics[width=0.9\linewidth]{extendQuery}
-  \caption{Extension of the \lstinline{FreeVars} query}
+  \caption{Extension of the \lstinline{FreeVars} query \haoyuan{PDF files don't work.}}
   \label{FIG:extensionQuery}
 \end{figure}
 

@@ -11,7 +11,7 @@ class UsedVars implements QLAlgQuery<Set<String>> {
 	public Monoid<Set<String>> m() {
 		return new SetMonoid<String>();
 	}
-	public Set<String> var(String name) {
+	public Set<String> Var(String name) {
 		return Collections.singleton(name);
 	}
 }

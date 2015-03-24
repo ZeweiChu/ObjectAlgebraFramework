@@ -1,5 +1,6 @@
 \section{Generalized Queries}\label{sec:generalizedQueries}
 
+\haoyuan{Is the generic template needed? Client code for this section.}
 The previous section introduced simple queries where each constructor
 contributes to a single monoid.  Recursive data types, however, often
 have multiple syntactic categories, for instance expressions and
@@ -36,7 +37,7 @@ interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
 \end{comment}
 
 
-\subsection{Example: data dependencies}
+\subsection{Example: Data Dependencies}
 \label{subsec:depGraph}
 %\subsection{Dealing with multiple sorts}
 
@@ -46,7 +47,7 @@ imperative programs.  To express this query, the simple
 \lstinline{ExpAlg} is first extended with statements using the
 \lstinline{StatAlg} interface defined as follows:
 
-\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
+\lstinputlisting[linerange=6-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
 
 The extension consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
@@ -65,7 +66,7 @@ transition from expressions to statements.
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
-\caption{Default implementation of queries over many-sorted statement algebra}
+\caption{Default implementation of generalized queries over many-sorted statement algebra}
 \label{LST:gstatquery}
 \end{figure}
 
@@ -95,7 +96,7 @@ of variables through the different types of expressions.
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=12-24]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
-\caption{Dependency Graph with Generalized Query Algebra}
+\caption{Dependency graph with generalized query algebra}
 \label{deps2}
 \end{figure}
 
