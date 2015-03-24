@@ -2,7 +2,7 @@
 
 This section shows the ideas behind generic queries and how they are
 implemented in \Name.  A query is an operation that traverses a
-structure and computes some aggregate value\hl{s?}. The inspiration for
+structure and computes some aggregate value. The inspiration for
 queries comes from similar types of traversals used in functional
 programming libraries, such as ``Scrap your
 Boilerplate''~\cite{ralf03syb}.
@@ -12,8 +12,9 @@ Boilerplate''~\cite{ralf03syb}.
 
 \lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
 
-The above code shows a simple type of expressions, represented
-as the object algebra interface \lstinline{ExpAlg}. We will use this
+The above code shows a variant of the type of expressions shown in 
+Section~\ref{subsec:ObjectAlgebras}, 
+represented as the object algebra interface \lstinline{ExpAlg}. We will use this
 minimal object algebra interface throughout the rest of the paper to
 illustrate the various different types of traversals supported by
 \Name.  Three different kinds of nodes exist: a numeric literal, a
@@ -103,7 +104,7 @@ object-oriented programming.  The interface of a monoid is defined as follows:
 \lstinputlisting[linerange=5-8]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
 \end{quote}
 Intuitively, the \lstinline{join()} method is
-used to combine the information from substructures, and the
+used to combine the information from substructures, and 
 \lstinline{empty()} is an indicator of ``no information''.
 %% The monoid interface also includes one additional operation
 %% called \lstinline{fold}, which takes a list of \lstinline{R}
@@ -112,12 +113,7 @@ used to combine the information from substructures, and the
 %% \lstinline{fold} operation is defined. This is a new feature
 %% of Java 8 called default methods, which allow default implementations
 %% of methods in interfaces.
-For instance, accumulate results in a set, we could use the following \lstinline{SetMonoid}:
-
-\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
-
-
-Using the monoid operations \hl{alone}, it is possible to write a ``generic
+Using the monoid operations alone, it is possible to write a ``generic
 query''. Fig.~\ref{generic_query} shows how this is achieved. In
 nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
@@ -157,10 +153,16 @@ called the \textit{generic query algebra}.
 %% \end{figure}
 
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
-define the free variables operation.
-Since the result of free variables is a set, the monoid returned by \lstinline{m()} is an implementation of the \lstinline{Monoid} interface, where \lstinline{empty()} corresponds to the empty set, and \lstinline{join()} is implemented as union.
-Using this monoid
-the free variables operation is defined as follows:
+define the free variables operation.  Since the result of free
+variables is a set, the monoid returned by \lstinline{m()} is an
+implementation of the \lstinline{Monoid} interface:
+
+\lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
+
+\noindent where
+\lstinline{empty()} corresponds to the empty set, and
+\lstinline{join()} is implemented as union.  Using this monoid the
+free variables operation is defined as follows:
 
 %As an alternative way to handle the freeVars query, the query algebra
 %is going to be a sub-interface of \lstinline{ExpAlgQuery}, the generic
@@ -168,9 +170,16 @@ the free variables operation is defined as follows:
 
 \lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/expDemo3/FreeVars.java} % APPLY:linerange=FREEVARS_WITH_MONOID
 
-There are two important differences to the implementation in
-Fig.~\ref{freevars_without_monoid}.  Firstly, the monoid to be used
-needs to be specified.  Secondly only the case for variables needs to
+\noindent There are two important differences to the implementation in
+Fig.~\ref{freevars_without_monoid}. The first difference is that the monoid to be used
+needs to be specified. However, the code for the monoid is still 
+quite short (only requires two method implementations) and, more importantly, 
+it is highly reusable! For example, \lstinline{SetMonoid} could be reused 
+in a query that collects all literals, or other information about the AST. 
+In fact, because monoid instances are so general purpose, the \name library 
+already contains many common monoid implementations. So users do not have to 
+define these instances themselfes.
+The second difference is that only the case for variables needs to
 be defined: the other cases are inherited from
 \lstinline{ExpAlgQuery}.
 
@@ -231,7 +240,7 @@ triggers automatic generation of generic query interfaces, such as \lstinline{Ex
 %\name also provides implementatations of a number of common monoids over sets, lists, and numbers.
 Fig.~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
-All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. \hl{Whereas those arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.}
+All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. Arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.
 
 \begin{figure}[t]
 \nocaptionrule
@@ -246,7 +255,7 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   $...$
 }
 \end{lstlisting}
-\caption{Generic template for generating boilerplate of queries}
+\caption{Generic template for generic queries.}
 \label{queryTemplate}
 \end{figure}
 
