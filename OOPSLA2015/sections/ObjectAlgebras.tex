@@ -1,20 +1,32 @@
-\section{Object Algebras}\label{subsec:ObjectAlgebras}
+\section{Background: Object Algebras}\label{subsec:ObjectAlgebras}
 
-Object Algebras capture a design pattern to solve the Expression Problem~\cite{wadler98expression-problem}.
-As a result Object Algebras support modular and type-safe extensibility in two dimensions:
-data variants and operations. Object Algebras can be used conveniently to model recursive data types, such as ASTs. Here we briefly introduce Object Algebras using the example of a simple expression language.
+Object Algebras capture a design pattern to solve the Expression
+Problem~\cite{wadler98expression-problem}.  As a result Object
+Algebras support modular and type-safe extensibility in two
+dimensions: data variants and operations. Object Algebras can be used
+conveniently to model recursive data types, such as ASTs. Here we
+briefly introduce Object Algebras using the example of a simple
+expression language.
 
 \lstinputlisting[linerange=4-7]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_ALG_INTERFACE
 
-The above code shows an \emph{Object Algebra interface} which models \lstinline{Lit} and \lstinline{Add} expressions of \lstinline{ExpAlg}. The interface resembles abstract factory interface, but instead of constructing objects of a concrete type, the result is abstract through the type parameter \lstinline{E}.
-A concrete Object Algebra will implement such an interface \hl{(by?)} instantiating the type parameter to construct objects for a particular purpose.
-
-For instance, the class \lstinline{Eval} which implements evaluation of expression is as follows:
+The above code shows an \emph{Object Algebra interface} which models
+literal and addition expressions. The interface resembles an abstract
+factory interface, but instead of constructing objects of a concrete
+type, the result is abstract through the type parameter \lstinline{E}.
+A concrete Object Algebra will implement such an interface by
+instantiating the type parameter with a type that constructs objects
+for a particular purpose. For instance, the class \lstinline{Eval}
+(which implements evaluation of expression) is as follows:
 
 \lstinputlisting[linerange=27-34]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
 
-Using this algebra to create expression in fact immediately evaluates the expression to its result.
-To add another operation the interface is simply implemented again. As an example, the class \lstinline{Print} presented below shows a simple printing operation on expressions. Both examples illustrate extension in the dimension of operations.
+Using this algebra to create expressions will immediately evaluate
+the expression to its result. To add another operation the interface
+\lstinline{ExpAlg} is implemented again. As an example, the class
+\lstinline{Print} presented below shows a simple printing operation on
+expressions. Both examples illustrate extension in the dimension of
+operations.
 
 \lstinputlisting[linerange=38-43]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_PRINT
 
@@ -25,17 +37,34 @@ To add another operation the interface is simply implemented again. As an exampl
 %% \label{oa_test_code}
 %% \end{figure}
 
-The other dimension of extensibility (adding data variants) is  realized by extending the object algebra interface itself. For instance,
-the interface \lstinline{MulAlg} defined below extends the original \lstinline{ExpAlg} with multiplication expressions.
+The other dimension of extensibility (adding data variants) is
+realized by extending the Object Algebra interface itself. For
+instance, the interface \lstinline{MulAlg} defined below extends the
+original \lstinline{ExpAlg} with multiplication expressions.
 
 \lstinputlisting[linerange=11-13]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=INT_BOOL_ALG_INTERFACE
 
-The key feature of Object Algebras is that the existing operations (evaluation and printing) can now be extended to support multiplication without having to change the existing \lstinline{Eval} and \lstinline{Print} classes. To realize this for evaluation, some code can be written as follows:
+\noindent The key feature of Object Algebras is that the existing operations
+(evaluation and printing) can now be extended to support
+multiplication without having to change the existing \lstinline{Eval}
+and \lstinline{Print} classes. For example, evaluation is extended 
+wuth multiplication as follows:
 
 \lstinputlisting[linerange=17-22]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=MUL_EVAL
 
-In summary, Object Algebra interfaces  describe recursive data types, and implementations of those interfaces represent operations. Extending the interface allows developers to extend the data type with new data variants, and (re)implementing the interface allows developers to define operations.
-Finally, extension in both dimensions is fully type safe and does not compromise separate compilation.
+In summary, Object Algebra interfaces describe recursive data types,
+and implementations of those interfaces represent
+operations. Extending the interface allows developers to extend the
+data type with new data variants, and (re)implementing the interface
+allows developers to define operations.  Finally, extension in both
+dimensions is fully type-safe and does not compromise separate
+compilation. Although for space reasons this section does not show
+how to use Object Algebras, such examples will be provided throughout
+the paper.
+
+%Examples that show how to use Object Algebras are provided 
+
+
 %What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.
 
 
