@@ -42,24 +42,24 @@ The first realizes a simple desugaring of ``unless(c){...}'' to ``if(not(c)){...
 The second desugaring statically unfolds a constant bound loop construct (``repeat (i){...}'') and renames variables occurring below it accordingly.
 Finally, we have implemented a simple rename variable operation, and a flattening normalizer which inlines the conditions of nested if-then constructs.
 
-\hl{Table~\ref{TBL:qlresults} shows the number of cases that had to be overridden to implement each particular operation. The second column shows the number of  constructs for each sort in QL (Form, Stmt, and Exp).
+Table~\ref{TBL:qlresults} shows the number of cases that had to be overridden to implement each particular operation. The top row shows the number of  constructs for each syntactic category in QL (Exp, Stmt, and Form).
 As can be seen, none of the operations required implementing all cases.
-The bottom row shows the number of overridden cases as a percentage.}
+The last column shows the number of overridden cases as a percentage.
 For this set of queries and transformations, almost no expression cases needed to be overridden, except the ``Var'' case in collect variables, rename variable and desugar ``repeat''\footnote{Note, however, that the dependency extraction queries reuse the collect variables query on expressions.}.
-The cases required for desugaring include the case of the language extension (e.g. \lstinline{Unless} and \lstinline{Repeat}, respectively). These cases are not counted in the total in the second column but are used to compute the percentage.
+The cases required for desugaring include the case of the language extension (e.g. \lstinline{Unless} and \lstinline{Repeat}, respectively). These cases are not counted in the total in the first row but are used to compute the percentage.
 
 \begin{table}[t]
-  \centering
-  \begin{tabular}{@{}llll@{}}\toprule
-    Operation            & Exp (18) & Stmt (5) & Form (1) \\\hline
-    Collect variables    & 1        &          &          \\
-    Data dependencies    &          & 3        & 1        \\
-    Control dependencies &          & 4        & 1        \\
-    Type environment     &          & 2        &          \\\hline
-    Rename variable      & 1        & 2        &          \\
-    Inline conditions    &          & 4        &          \\
-    Desugar ``unless''   &          & 1        &          \\
-    Desugar ``repeat''   & 1        & 3        &          \\\bottomrule
+  \centering\small
+  \begin{tabular}{@{}llllr@{}}\toprule
+    Operation            & Exp (18) & Stmt (5) & Form (1) & \%     \\\hline
+    Collect variables    & 1        &          &          & 4\%  \\
+    Data dependencies    &          & 3        & 1        & 17\% \\
+    Control dependencies &          & 4        & 1        & 21\% \\
+    Type environment     &          & 2        &          & 8\%  \\\hline
+    Rename variable      & 1        & 2        &          & 13\% \\
+    Inline conditions    &          & 4        &          & 17\% \\
+    Desugar ``unless''   &          & 1        &          & 4\%  \\
+    Desugar ``repeat''   & 1        & 3        &          & 16\% \\\bottomrule
   \end{tabular}
 \nocaptionrule   \caption{Number of overriden cases per query and transformation in
     the context of the QL implementation\label{TBL:qlresults}}
