@@ -1,6 +1,5 @@
 \section{Generalized Queries}\label{sec:generalizedQueries}
 
-\haoyuan{Is the generic template needed? Client code for this section.}
 The previous section introduced simple queries where each constructor
 contributes to a single monoid.  Recursive data types, however, often
 have multiple syntactic categories, for instance expressions and
@@ -52,21 +51,21 @@ imperative programs.  To express this query, the simple
 The extension consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
-Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions (\lstinline{G_ExpAlgQuery}) is
-presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}}.  Note that the interface declares two
+Fig.~\ref{LST:gstatquery}, while the generated code for expressions (\lstinline{G_ExpAlgQuery}) is
+presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}.  Note that the interface declares two
 monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
 impossible to automatically join a monoid over one type with a monoid
 over another type, the \lstinline{e} argument in \lstinline{Assign}
 is ignored.  As a result, a
-concrete implementation has to override this case to deal with the
+concrete implementation normally has to override this case to deal with the
 transition from expressions to statements.
 
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
-\caption{Default implementation of generalized queries over many-sorted statement algebra}
+\caption{Default implementation of generalized queries over many-sorted statement algebra.}
 \label{LST:gstatquery}
 \end{figure}
 
@@ -96,21 +95,29 @@ of variables through the different types of expressions.
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=12-24]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
-\caption{Dependency graph with generalized query algebra}
+\caption{Dependency graph with a generalized query.}
 \label{deps2}
-\end{figure}
+\end{figure}\bruno{This code {\bf must} instantiate the monoids.}
 
-\paragraph{Client code}
-\hl{Similarly, we need to create a structure using the generic interfaces \lstinline{ExpAlg} and \lstinline{StatAlg} at first.}
+\paragraph{Client code} A structure using the generic interfaces
+\lstinline{ExpAlg} and \lstinline{StatAlg} is created as follows:
 
 \lstinputlisting[linerange=14-21]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
 
-\hl{Then an instance of \lstinline{DepGraph} is created with the two monoids \lstinline{mExp()} and \lstinline{mStat()} implemented
-by \lstinline{SetMonoid}. Say the name is \lstinline{depGraph}. By passing it to \lstinline{makeExp}:}
+\noindent Note that here the argument of
+\lstinline{makeExp}\bruno{{\bf makeExp} is the wrong name! It creates
+  a statement, not an expression!} must
+implement both \lstinline{ExpAlg} and \lstinline{StatAlg}. To achieve
+this in Java, \lstinline{makeExp} has a type parameter \lstinline{A}
+which is required to implement both interfaces. Using
+\lstinline{makeExp}\bruno{wrong name} we can pass an instance of 
+\lstinline{DepGraph} to compute the dependencies of the statement.
 
 \lstinputlisting[linerange=32-32]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
+\bruno{Show how to create depGraph as well.}
 
-\hl{The result is \lstinline{[<x, x>, <y, x>, <y, z>]}, as expected.}
+The result is \lstinline{[<x, x>, <y, x>, <y, z>]}, as expected.
+
 %The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
 %If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.
 %The default implementation thus can carry over, for instance, query results of expression into the result of statements.
