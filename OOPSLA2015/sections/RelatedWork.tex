@@ -127,8 +127,7 @@ The \lstinline{Walkabout} can be formulated as such a generic guide.
 %(queries and transformations) and standard OO inheritance provides a
 %solution to the traversal boilerplate problem.
 
-\paragraph{Structure-Shy Traversals in Functional Programming.}
-
+\paragraph{Structure-Shy Traversals in Functional Programming}
 In
 functional programming there has been a lot of research on type-safe
 structure-shy traversals. L\"ammel and Peyton Jones' ``Scrap your
@@ -186,7 +185,16 @@ similar problem in Object Algebras, a programming style in Object
 Oriented Programming paradigm.
 \end{comment}
 
-\paragraph{Object Algebras.} \name traversals are based on
+\paragraph{Language Extensions for Queries} 
+Inspired by XPath/XQuery there has been some work on 
+adding support for similar types of queries on object-oriented
+structures. For example the work on $C\omega$~\cite{BiermanMS05} extends 
+C\# with generalized member access, which allows simple 
+XPath-like path expressions. Thus in $C\omega$ it is possible 
+to express queries quite concisely. However, in contrast to \name
+$C\omega$ is a language extension and it does not deal with transformations.
+
+\paragraph{Object Algebras} \name traversals are based on
 object algebras~\cite{bruno12oa}. The original motivation for object
 algebras was as a design pattern for OO programming that allowed
 improved extensibility and modularity of programs.  Using object
