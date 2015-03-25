@@ -70,9 +70,8 @@ interfaces, the conversion to De Bruijn indices is
 \lstinputlisting[linerange=68-72]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=MAKE_LAM_EXP
 
 It simply generates ``$\lambda x.\lambda y.~x+y$'' as a generic lambda expression.
-Moreover, a query algebra \lstinline{Printer} is needed for pretty printing.
-
-\lstinputlisting[linerange=93-106]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=LAMALG_PRINTER
+Moreover, a query algebra \lstinline{Printer} is needed, but for space reasons
+it is shown in Appendix~\ref{subsec:appendix_printer}.
 
 By instantiating the \lstinline{DeBruijn} interface with \lstinline{Printer} passed
 in as the base algebra, we can write the client code as follows:
