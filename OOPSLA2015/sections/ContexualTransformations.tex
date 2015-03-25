@@ -6,7 +6,7 @@ Many transformations, however, require context information that might change dur
 In this section we instantiate algebras over function types to obtain transformation which pass information down during traversal.
 %Here we show how to eliminate boilerplate from such transformation b...  by constructing functions that build into an algebra.
 %The solution is the same is in the non-contextual transformations of the previous sub-section: a generic super interface captures the general traversal strategy
-Instead of having the algebra methods \hl{delegate} directly to base algebra (e.g., \lstinline{expAlg()}), this now happens indirectly through closures that propagate the context information.
+Instead of having the algebra methods delegate directly to base algebra (e.g., \lstinline{expAlg()}), this now happens indirectly through closures that propagate the context information.
 
 Fig.~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
 Note that interface \lstinline{Alg}$_{CT}$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$.

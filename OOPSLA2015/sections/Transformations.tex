@@ -3,11 +3,10 @@
 
 Queries are a way to extract information from a data structure.
 Transformations, on the other hand, allow data structures to be
-changed. Just as with queries, we can distinguish code that deals with
-traversing the data structure from code that actually changes the
+recreated with some changes. Just as with queries, we can distinguish code that deals with
+traversing the data structure from code that actually transforms the
 structure. In this section we show how to avoid most traversal
-boilerplate code in the context of transformations based on Object
-Algebras.
+boilerplate code in the context of transformations using \name.
 
 
 \subsection{Boilerplate Transformations}\label{subsec:substvars}
@@ -25,20 +24,20 @@ in Fig.~\ref{substvars_without_id}.
 \end{figure}
 
 The expression to be substituted, and the variable to substitute for
-are computed by the methods \lstinline{e()} and \lstinline{x()}
+are provided by the methods \lstinline{e()} and \lstinline{x()}
 respectively. \lstinline{expAlg()} is an instance of
 \lstinline{ExpAlg} on which the transformation is based. Since Object
 Algebras are factories, the transformation is executed immediately
 during construction. For instance, calling \lstinline{Var("x")} on a
 \lstinline{SubstVar} object with \lstinline{x()} returning
-\lstinline{"x"} immediately returns the result of \lstinline{e()},
---- the original variable expression is never created. In the other
-cases, the original structure is recreated \hl{in} the algebra
+\lstinline{"x"} immediately returns the result of \lstinline{e()}
+(the original variable expression is never created). In the other
+cases, the original structure is recreated in the algebra
 \lstinline{expAlg()}.
 
 Again we observe the problem of traversal-only boilerplate code: the
 \lstinline{Lit} and \lstinline{Add} methods simply delegate to the
-base algebra \lstinline{expAlg()} without performing any computation.
+base algebra \lstinline{expAlg()}.
 
 \subsection{Generic Traversal Code}
 
@@ -46,8 +45,7 @@ The boilerplate code in transformations can be avoided by creating a
 super-interface containing default methods performing the traversal
 (shown in Fig.~\ref{generic_transform}). A concrete transformation can
 then selectively override the cases of interest. Variable substitution
-can now be implemented as below. In
-this case, only the method \lstinline{Var()} is overridden.
+can now be implemented as follows:
 
 \lstinputlisting[linerange=4-10]{../ObjectAlgebras/src/expDemo3/SubstVar.java} % APPLY:linerange=SUBSTVARS_WITH_ID
 
@@ -58,8 +56,10 @@ this case, only the method \lstinline{Var()} is overridden.
 \label{generic_transform}
 \end{figure}
 
-To execute substitution, the \lstinline{SubstVar} should be subclassed
-(either anonymously or explicitly) with implementations for
+\noindent In
+this case, only the method \lstinline{Var()} is overridden.
+To execute substitution, \lstinline{SubstVar} should be subclassed
+with implementations for
 \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}. The base
 algebra \lstinline{expAlg()} could for instance be an algebra for
 pretty printing the expression with the substitution applied. Note
