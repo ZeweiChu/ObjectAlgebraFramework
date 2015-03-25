@@ -16,14 +16,14 @@ We start by introducing the problem of boilerplate code by considering
 a simplified variant of the QL language used in our case
 study~\cite{gouseti14extensible}, called MiniQL.  Just like QL, MiniQL
 can be used to describe interactive questionnaires. An example is
-shown in Fig.~\ref{driver_license}.  The questionnaire first asks
+shown in Figure~\ref{driver_license}.  The questionnaire first asks
 for the user's name and age, and then, if the age is greater than or
 equal to 18, asks if the user has a driver's license.  Because of the
 conditional construct, the last question only will appear when the
 user is actually eligible to have driver's license.
 
 MiniQL's abstract syntax contains forms, statements (if-then and question) and expressions (only literals, variables and greater-than-or-equal).
-A traditional OO implementation is shown on the left Fig.~\ref{LST:usedVars}.
+A traditional OO implementation is shown on the left Figure~\ref{LST:usedVars}.
 A form (class \lstinline{Form}) has a name and consists of a list of statements.
 Statements are conditionals (\lstinline{If}) which contain an expression and a statement body, and questions (\lstinline{Question}) which have a name, label and type. Expressions are standard, but limited to literals (\lstinline{Lit}), variables (\lstinline{Var}) and greater-than-or-equal (\lstinline{GEq}).
 
@@ -43,7 +43,7 @@ form DriverLicense {
 
 %In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
-The code in Fig.~\ref{LST:usedVars} also shows a query over MiniQL structures, namely the collection of used variables.
+The code in Figure~\ref{LST:usedVars} also shows a query over MiniQL structures, namely the collection of used variables.
 The operation is defined using the method \lstinline{usedVars}, declared in the abstract superclasses  \lstinline{Stmt} and \lstinline{Exp} (omitted for brevity), and implemented in the concrete statement and expression classes.
 As can be seen, the only interesting bit of code is the \lstinline{usedVars} method in class \lstinline{Var}.
 All other implementations merely deal with aggregating results of their child nodes, or returning a default empty set.
@@ -52,7 +52,7 @@ The boilerplate code exhibited in the \lstinline{usedVars} query often
 also applies to transformations.  Consider for example a rename
 transformation which takes a \lstinline{Form} and returns another form
 where all variables are renamed.  Again, the only interesting cases would be
-in the \lstinline{Var} and lstinline{Question} classes, where the actual renaming is
+in the \lstinline{Var} and {\small\texttt{Question}} classes, where the actual renaming is
 applied. All other classes, however, require boilerplate to recreate
 the structure. The full code in
 Appendix~\ref{subsec:appendix_code_oo_approach} contains a simple
@@ -75,7 +75,7 @@ example of such a rename operation as well.
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right).}\label{LST:usedVars}
 \end{figure*}
 
-%Fig.~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{rename}. The renaming operation updates some information stored in the private members of those classes.
+%Figure~\ref{ql_oo_approach} shows the Java implementation of this OO approach. In the implementation, collecting the set of used variables is done by returning the variable name in instances of the \lstinline{Var} class, and delegating the method \lstinline{usedVars} to the child nodes in other classes. Renaming variables asks the instances of the \lstinline{Question} and \lstinline{Var} classes to do the renaming task, and similarly, other classes just delegates the method \lstinline{rename}. The renaming operation updates some information stored in the private members of those classes.
 
 In addition to the significant amount of boilerplate code, there is
 another drawback to the traditional OO solution, which is that it does
@@ -95,10 +95,10 @@ operation requires pervasive changes across the AST classes.
 \subsection{Modeling MiniQL with Object Algebras}\label{subsec:model_ql_with_oa}
 
 
-The right-hand side of Fig.~\ref{LST:usedVars} shows the used
+The right-hand side of Figure~\ref{LST:usedVars} shows the used
 variables operation implemented using Object Algebras. The operation
 is a class implementing the Object Algebra interface
-(\lstinline{QLAlg}) shown in Fig.~\ref{ql_tree}.
+(\lstinline{QLAlg}) shown in Figure~\ref{ql_tree}.
 
 %Appendix~\ref{subsec:appendix_code_usedvars} and \ref{subsec:appendix_code_rename} gives the complete code for an implementation.}
 
@@ -117,15 +117,15 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows\footnote{full code in
-  Appendix~\ref{subsec:appendix_code_rename}}:
+as follows\footnote{Full code in
+  Appendix~\ref{subsec:appendix_code_rename}.}:
 
 \lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
-constructor reconstructs a new node using an auxilar MiniQL algebra  called \lstinline{alg}.
+constructor reconstructs a new node using an auxiliar MiniQL algebra \lstinline{alg}.
 Almost all the method implementations reconstruct the structure with
-no changes using the methods in \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{Alg}.  The two exceptions are the
+no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}.  The two exceptions are the
 methods \lstinline{Question} and \lstinline{Var}, where the identifiers are suffixed with ``\_''.
 
 Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
@@ -164,16 +164,16 @@ renaming operations.
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation
 to the definition of \lstinline{QLAlg} to get the code for generic
 queries and transformations. An example of that annotation is already
-shown in Fig.~\ref{ql_tree}.
+shown in Figure~\ref{ql_tree}.
 Triggered by the annotation, \name generates base traversal interfaces with Java 8 \lstinline{default} methods which can then be overridden to implement specific behavior.
 For instance, for the MiniQL algebra, \name generates interfaces
 \lstinline{QLAlgQuery} and
 \lstinline{QLAlgTrans} which can be used to implement \lstinline{UsedVars} and \lstinline{Rename} in only a fraction of the code\footnote{The generated code is available in Appendix~\ref{subsec:appendix_code_qlalgquery} and \ref{subsec:appendix_code_qlalgtransform}.}.
 
 The \name-based implementation of both operations is shown in
-Fig.~\ref{usedvars_with_oaframework} and
-\ref{rename_with_oaframework}. In contrast to Fig.~\ref{LST:usedVars}, the
-code in Fig.~\ref{usedvars_with_oaframework} is much shorter.
+Figure~\ref{usedvars_with_oaframework} and
+\ref{rename_with_oaframework}. In contrast to Figure~\ref{LST:usedVars}, the
+code in Figure~\ref{usedvars_with_oaframework} is much shorter.
 By implementing the
 \lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} interface, only the
 methods \lstinline{Question} and \lstinline{Var} need to be
@@ -187,7 +187,7 @@ providing the constructors for creating the result of a
 transformation.
 
 \paragraph{Client code}
-To use the queries and operations on a questionnaire like the one in Fig.~\ref{driver_license}, we need a function to create a structure using the generic MiniQL interface:
+To use the queries and operations on a questionnaire like the one in Figure~\ref{driver_license}, we need a function to create a structure using the generic MiniQL interface:
 
 \lstinputlisting[linerange=9-17]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
