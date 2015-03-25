@@ -117,15 +117,15 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows\footnote{Full code in
-  Appendix~\ref{subsec:appendix_code_rename}.}:
+as follows:
 
 \lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
 constructor reconstructs a new node using an auxiliar MiniQL algebra \lstinline{alg}.
 Almost all the method implementations reconstruct the structure with
-no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}.  The two exceptions are the
+no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}. The other boilerplate cases are omitted for brevity; the full code can be found in
+  Appendix~\ref{subsec:appendix_code_rename}. The two exceptions are the
 methods \lstinline{Question} and \lstinline{Var}, where the identifiers are suffixed with ``\_''.
 
 Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
