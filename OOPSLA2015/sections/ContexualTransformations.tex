@@ -49,7 +49,7 @@ The conversion to De Bruijn indices uses an object algebra interface
 \lstinline{LamAlg} and \lstinline{ExpAlg}:
 \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform},
 respectively. For space reasons
-the generated transformation code is omitted here, but is found
+the generated transformation code is omitted here, but can be found
 in Appendix~\ref{subsec:appendix_code_g_explam_transform}. Using these
 interfaces, the conversion to De Bruijn indices is
   realized as shown in Fig.~\ref{DeBruijn}. Note again that only the
@@ -76,4 +76,4 @@ in as the base algebra, we can write the client code as follows:
 
 \lstinputlisting[linerange=56-62]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=CLIENTCODE_DEBRUIJN
 
-The result is ``\lstinline{\.\.(2 + 1)}'', as expected.
+\noindent The printed output is ``\lstinline{\.\.(2 + 1)}'', which corresponds to original lambda term, but without variables. 
