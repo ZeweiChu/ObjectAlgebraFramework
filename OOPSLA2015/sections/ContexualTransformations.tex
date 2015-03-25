@@ -11,7 +11,7 @@ methods delegate directly to base algebra (e.g.,
 \lstinline{expAlg()}), this now happens indirectly through closures
 that propagate the context information.
 
-Fig.~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
+Figure~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
 Note that interface \lstinline{Alg}$_{CT}$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$.
 Each constructor method now creates an anonymous function which, when invoked, calls the functions received as parameters (\lstinline{p}$_1$ to \lstinline{p}$_k$) and only then creates a structure over the \lstinline{alg()} algebra.
 
@@ -34,7 +34,7 @@ interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$>
 
 \subsection{Example: conversion to De Bruijn indices}\label{subsec:debruign_example}
 
-%The template shown in Fig.~\ref{ctxTrafoTemplate} supports tranformations where traversal dependent context informations flows down the created structure.
+%The template shown in Figure~\ref{ctxTrafoTemplate} supports tranformations where traversal dependent context informations flows down the created structure.
 An example of a contextual transformation is converting variables to De Bruijn indices in the lambda calculus~\cite{deBruijn1972381}.
 Using De Bruijn indices, a variable occurrence is identified by a natural number equal to the number of lambda terms between the variable occurrence and its binding lambda term.
 Lambda terms expressed using De Bruijn indices are useful because they are invariant with respect to alpha conversion.
@@ -52,7 +52,7 @@ respectively. For space reasons
 the generated transformation code is omitted here, but can be found
 in Appendix~\ref{subsec:appendix_code_g_explam_transform}. Using these
 interfaces, the conversion to De Bruijn indices is
-  realized as shown in Fig.~\ref{DeBruijn}. Note again that only the
+  realized as shown in Figure~\ref{DeBruijn}. Note again that only the
   relevant cases are overridden: \lstinline{Var} (from
   \lstinline{ExpAlg}) and \lstinline{Lam} (from \lstinline{LamAlg}).
 

@@ -1,12 +1,15 @@
 \section{Contextual Transformations}\label{sec:contexttrans}
 
-The previous section introduced a simple template for defining transformations.
-Transformations in this style may only depend on global context information (e.g., \lstinline{x()}, \lstinline{e()}).
-Many transformations, however, require context information that might change during the traversal itself.
-In this section we instantiate algebras over function types to obtain transformation which pass information down during traversal.
-%Here we show how to eliminate boilerplate from such transformation b...  by constructing functions that build into an algebra.
-%The solution is the same is in the non-contextual transformations of the previous sub-section: a generic super interface captures the general traversal strategy
-Instead of having the algebra methods delegate directly to base algebra (e.g., \lstinline{expAlg()}), this now happens indirectly through closures that propagate the context information.
+The previous section introduced a simple template for defining
+transformations. Transformations in this style may only depend on
+global context information (e.g., \lstinline{x()}, \lstinline{e()}).
+Many transformations, however, require context information that might
+change during the traversal itself. In this section we instantiate
+algebras over function types to obtain transformations which pass
+information down during traversal. Instead of having the algebra
+methods delegate directly to base algebra (e.g.,
+\lstinline{expAlg()}), this now happens indirectly through closures
+that propagate the context information.
 
 Figure~\ref{ctxTrafoTemplate} shows the general template for an \lstinline{Alg<X1, X2, ..., Xn>}, with constructors \lstinline{f1, ..., fm}.
 Note that interface \lstinline{Alg}$_{CT}$ extends \lstinline{Alg} and instantiates the type parameters to \lstinline{Function}s from the context argument \lstinline{C} to the corresponding sort \lstinline{X}$_i$.
@@ -25,31 +28,52 @@ interface Alg$_{CT}$<C,X$_1$,$...$,X$_n$>
   $...$
 }
 \end{lstlisting}
-\caption{Generic template for generating boilerplate of contextual transformations}
+\caption{Generic template for generating boilerplate of contextual transformations.}
 \label{ctxTrafoTemplate}
 \end{figure}
 
-\subsection{Example: conversion to De Bruijn indices}
+\subsection{Example: conversion to De Bruijn indices}\label{subsec:debruign_example}
 
-%The template shown in Fig.~\ref{ctxTrafoTemplate} supports tranformations where traversal dependent context informations flows down the created structure.
+%The template shown in Figure~\ref{ctxTrafoTemplate} supports tranformations where traversal dependent context informations flows down the created structure.
 An example of a contextual transformation is converting variables to De Bruijn indices in the lambda calculus~\cite{deBruijn1972381}.
 Using De Bruijn indices, a variable occurrence is identified by a natural number equal to the number of lambda terms between the variable occurrence and its binding lambda term.
 Lambda terms expressed using De Bruijn indices are useful because they are invariant with respect to alpha conversion.
 
-To implement the conversion to De Bruijn indices we assume an expression interface \lstinline{LamAlg} with constructors for lambda abstraction (\lstinline{Lam}) and application (\lstinline{App}).
-This interface can be used together with the \lstinline{ExpAlg} interface introduced earlier.
-Furthermore we assume that the generic template shown in Fig.~\ref{ctxTrafoTemplate} is instantiated for both interfaces as \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform} respectively. \hl{See the full generated code in Appendix~\ref{subsec:appendix_code_g_explam_transform}.}
-Using these interfaces, the conversion to De Bruijn indices can be realized as shown in Fig.~\ref{DeBruijn}.
-Note again that only the relevant cases are overridden: \lstinline{Var} (from \lstinline{ExpAlg}) and \lstinline{Lam} (from \lstinline{LamAlg}).
+The conversion to De Bruijn indices uses an object algebra interface
+\lstinline{LamAlg} with constructors for lambda abstraction
+(\lstinline{Lam}) and application (\lstinline{Apply}). See below:
+
+\lstinputlisting[linerange=6-10]{../ObjectAlgebras/src/trees/LamAlg.java} % APPLY:linerange=LAM_TREE
+
+\name automatically generates traversal code for transformation for both
+\lstinline{LamAlg} and \lstinline{ExpAlg}:
+\lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform},
+respectively. For space reasons
+the generated transformation code is omitted here, but can be found
+in Appendix~\ref{subsec:appendix_code_g_explam_transform}. Using these
+interfaces, the conversion to De Bruijn indices is
+  realized as shown in Figure~\ref{DeBruijn}. Note again that only the
+  relevant cases are overridden: \lstinline{Var} (from
+  \lstinline{ExpAlg}) and \lstinline{Lam} (from \lstinline{LamAlg}).
 
 
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=12-24]{../ObjectAlgebras/src/debruijn/DeBruijn.java} % APPLY:linerange=DEBRUIJN
-\caption{Converting variables to De Bruijn indices}
+\caption{Converting variables to De Bruijn indices.}
 \label{DeBruijn}
 \end{figure}
 
+\paragraph{Client code} A structure using the generic interfaces
+\lstinline{ExpAlg} and \lstinline{LamAlg} is created as follows:
 
+\lstinputlisting[linerange=68-72]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=MAKE_LAM_EXP
 
+\noindent It simply generates ``$\lambda x.\lambda y.~x+y$'' as a generic lambda expression.
+By instantiating the \lstinline{DeBruijn} interface with a
+\lstinline{Printer} algebra (shown in Appendix~\ref{subsec:appendix_printer}) passed
+in as the base algebra, we can write the client code as follows:
 
+\lstinputlisting[linerange=56-62]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=CLIENTCODE_DEBRUIJN
+
+\noindent The printed output is ``\lstinline{\.\.(2 + 1)}'', which corresponds to original lambda term, but without variables. 

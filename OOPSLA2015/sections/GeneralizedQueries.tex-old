@@ -36,7 +36,7 @@ interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
 \end{comment}
 
 
-\subsection{Example: data dependencies}
+\subsection{Example: Data Dependencies}
 \label{subsec:depGraph}
 %\subsection{Dealing with multiple sorts}
 
@@ -46,26 +46,26 @@ imperative programs.  To express this query, the simple
 \lstinline{ExpAlg} is first extended with statements using the
 \lstinline{StatAlg} interface defined as follows:
 
-\lstinputlisting[linerange=7-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
+\lstinputlisting[linerange=6-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
 
 The extension consists of statement constructors for sequential composition
 (\lstinline{Seq}) and assignment (\lstinline{Assign}).  The generated
 default implementation of queries over statements is shown in
-Fig.~\ref{LST:gstatquery}\hl{, while the generated code for expressions (\lstinline{G_ExpAlgQuery}) is
-presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}}.  Note that the interface declares two
+Figure~\ref{LST:gstatquery}, while the generated code for expressions (\lstinline{G_ExpAlgQuery}) is
+presented in Appendix~\ref{subsec:appendix_code_g_expalgquery}.  Note that the interface declares two
 monoids, one for each sort.  Since the \lstinline{Assign} and
 \lstinline{Seq} constructors create statements, they return elements
 of the \lstinline{mStat()} monoid.  Furthermore, because it is
 impossible to automatically join a monoid over one type with a monoid
 over another type, the \lstinline{e} argument in \lstinline{Assign}
 is ignored.  As a result, a
-concrete implementation has to override this case to deal with the
+concrete implementation normally has to override this case to deal with the
 transition from expressions to statements.
 
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
-\caption{Default implementation of queries over many-sorted statement algebra}
+\caption{Default implementation of generalized queries over many-sorted statement algebra.}
 \label{LST:gstatquery}
 \end{figure}
 
@@ -85,7 +85,7 @@ To implement the extraction of data dependencies only two cases have to
 be implemented: the variable (\lstinline{Var}) case from the
 \lstinline{ExpAlg} signature; and the assignment (\lstinline{Assign})
 case from the \lstinline{StatAlg} signature.  The implementation is
-shown in Fig.\ref{deps2}.  Note that the \lstinline{Assign} case takes
+shown in Figure~\ref{deps2}.  Note that the \lstinline{Assign} case takes
 the input \lstinline{Set<String> e} and uses it to create the
 dependency relation.  The propagation of dependencies across
 sequential composition is automatic, as is the propagation of the set
@@ -94,20 +94,27 @@ of variables through the different types of expressions.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=12-23]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
-\caption{Dependency Graph with Generalized Query Algebra}
+\lstinputlisting[linerange=14-32]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
+\caption{Dependency graph with a generalized query.}
 \label{deps2}
 \end{figure}
 
-\begin{comment}
-\haoyuan{Begin: client code.}
+\paragraph{Client code} A structure using the generic interfaces
+\lstinline{ExpAlg} and \lstinline{StatAlg} is created as follows:
 
-\lstinputlisting[linerange=14-17]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
+\lstinputlisting[linerange=9-16]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=GEN_DEPGRAPH
 
-\lstinputlisting[linerange=23-27]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
+\noindent Note that here the argument of
+\lstinline{makeStat} must
+implement both \lstinline{ExpAlg} and \lstinline{StatAlg}. To achieve
+this in Java, \lstinline{makeStat} has a type parameter \lstinline{A}
+which is required to implement both interfaces. Using
+\lstinline{makeStat} we can pass an instance of
+\lstinline{DepGraph} to compute the dependencies of the statement.
 
-\haoyuan{End: client code.}
-\end{comment}
+\lstinputlisting[linerange=22-22]{../ObjectAlgebras/src/deps2/TestDepGraph.java} % APPLY:linerange=CLIENTCODE_DEPGRAPH
+
+\noindent The result is \lstinline{[<x, x>, <y, x>, <y, z>]}, as expected.
 
 %The difference between generalized queries and homogeneous queries is that each type parameter of an Object Algebra interface is possibly instantiated to a different monoid.
 %If each parameter is instantiated to the same monoid, generalized queries are equivalent to the queries of the previous section, with one important difference: in the latter case, each sort is contributing to the same monoid.

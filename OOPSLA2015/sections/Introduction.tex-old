@@ -80,7 +80,7 @@ generated code accounts for four different types of traversals:
 and \emph{contextual transformations}.  Each of these four types of
 traversals is implemented as an Object Algebra. Programmers who want
 to implement structure-shy traversals can then inherit from one of these
-four object algebras, and override only the cases that deal with
+four Object Algebras, and override only the cases that deal with
 the interesting parts of the traversal. Consequently
 traversals written in \name are:
 
@@ -102,7 +102,7 @@ traversals written in \name are:
   code.
 
 \item {\bf Extensible with separate compilation:} Traversals inherit type-safe
-  extensibility from object algebras. Both traversals and the AST structures
+  extensibility from Object Algebras. Both traversals and the AST structures
   are extensible. Thus it is possible to
   reuse traversal code for ASTs extended with additional
   node types. Furthermore \name traversals support separate compilation.
@@ -116,7 +116,7 @@ traversals written in \name are:
 
 \end{itemize*}
 
-To prove the effectiveness of the approach, we have applied \name in
+\noindent To prove the effectiveness of the approach, we have applied \name in
 the implementation of QL, a domain-specific language (DSL) for defining questionnaires that has been used before as a benchmark language~\cite{gouseti14extensible,erdweg2013state}.  Our results (see details in
 Section~\ref{sec:case_study}) show that for a large number of traversals there was a
 significant reduction in the amount of user-defined code: only 4\% to
@@ -128,7 +128,7 @@ mainstream Java programmers, its basis on standard Java
 mechanisms makes \name easy to implement, integrate in existing
 environments, and use.  Moreover, although Java was chosen as the
 implementation language for \Name, our approach should apply to any object-oriented
-language with support for generics and annotations (for example Scala or C\#).
+language with support for generics and annotations.
 
 \begin{comment}
 
@@ -188,12 +188,12 @@ In summary, the contributions of this paper are:
 \begin{itemize*}
 
 \item {\bf Design patterns for generic traversals.} We provide a set of design
-patterns for various types of traversals using object algebras. These include:
+patterns for various types of traversals using Object Algebras, including:
 \emph{queries}, \emph{transformations},
 \emph{generalized queries} and \emph{contextual transformations}.
 
 \item {\bf The Shy Java framework.} We show that those design patterns
-  can be automatically generated for a given object algebra
+  can be automatically generated for a given Object Algebra
   interface. The \name framework\footnote{{\bf
       Note to Reviewers:} Due to the anonymous review process we
     submit a file bundle with the implementation together with the paper submission. If the
