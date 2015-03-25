@@ -10,7 +10,7 @@ more information on the features of QL we refer
 to~\cite{erdweg2013state}.
 
 %% A questionnaire is rendered as an interactive form where, depending on user actions, new questions may appear, or values may be computed.
-%% An example QL questionnaire is shown on the left of Fig.~\ref{FIG:houseowning} together with its rendering on the right.
+%% An example QL questionnaire is shown on the left of Figure~\ref{FIG:houseowning} together with its rendering on the right.
 
 %% QL programs consist of lists of labeled, typed questions.
 %% Questions can be answerable, meaning the user has to enter some data, or computed, in which case the question is defined by an expression.
@@ -93,7 +93,7 @@ The cases required for desugaring include the case of the language extension (e.
 
 %% Instead of desugaring language extensions to the base language it is also possible to treat them as first-class constructs and retroactively extend existing queries and transformations.
 %% The framework permits to use  Java interface extension to achieve this in a fully type safe way.
-%% Figure~\ref{inline_conds_unless} and Fig.~\ref{controldeps_unless} show the extension of the inline conditions transformation and control dependencies query when extending QL with ``unless''.
+%% Figure~\ref{inline_conds_unless} and Figure~\ref{controldeps_unless} show the extension of the inline conditions transformation and control dependencies query when extending QL with ``unless''.
 
 %% \begin{figure}[tb]
 %% \lstinputlisting[linerange=9-14]{../QL/src/_syb/trafo/InlineConditionsUnless.java} % APPLY:linerange=INLINECONDS_UNLESS
@@ -109,11 +109,12 @@ The cases required for desugaring include the case of the language extension (e.
 %% \label{controldeps_unless}
 %% \end{figure}
 
-%% Inlining of conditions across ``unless'' statements (Fig.~\ref{inline_conds_unless}) is analogous to the implementation for ``if''.
+%% Inlining of conditions across ``unless'' statements (Figure~\ref{inline_conds_unless}) is analogous to the implementation for ``if''.
 %% It involves creating a conjunction of the input (\lstinline{guard}) and the negated condition and then passing it down the body of ``unless''. The result is the inlined version of the body.
-%% The extension of the control dependencies (Fig.~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}).
+%% The extension of the control dependencies (Figure~\ref{controldeps_unless}) query simply delegates to the implementation of ``if'' (\lstinline{iff}).
 
 \subsection{Chaining Transformations}
+\label{SECT:chaining}
 
 A typical compiler consists of many transformations chained together in a pipeline.
 \name transformations support this pattern by passing transformation algebras as the base algebra to the implementation of another transformation.
@@ -131,9 +132,10 @@ The algebra \lstinline{alg} can now be used to create questionnaires:
 
   \lstinputlisting[linerange=167-170]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
 
-The result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire after desugaring.
+Since inlining is a contextual transformation, the result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire after desugaring.
 The {\small\texttt{IFor\-mat\-With\-Pre\-cedence}} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
-Calling this function with a boolean expression representing \lstinline{true} will trigger inlining of conditions and renaming. The result is then a formatting object (\lstinline{IFormat}) which can be used to print out the transformed questionnaire:
+
+Calling the function with a boolean expression representing \lstinline{true} will trigger inlining of conditions and renaming. The result is then a formatting object (\lstinline{IFormat}) which can be used to print out the transformed questionnaire:
 
   \begin{lstlisting}[language=ql]
   form myForm { if (true && !y) y "X?" boolean }
@@ -157,16 +159,16 @@ We compared the performance characteristics of the operations implemented using 
 The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
-For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured the execution of invoking this function.
+For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured invoking this function.
 The vanilla query implementations use the same monoid structures as in \name.
 
-The comparison of the control dependencies query is shown in Fig.~\ref{FIG:controlPerf}.
+The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
 On average, the \name implementation of the query seems a little slower.
 This is probably caused by the extensive use of interfaces in the \name framework, whereas the AST-based implementation only uses abstract and concrete classes.
 %\tijs{NEED REFERENCE!!!!, but see: \url{http://stackoverflow.com/questions/6839943/why-are-interface-method-invocations-slower-than-concrete-invocations}}.
 For transformations the performance difference is slightly more pronounced.
-Fig.~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
+Figure~\ref{FIG:inlinePerf} shows the performance comparison of the inline conditions transformation.
 The greater difference can be explained by the fact that creating a new structure in a \name transformation involves dynamically dispatched method calls instead of statically bound constructor calls.
 
 \begin{figure}[t]
