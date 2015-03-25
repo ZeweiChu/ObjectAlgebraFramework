@@ -46,7 +46,7 @@ and 4 instances of the idea. I think more emphasis needs to be added in S2.
 > Then is important to compare it with the conventional way Visitors are
 > used in practice as I mentioned before.
 
-TODO
+Done
 
 > Another fundamental point that is left half in the dark is Section 7,
 > that should be expanded and explained much more.
@@ -63,7 +63,7 @@ TODO (Tijs?)
 > process. This is still not so widely known in the community that you
 > can expect us to "guess it".
 
-TODO (Mention the nice structure of object algebras?)
+Partly done
 
 > To conclude: I love your ideas, but the current
 > discussion/presentation organization do not give them the value they
@@ -126,8 +126,7 @@ Do we want to do anything about this?
 > change the structure" means something very different in java or in
 > Haskell.
 
-TODO
-(Haoyuan: not really understand what it means)
+DONE
 
 > pg 15
 > Please, call Lam  Lambda
@@ -149,7 +148,7 @@ TODO
 > there is a (family of?) pattern that allows .... and that nicely build
 > on top of object algebras.
 
-TODO?
+DONE
 
 > ===========================================================================
 >                           ECOOP 2015 Review #61B
