@@ -1,6 +1,6 @@
 We thank all the reviewers for the nice comments and we try 
 to address the main concerns/questions next. All other comments
-will be addressed in the revision of the paper
+will be addressed in the revision of the paper.
 
 * Hyphenation
 
