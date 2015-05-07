@@ -1,0 +1,40 @@
+We thank all the reviewers for the nice comments and we try 
+to address the main concerns/questions next. All other comments
+will be addressed in the revision of the paper
+
+* Hyphenation
+
+We apolegize for the hyphenation! We will fix it in the final 
+version.
+
+* Is boilerplate generation implemented? If so, how?
+
+Reviewers B&C ask about the implementation of Shy.  Shy is implemented
+using the javax annotation processor, which is part of the
+SDK. Because javax annotations are standard the integration with IDE's
+like Eclipse is quite good.  In a project usign Shy, the generated
+code lives under packages called "query" and "transform".
+
+#reviewer B
+
+"what's the code size difference between the Vanilla and Shy solutions?"
+
+Tijs?
+
+#reviewer C
+
+"Are top-down traversals supported and how are the desugaring transformations implemeneted?"
+
+Tijs?
+
+"Would Scala traits make the approach more compositional?" 
+
+Regarding extensibility, we can currently get quite far with Java 8
+using interfaces with default methods. Using default methods allows us
+to get quite a few of of the benefits of multiple-inheritance and
+traits. Ofcourse if we had traits we could do some things more
+elegantly.
+
+"Origins of strategic programming are misrepresented"
+
+Thanks for pointint it out. We will fix this!
