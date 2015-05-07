@@ -37,4 +37,4 @@ elegantly.
 
 "Origins of strategic programming are misrepresented"
 
-Thanks for pointint it out. We will fix this!
+Thanks for pointing it out. We will fix this!
