@@ -1,0 +1,335 @@
+> ===========================================================================
+>                           OOPSLA '15 Review #60A
+> ---------------------------------------------------------------------------
+>           Paper #60: Scrap your Boilerplate with Object Algebras
+> ---------------------------------------------------------------------------
+> 
+> 
+>                       Overall merit: 5. Strong accept
+>                  Reviewer expertise: 4. Expert
+> 
+>                          ===== Paper summary =====
+> 
+> This paper describes an extension to object algebras to support
+> adaptive object-oriented programming (AOOD, aka scrapping your
+> boilerplate SYB in ICFP-land).  After an introduction to the paper as
+> a whole, section 2 gives background and then section 3 introduces Shy,
+> the author's extension that supports AOOOD.  Sections 4 and 5 then
+> extends the basic algebras to support more complex queries, and
+> sections 6 and 7 then discuss more complex transformations.  As, all
+> these work over fixed algebras, section 8 discusses extending the
+> algebras (languages) with more constructors (AST node types), and
+> section 9 revisits the QL running example including a basic
+> performance assessment. Section 10 discusses related work and 11
+> briefly concludes.
+> 
+>                       ===== Comments for author =====
+> 
+> 
+> It's always a pleasure to see an "OOPSLA-style" paper submitted to
+> OOPSLA: it's a great pleasure when the paper is well conceived, well
+> written, well implemented, and well evaluated. It's even better when
+> the idea behind a paper is clear and simple, as it is in this case:
+> use the merest soup?on of Java reflection to add default messages
+> to the interfaces that represent object algebras to support traversal
+> and transformation.  I've often wondered how best OO languages could
+> better incorporate the composite pattern directly --- I think this may
+> well be a significant set in the right direction.  The required client
+> code is simple to write, and equally simple to understand --- perhaps
+> because the generated code is so straightforward it can basically be
+> forgotten, or rather, just treated as a feature of the base language.
+> 
+> The paper is well presented, except for the hyphenation, which is
+> horrible in places, the examples well chosen, and the paper proceeds
+> gradually from the simple to the more complex examples. The
+> performance evaluation is not extensive, but the key contribution of
+> the paper is the combination of language design and programming
+> idioms: a slowdown of a factor of four is acceptable, especially as
+> were the Object Algebra style to become more popular, VM optimisations
+> could well reduce  most of the difference.
+> 
+> It might be interested to compare this with other Aspect-Oriented
+> approaches to traversals as well as AOOD, e.g. Hannemann & Kiczales
+> OOPSLA 2002 (I don't know if it is, because I'm on a plane without the
+> Interwebz) or others from AOP-land.   For the hardcore, how about
+> integrating these traversals with Java8 / FORTRESS style streams to
+> get real parallelism? 
+> 
+> 
+> 
+> 
+> minor issues: 
+> 
+> p1 (and elsewhere) for some reason your hyphenation is horrible in
+>  places. Para 2 of col 2 is particularly bad, the line starting with
+>  "s:" is positively hard to parse. 
+> p1 "studied the problem" - the *before* is unnecessary, and
+>  grammatically and historically incorrect (grammatically because
+>  "before" must compare with something, and historically because AOOD
+>  was before SYB). 
+> p1 try to avoid starting sentences with "However" 
+> p4 auxiliar*y* 
+> p5 has Java 8 got monoids now?  I didn't know it had, and would have
+>  appreciated an overview or interface in the appendix, if it's not
+>  standard (or a reminder if it is).  
+> p5 another horrible hyphenation "-s" 
+> p6 aha. Here's the monoid. But you used in on p4! 
+> p6 I got confused at the split between the columns. perhaps make clear
+>  in the text that Fig7 and ExpAlgQuery are the same thing (by
+>  mentioning both each time) 
+> p6 "So users..." is not a sentence; join to the previous sentence with
+>  a comma
+> p7 consider moving fig 8 to the end of sec4.3 not top of column
+> p7 similarly move fig 10 to bottom of column 
+> p7 should StatAlg extend ExpAlg?  if not, explain.
+>   perhaps move the "Client Code" from p8 in here 
+>   (and again does "A" require a concrete type extending both?)
+> p8 move fig15 down to after its mention.  Again, consider moving 
+>  the client code after the definition of LamAlg and before the
+>  discussion of generated code
+> p11 where did the QL programs come from?  
+> p12 top col 1 - "-t" twice!!
+> p13 S-horrible-hypenation 
+> p13 do you think your generative techinques could be applied in
+>  Haskell to address the problems with SYB?
+> ref [10] is odd (or is it blinded?)
+> 
+> 
+> To encourage accountability, I'm signing my reviews in 2015. For the
+> record, I am James Noble, kjx@ecs.vuw.ac.nz.  I apologise if this
+> review is briefer than I aim to provide for OOPSLA.
+> 
+> ===========================================================================
+>                           OOPSLA '15 Review #60B
+> ---------------------------------------------------------------------------
+>           Paper #60: Scrap your Boilerplate with Object Algebras
+> ---------------------------------------------------------------------------
+> 
+> 
+>                       Overall merit: 4. Accept
+>                  Reviewer expertise: 3. Knowledgeable
+> 
+>                          ===== Paper summary =====
+> 
+> The paper is about dealing with boilerplate traversal code in the context of
+> Object Algebras. Object Algebras is an OOP design pattern for programming 
+> expressions in a way inspired by functional programming: an operation is 
+> represented as an "algebra" object with methods corresponding to constructors 
+> for an expression tree. The constructors are called on the algebra object as 
+> if the tree was being built, but instead of building the tree, the result of 
+> the operation is computed. Using this encoding, the Expession Problem can be 
+> solved (although not in a general way, see below), as has been shown in 
+> previous papers.
+> 
+> Boilerplate traversal code is common for expression problems: it is common 
+> that many node types just delegate a computation to the children in some 
+> simple pattern, and only a few node types do something of real interest.
+> 
+> The paper shows how such boilerplate code can be factored out to Java 8 
+> interfaces with default methods, for the Object Algebra solution. A number 
+> of different kinds of boilerplate interfaces are discussed, for supporting 
+> different kinds of queries and transformations, for example queries that 
+> aggregate information from their children. A Java framework, Shy, has been 
+> implemented that supports an annotation @Algebra on the algebra classes, 
+> and that automatically generates these boilerplate interfaces.
+> 
+> The Shy framework is evaluated by implementing some queries and transformations 
+> for the language QL, which is a DSL that has previously been used in a tool 
+> challenge. The performance is measured and compared to a "vanilla" OOP solution 
+> that uses similar boilerplate interfaces (I think). In looking at the diagrams, 
+> it looks like Shy is around 1.2x slower than Vanilla for queries, and around 
+> 4x slower on transformations.
+> 
+>                       ===== Comments for author =====
+> 
+> It is interesting to see how far it is possible to get with encodings like 
+> Object Algebras in order to solve the expression problem. However, the 
+> technique doesn't look very practical: the encodings give unreadable code, 
+> and the expression problem is not solved in a general way: an operation for 
+> a particular node type cannot call any virtual operation on its children. 
+> It is restricted to call the same operation, or possibly, by combining 
+> algebras into an even more complex encoding, call one or more of a fix number 
+> of operations.
+> 
+> That said, the paper makes a good contribution, improving on how Object 
+> Algebras can be used, and giving valuable insights into applying 
+> functional-style programming in OOP. The paper is very well written.
+> 
+> Details:
+> 
+> What is the code size difference between the Vanilla and Shy solutions? 
+> Please give a rough estimate in the author response (with/without boilerplate 
+> that could be generated).
+> 
+> What technique was used for generating the boilerplate interfaces? Is the 
+> annotation processor in javax used, or what?
+> 
+> Why do you have so many outliers in the diagrams, in particular for fig 19. 
+> Did you not take averages? What are the confidence intervals? Did you measure 
+> start-up or warmed-up performance?
+> 
+> Typos:
+> 
+> - Fig 2 and 3 appear out of order.
+> - p4, left col, example class Rename: "form" and "question" should be capitalized.
+> - Several strange hyphenations, e.g., S-ince.
+> - p5, fig 5. "class Rename... extends" should be "class Rename... implements"
+> - p10. "QL is similar MiniQL"
+> - p14, Ref [18] has wrong year.
+> 
+> ===========================================================================
+>                           OOPSLA '15 Review #60C
+> ---------------------------------------------------------------------------
+>           Paper #60: Scrap your Boilerplate with Object Algebras
+> ---------------------------------------------------------------------------
+> 
+> 
+>                       Overall merit: 4. Accept
+>                  Reviewer expertise: 4. Expert
+> 
+>                          ===== Paper summary =====
+> 
+> The paper integrates two branches of research. Object algebras are an 
+> approach to solving the expression problem in object-oriented programming 
+> languages. Generic (structure-shy/strategic) programming aims to reduce 
+> the overhead in traversing data structures by capturing the default case 
+> that applies to most constructors of the data type. For example, combine 
+> the results returned for each of the child nodes. This paper combines the 
+> two approaches in Java by generating default traversals for queries and 
+> transformations from the declaration of the interface of an object algebra 
+> driven by a simple @Algebra annotation on the interface. Implementations 
+> of concrete traversals need only extend the generated default implementations 
+> and override just those methods that do not follow the default pattern. 
+> The paper motivates the work by setting up regular OO and object algebra 
+> examples, then carefully explains the construction of the query and 
+> transformation algebras, and how they are used. The design is illustrated 
+> and benchmarked using the QL benchmark DSL. The related work does (mostly) 
+> a nice job in outlining the rich history of generic programming that leads 
+> up to this work.
+> 
+>                       ===== Comments for author =====
+> 
+> This is nice work! 
+> 
+> + It combines the advantages of object algebras and generic traversals in 
+> a type-safe manner, preserving separate compilation and providing structure-shy 
+> traversals and extensibility.
+> 
+> + Carefully presented in a very well-written paper
+> 
+> + Implemented in plain Java (8) with an annotation-driven generator.
+> 
+> - The resulting code is not always entirely easy to read. The contextual 
+> transformations (e.g. the DeBruijn transformation)  formulating the transformation 
+> as a generator of functions is not how I would prefer to write/read this (Java¡¯s 
+> function types do not help either). 
+> 
+> - The paper sets up the expectation (by invoking the ¡°Scrap your Boilerplate¡± 
+> brand) that it will cover all of the strategic programming patterns. However, 
+> only bottom-up traversals (folds) appear to be covered. Top-down patterns would 
+> appear to require reification of the tree structure, which is virtualized in 
+> the object algebra approach. Are top-down traversals supported? How are the 
+> desugaring transformations implemented? Only at the very end does the paper 
+> suggest that more work is needed in this direction. ¡°JJTraveler with Object 
+> Algebras¡± would have been a more accurate title.
+> 
+> - I got the impression that the paper claims compositionality. However, that 
+> may be a wrong impression. The extensibility that the paper does claim is 
+> indeed supported. Unfortunately it is asymmetric due to single inheritance 
+> in Java. Would Scala traits make the approach fully compositional?
+> 
+> - There is no explanation of the implementation of the generator or its 
+> properties. Is it based on byte-code transformation? Does  it actually exist 
+> or is it conceptual? I would have expected a bit more explanation about the 
+> interaction with the IDE; where does the generated code live?
+> 
+> - Origins of strategic programming in related work is mis-represented.
+> 
+> Detailed comments
+> 
+> p2: ¡°design patterns for generic traversals¡± is rather an overstatement. It 
+> should rather read ¡°An encoding of design patterns for generic traversals 
+> using/for object algebras¡±. The design patterns are already well known
+> 
+> p2: ¡°its basis on standard Java ¡­¡± rephrase
+> p2: ¡°which implements evaluation of expression[s]¡±
+> 
+> 
+> p5: ¡°the code in Figure 4 is much shorter¡± You write in multiple places 
+> that the code is so short, which seems to refer to its textual size. All 
+> the code fragments that are shown are pretty short. It would be more informative 
+> if the conciseness would be analytically characterized in terms of number of 
+> method definitions or perhaps more fine-grained, in terms of statements or 
+> method calls. 
+> 
+> p5/fig5: that rename is rather lame; why not a proper rename with a new name?
+> 
+> p6/fig6: isn¡¯t that the same query as in Figure 2? As a free-variables query 
+> it is rather uninteresting in the absence of binders; but you introduce those later.
+> 
+> p6: return the a neutral value
+> 
+> p6 ¡°The typical pattern of a query ¡­¡± I have the impression this paragraph 
+> is a repetition of earlier text; we get the idea.
+> 
+> p6: to write a ¡°generic query¡± : the double quotes suggest it is not really generic?
+> 
+> p6: ¡°For this case the following implementation would suffice:¡± but it doesn¡¯t?
+> 
+> p6: ¡°There are two important differences ¡­¡± One sentence would be sufficient 
+> to state that the monoid is a library definition. 
+> 
+> p7/fig8: generic queries are folds!?
+> 
+> p7: ¡°This is precisely what Shy does.¡± Oh, the suspense. You could come to this 
+> point sooner.
+> 
+> p7: ¡°S-ince¡± there¡¯s something wrong with your hyphenation; other places have 
+> strange breaks as well.
+> 
+> p8: ¡°Since Object Algebras are factories, the transformation is executed 
+> immediately during construction of tree structures.¡± It would be useful at 
+> this point to show how such a transformation is invoked and how a transformation 
+> pipeline is constructed.
+> 
+> p8: ¡°To execute substitution, SubstVar should be subclassed with implementations 
+> for x(), e(), and expAlg().¡± That is a cumbersome way to construct closures; 
+> sounds rather boilerplaty; why not show such an invocation.
+> 
+> p9/fig13: That produces a fold/bottom-up transformation. How about top-down 
+> traversals? Later in the paper you mention a desugaring, but the code for the 
+> desugaring is never shown. Typically, desugarings are defined using top-down 
+> traversals, often pattern matching on combinations of constructor patterns 
+> (deep pattern matching). Is that supported in this approach? 
+> 
+> For that matter, the transformation algebras represent type preserving 
+> transformations; how are translations (between types) expressed?
+> 
+> p10: The composition of these transformations is neat! Unfortunately, it 
+> seems to be assymetric, if I understand things well. One would really like 
+> to have independent implementations of an algebra (syntax) and _implementation_ of 
+> a transformation and then compose the implementations. As I understand the code, 
+> the implementation of UniqueWithLambda<E> inherits the implementation of Unique<E>, 
+> but cannot inherit the implementation of a Unique for LamAlgTransform, since that 
+> would require multiple inheritance. Is that a correct analysis? And then it seems 
+> an inherent problem for true compositionally in Java. Would Scala traits solve 
+> this issue?
+> 
+> p10: I¡¯m quite curious about the implementation of desugaring; why was it not 
+> included (in the Appendix)?
+> 
+> p11: Can the desugar transformations be combined into a single traversal? 
+> 
+> How about deforestation?
+> 
+> p12: ¡°Strategic programming is an approach to data structure traversal, which 
+> originated in term rewriting [3, 24, 25].¡± This sentence is not historically 
+> accurate. Generic traversals in term rewriting were first introduced in 
+> [26] (Stratego), which extended the strategies of Elan [3] with ¡®structure-shy¡¯ 
+> generic one-level tree traversal operators (all, one, some), which could be 
+> combined with strategies in a wide range of generic traversals. [25] describes 
+> a core language for rewriting based on that approach. ¡°Scrap your boilerplate¡± 
+> and earlier work of Laemmel et al. are implementations of Stratego generic 
+> traversals in Haskell and Java. The extension of ASF with traversals [24] 
+> came _five_ years later and post-dates most of the work that is described in 
+> the next paragraphs. Don¡¯t cite is as the origin of strategic programming!
