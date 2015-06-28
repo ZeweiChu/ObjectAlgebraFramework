@@ -54,6 +54,9 @@
 > Interwebz) or others from AOP-land.   For the hardcore, how about
 > integrating these traversals with Java8 / FORTRESS style streams to
 > get real parallelism? 
+
+TODO?
+
 > 
 > 
 > 
@@ -63,12 +66,21 @@
 > p1 (and elsewhere) for some reason your hyphenation is horrible in
 >  places. Para 2 of col 2 is particularly bad, the line starting with
 >  "s:" is positively hard to parse. 
+
+Hyphenation : TODO
+
 > p1 "studied the problem" - the *before* is unnecessary, and
 >  grammatically and historically incorrect (grammatically because
 >  "before" must compare with something, and historically because AOOD
 >  was before SYB). 
+
+TODO
+
 > p1 try to avoid starting sentences with "However" 
 > p4 auxiliar*y* 
+
+TODO
+
 > p5 has Java 8 got monoids now?  I didn't know it had, and would have
 >  appreciated an overview or interface in the appendix, if it's not
 >  standard (or a reminder if it is).  
@@ -77,22 +89,35 @@
 > p6 I got confused at the split between the columns. perhaps make clear
 >  in the text that Fig7 and ExpAlgQuery are the same thing (by
 >  mentioning both each time) 
+
 > p6 "So users..." is not a sentence; join to the previous sentence with
 >  a comma
+
+TODO
+
 > p7 consider moving fig 8 to the end of sec4.3 not top of column
 > p7 similarly move fig 10 to bottom of column 
+
+TODO
+
 > p7 should StatAlg extend ExpAlg?  if not, explain.
 >   perhaps move the "Client Code" from p8 in here 
 >   (and again does "A" require a concrete type extending both?)
 > p8 move fig15 down to after its mention.  Again, consider moving 
 >  the client code after the definition of LamAlg and before the
 >  discussion of generated code
+
+TODO?
+
 > p11 where did the QL programs come from?  
 > p12 top col 1 - "-t" twice!!
 > p13 S-horrible-hypenation 
 > p13 do you think your generative techinques could be applied in
 >  Haskell to address the problems with SYB?
 > ref [10] is odd (or is it blinded?)
+
+???
+
 > 
 > 
 > To encourage accountability, I'm signing my reviews in 2015. For the
@@ -150,6 +175,9 @@
 > It is restricted to call the same operation, or possibly, by combining 
 > algebras into an even more complex encoding, call one or more of a fix number 
 > of operations.
+
+???
+
 > 
 > That said, the paper makes a good contribution, improving on how Object 
 > Algebras can be used, and giving valuable insights into applying 
@@ -163,19 +191,38 @@
 > 
 > What technique was used for generating the boilerplate interfaces? Is the 
 > annotation processor in javax used, or what?
+
+TODO?
+
 > 
 > Why do you have so many outliers in the diagrams, in particular for fig 19. 
 > Did you not take averages? What are the confidence intervals? Did you measure 
 > start-up or warmed-up performance?
 > 
 > Typos:
-> 
+>
+ 
 > - Fig 2 and 3 appear out of order.
+
+TODO?
+
 > - p4, left col, example class Rename: "form" and "question" should be capitalized.
+
+TODO
+
 > - Several strange hyphenations, e.g., S-ince.
 > - p5, fig 5. "class Rename... extends" should be "class Rename... implements"
+
+Not exactly.
+
 > - p10. "QL is similar MiniQL"
+
+TODO
+ 
 > - p14, Ref [18] has wrong year.
+
+???
+
 > 
 > ===========================================================================
 >                           OOPSLA '15 Review #60C
@@ -232,27 +279,48 @@
 > desugaring transformations implemented? Only at the very end does the paper 
 > suggest that more work is needed in this direction. ¡°JJTraveler with Object 
 > Algebras¡± would have been a more accurate title.
+
+TODO?
+
 > 
 > - I got the impression that the paper claims compositionality. However, that 
 > may be a wrong impression. The extensibility that the paper does claim is 
 > indeed supported. Unfortunately it is asymmetric due to single inheritance 
 > in Java. Would Scala traits make the approach fully compositional?
+
+???
+
 > 
 > - There is no explanation of the implementation of the generator or its 
 > properties. Is it based on byte-code transformation? Does  it actually exist 
 > or is it conceptual? I would have expected a bit more explanation about the 
 > interaction with the IDE; where does the generated code live?
+
+TODO?
+
 > 
 > - Origins of strategic programming in related work is mis-represented.
+
+???
+
 > 
 > Detailed comments
 > 
 > p2: ¡°design patterns for generic traversals¡± is rather an overstatement. It 
 > should rather read ¡°An encoding of design patterns for generic traversals 
 > using/for object algebras¡±. The design patterns are already well known
+
+???
+
 > 
 > p2: ¡°its basis on standard Java ¡­¡± rephrase
+
+???
+
 > p2: ¡°which implements evaluation of expression[s]¡±
+
+TODO
+
 > 
 > 
 > p5: ¡°the code in Figure 4 is much shorter¡± You write in multiple places 
@@ -262,19 +330,35 @@
 > method definitions or perhaps more fine-grained, in terms of statements or 
 > method calls. 
 > 
+
+
 > p5/fig5: that rename is rather lame; why not a proper rename with a new name?
+
+TODO?
+
 > 
 > p6/fig6: isn¡¯t that the same query as in Figure 2? As a free-variables query 
 > it is rather uninteresting in the absence of binders; but you introduce those later.
 > 
+
 > p6: return the a neutral value
+
+TODO
+
 > 
 > p6 ¡°The typical pattern of a query ¡­¡± I have the impression this paragraph 
 > is a repetition of earlier text; we get the idea.
-> 
+>
+ 
 > p6: to write a ¡°generic query¡± : the double quotes suggest it is not really generic?
+
+TODO
+
 > 
 > p6: ¡°For this case the following implementation would suffice:¡± but it doesn¡¯t?
+
+TODO
+
 > 
 > p6: ¡°There are two important differences ¡­¡± One sentence would be sufficient 
 > to state that the monoid is a library definition. 
@@ -287,10 +371,14 @@
 > p7: ¡°S-ince¡± there¡¯s something wrong with your hyphenation; other places have 
 > strange breaks as well.
 > 
+
 > p8: ¡°Since Object Algebras are factories, the transformation is executed 
 > immediately during construction of tree structures.¡± It would be useful at 
 > this point to show how such a transformation is invoked and how a transformation 
 > pipeline is constructed.
+
+TODO
+
 > 
 > p8: ¡°To execute substitution, SubstVar should be subclassed with implementations 
 > for x(), e(), and expAlg().¡± That is a cumbersome way to construct closures; 
@@ -302,8 +390,12 @@
 > traversals, often pattern matching on combinations of constructor patterns 
 > (deep pattern matching). Is that supported in this approach? 
 > 
+
 > For that matter, the transformation algebras represent type preserving 
 > transformations; how are translations (between types) expressed?
+
+???
+
 > 
 > p10: The composition of these transformations is neat! Unfortunately, it 
 > seems to be assymetric, if I understand things well. One would really like 
@@ -314,6 +406,9 @@
 > would require multiple inheritance. Is that a correct analysis? And then it seems 
 > an inherent problem for true compositionally in Java. Would Scala traits solve 
 > this issue?
+
+???
+
 > 
 > p10: I¡¯m quite curious about the implementation of desugaring; why was it not 
 > included (in the Appendix)?
@@ -322,6 +417,7 @@
 > 
 > How about deforestation?
 > 
+
 > p12: ¡°Strategic programming is an approach to data structure traversal, which 
 > originated in term rewriting [3, 24, 25].¡± This sentence is not historically 
 > accurate. Generic traversals in term rewriting were first introduced in 
@@ -333,3 +429,5 @@
 > traversals in Haskell and Java. The extension of ASF with traversals [24] 
 > came _five_ years later and post-dates most of the work that is described in 
 > the next paragraphs. Don¡¯t cite is as the origin of strategic programming!
+
+TODO
