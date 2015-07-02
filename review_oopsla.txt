@@ -51,11 +51,15 @@
 > It might be interested to compare this with other Aspect-Oriented
 > approaches to traversals as well as AOOD, e.g. Hannemann & Kiczales
 > OOPSLA 2002 (I don't know if it is, because I'm on a plane without the
-> Interwebz) or others from AOP-land.   For the hardcore, how about
+> Interwebz) or others from AOP-land.  
+
+TODO: Yes.
+
+>  For the hardcore, how about
 > integrating these traversals with Java8 / FORTRESS style streams to
 > get real parallelism? 
 
-TODO?
+TODO: No.
 
 > 
 > 
@@ -74,7 +78,7 @@ Hyphenation : TODO
 >  "before" must compare with something, and historically because AOOD
 >  was before SYB). 
 
-TODO
+TODO: Tijs?
 
 > p1 try to avoid starting sentences with "However" 
 > p4 auxiliar*y* 
@@ -110,6 +114,9 @@ TODO
 TODO?
 
 > p11 where did the QL programs come from?  
+
+TODO: Tijs?
+
 > p12 top col 1 - "-t" twice!!
 > p13 S-horrible-hypenation 
 > p13 do you think your generative techinques could be applied in
@@ -192,19 +199,21 @@ TODO?
 > What technique was used for generating the boilerplate interfaces? Is the 
 > annotation processor in javax used, or what?
 
-TODO?
+TODO: Tijs
 
 > 
 > Why do you have so many outliers in the diagrams, in particular for fig 19. 
 > Did you not take averages? What are the confidence intervals? Did you measure 
 > start-up or warmed-up performance?
-> 
+
+TODO: Tijs
+
 > Typos:
 >
  
 > - Fig 2 and 3 appear out of order.
 
-TODO?
+TODO: Yes
 
 > - p4, left col, example class Rename: "form" and "question" should be capitalized.
 
@@ -221,7 +230,7 @@ TODO
  
 > - p14, Ref [18] has wrong year.
 
-???
+TODO: 
 
 > 
 > ===========================================================================
@@ -288,7 +297,7 @@ TODO?
 > indeed supported. Unfortunately it is asymmetric due to single inheritance 
 > in Java. Would Scala traits make the approach fully compositional?
 
-???
+TODO?
 
 > 
 > - There is no explanation of the implementation of the generator or its 
@@ -296,12 +305,13 @@ TODO?
 > or is it conceptual? I would have expected a bit more explanation about the 
 > interaction with the IDE; where does the generated code live?
 
-TODO?
+TODO: Add material explaining how the implementation works and address the
+question above.
 
 > 
 > - Origins of strategic programming in related work is mis-represented.
 
-???
+TODO: Tijs
 
 > 
 > Detailed comments
@@ -310,12 +320,12 @@ TODO?
 > should rather read ¡°An encoding of design patterns for generic traversals 
 > using/for object algebras¡±. The design patterns are already well known
 
-???
+TODO: Rephrase (Bruno)
 
 > 
 > p2: ¡°its basis on standard Java ¡­¡± rephrase
 
-???
+TODO
 
 > p2: ¡°which implements evaluation of expression[s]¡±
 
@@ -329,12 +339,13 @@ TODO
 > if the conciseness would be analytically characterized in terms of number of 
 > method definitions or perhaps more fine-grained, in terms of statements or 
 > method calls. 
-> 
+
+TODO? Can we talk about number of methods? Haoyuan
 
 
 > p5/fig5: that rename is rather lame; why not a proper rename with a new name?
 
-TODO?
+TODO: Use a proper rename example
 
 > 
 > p6/fig6: isn¡¯t that the same query as in Figure 2? As a free-variables query 
@@ -352,7 +363,7 @@ TODO
  
 > p6: to write a ¡°generic query¡± : the double quotes suggest it is not really generic?
 
-TODO
+TODO: remove double quotes
 
 > 
 > p6: ¡°For this case the following implementation would suffice:¡± but it doesn¡¯t?
@@ -364,10 +375,12 @@ TODO
 > to state that the monoid is a library definition. 
 > 
 > p7/fig8: generic queries are folds!?
-> 
+
 > p7: ¡°This is precisely what Shy does.¡± Oh, the suspense. You could come to this 
 > point sooner.
-> 
+
+TODO: mention point earlier
+ 
 > p7: ¡°S-ince¡± there¡¯s something wrong with your hyphenation; other places have 
 > strange breaks as well.
 > 
@@ -377,24 +390,30 @@ TODO
 > this point to show how such a transformation is invoked and how a transformation 
 > pipeline is constructed.
 
-TODO
+TODO: Give example and show what the reviewer asks for.
 
 > 
 > p8: ¡°To execute substitution, SubstVar should be subclassed with implementations 
 > for x(), e(), and expAlg().¡± That is a cumbersome way to construct closures; 
 > sounds rather boilerplaty; why not show such an invocation.
+
+TODO: Show invocation and discuss.
+
 > 
 > p9/fig13: That produces a fold/bottom-up transformation. How about top-down 
 > traversals? Later in the paper you mention a desugaring, but the code for the 
 > desugaring is never shown. Typically, desugarings are defined using top-down 
 > traversals, often pattern matching on combinations of constructor patterns 
 > (deep pattern matching). Is that supported in this approach? 
-> 
+
+TODO: Show and talk about desugaring (Tijs)
 
 > For that matter, the transformation algebras represent type preserving 
 > transformations; how are translations (between types) expressed?
 
-???
+TODO: Discuss? Does he/she mean transformations that return a different type?
+
+Queries are an example: they transform from an object algebra to a monoid object algebra. Talk about this, show another example?
 
 > 
 > p10: The composition of these transformations is neat! Unfortunately, it 
@@ -407,16 +426,19 @@ TODO
 > an inherent problem for true compositionally in Java. Would Scala traits solve 
 > this issue?
 
-???
+TODO: Tijs can you have a look?
 
 > 
 > p10: I¡¯m quite curious about the implementation of desugaring; why was it not 
 > included (in the Appendix)?
-> 
+
+Tijs
+
 > p11: Can the desugar transformations be combined into a single traversal? 
 > 
 > How about deforestation?
-> 
+
+Tijs
 
 > p12: ¡°Strategic programming is an approach to data structure traversal, which 
 > originated in term rewriting [3, 24, 25].¡± This sentence is not historically 
@@ -430,4 +452,4 @@ TODO
 > came _five_ years later and post-dates most of the work that is described in 
 > the next paragraphs. Don¡¯t cite is as the origin of strategic programming!
 
-TODO
+TODO: Tijs
