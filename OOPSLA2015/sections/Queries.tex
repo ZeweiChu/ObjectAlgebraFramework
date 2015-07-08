@@ -11,8 +11,8 @@ Boilerplate''~\cite{ralf03syb}.
 %of different ways in which such operations are implemented.
 
 
-The following code shows a variant of the type of expressions shown in 
-Section~\ref{subsec:ObjectAlgebras}, 
+The following code shows a variant of the type of expressions shown in
+Section~\ref{subsec:ObjectAlgebras},
 represented as the Object Algebra interface \lstinline{ExpAlg}.
 
 \lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/ExpAlg.java} % APPLY:linerange=EXP_ALG
@@ -70,7 +70,7 @@ same: if we had a subtraction node, the code would be essentially
 identical to \lstinline{Add}. Moreover, there are only very few types
 of nodes that contain relevant information for the query. For nodes
 that contain information that is not relevant to the query, we simply
-return the a neutral value (such as the empty set in \lstinline{Lit}).
+return \hl{\sout{the}} a neutral value (such as the empty set in \lstinline{Lit}).
 Nonetheless, a programmer has to write this boring boilerplate code
 handling the traversals.  While for the small structure presented here
 this may not look too daunting, in a large structure with dozens or
@@ -109,7 +109,7 @@ object-oriented programming.  The interface of a monoid is defined as follows:
 \lstinputlisting[linerange=5-8]{../ObjectAlgebras/src/expDemo3/Monoid.java} % APPLY:linerange=MONOID
 \end{quote}
 Intuitively, the \lstinline{join()} method is
-used to combine the information from substructures, and 
+used to combine the information from substructures, and
 \lstinline{empty()} is an indicator of ``no information''.
 %% The monoid interface also includes one additional operation
 %% called \lstinline{fold}, which takes a list of \lstinline{R}
@@ -118,8 +118,8 @@ used to combine the information from substructures, and
 %% \lstinline{fold} operation is defined. This is a new feature
 %% of Java 8 called default methods, which allow default implementations
 %% of methods in interfaces.
-Using the monoid operations alone, it is possible to write a ``generic
-query''. Figure~\ref{generic_query} shows how this is achieved. In
+Using the monoid operations alone, it is possible to write a generic
+query. \hl{(Double quotes removed)} Figure~\ref{generic_query} shows how this is achieved. In
 nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
@@ -160,7 +160,7 @@ called the \textit{generic query algebra}.
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
 define the free variables operation.  Since the result of free
 variables is a set, the monoid returned by \lstinline{m()} is an
-implementation of the \lstinline{Monoid} interface. For this case the following implementation would suffice:
+implementation of the \lstinline{Monoid} interface. For this case the following implementation \hl{\sout{would} suffices}:
 
 \lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 
@@ -177,13 +177,13 @@ free variables operation is defined as follows:
 
 \noindent There are two important differences to the implementation in
 Figure~\ref{freevars_without_monoid}. The first difference is that the monoid to be used
-needs to be specified. However, the code for the monoid is still 
-quite short (only requires two method implementations) and, more importantly, 
+needs to be specified. However, the code for the monoid is still
+quite short (only requires two method implementations) and, more importantly,
 it is highly reusable. Indeed the \lstinline{SetMonoid} is reused
-throughout the paper on various examples of queries. 
-Because monoid instances are so general purpose, the \name library 
-already contains many common monoid implementations. So users do not
-usually have to 
+throughout the paper on various examples of queries.
+Because monoid instances are so general purpose, the \name library
+already contains many common monoid implementations\hl{, so} users do not
+usually have to
 define these instances themselves.
 The second difference is that now only the case for variables needs to
 be defined: the other cases are inherited from
@@ -248,7 +248,7 @@ Figure~\ref{queryTemplate} shows the general template in \name for an algebra \l
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
 All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. Arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \nocaptionrule
 \begin{lstlisting}[mathescape=true]
 interface Alg$_Q$<R> extends Alg<R,$...$,R> {
@@ -261,7 +261,7 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   $...$
 }
 \end{lstlisting}
-\caption{Generic template for generic queries.}
+\caption{Generic template for generic queries. \hl{(moved)}}
 \label{queryTemplate}
 \end{figure}
 

@@ -51,12 +51,12 @@ the code becomes much more adaptive to changes.
 %structure. Secondly the code becomes much more adaptive to changes: if
 %a change to the traversed data type only affects the generated
 %boilerplate code, the user-defined code can remain unchanged.
-However such meta-programming based approaches usually come at the cost of
+\hl{\sout{However} Nevertheless,} such meta-programming based approaches usually come at the cost of
 other desirable properties, such as type-safety, extensibility or
 separate compilation. The functional programming community has also
 studied the problem before. For instance, the popular ``\emph{Scrap your
 boilerplate}''~\cite{ralf03syb} approach supports type-safety and
-separate compilation. However most of the techniques used in
+separate compilation. \hl{\sout{However} But} most of the techniques used in
 functional languages cannot be easily ported to mainstream OO
 languages like Java, and are limited in terms of extensibility.
 
@@ -124,7 +124,7 @@ significant reduction in the amount of user-defined code: only 4\% to
 written without \name.
 
 Although \name's functional programming inspired idioms are new to
-mainstream Java programmers, its basis on standard Java
+mainstream Java programmers, \hl{its basis on standard Java (?)}
 mechanisms makes \name easy to implement, integrate in existing
 environments, and use.  Moreover, although Java was chosen as the
 implementation language for \Name, our approach should apply to any object-oriented

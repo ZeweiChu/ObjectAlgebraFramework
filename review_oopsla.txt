@@ -83,7 +83,7 @@ TODO: Tijs?
 > p1 try to avoid starting sentences with "However" 
 > p4 auxiliar*y* 
 
-TODO
+DONE
 
 > p5 has Java 8 got monoids now?  I didn't know it had, and would have
 >  appreciated an overview or interface in the appendix, if it's not
@@ -97,12 +97,12 @@ TODO
 > p6 "So users..." is not a sentence; join to the previous sentence with
 >  a comma
 
-TODO
+DONE
 
 > p7 consider moving fig 8 to the end of sec4.3 not top of column
 > p7 similarly move fig 10 to bottom of column 
 
-TODO
+DONE
 
 > p7 should StatAlg extend ExpAlg?  if not, explain.
 >   perhaps move the "Client Code" from p8 in here 
@@ -213,11 +213,11 @@ TODO: Tijs
  
 > - Fig 2 and 3 appear out of order.
 
-TODO: Yes
+DONE
 
 > - p4, left col, example class Rename: "form" and "question" should be capitalized.
 
-TODO
+DONE
 
 > - Several strange hyphenations, e.g., S-ince.
 > - p5, fig 5. "class Rename... extends" should be "class Rename... implements"
@@ -226,11 +226,11 @@ Not exactly.
 
 > - p10. "QL is similar MiniQL"
 
-TODO
+DONE
  
 > - p14, Ref [18] has wrong year.
 
-TODO: 
+DONE
 
 > 
 > ===========================================================================
@@ -329,7 +329,7 @@ TODO
 
 > p2: ¡°which implements evaluation of expression[s]¡±
 
-TODO
+DONE
 
 > 
 > 
@@ -354,7 +354,7 @@ TODO: Use a proper rename example
 
 > p6: return the a neutral value
 
-TODO
+DONE
 
 > 
 > p6 ¡°The typical pattern of a query ¡­¡± I have the impression this paragraph 
@@ -363,12 +363,12 @@ TODO
  
 > p6: to write a ¡°generic query¡± : the double quotes suggest it is not really generic?
 
-TODO: remove double quotes
+DONE
 
 > 
 > p6: ¡°For this case the following implementation would suffice:¡± but it doesn¡¯t?
 
-TODO
+DONE
 
 > 
 > p6: ¡°There are two important differences ¡­¡± One sentence would be sufficient 

@@ -37,13 +37,13 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	QLAlg<E, S, F> alg;	
 	
 	F Form(String n, List<S> b) {
-		return alg.form(n, b);
+		return alg.Form(n, b);
 	}
 	S Question(String n, String l, String t) {
-		return alg.question(n + "_", l, t);
+		return alg.Question(n + "_", l, t);
 	}
 	...
-	E Var(String x) { return alg.var(x+ "_"); }
+	E Var(String x) { return alg.Var(x+ "_"); }
 }
 //END_QL_TRANSFORM_ALG_SIMP
 

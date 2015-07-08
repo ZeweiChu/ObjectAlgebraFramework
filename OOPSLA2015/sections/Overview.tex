@@ -42,6 +42,14 @@ form DriverLicense {
 \label{driver_license}
 \end{figure}
 
+\begin{figure}[t]
+\nocaptionrule
+\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
+\caption{Object Algebra interface of the MiniQL abstract syntax. \hl{(Switch places with Fig.3, done.)}}
+\vspace{-.1in}
+\label{ql_tree}
+\end{figure}
+
 %In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
 The code in Figure~\ref{LST:usedVars} also shows a query over MiniQL structures, namely the collection of used variables.
@@ -85,15 +93,6 @@ operation requires pervasive changes across the AST classes.
 
 % the problem is exacerbated by the boilerplate...
 
-
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
-\caption{Object Algebra interface of the MiniQL abstract syntax.}
-\vspace{-.1in}
-\label{ql_tree}
-\end{figure}
-
 \subsection{Modeling MiniQL with Object Algebras}\label{subsec:model_ql_with_oa}
 
 
@@ -119,12 +118,12 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows:
+as follows: \hl{(Typos fixed below)}
 
 \lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
-constructor reconstructs a new node using an auxiliar MiniQL algebra \lstinline{alg}.
+constructor reconstructs a new node using an \hl{auxiliary} MiniQL algebra \lstinline{alg}.
 Almost all the method implementations reconstruct the structure with
 no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}. The other boilerplate cases are omitted for brevity; the full code can be found in
   Appendix~\ref{subsec:appendix_code_rename}. The two exceptions are the
