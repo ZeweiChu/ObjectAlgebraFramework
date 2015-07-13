@@ -9,21 +9,24 @@ by \name for an object algebra interface annotated with \lstinline{@Algebra}.
 Furthermore, \name includes the monoid interface as well as several
 useful instances of the monoid interface.
 
-The big advantage of using standard Java annotations is that the code 
-generation of the generic traversals can be done transparently: users 
-do not need to use or install a tool to generate that code. As a
-result \name is as simple to use as a conventional library. 
+The big advantage of using standard Java annotations is that the code generation of the generic traversals can be done transparently: users do not need to use or install a tool to generate that code. As a result \name is as simple to use as a conventional library. Moreover, \name works not only in many Java IDEs (like Eclipse and IntelliJ), but also from command line compilation.
+
+Specifically, when an Object Algebra interface is annotated with \lstinline{@Algebra}, \name gets all the information from the interface (i.e. the names and types in each method). Such information is used together with those generic templates presented before, to generate generic traversal code automatically. The generated code lives in packages ``query'' (queries and generalized queries), ``transform'' (transformations and contextual transformations), ``util'' (transformations as classes) and ``combinator'' (combinators for combining two Object Algebras).
+
+With \name framework, the code users need to write is much shorter, which can be observed from the number of methods. Suppose a data structure consists of $m$ constructors, and $n$ operations are applied to the structure. A traditional OO implementation defines $m$ classes for the constructors, and for operations, $n$ methods are implemented in each class. With Object Algebras, $n$ classes serve for operations, and each includes $m$ methods for all cases. The same number of classes are required with \name approach, nonetheless, only the monoid and the interesting part (usually one or several cases) are to be implemented for each operation, which makes the code much more concise.
+
+\name holds extensibility of data structures, however, this extensibility is not realized by declaring two Object Algebra interfaces with one inheriting the other directly. Instead, the two data structures are declared independently, in which case the generic traversals are also generated seperately. A behavior defined by users can then extend both traversals, since Java supports multiple inheritance for interfaces. An example has already been shown in \ref{subsec:depGraph}.
 \begin{comment}
-Another advantage of \name is that it is quite easy to extend with new 
+Another advantage of \name is that it is quite easy to extend with new
 types of traversals.
 \bruno{Say something about this}
 
 \tijs{It's this many SLOC:  885}
-\bruno{Should we talk about code size? How big is the \name framework?} 
+\bruno{Should we talk about code size? How big is the \name framework?}
 \end{comment}
 \begin{comment}
-To address this problem, we provide a framework \name, which utilizes \emph{Java Annotation} to generate query and transformation interfaces based on the \emph{Object Algebra Interface}. For the below code: 
-\begin{lstlisting}[numbers=none] 
+To address this problem, we provide a framework \name, which utilizes \emph{Java Annotation} to generate query and transformation interfaces based on the \emph{Object Algebra Interface}. For the below code:
+\begin{lstlisting}[numbers=none]
 @Algebra
 public interface ExpAlg<Exp> {
 	Exp Var(String s);
@@ -56,5 +59,5 @@ to return variable name, and provide the specific monoid needed, which
 in this case will be a \lstinline{StringListMonoid}. While the
 SubstVars algebra can be realized by overriding the \lstinline{Exp
   Var(String s)} method of ExpAlgTransform interface, which
-substitutes variable names as specified. 
+substitutes variable names as specified.
 \end{comment}
