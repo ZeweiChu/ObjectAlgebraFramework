@@ -399,7 +399,7 @@ TODO: Give example and show what the reviewer asks for.
 > for x(), e(), and expAlg().¡± That is a cumbersome way to construct closures; 
 > sounds rather boilerplaty; why not show such an invocation.
 
-TODO: Show invocation and discuss.
+DONE
 
 > 
 > p9/fig13: That produces a fold/bottom-up transformation. How about top-down 

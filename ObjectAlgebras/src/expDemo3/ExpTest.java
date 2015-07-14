@@ -26,12 +26,14 @@ System.out.println(genExp(freeVars));
 		
 //BEGIN_CLIENTCODE_SUBSTVAR
 SubstVar<Set<String>> substVar = new SubstVar<Set<String>>() {
-	public ExpAlg<Set<String>> expAlg() {return new FreeVars(){};}
+	public ExpAlg<Set<String>> expAlg() {
+		return new FreeVars(){};
+	}
 	public String x() {return "x";}
 	public Set<String> e() {return expAlg().Var("z");}
 };
-System.out.println(genExp(substVar));
 //END_CLIENTCODE_SUBSTVAR
+System.out.println(genExp(substVar));
 
 	}
 		
