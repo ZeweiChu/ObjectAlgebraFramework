@@ -6,9 +6,10 @@ import trees.QLAlg;
 
 //BEGIN_QL_TRANSFORM_ALG
 class Rename<E, S, F> implements QLAlg<E, S, F> {
-	private QLAlg<E, S, F> alg;	
-	public Rename(QLAlg<E, S, F> alg) {
-		this.alg = alg;
+	private QLAlg<E, S, F> alg;
+	private String n1, n2;
+	public Rename(QLAlg<E, S, F> alg, String n1, String n2) {
+		this.alg = alg; this.n1 = n1; this.n2 = n2;
 	}	
 	public F Form(String id, List<S> stmts) {
 		return alg.Form(id, stmts);
@@ -18,11 +19,13 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	}
 	public S Question(String id, String lbl,
 			String type) {
-		return alg.Question(id + "_", lbl, type);
+		String newN = id.equals(n1) ? n2 : id;
+		return alg.Question(newN, lbl, type);
 	}
 	public E Lit(int x) { return alg.Lit(x); }
 	public E Var(String name) {
-		return alg.Var(name + "_");
+		String newN = name.equals(n1) ? n2 : name;
+		return alg.Var(newN);
 	}
 	public E GEq(E lhs, E rhs) {
 		return alg.GEq(lhs, rhs);
@@ -34,16 +37,21 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 
 //BEGIN_QL_TRANSFORM_ALG_SIMP
 class Rename<E, S, F> implements QLAlg<E, S, F> {
-	QLAlg<E, S, F> alg;	
+	QLAlg<E, S, F> alg;
+	String n1, n2;	
 	
 	F Form(String n, List<S> b) {
 		return alg.Form(n, b);
 	}
 	S Question(String n, String l, String t) {
-		return alg.Question(n + "_", l, t);
+		String newN = n.equals(n1) ? n2 : n;
+		return alg.Question(newN, l, t);
 	}
 	...
-	E Var(String x) { return alg.Var(x+ "_"); }
+	E Var(String x) {
+		String newN = x.equals(n1) ? n2 : x;
+		return alg.Var(newN);
+	}
 }
 //END_QL_TRANSFORM_ALG_SIMP
 

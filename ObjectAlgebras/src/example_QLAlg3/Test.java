@@ -24,7 +24,8 @@ public class Test {
 	void go() {
 		//BEGIN_CLIENTCODE_QLTEST
 		println(makeQL(new UsedVars()));
-		println(makeQL(new Rename<>(new UsedVars())));
+		println(makeQL(new Rename<>(new UsedVars(),
+				"age", "AGE")));
 		//END_CLIENTCODE_QLTEST
 	}
 	

@@ -1,5 +1,7 @@
 \section{\name Implementation}
 
+\hl{A new section.}
+
 \name is implemented using the standard Java annotations framework
 (\lstinline{javax.annotation}) packaged in the Java Development Kit.
 All of the generic traversals discussed in the previous sections --
@@ -14,8 +16,6 @@ The big advantage of using standard Java annotations is that the code generation
 Specifically, when an Object Algebra interface is annotated with \lstinline{@Algebra}, \name gets all the information from the interface (i.e. the names and types in each method). Such information is used together with those generic templates presented before, to generate generic traversal code automatically. The generated code lives in packages ``query'' (queries and generalized queries), ``transform'' (transformations and contextual transformations), ``util'' (transformations as classes) and ``combinator'' (combinators for combining two Object Algebras).
 
 With \name framework, the code users need to write is much shorter, which can be observed from the number of methods. Suppose a data structure consists of $m$ constructors, and $n$ operations are applied to the structure. A traditional OO implementation defines $m$ classes for the constructors, and for operations, $n$ methods are implemented in each class. With Object Algebras, $n$ classes serve for operations, and each includes $m$ methods for all cases. The same number of classes are required with \name approach, nonetheless, only the monoid and the interesting part (usually one or several cases) are to be implemented for each operation, which makes the code much more concise.
-
-\name holds extensibility of data structures, however, this extensibility is not realized by declaring two Object Algebra interfaces with one inheriting the other directly. Instead, the two data structures are declared independently, in which case the generic traversals are also generated seperately. A behavior defined by users can then extend both traversals, since Java supports multiple inheritance for interfaces. An example has already been shown in \ref{subsec:depGraph}.
 \begin{comment}
 Another advantage of \name is that it is quite easy to extend with new
 types of traversals.

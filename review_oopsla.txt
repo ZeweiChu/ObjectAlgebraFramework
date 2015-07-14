@@ -87,7 +87,7 @@ DONE
 
 > p5 has Java 8 got monoids now?  I didn't know it had, and would have
 >  appreciated an overview or interface in the appendix, if it's not
->  standard (or a reminder if it is).  
+>  standard (or a reminder if it is).
 > p5 another horrible hyphenation "-s" 
 > p6 aha. Here's the monoid. But you used in on p4! 
 > p6 I got confused at the split between the columns. perhaps make clear
@@ -105,6 +105,9 @@ DONE
 DONE
 
 > p7 should StatAlg extend ExpAlg?  if not, explain.
+
+DONE
+
 >   perhaps move the "Client Code" from p8 in here 
 >   (and again does "A" require a concrete type extending both?)
 > p8 move fig15 down to after its mention.  Again, consider moving 
@@ -123,7 +126,7 @@ TODO: Tijs?
 >  Haskell to address the problems with SYB?
 > ref [10] is odd (or is it blinded?)
 
-???
+[10] name corrected.
 
 > 
 > 
@@ -213,7 +216,7 @@ TODO: Tijs
  
 > - Fig 2 and 3 appear out of order.
 
-DONE
+TODO
 
 > - p4, left col, example class Rename: "form" and "question" should be capitalized.
 
@@ -305,8 +308,7 @@ TODO?
 > or is it conceptual? I would have expected a bit more explanation about the 
 > interaction with the IDE; where does the generated code live?
 
-TODO: Add material explaining how the implementation works and address the
-question above.
+DONE
 
 > 
 > - Origins of strategic programming in related work is mis-represented.
@@ -340,12 +342,12 @@ DONE
 > method definitions or perhaps more fine-grained, in terms of statements or 
 > method calls. 
 
-TODO? Can we talk about number of methods? Haoyuan
+DONE
 
 
 > p5/fig5: that rename is rather lame; why not a proper rename with a new name?
 
-TODO: Use a proper rename example
+DONE
 
 > 
 > p6/fig6: isn¡¯t that the same query as in Figure 2? As a free-variables query 

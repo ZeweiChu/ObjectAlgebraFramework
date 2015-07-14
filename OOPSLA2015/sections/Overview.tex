@@ -45,7 +45,7 @@ form DriverLicense {
 \begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
-\caption{Object Algebra interface of the MiniQL abstract syntax. \hl{(Switch places with Fig.3, done.)}}
+\caption{Object Algebra interface of the MiniQL abstract syntax. \hl{(Switch places with Fig.3, TODO.)}}
 \vspace{-.1in}
 \label{ql_tree}
 \end{figure}
@@ -60,7 +60,7 @@ All other implementations merely deal with aggregating results of their child no
 The boilerplate code exhibited in the \lstinline{usedVars} query often
 also applies to transformations.  Consider for example a rename
 transformation which takes a \lstinline{Form} and returns another form
-where all variables are renamed.  Again, the only interesting cases would be
+where \hl{\sout{all} the specified} variables are renamed.  Again, the only interesting cases would be
 in the \lstinline{Var} and {\small\texttt{Question}} classes, where the actual renaming is
 applied. All other classes, however, require boilerplate to recreate
 the structure. The full code in
@@ -70,10 +70,10 @@ example of such a rename operation as well.
 %Two operations are supported by the QL structure: collecting the set of used variables in the questionnaire; and renaming all variables with an underscore ``\_'' appended to the end. To support those operations, an OO solution is to have methods \lstinline{usedVars}, which returns a set of strings representing used variables, and \lstinline{rename}, which updates the names of all variables in a questionnaire.
 %\haoyuan{Clarify the differences between our solution and a usual OO approach.}
 
-\begin{figure*}[t]
+\begin{figure*}[ht]
   \nocaptionrule
   \begin{minipage}[t]{0.48\textwidth}
-\lstinputlisting[linerange=120-160]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
+\lstinputlisting[linerange=125-165]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
   \end{minipage}
   \vline
   \hspace*{2pt}
@@ -118,16 +118,16 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows: \hl{(Typos fixed below)}
+as follows: \hl{(Renaming updated)}
 
-\lstinputlisting[linerange=36-47]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
+\lstinputlisting[linerange=39-55]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
 Each
 constructor reconstructs a new node using an \hl{auxiliary} MiniQL algebra \lstinline{alg}.
 Almost all the method implementations reconstruct the structure with
 no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}. The other boilerplate cases are omitted for brevity; the full code can be found in
   Appendix~\ref{subsec:appendix_code_rename}. The two exceptions are the
-methods \lstinline{Question} and \lstinline{Var}, where the identifiers are suffixed with ``\_''.
+methods \lstinline{Question} and \lstinline{Var}, where the identifiers \hl{with the given name (\lstinline{n1}) are renamed (to \lstinline{n2}) \sout{are suffixed with ``\_''}}.
 
 Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
 In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
@@ -156,9 +156,9 @@ renaming operations.
 
 \begin{figure}
 \nocaptionrule
-\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-20]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 %\vspace{-.1in}
-\caption{MiniQL renaming, implemented with  \Name.}
+\caption{MiniQL renaming, implemented with  \Name. \hl{(Renaming updated.)}}
 \label{rename_with_oaframework}
 \end{figure}
 
@@ -193,9 +193,9 @@ To use the queries and operations on a questionnaire like the one in Figure~\ref
 \lstinputlisting[linerange=9-17]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_MAKEQL
 
 Since both queries and transformations are implementations of the MiniQL interface, they can be passed to the \lstinline{makeQL} function defined above:
-\lstinputlisting[linerange=26-27]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
+\lstinputlisting[linerange=26-28]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
-This code prints out  \lstinline{[age]} and \lstinline{[age_]}, which
+This code prints out  \lstinline{[age]} and \hl{\lstinline{[AGE]}}, which
 are the set of used variables before and after renaming, respectively.
 Note how the \lstinline{Rename} transformation transforms the questionnaire into the \lstinline{UsedVars} algebra.
 

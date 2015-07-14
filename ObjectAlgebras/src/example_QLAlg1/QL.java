@@ -21,16 +21,16 @@ class Form {
 		body.forEach(s -> vars.addAll(s.usedVars()));
 		return vars;
 	}
-	Form rename() {
+	Form rename(String n1, String n2) {
 		List<Stmt> ss = new ArrayList<>();
-		for (Stmt s: body) ss.add(s.rename());
+		for (Stmt s: body) ss.add(s.rename(n1, n2));
 		return new Form(name, ss);
 	}
 }
 
 abstract class Stmt {
 	abstract Set<String> usedVars();
-	abstract Stmt rename();
+	abstract Stmt rename(String n1, String n2);
 }
 
 class If extends Stmt {
@@ -41,12 +41,14 @@ class If extends Stmt {
 		this.then = then;
 	}
 	Set<String> usedVars() {
-		Set<String> vars = new HashSet<>(cond.usedVars());
+		Set<String> vars =
+				new HashSet<>(cond.usedVars());
 		vars.addAll(then.usedVars());
 		return vars;
 	}
-	If rename() {
-		return new If(cond.rename(), then.rename());
+	If rename(String n1, String n2) {
+		return new If(cond.rename(n1, n2),
+				then.rename(n1, n2));
 	}
 }
 
@@ -60,15 +62,16 @@ class Question extends Stmt {
 	Set<String> usedVars() {
 		return emptySet();
 	}
-	Question rename() {
-		return new Question(name + "_", label, type);
+	Question rename(String n1, String n2) {
+		String newN = name.equals(n1) ? n2 : name;
+		return new Question(newN, label, type);
 	}
 }
 
 
 abstract class Exp {
 	abstract Set<String> usedVars();
-	abstract Exp rename();
+	abstract Exp rename(String n1, String n2);
 }
 
 class Lit extends Exp {
@@ -79,7 +82,7 @@ class Lit extends Exp {
 	Set<String> usedVars() {
 		return emptySet();
 	}
-	Lit rename() { 
+	Lit rename(String n1, String n2) { 
 		return new Lit(n); 
 	}
 }
@@ -92,8 +95,9 @@ class Var extends Exp {
 	Set<String> usedVars() {
 		return Collections.singleton(x);
 	}
-	Var rename() {
-		return new Var(x + "_");
+	Var rename(String n1, String n2) {
+		String newN = x.equals(n1) ? n2 : x;
+		return new Var(newN);
 	}
 }
 
@@ -108,8 +112,9 @@ class GEq extends Exp {
 		vars.addAll(rhs.usedVars());
 		return vars;
 	}
-	GEq rename() {
-		return new GEq(lhs.rename(), rhs.rename());
+	GEq rename(String n1, String n2) {
+		return new GEq(lhs.rename(n1, n2),
+				rhs.rename(n1, n2));
 	}
 }
 //END_OO_APPROACH

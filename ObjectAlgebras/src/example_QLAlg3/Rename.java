@@ -4,13 +4,18 @@ import trees.QLAlg;
 import util.QLAlgTrans;
 
 //BEGIN_QL_TRANSFORM_WITH_OAFRAMEWORK
-class Rename<E, S, F> extends QLAlgTrans<E, S, F> {	
-	public Rename(QLAlg<E, S, F> alg) { super(alg); }
+class Rename<E, S, F> extends QLAlgTrans<E, S, F> {
+	String n1, n2;
+	public Rename(QLAlg<E, S, F> alg, String n1, String n2) {
+		super(alg); this.n1 = n1; this.n2 = n2;
+	}
 	public S Question(String n, String l, String t) {
-		return qLAlg().Question(n + "_", l, t);
+		String newN = n.equals(n1) ? n2 : n;
+		return qLAlg().Question(newN, l, t);
 	}
 	public E Var(String x) {
-		return qLAlg().Var(x + "_");
+		String newN = x.equals(n1) ? n2 : x;
+		return qLAlg().Var(newN);
 	}
 }
 //END_QL_TRANSFORM_WITH_OAFRAMEWORK
