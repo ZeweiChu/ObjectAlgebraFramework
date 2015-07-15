@@ -1,6 +1,5 @@
 package example_DoubleAlg2;
 
-import trees.DoubleAlg;
 import trees.ExpAlg;
 
 public class Test {
@@ -9,7 +8,6 @@ public class Test {
 <E> E makeExp(ExpAlg<E> alg) {
 	Desugar<E> d = new Desugar<E>() {
 		public ExpAlg<E> expAlg() { return alg; }
-		public DoubleAlg<E> doubleAlg() { return null; }
 	};
 	return d.Add(d.Lit(5), d.Double(d.Var("a")));
 }

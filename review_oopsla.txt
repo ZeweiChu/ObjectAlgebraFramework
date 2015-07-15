@@ -397,6 +397,8 @@ TODO: mention point earlier
 > pipeline is constructed.
 
 TODO: Give example and show what the reviewer asks for.
+Done: moved this to 6.1, since it is independent of Boilerplate generation.
+
 
 > 
 > p8: ¡°To execute substitution, SubstVar should be subclassed with implementations 
@@ -404,6 +406,7 @@ TODO: Give example and show what the reviewer asks for.
 > sounds rather boilerplaty; why not show such an invocation.
 
 DONE
+Done: see above (it is now in 6.1).
 
 > 
 > p9/fig13: That produces a fold/bottom-up transformation. How about top-down 
@@ -425,7 +428,7 @@ DONE
 > p10: The composition of these transformations is neat! Unfortunately, it 
 > seems to be assymetric, if I understand things well. One would really like 
 > to have independent implementations of an algebra (syntax) and _implementation_ of 
-> a transformation and then compose the implementations. As I understand the code, 
+> a transformation and then compose thge implementations. As I understand the code, 
 > the implementation of UniqueWithLambda<E> inherits the implementation of Unique<E>, 
 > but cannot inherit the implementation of a Unique for LamAlgTransform, since that 
 > would require multiple inheritance. Is that a correct analysis? And then it seems 

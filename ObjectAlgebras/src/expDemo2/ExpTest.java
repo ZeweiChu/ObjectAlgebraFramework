@@ -26,6 +26,21 @@ public class ExpTest {
 		};
 		Set<String> res = subst.Var("x");
 		//END_SUBSTVAR_CLIENT
+		
 		System.out.println(res);
+		
+		SubstVar<Set<String>> subst2 = 
+			  new SubstVar<Set<String>>() {
+				  public ExpAlg<Set<String>> expAlg() { 
+				  	return subst; 
+				  }
+				  public String x() { return "y"; }
+				  public Set<String> e() { 
+				  	return fv.Var("x"); 
+				  }
+			};
+		Set<String> res2 = subst2.Var("y");
+
+		System.out.println(res2);
 	}
 }

@@ -1,4 +1,4 @@
-\section{Heterogeneous Transformations}\label{sec:heterotrans}
+\section{Desugaring Transformations}\label{sec:heterotrans}
 
 \hl{A new section.}
 
@@ -14,14 +14,14 @@ As an example, we still use the interface \lstinline{ExpAlg}. Consider a new con
 
 An expression with type \lstinline{ExpAlg<Exp> & DoubleAlg<Exp>} can be created using four constructors, where a transformation can for example be desugaring the case \lstinline{Double(e)} into \lstinline{Add(e, e)}. The other cases just remain unchanged. Below is an implementation by hand:
 
-\lstinputlisting[linerange=7-21]{../ObjectAlgebras/src/example_DoubleAlg1/Desugar.java} % APPLY:linerange=DESUGAR_DOUBLE
+\lstinputlisting[linerange=7-11]{../ObjectAlgebras/src/example_DoubleAlg1/Desugar.java} % APPLY:linerange=DESUGAR_DOUBLE
 
 \noindent With the \name framework one can easily implement \lstinline{Desugar} as follows: \hl{(add generated code to Appendix?)}
 
-\lstinputlisting[linerange=7-12]{../ObjectAlgebras/src/example_DoubleAlg2/Desugar.java} % APPLY:linerange=DESUGAR_DOUBLE_SHY
+\lstinputlisting[linerange=7-11]{../ObjectAlgebras/src/example_DoubleAlg2/Desugar.java} % APPLY:linerange=DESUGAR_DOUBLE_SHY
 
 \noindent Now one can create a structure of an expression with desugaring applied as follows:
 
-\lstinputlisting[linerange=9-15]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=MAKE_DOUBLE_EXP
+\lstinputlisting[linerange=8-13]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=MAKE_DOUBLE_EXP
 
 \noindent Here an expression ``\lstinline{5 + 2a}'' is created before transformation is applied. The base algebra \lstinline{alg} can for example be a pretty printer. By invoking this \lstinline{makeExp} method, a pretty printer can now return the result \lstinline{(5 + (a + a))}.
