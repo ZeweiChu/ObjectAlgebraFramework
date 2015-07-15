@@ -414,8 +414,8 @@ TODO: Show and talk about desugaring (Tijs)
 > transformations; how are translations (between types) expressed?
 
 TODO: Discuss? Does he/she mean transformations that return a different type?
-
 Queries are an example: they transform from an object algebra to a monoid object algebra. Talk about this, show another example?
+DONE
 
 > 
 > p10: The composition of these transformations is neat! Unfortunately, it 
