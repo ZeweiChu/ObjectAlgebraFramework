@@ -211,6 +211,10 @@ TODO: Tijs
 
 TODO: Tijs
 
+- We didn't measure warmup time: the benchmarks were run first to warm-up; then to measure warmup-up performance. The initial outliers were caused by garbage collection pauses. The current measurements were run with 2GB of memory to avoid GC pauses.
+
+$ java -Xmx2048M -Xms512M  -server -d64 -cp bin:lib/Library.jar:lib/antlr-4.2.2-complete.jar:../naked-object-algebras/bin _ast.benchmark.Benchmark 
+
 > Typos:
 >
  

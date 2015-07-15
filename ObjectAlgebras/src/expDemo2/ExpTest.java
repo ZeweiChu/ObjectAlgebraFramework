@@ -12,13 +12,20 @@ public class ExpTest {
 	}
 		
 	public static void main(String[] args) {
-		FreeVars alg = new FreeVars(){};
-		SubstVar<Set<String>> substVarsExpAlg = new SubstVar<Set<String>>() {
-			public ExpAlg<Set<String>> expAlg() { return alg; }
-			public String x() { return "var1"; }
-			public Set<String> e() { return expAlg().Var("var4"); }
+		//BEGIN_SUBSTVAR_CLIENT
+		FreeVars fv = new FreeVars() {};
+		SubstVar<Set<String>> subst = 
+		  new SubstVar<Set<String>>() {
+			  public ExpAlg<Set<String>> expAlg() { 
+			  	return fv; 
+			  }
+			  public String x() { return "x"; }
+			  public Set<String> e() { 
+			  	return fv.Add(fv.Lit(1),fv.Var("y")); 
+			  }
 		};
-		Set<String> res = genExp(substVarsExpAlg);
-		for (String s: res) System.out.println(s);
+		Set<String> res = subst.Var("x");
+		//END_SUBSTVAR_CLIENT
+		System.out.println(res);
 	}
 }

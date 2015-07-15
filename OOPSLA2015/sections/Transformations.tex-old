@@ -35,6 +35,9 @@ during construction of tree structures. For instance, calling \lstinline{Var("x"
 cases, the original structure is recreated in the algebra
 \lstinline{expAlg()}.
 
+\lstinputlisting[linerange=16-25]{../ObjectAlgebras/src/expDemo2/ExpTest.java} % APPLY:linerange=SUBSTVAR_CLIENT
+
+
 Again we observe the problem of traversal-only boilerplate code: the
 \lstinline{Lit} and \lstinline{Add} methods simply delegate to the
 base algebra \lstinline{expAlg()}.

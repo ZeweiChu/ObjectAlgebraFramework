@@ -70,7 +70,7 @@ transition from expressions to statements.
 
 \begin{figure}[t]
 \nocaptionrule
-\lstinputlisting[linerange=7-16]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
+\lstinputlisting[linerange=7-19]{../ObjectAlgebras/src/deps2/G_StatAlgQuery.java} % APPLY:linerange=GSTAT_QUERY
 \caption{Default implementation of generalized queries over many-sorted statement algebra.}
 \label{LST:gstatquery}
 \end{figure}
