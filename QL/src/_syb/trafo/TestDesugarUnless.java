@@ -14,7 +14,9 @@ import ql_obj_alg.syntax.IExpAlg;
 import ql_obj_alg.syntax.IFormAlg;
 import ql_obj_alg.syntax.IStmtAlg;
 import ql_obj_alg.syntax.IUnlessAlg;
+import transform.IExpAlgTransform;
 import transform.IFormAlgTransform;
+import transform.IStmtAlgTransform;
 
 public class TestDesugarUnless {
 	
@@ -22,7 +24,9 @@ public class TestDesugarUnless {
 		
 	}
 	
-	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat> {
+	static class Desugar implements DesugarUnless<IFormatWithPrecedence, IFormat>, 
+	  IExpAlgTransform<IFormatWithPrecedence>,
+		IFormAlgTransform<IFormatWithPrecedence, IFormat, IFormat>, IStmtAlgTransform<IFormatWithPrecedence,IFormat> {
 		private FormatWithUnless algebra;
 
 		public Desugar(FormatWithUnless f) {
