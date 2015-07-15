@@ -159,7 +159,7 @@ renaming operations.
 \nocaptionrule
 \lstinputlisting[linerange=7-20]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 %\vspace{-.1in}
-\caption{MiniQL renaming, implemented with  \Name. \hl{(Renaming updated.)}}
+\caption{MiniQL renaming, implemented with  \Name.}
 \label{rename_with_oaframework}
 \end{figure}
 
@@ -196,7 +196,7 @@ To use the queries and operations on a questionnaire like the one in Figure~\ref
 Since both queries and transformations are implementations of the MiniQL interface, they can be passed to the \lstinline{makeQL} function defined above:
 \lstinputlisting[linerange=26-28]{../ObjectAlgebras/src/example_QLAlg3/Test.java} % APPLY:linerange=CLIENTCODE_QLTEST
 
-This code prints out  \lstinline{[age]} and \hl{\lstinline{[AGE]}}, which
+This code prints out  \lstinline{[age]} and \lstinline{[AGE]}, which
 are the set of used variables before and after renaming, respectively.
 Note how the \lstinline{Rename} transformation transforms the questionnaire into the \lstinline{UsedVars} algebra.
 

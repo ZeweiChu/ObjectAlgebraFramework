@@ -6,13 +6,11 @@ import trees.StatAlg;
 public class TestDepGraph {
 
 //BEGIN_GEN_DEPGRAPH
-<E, S, A extends ExpAlg<E> & StatAlg<E, S>>
-		S makeStat(A alg) {
-	return alg.Seq(
-			alg.Assign("x", alg.Add(alg.Var("x"),
-					alg.Lit(3))), 
-			alg.Assign("y", alg.Add(alg.Var("x"),
-					alg.Var("z"))));
+<E, S, A extends ExpAlg<E> & StatAlg<E, S>> 
+  S makeStat(A a) {
+	  return a.Seq(
+			a.Assign("x", a.Add(a.Var("x"), a.Lit(3))), 
+			a.Assign("y", a.Add(a.Var("x"), a.Var("z"))));
 }
 //END_GEN_DEPGRAPH
 

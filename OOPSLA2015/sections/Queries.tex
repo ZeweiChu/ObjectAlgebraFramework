@@ -70,7 +70,7 @@ same: if we had a subtraction node, the code would be essentially
 identical to \lstinline{Add}. Moreover, there are only very few types
 of nodes that contain relevant information for the query. For nodes
 that contain information that is not relevant to the query, we simply
-return \hl{\sout{the}} a neutral value (such as the empty set in \lstinline{Lit}).
+return a neutral value (such as the empty set in \lstinline{Lit}).
 Nonetheless, a programmer has to write this boring boilerplate code
 handling the traversals.  While for the small structure presented here
 this may not look too daunting, in a large structure with dozens or
@@ -119,7 +119,7 @@ used to combine the information from substructures, and
 %% of Java 8 called default methods, which allow default implementations
 %% of methods in interfaces.
 Using the monoid operations alone, it is possible to write a generic
-query. \hl{(Double quotes removed)} Figure~\ref{generic_query} shows how this is achieved. In
+query. Figure~\ref{generic_query} shows how this is achieved. In
 nodes that contain child nodes, such as \lstinline{Add}, the
 information is aggregated using \lstinline{join}. In nodes that
 contain other information, such as \lstinline{Var} and
@@ -160,7 +160,7 @@ called the \textit{generic query algebra}.
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
 define the free variables operation.  Since the result of free
 variables is a set, the monoid returned by \lstinline{m()} is an
-implementation of the \lstinline{Monoid} interface. For this case the following implementation \hl{\sout{would} suffices}:
+implementation of the \lstinline{Monoid} interface. For this case the following implementation suffices:
 
 \lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 
@@ -182,7 +182,7 @@ quite short (only requires two method implementations) and, more importantly,
 it is highly reusable. Indeed the \lstinline{SetMonoid} is reused
 throughout the paper on various examples of queries.
 Because monoid instances are so general purpose, the \name library
-already contains many common monoid implementations.\hl{ \sout{so}} Users do not
+already contains many common monoid implementations. Users do not
 usually have to
 define these instances themselves.
 The second difference is that now only the case for variables needs to
@@ -261,7 +261,7 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   $...$
 }
 \end{lstlisting}
-\caption{Generic template for generic queries. \hl{(moved)}}
+\caption{Generic template for generic queries.}
 \label{queryTemplate}
 \end{figure}
 
