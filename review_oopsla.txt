@@ -342,7 +342,7 @@ DONE
 > method definitions or perhaps more fine-grained, in terms of statements or 
 > method calls. 
 
-DONE
+DONE (Mention in cover letter; refer to table 1)
 
 
 > p5/fig5: that rename is rather lame; why not a proper rename with a new name?
