@@ -42,8 +42,6 @@ public class Benchmark  {
 		GenerateBinarySearchForm gen = new GenerateBinarySearchForm(min, max, step);
 		gen = new GenerateBinarySearchForm(min, max, step);
 		System.out.println("Benchmarking algebra implementation " + label + " (min = " + min + ", max = " + max + ", step = " + step + ")");
-		PrintStream output = new PrintStream(new File("resources/benchmark/with-alg-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
-		output.println("size, seconds");
 		List<Object> results = new ArrayList<>();
 		for (String src: gen) {
 			Builder x = TheParser.parse(src);
@@ -52,8 +50,14 @@ public class Benchmark  {
 			ast.recons(alg, alg, alg); // then recons to compute
 			long nAfter = System.nanoTime();
 			double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
-			System.out.println(src.length() + ", " +  String.format("%f", time));
-			output.println(src.length() + ", " +  String.format("%f", time));
+			//System.out.println(src.length() + ", " +  String.format("%f", time));
+			results.add(src.length() + ", " +  String.format("%f", time));
+			//output.println(src.length() + ", " +  String.format("%f", time));
+		}
+		PrintStream output = new PrintStream(new File("resources/benchmark/with-alg-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
+		output.println("size, seconds");
+		for (Object o: results) {
+			output.println(o);
 		}
 		output.close();
 		return results;
@@ -70,8 +74,7 @@ public class Benchmark  {
 			
 		System.out.println("Benchmarking AST implementation " + label + " (min = " + min + ", max = " + max + ", step = " + step + ")");
 		
-		PrintStream output = new PrintStream(new File("resources/benchmark/with-ast-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
-		output.println("size, seconds");
+		
 		List<Object> results = new ArrayList<>();
 		for (String src: gen) {
 			Builder x = TheParser.parse(src);
@@ -82,13 +85,18 @@ public class Benchmark  {
 				m.invoke(f, args);
 				long nAfter = System.nanoTime();
 				double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
-				System.out.println(src.length() + ", " +  String.format("%f", time));
-				output.println(src.length() + ", " +  String.format("%f", time));
+				results.add(src.length() + ", " +  String.format("%f", time));
+				//System.out.println(src.length() + ", " +  String.format("%f", time));
+				//output.println(src.length() + ", " +  String.format("%f", time));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				output.close();
 				throw new RuntimeException(e);
 			}
 			
+		}
+		PrintStream output = new PrintStream(new File("resources/benchmark/with-ast-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
+		output.println("size, seconds");
+		for (Object o: results) {
+			output.println(o);
 		}
 		output.close();
 		return results;
@@ -98,11 +106,11 @@ public class Benchmark  {
 		benchmarkControlDeps();
 		benchmarkControlDeps();
 		
-		benchmarkTypeEnv();
-		benchmarkTypeEnv();
-
-		benchmarkRename();
-		benchmarkRename();
+//		benchmarkTypeEnv();
+//		benchmarkTypeEnv();
+//
+//		benchmarkRename();
+//		benchmarkRename();
 		
 		benchmarkInlineConds();
 		benchmarkInlineConds();
@@ -128,8 +136,6 @@ public class Benchmark  {
 		GenerateBinarySearchForm gen = new GenerateBinarySearchForm(min, max, step);
 		gen = new GenerateBinarySearchForm(min, max, step);
 		System.out.println("Benchmarking algebra implementation " + label + " (min = " + min + ", max = " + max + ", step = " + step + ")");
-		PrintStream output = new PrintStream(new File("resources/benchmark/with-alg-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
-		output.println("size, seconds");
 		List<Object> results = new ArrayList<>();
 		for (String src: gen) {
 			Builder x = TheParser.parse(src);
@@ -138,8 +144,14 @@ public class Benchmark  {
 			r.apply(base.bool(true));
 			long nAfter = System.nanoTime();
 			double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
-			System.out.println(src.length() + ", " +  String.format("%f", time));
-			output.println(src.length() + ", " +  String.format("%f", time));
+			results.add(src.length() + ", " +  String.format("%f", time));
+			//System.out.println(src.length() + ", " +  String.format("%f", time));
+			//output.println(src.length() + ", " +  String.format("%f", time));
+		}
+		PrintStream output = new PrintStream(new File("resources/benchmark/with-alg-" + min + "-" + max + "-" + step + "-" + label + ".csv"));
+		output.println("size, seconds");
+		for (Object o: results) {
+			output.println(o);
 		}
 		output.close();
 		return results;
@@ -198,7 +210,7 @@ public class Benchmark  {
 		r1 = benchmarkAST(MIN, MAX, STEP, "typeEnv", "typeEnv", new Class<?>[] {}, new Object[] {});
 		r2 = benchmarkAlg(MIN, MAX, STEP, "typeEnv", new TestTypeEnv.DoIt());
 		
-		System.out.println("Result equal: " + r1.equals(r2));
+//		System.out.println("Result equal: " + r1.equals(r2));
 	}
 
 	private static void benchmarkControlDeps() throws FileNotFoundException {
@@ -207,6 +219,6 @@ public class Benchmark  {
 		r1 = benchmarkAST(MIN, MAX, STEP, "controlDeps", "controlDeps", new Class<?>[] {}, new Object[] {});
 		r2 = benchmarkAlg(MIN, MAX, STEP, "controlDeps", new TestControlDepGraph.DoIt());
 		
-		System.out.println("Result equal: " + r1.equals(r2));
+//		System.out.println("Result equal: " + r1.equals(r2));
 	}
 }

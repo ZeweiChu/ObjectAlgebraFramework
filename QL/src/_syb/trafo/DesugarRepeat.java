@@ -26,7 +26,7 @@ public interface DesugarRepeat<E, S, F> extends
 	
 	@Override 
 	default Function<String, S> question(String p0,String p1,Type p2,Function<String, E> p3) {
-		return (n) -> G_IStmtAlgTransform.super.question(p0, p1, p2, p3);// iStmtAlg().question(p0 + n, p1, p2, p3.apply(n));
+		return (n) -> iStmtAlg().question(p0 + n, p1, p2, p3.apply(n));
 	}
 	
 	@Override 
