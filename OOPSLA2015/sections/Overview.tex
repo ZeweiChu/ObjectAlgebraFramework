@@ -5,11 +5,9 @@ traversals of complex structures. It then shows how \name addresses
 the problem using a combination of Object Algebras~\cite{bruno12oa}
 and Java annotations.
 
-\subsection{Traversing Object-Oriented ASTs  }
 
-%\haoyuan{Duplicate texts.}\\
-%\haoyuan{One reference is missing.}\\
-%\haoyuan{Style of presenting Java code.}
+
+\subsection{Traversing Object-Oriented ASTs  }
 
 \begin{figure}[t]
 \nocaptionrule
@@ -26,7 +24,7 @@ form DriverLicense {
 \label{driver_license}
 \end{figure}
 
-\begin{figure*}[t]
+\begin{figure*}[t!]
   \nocaptionrule
   \begin{minipage}[t]{0.48\textwidth}
 \lstinputlisting[linerange=125-165]{../ObjectAlgebras/src/example_QLAlg1/QL.java} % APPLY:linerange=OO_APPROACH_SIMP
@@ -40,11 +38,12 @@ form DriverLicense {
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right).}\label{LST:usedVars}
 \end{figure*}
 
-
 We start by introducing the problem of boilerplate code by considering
 a simplified variant of the QL language used in our case
 study~\cite{gouseti14extensible}, called MiniQL.  Just like QL, MiniQL
-can be used to describe interactive questionnaires. An example is
+can be used to describe interactive questionnaires. 
+
+An example MiniQL program is
 shown in Figure~\ref{driver_license}.  The questionnaire first asks
 for the user's name and age, and then, if the age is greater than or
 equal to 18, asks if the user has a driver's license.  Because of the
@@ -57,6 +56,7 @@ A form (class \lstinline{Form}) has a name and consists of a list of statements.
 Statements are conditionals (\lstinline{If}) which contain an expression and a statement body, and questions (\lstinline{Question}) which have a name, label and type. Expressions are standard, but limited to literals (\lstinline{Lit}), variables (\lstinline{Var}) and greater-than-or-equal (\lstinline{GEq}).
 
 
+
 %In the full QL structure, an identified \lstinline{Form} comprises a list of \lstinline{Statements}. Each \lstinline{Statement} can either be a question (a variable depending on users' input or assigned with an \lstinline{Expression}) or a condition statement. Furthermore, an \lstinline{Expression} is based on several primitive types, and is obtained from certain values, variables, together with some possible arithmetic operations. In this section, the simplified version of QL has only six constructors.
 
 The code in Figure~\ref{LST:usedVars} also shows a query over MiniQL structures, namely the collection of used variables.
@@ -67,7 +67,7 @@ All other implementations merely deal with aggregating results of their child no
 The boilerplate code exhibited in the \lstinline{usedVars} query often
 also applies to transformations.  Consider for example a rename
 transformation which takes a \lstinline{Form} and returns another form
-where \hl{\sout{all} the specified variable is renamed}.  Again, the only interesting cases would be
+where the occurrences of the specified variable are renamed.  Again, the only interesting cases would be
 in the \lstinline{Var} and {\small\texttt{Question}} classes, where the actual renaming is
 applied. All other classes, however, require boilerplate to recreate
 the structure. The full code in
@@ -88,14 +88,6 @@ operation requires pervasive changes across the AST classes.
 % the problem is exacerbated by the boilerplate...
 
 \subsection{Modeling MiniQL with Object Algebras}\label{subsec:model_ql_with_oa}
-
-\begin{figure}[t]
-\nocaptionrule
-\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
-\caption{Object Algebra interface of the MiniQL abstract syntax. \hl{(Switch places with Fig.3, TODO.)}}
-\vspace{-.1in}
-\label{ql_tree}
-\end{figure}
 
 The right-hand side of Figure~\ref{LST:usedVars} shows the used
 variables operation implemented using Object Algebras. The operation
@@ -119,7 +111,7 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows: \hl{(Renaming updated)}
+as follows: 
 
 \lstinputlisting[linerange=39-55]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
@@ -136,6 +128,14 @@ is in a small number of cases.  Ideally, we would like to write only
 the code for the interesting cases, and somehow ``inherit'' the
 tedious traversal code.
 %\name  generates base algebra interfaces to support exactly that.
+
+\begin{figure}[t]
+\nocaptionrule
+\lstinputlisting[linerange=7-15]{../ObjectAlgebras/src/trees/QLAlg.java} % APPLY:linerange=QL_TREE
+\caption{Object Algebra interface of the MiniQL abstract syntax.}
+\vspace{-.1in}
+\label{ql_tree}
+\end{figure}
 
 \subsection{\Name: An Object Algebra Framework for Traversals}
 

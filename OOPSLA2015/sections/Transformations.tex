@@ -82,7 +82,7 @@ algebra,---we elaborate on composing transformations this way in Section~\ref{SE
 
 Here we also give the client code. With the same expression \lstinline{x + (y + 2)}, a \lstinline{SubstVar} object is created. The base algebra \lstinline{expAlg()} here is implemented with an instance of \lstinline{FreeVars}, and we also override \lstinline{x()} and \lstinline{e()} aiming to substitute another variable \lstinline{"z"} for \lstinline{"x"}. The code is as follows, where the result of execution becomes \lstinline{[y, z]}.
 
-\lstinputlisting[linerange=28-33]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_SUBSTVAR
+\lstinputlisting[linerange=28-34]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_SUBSTVAR
 
 \haoyuan{End: client code.}
 \end{comment}

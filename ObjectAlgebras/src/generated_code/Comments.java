@@ -1,13 +1,5 @@
 package generated_code;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import library.Monoid;
-import transform.QLAlgTransform;
-import trees.ExpAlg;
-import trees.LamAlg;
-import trees.QLAlg;
 
 public class Comments {}
 

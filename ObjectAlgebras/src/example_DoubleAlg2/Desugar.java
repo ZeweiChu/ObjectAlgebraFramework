@@ -10,4 +10,4 @@ interface Desugar<Exp> extends
 		return expAlg().Add(e, e);
 	}
 }
-//BEGIN_DESUGAR_DOUBLE_SHY
+//END_DESUGAR_DOUBLE_SHY

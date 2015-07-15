@@ -29,7 +29,7 @@ Note again, that only the relevant method (\lstinline{Lam}) needs to be overridd
 For transformations the pattern is similar.
 To illustrate extension of transformation, consider the simple transformation that makes all variable occurrences unique, to distinguish multiple occurrences of the same name:
 
-%% weird, computepositions does not compute the right range. % APPLY:linerange=UNIQUEVARS
+%% weird, computepositions does not compute the right range. % APPLY:linerange=4-2UNIQUEVARS
 \lstinputlisting[linerange=4-9]{../ObjectAlgebras/src/expDemo3/Unique.java}
 
 The \lstinline{Unique} transformation uses a helper method \lstinline{nextInt} which returns consecutive integers on each call.

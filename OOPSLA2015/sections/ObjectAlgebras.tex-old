@@ -16,8 +16,7 @@ factory interface, but instead of constructing objects of a concrete
 type, the result is abstract through the type parameter \lstinline{E}.
 A concrete Object Algebra will implement such an interface by
 instantiating the type parameter with a type that constructs objects
-for a particular purpose. For instance, the class \lstinline{Eval}
-(which implements evaluation of expression) is as follows:
+for a particular purpose. For instance, evaluation of expressions can be implemented as follows:
 
 \lstinputlisting[linerange=27-34]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
 
@@ -47,7 +46,7 @@ original \lstinline{ExpAlg} with multiplication expressions.
 \noindent The key feature of Object Algebras is that the existing operations
 (evaluation and printing) can now be extended to support
 multiplication without having to change the existing \lstinline{Eval}
-and \lstinline{Print} classes. For example, evaluation is extended 
+and \lstinline{Print} classes. For example, evaluation is extended
 with multiplication as follows:
 
 \lstinputlisting[linerange=17-22]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=MUL_EVAL
@@ -62,7 +61,7 @@ compilation. Although for space reasons this section does not show
 how to use Object Algebras, such examples will be provided throughout
 the paper.
 
-%Examples that show how to use Object Algebras are provided 
+%Examples that show how to use Object Algebras are provided
 
 
 %What makes \emph{object algebras} a useful design pattern even more is that it does not rely on any advanced language features, and it is both extensible and type-safe.

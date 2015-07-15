@@ -5,17 +5,17 @@ import util.QLAlgTrans;
 
 //BEGIN_QL_TRANSFORM_WITH_OAFRAMEWORK
 class Rename<E, S, F> extends QLAlgTrans<E, S, F> {
-	String n1, n2;
-	public Rename(QLAlg<E, S, F> alg, String n1, String n2) {
-		super(alg); this.n1 = n1; this.n2 = n2;
+	String from, to;
+	Rename(QLAlg<E,S,F> alg, String from, String to) {
+		super(alg); this.from = from; this.to = to;
 	}
-	public S Question(String n, String l, String t) {
-		String newN = n.equals(n1) ? n2 : n;
-		return qLAlg().Question(newN, l, t);
+	public S Question(String x, String l, String t) {
+		x = x.equals(from) ? to : x;
+		return qLAlg().Question(x, l, t);
 	}
 	public E Var(String x) {
-		String newN = x.equals(n1) ? n2 : x;
-		return qLAlg().Var(newN);
+		x = x.equals(from) ? to : x;
+		return qLAlg().Var(x);
 	}
 }
 //END_QL_TRANSFORM_WITH_OAFRAMEWORK

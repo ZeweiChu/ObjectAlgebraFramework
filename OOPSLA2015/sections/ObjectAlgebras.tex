@@ -16,8 +16,7 @@ factory interface, but instead of constructing objects of a concrete
 type, the result is abstract through the type parameter \lstinline{E}.
 A concrete Object Algebra will implement such an interface by
 instantiating the type parameter with a type that constructs objects
-for a particular purpose. For instance, the class \lstinline{Eval}
-(which implements evaluation of \hl{expressions}) is as follows:
+for a particular purpose. For instance, evaluation of expressions can be implemented as follows:
 
 \lstinputlisting[linerange=27-34]{../ObjectAlgebras/src/example_object_algebras/ObjectAlgebras.java} % APPLY:linerange=EXP_FACTORY
 

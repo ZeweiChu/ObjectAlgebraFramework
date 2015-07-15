@@ -123,14 +123,14 @@ The latter can represent yet another transformation.
 
 In the context of QL, ``unless'' desugaring, condition inlining and variable renaming can be chained together as follows:
 
-  \lstinputlisting[linerange=161-163]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
+  \lstinputlisting[linerange=133-135]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL
 
 The chained transformation \lstinline{alg} first desugars ``unless'', then inlines conditions, and finally renames \lstinline{x}s to \lstinline{y}s.
 The \lstinline{Rename} transformation gets as base algebra an instance of \lstinline{Format}, a pretty printer for QL.
 
 The algebra \lstinline{alg} can now be used to create questionnaires:
 
-  \lstinputlisting[linerange=167-170]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
+  \lstinputlisting[linerange=139-142]{../QL/src/_syb/trafo/TestPipelining.java} % APPLY:linerange=PIPELINEQL_CALL
 
 Since inlining is a contextual transformation, the result of constructing this simple questionnaire is a function object representing the ``to be inlined'' representation of the questionnaire after desugaring.
 The {\small\texttt{IFor\-mat\-With\-Pre\-cedence}} and \lstinline{IFormat} types are  formatting operations, respectively representing expressions and statements; these types originate from the \lstinline{Format} algebra passed to \lstinline{Rename}.
