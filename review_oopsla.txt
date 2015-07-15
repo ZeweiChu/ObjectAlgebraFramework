@@ -78,7 +78,7 @@ Hyphenation : TODO
 >  "before" must compare with something, and historically because AOOD
 >  was before SYB). 
 
-TODO: Tijs?
+TODO: Tijs?  [Done: removed before]
 
 > p1 try to avoid starting sentences with "However" 
 > p4 auxiliar*y* 
@@ -216,7 +216,7 @@ TODO: Tijs
  
 > - Fig 2 and 3 appear out of order.
 
-TODO
+TODO [Done; tvds]
 
 > - p4, left col, example class Rename: "form" and "question" should be capitalized.
 
