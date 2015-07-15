@@ -1,5 +1,4 @@
-\section{Discussion}
-\label{sec:discussion}
+\section{Heterogenous Transformations}\label{sec:heterotrans}
 
 \hl{A new section.}
 
@@ -7,7 +6,7 @@ In Section~\ref{sec:transformations}, we presented transformations, as well as t
 
 On the other hand, transformations between different types are also useful under some circumstances. For instance, the desugaring in developing a compiler usually involves two ASTs, and they are only similar in some constructors. In that case, transformations return a different type of the structure.
 
-As an example, we still use the interface \lstinline{ExpAlg}. Consider a new constructor called \lstinline{Double}, which multiplies an expression by two. We represent it as an Object Algebra interface:
+As an example, we still use the interface \lstinline{ExpAlg}. Consider a new constructor called \lstinline{Double}, which multiplies an expression by two. We present it as an Object Algebra interface:
 
 \lstinputlisting[linerange=6-9]{../ObjectAlgebras/src/trees/DoubleAlg.java} % APPLY:linerange=DOUBLE_TREE
 
@@ -16,10 +15,6 @@ As an example, we still use the interface \lstinline{ExpAlg}. Consider a new con
 An expression with type \lstinline{ExpAlg<Exp> & DoubleAlg<Exp>} can be created using four constructors, where a transformation can for example be desugaring the case \lstinline{Double(e)} into \lstinline{Add(e, e)}. The other cases just remain unchanged. Below is an implementation by hand:
 
 \lstinputlisting[linerange=7-21]{../ObjectAlgebras/src/example_DoubleAlg1/Desugar.java} % APPLY:linerange=DESUGAR_DOUBLE
-
-\hl{Nothing}
-
-\hl{Nothing}
 
 \noindent With the \name framework one can easily implement \lstinline{Desugar} as follows: \hl{(add generated code to Appendix?)}
 

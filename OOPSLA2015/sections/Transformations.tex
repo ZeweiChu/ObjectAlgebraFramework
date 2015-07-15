@@ -63,18 +63,19 @@ with implementations for
 \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}. The base
 algebra \lstinline{expAlg()} could for instance be \hl{an algebra for collecting free
 variables (just \lstinline{FreeVars} in Section~\ref{sec:queries}),
-or an algebra for pretty printing the expression with the substitution applied.} Note
-that this allows pipelining of transformations: there is no reason
-\lstinline{expAlg()} cannot return yet another transformation
-algebra,---we elaborate on composing transformations this way in Section~\ref{SECT:chaining}.
+or an algebra for pretty printing the expression with the substitution applied.}
 
 \hl{Here we show an example of invoking \lstinline{SubstVar}. The base algebra is \lstinline{FreeVars} in Section~\ref{sec:queries},
 which collects all the free variables as a set of strings. One can directly create an instance of \lstinline{SubstVar} as follows:}
 
 \lstinputlisting[linerange=28-34]{../ObjectAlgebras/src/expDemo3/ExpTest.java} % APPLY:linerange=CLIENTCODE_SUBSTVAR
 
-\noindent \hl{The transformation replaces all variables ``x'' with ``z''. Such an instance \lstinline{substVar} can now be passed to a structure of \lstinline{ExpAlg}, which helps to collect the free variables in the expression, before which the transformation is applied. A set of strings is returned
+\noindent \hl{The transformation substitutes all variables ``x'' with ``z''. Such an instance \lstinline{substVar} can now be passed to a structure of \lstinline{ExpAlg}, which helps to collect the free variables in the expression, before which the transformation is applied. A set of strings is returned
 as the result.}
+
+Note that this allows pipelining of transformations: there is no reason
+\lstinline{expAlg()} cannot return yet another transformation
+algebra,---we elaborate on composing transformations this way in Section~\ref{SECT:chaining}.
 
 \begin{comment}
 \haoyuan{Begin: client code.}
