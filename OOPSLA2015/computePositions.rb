@@ -50,12 +50,13 @@ endpos = {}
 Dir['../ObjectAlgebras/src/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
-Dir['../ObjectAlgebras/src/*/*.java'].each do |file| 
+Dir['../ObjectAlgebras/src/**/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
 Dir['../QL/src/**/*.java'].each do |file| 
   scan(file, beginpos, endpos, fileloc)
 end
+
 
 
 Dir['*.tex'].each do |file| 
