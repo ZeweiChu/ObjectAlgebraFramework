@@ -6,10 +6,10 @@ import java.util.Set;
 
 import query.LamAlgQuery;
 
-// BEGIN_EXTENDFREEVARS
+// BEGIN_EXTENDFREEVARS_INDEP
 interface FreeVarsLam extends LamAlgQuery<Set<String>> {
 	default Set<String> Lam(String x, Set<String> f) {
 		return f.stream().filter(y -> !y.equals(x)).collect(toSet());
 	}
 }
-// END_EXTENDFREEVARS
+// END_EXTENDFREEVARS_INDEP

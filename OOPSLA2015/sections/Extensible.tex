@@ -12,6 +12,8 @@ also possible to extend the data type with new constructors.  Here we
 briefly describe how queries and transformations can be extended in
 this case.
 
+\subsection{Linear Extensibility}
+
 Consider again the extension of the expression language with lambda
 and application constructs (cf. Section~\ref{sec:contexttrans}).  This
 requires changing the free variables query, since variables bound by
@@ -70,4 +72,24 @@ This is however, not an essential requirement.
 An alternative design could have \lstinline{LamAlg} be a proper extension of \lstinline{ExpAlg} (i.e. \lstinline{LamAlg<E> extends ExpAlg<E>}).
 In that case, the generated \lstinline{LamAlgTransform} would need to refine the return type of the \lstinline{expAlg()} method.
 
+\subsection{Independent Extensibility}
 
+Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. {\small\texttt{FreeVars}} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent using multiple inheritance of interfaces with default methods. 
+
+For instance, the \lstinline{Unique} transformation for the \lstinline{LamAlg} language could also have been implemented independent of \lstinline{Unique}:
+
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/unique/UniqueLam.java} % APPLY:linerange=UNIQUE_INDEP
+
+Note that this interface declares the required dependency on \lstinline{nextInt()}.
+Both transformations are combined independently through multiple inheritance of interfaces.
+Both \lstinline{Unique} and \lstinline{UniqueLam} declare the method \lstinline{nextInt()}, but since the declarations are abstract, they are identified. Implementations of the combined interface need to provide concrete implementations for \lstinline{nextInt()}, \lstinline{expAlg()} and \lstinline{lamAlg()}:
+
+\begin{lstlisting}
+class UniqEL<E> implements Unique<E>, UniqueLam<E> {
+  public int nextInt() { ... }
+  public ExpAlg<E> expAlg() { ... }
+  public LamAlg<E> lamAlg() { ... }
+}
+\end{lstlisting}
+
+For queries the pattern is the same, except that only a concrete implementation of \lstinline{m()} has to be provided for the combined interface. 

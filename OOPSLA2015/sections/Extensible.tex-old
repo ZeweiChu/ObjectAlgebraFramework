@@ -12,6 +12,8 @@ also possible to extend the data type with new constructors.  Here we
 briefly describe how queries and transformations can be extended in
 this case.
 
+\subsection{Linear Extensibility}
+
 Consider again the extension of the expression language with lambda
 and application constructs (cf. Section~\ref{sec:contexttrans}).  This
 requires changing the free variables query, since variables bound by
@@ -69,5 +71,17 @@ Note finally that, in the current implementation of \name transformations, it is
 This is however, not an essential requirement.
 An alternative design could have \lstinline{LamAlg} be a proper extension of \lstinline{ExpAlg} (i.e. \lstinline{LamAlg<E> extends ExpAlg<E>}).
 In that case, the generated \lstinline{LamAlgTransform} would need to refine the return type of the \lstinline{expAlg()} method.
+
+\subsection{Independent Extensibility}
+
+Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. \lstinline{FreeVars} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent
+
+\lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/unique/UniqueLam.java} % APPLY:linerange=UNIQUE_INDEP
+
+
+Combining both transformations independently:
+
+\lstinputlisting[linerange=9-9]{../ObjectAlgebras/src/expDemo3/unique/TestUniqueWithLambdaIndep.java} % APPLY:linerange=COMBINE_UNIQUES
+
 
 

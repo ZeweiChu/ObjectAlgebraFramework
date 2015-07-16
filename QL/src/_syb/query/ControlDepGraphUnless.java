@@ -5,7 +5,6 @@ import java.util.Set;
 import library.Pair;
 import query.G_IStmtAlgQuery;
 import query.G_IUnlessAlgQuery;
-
 //BEGIN_CONTROLDEPS_UNLESS
 public interface ControlDepGraphUnless extends 
   G_IStmtAlgQuery<Set<String>, Set<Pair<String, String>>>,

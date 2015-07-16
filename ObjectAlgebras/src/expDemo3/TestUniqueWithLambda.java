@@ -35,7 +35,7 @@ public class TestUniqueWithLambda {
 	}
 	
 	public static void main(String[] args) {
-		Unique<Set<String>> unq = new Unique<>(new FreeVarsWithLambdas.FreeVarsLam() {
+		Unique<Set<String>> unq = new Unique<>(new FreeVarsWithLambdas.FreeVarsWithLambda()  {
 			@Override
 			public Monoid<Set<String>> m() {
 				return new SetMonoid<>();

@@ -6,15 +6,17 @@ import trees.LamAlg;
 public class TestUniqueWithLambdaIndep {
 
 	//BEGIN_COMBINE_UNIQUES
-	interface UniqueExpLam<E> extends UniqueExp<E>, UniqueLam<E> { }
+	interface UniqueExpLam<E> extends
+	  Unique<E>, UniqueLam<E> { }
 	//END_COMBINE_UNIQUES
 	
-	static class DoUnique<E> implements UniqueExpLam<E> {
+	
+	static class UniquesImpl<E> implements UniqueExpLam<E> {
 		private int count = 0;
 		private final ExpAlg<E> expAlg;
 		private final LamAlg<E> lamAlg;
 		
-		public <Alg extends ExpAlg<E> & LamAlg<E>> DoUnique(Alg alg) {
+		public <Alg extends ExpAlg<E> & LamAlg<E>> UniquesImpl(Alg alg) {
 			this.expAlg = alg;
 			this.lamAlg = alg;
 		}
@@ -66,7 +68,7 @@ public class TestUniqueWithLambdaIndep {
 	}
 	
 	public static void main(String[] args) {
-		DoUnique<String> unq = new DoUnique<>(new Printer());
+		UniquesImpl<String> unq = new UniquesImpl<>(new Printer());
 		String term = unq.Lam("x", unq.Add(unq.Var("x"), unq.Var("y")));
 		System.out.println(term);
 	}
