@@ -1,21 +1,22 @@
 \section{\name Implementation}
 
-\hl{A new section.}
+%\hl{A new section.}
 
 \name is implemented using the standard Java annotations framework
 (\lstinline{javax.annotation}) packaged in the Java Development Kit.
-All of the generic traversals discussed in the previous sections --
-generic queries, generalized generic queries, generic transformations,
-and contextual generic transformations -- are automatically generated
-by \name for an object algebra interface annotated with \lstinline{@Algebra}.
-Furthermore, \name includes the monoid interface as well as several
-useful instances of the monoid interface.
+All of the generic traversals are automatically generated
+by \name for Object Algebra interfaces annotated with \lstinline{@Algebra}.
+When an Object Algebra interface is annotated with \lstinline{@Algebra}, \name retrieves the required information from the interface (such as the names and types of factory methods) using reflection. \name then generates the code based on the templates shown earlier.
+Furthermore, the \name framework includes the \lstinline{Monoid} interface as well as several
+useful implementations of it.
 
-The big advantage of using standard Java annotations is that the code generation of the generic traversals can be done transparently: users do not need to use or install a tool to generate that code. As a result \name is as simple to use as a conventional library. Moreover, \name works not only in many Java IDEs (like Eclipse and IntelliJ), but also from command line compilation.
 
-Specifically, when an Object Algebra interface is annotated with \lstinline{@Algebra}, \name gets all the information from the interface (i.e. the names and types in each method). Such information is used together with those generic templates presented before, to generate generic traversal code automatically. The generated code lives in packages ``query'' (queries and generalized queries), ``transform'' (transformations and contextual transformations), ``util'' (transformations as classes) and ``combinator'' (combinators for combining two Object Algebras).
+A major advantage of using standard Java annotations is that the code generation of the generic traversals can be done transparently: users do not need to use or install a tool to generate that code. As a result \name is as simple to use as a conventional library.
+With little configuration effort, the code generation is automatically enabled in IDEs like Eclipse or IntelliJ. Finally, the framework is very small (around 885 source lines of code), so it can be easily be customized, if needed.
 
-With \name framework, the code users need to write is much shorter, which can be observed from the number of methods. Suppose a data structure consists of $m$ constructors, and $n$ operations are applied to the structure. A traditional OO implementation defines $m$ classes for the constructors, and for operations, $n$ methods are implemented in each class. With Object Algebras, $n$ classes serve for operations, and each includes $m$ methods for all cases. The same number of classes are required with \name approach, nonetheless, only the monoid and the interesting part (usually one or several cases) are to be implemented for each operation, which makes the code much more concise.
+
+%With \name framework, the code users need to write is much shorter, which can be observed from the number of methods. Suppose a data structure consists of $m$ constructors, and $n$ operations are applied to the structure. A traditional OO implementation defines $m$ classes for the constructors, and for operations, $n$ methods are implemented in each class. With Object Algebras, $n$ classes serve for operations, and each includes $m$ methods for all cases. The same number of classes are required with \name approach, nonetheless, only the monoid and the interesting part (usually one or several cases) are to be implemented for each operation, which makes the code much more concise.
+
 \begin{comment}
 Another advantage of \name is that it is quite easy to extend with new
 types of traversals.
