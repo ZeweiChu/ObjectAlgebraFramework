@@ -118,7 +118,9 @@ TODO?
 
 > p11 where did the QL programs come from?  
 
-TODO: Tijs?
+The QL programs represent questionnaires describing binary search problem and were generated.
+We now included this in the text. 
+
 
 > p12 top col 1 - "-t" twice!!
 > p13 S-horrible-hypenation 

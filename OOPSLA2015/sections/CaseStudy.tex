@@ -156,11 +156,12 @@ Finally, the result of inlining conditions can be observed from the conjunction 
 \end{figure}
 
 We compared the performance characteristics of the operations implemented using \name with respect to vanilla implementations based on ordinary AST classes with ordinary methods representing the transformations and queries.
-The operations were executed on progressively larger QL programs (up to 140Kb).
 In the vanilla implementation, the program was parsed into an AST structure, and then the operation was invoked and measured.
 In the case of the \name queries, constructing the ``AST'' corresponds to executing the query, so we measured that.
 For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured invoking this function.
 The vanilla query implementations use the same monoid structures as in \name.
+
+The operations were executed on progressively larger QL programs (up to 140Kb). The QL programs represent questionnaires describing a binary search problem (a number guessing game) and are automatically generated, with increasing search spaces. The benchmarks were executed on a 2.6GHz MacBook Pro Intel Core i5 with 8GB memory. The JVM was run in 64bit server mode and was given 4Gb of heapspace to minimize the effect of garbage collection pauses. Each benchmark was run without measuring first,  to warm-up the JVM. The measurements presented here do not include warm-up time. 
 
 The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
