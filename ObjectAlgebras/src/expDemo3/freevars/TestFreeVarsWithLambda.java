@@ -7,12 +7,12 @@ import monoid.SetMonoid;
 
 public class TestFreeVarsWithLambda {
 
-	interface FreeVarsExpWithLambda extends FreeVars, FreeVarsWithLambda {
+	interface FreeVarsExpLam extends FreeVarsExp, FreeVarsLam {
 		
 	}
 	
 	public static void main(String[] args) {
-		FreeVarsExpWithLambda fv = new FreeVarsExpWithLambda() { 
+		FreeVarsExpLam fv = new FreeVarsExpLam() { 
 			public Monoid<Set<String>> m() { return new SetMonoid<>(); }
 		};
 		Set<String> term = fv.Lam("x", fv.Add(fv.Var("x"), fv.Var("y")));

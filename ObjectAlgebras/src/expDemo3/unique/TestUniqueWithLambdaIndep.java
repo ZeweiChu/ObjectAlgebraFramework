@@ -6,10 +6,10 @@ import trees.LamAlg;
 public class TestUniqueWithLambdaIndep {
 
 	//BEGIN_COMBINE_UNIQUES
-	interface UniqueExpWithLambda<E> extends Unique<E>, UniqueWithLambda<E> { }
+	interface UniqueExpLam<E> extends UniqueExp<E>, UniqueLam<E> { }
 	//END_COMBINE_UNIQUES
 	
-	static class DoUnique<E> implements UniqueExpWithLambda<E> {
+	static class DoUnique<E> implements UniqueExpLam<E> {
 		private int count = 0;
 		private final ExpAlg<E> expAlg;
 		private final LamAlg<E> lamAlg;

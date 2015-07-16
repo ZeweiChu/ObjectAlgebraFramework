@@ -6,7 +6,7 @@ import java.util.Set;
 import query.ExpAlgQuery;
 
 //BEGIN_FREEVARS_WITH_MONOID_INDEP
-interface FreeVars extends ExpAlgQuery<Set<String>>
+interface FreeVarsExp extends ExpAlgQuery<Set<String>>
 {
 	default Set<String> Var(String s) {
 		return Collections.singleton(s);
