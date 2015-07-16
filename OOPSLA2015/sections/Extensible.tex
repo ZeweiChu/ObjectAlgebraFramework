@@ -85,7 +85,7 @@ Both transformations are combined independently through multiple inheritance of 
 Both \lstinline{Unique} and \lstinline{UniqueLam} declare the method \lstinline{nextInt()}, but since the declarations are abstract, they are identified. Implementations of the combined interface need to provide concrete implementations for \lstinline{nextInt()}, \lstinline{expAlg()} and \lstinline{lamAlg()}:
 
 \begin{lstlisting}
-class UniqEL<E> implements Unique<E>, UniqueLam<E> {
+class Combine<E> implements Unique<E>,UniqueLam<E> {
   public int nextInt() { ... }
   public ExpAlg<E> expAlg() { ... }
   public LamAlg<E> lamAlg() { ... }

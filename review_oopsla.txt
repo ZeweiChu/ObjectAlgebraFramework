@@ -435,19 +435,20 @@ DONE
 > an inherent problem for true compositionally in Java. Would Scala traits solve 
 > this issue?
 
-TODO: Tijs can you have a look?
+Added a subsection about independent extensibility to show symmetric extension of the transformation.
+Java 8 interfaces with default methods provide almost the same expressivity as Scal traits. 
 
 > 
 > p10: I¡¯m quite curious about the implementation of desugaring; why was it not 
 > included (in the Appendix)?
 
-Tijs
+Added section on compositional desugarings.
 
 > p11: Can the desugar transformations be combined into a single traversal? 
 > 
 > How about deforestation?
 
-Tijs
+The transformations are always executed in a single bottom-up traversal. This is explained in the new section on desugaring. Non-desugared trees are never built, the desugarings are automatically deforested. 
 
 > p12: ¡°Strategic programming is an approach to data structure traversal, which 
 > originated in term rewriting [3, 24, 25].¡± This sentence is not historically 
