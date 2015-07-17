@@ -14,7 +14,7 @@ types formalize the distinction between different kinds of
 nodes. Furthermore the distinctions are helpful to ensure that
 traversals over these ASTs have an appropriate piece of code
 that deals with each different type of node. This can prevent a large
-class of run-time errors that would not otherwise be detected.
+class of run-time errors that would not be detected otherwise.
 
 %For example static types prevent errors that would arize from
 %applying the code intended for a certain kind of node to another kind
@@ -81,8 +81,8 @@ and \emph{contextual transformations}.  Each of these four types of
 traversals is implemented as an Object Algebra. Programmers who want
 to implement structure-shy traversals can then inherit from one of these
 four Object Algebras, and override only the cases that deal with
-the interesting parts of the traversal. Consequently
-traversals written in \name are:
+the interesting parts of the traversal. 
+Consequently traversals written in \name are:
 
 \begin{itemize*}
 
@@ -193,11 +193,15 @@ patterns for various types of traversals using Object Algebras, including:
 
 \item {\bf The Shy Java framework.} We show that those design patterns
   can be automatically generated for a given Object Algebra
-  interface. The \name framework\footnote{{\bf
-      Note to Reviewers:} Due to the anonymous review process we
-    submit a file bundle with the implementation together with the paper submission. If the
-    paper is accepted we will make the code publicly available.} realizes this idea by using
+  interface. The \name framework\footnote{{\bf Available at:} \url{https://github.com/JasonCHU/SYBwithOA}} realizes this idea by using
    Java annotations to automatically generate generic traversals.
+
+\item {\bf Applications and examples:} We show various 
+  examples of traversals, such as free variables
+  and substitution operations, implemented concisely with
+  \name. Moreover we illustrate how certain
+  kinds of \emph{desugarings} can be implemented using transformations, and
+  how multiple transformations can be chained together in a \emph{pipeline}.
 
 \item {\bf Case study.} We illustrate the benefits of \name using a case study based on the QL domain-specific
   language. The results of our case study show significant savings in

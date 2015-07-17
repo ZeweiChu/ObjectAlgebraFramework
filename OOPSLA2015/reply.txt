@@ -4,37 +4,64 @@ will be addressed in the revision of the paper.
 
 * Hyphenation
 
-We apolegize for the hyphenation! We will fix it in the final 
+We apologise for the hyphenation! We will fix it in the final 
 version.
 
 * Is boilerplate generation implemented? If so, how?
 
-Reviewers B&C ask about the implementation of Shy.  Shy is implemented
+Reviewers B&C qask about the implementation of Shy.  Shy is implemented
 using the javax annotation processor, which is part of the
-SDK. Because javax annotations are standard the integration with IDE's
-like Eclipse is quite good.  In a project usign Shy, the generated
+SDK. Because javax annotations are standard, the integration with IDE's
+like Eclipse is quite good.  In a project using Shy, the generated
 code lives under packages called "query" and "transform".
 
 #reviewer B
 
 "what's the code size difference between the Vanilla and Shy solutions?"
 
-Tijs?
+The performance comparison is based on a Vanilla and Shy
+implementation of control-dependency extraction and the inline
+conditions transformation. The number of source lines of code (SLOC)
+number for each are:
+
+- Vanilla: 716
+- Shy: 177
+
+The difference is 539 SLOC, or, the size of the Shy version is about
+25% of the vanilla version.
+
+The vanilla implementation (necessarily) includes the basic AST
+classes where the extraction and transformation methods are defined.
+For the Shy implementation, we’ve included the object algebra
+interfaces describing the language’s abstract syntax.
 
 #reviewer C
 
-"Are top-down traversals supported and how are the desugaring transformations implemeneted?"
+"Are top-down traversals supported and how are the desugaring
+transformations implemented?"
 
-Tijs?
+Desugarings are implemented by directly calling constructor methods to
+create the equivalent construct. For instance, the “unless” desugaring
+is defined as follows:
+
+public interface DesugarUnless<E, S> extends IUnlessAlgTransform<E, S>, 
+  IStmtAlgTransform<E, S>, IExpAlgTransform<E> { 
+       default S unless(E cond, S body) {
+       	       return iff(not(cond), body);
+	       }
+}
+
+Top-down traversals are indeed currently not well-supported in Shy. 
+This is part of what we want to do for future work.
 
 "Would Scala traits make the approach more compositional?" 
 
 Regarding extensibility, we can currently get quite far with Java 8
 using interfaces with default methods. Using default methods allows us
 to get quite a few of of the benefits of multiple-inheritance and
-traits. Ofcourse if we had traits we could do some things more
+traits. Of course if we had traits we could do some things more
 elegantly.
 
 "Origins of strategic programming are misrepresented"
 
-Thanks for pointing it out. We will fix this!
+Thanks for pointing it out. We will fix this.
