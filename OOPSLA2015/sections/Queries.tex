@@ -159,7 +159,7 @@ called the \textit{generic query algebra}.
 
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
 define the free variables operation. Instead of directly defining the
-free variables operation, \lstinline{ExpAlgQuery} can be inherited, 
+free variables operation, \lstinline{ExpAlgQuery} can be inherited,
 provided that the method \lstinline{m()} is implemented.
 In the case of free variables, the monoid returned by \lstinline{m()} is an
 implementation of the \lstinline{Monoid} interface for sets:
@@ -254,6 +254,10 @@ constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$} is shown next:
 interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   Monoid<R> m();
 
+  default R f$_i$() {
+    return m().empty();
+  }
+
   default R f$_j$(R p$_1$, $...$, R p$_k$) {
     return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(
         p$_{k-1}$, p$_k$)$...$)));
@@ -261,8 +265,6 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   $...$
 }
 \end{lstlisting}
-\bruno{Should we have something that shows when empty
-  is generated?}
 
 Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
 All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. Arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.

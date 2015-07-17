@@ -13,7 +13,7 @@ and Java annotations.
 We start by introducing the problem of boilerplate code by considering
 a simplified variant of the QL language used in our case
 study~\cite{gouseti14extensible}, called MiniQL.  Just like QL, MiniQL
-can be used to describe interactive questionnaires. 
+can be used to describe interactive questionnaires.
 
 An example MiniQL program is
 shown in Figure~\ref{driver_license}.  The questionnaire first asks
@@ -112,7 +112,7 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows: 
+as follows:
 
 \lstinputlisting[linerange=39-55]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
@@ -161,9 +161,7 @@ renaming operations.
 %\vspace{-.1in}
 \caption{MiniQL renaming, implemented with  \Name.}
 \label{rename_with_oaframework}
-\end{figure}\bruno{be consistent: use the same names as in the OAs
-  renaming example. Here we are using ``from'' and ``to''. 
- Before we were using ``n1'' and ``n2''.}
+\end{figure}
 
 With \Name, programmers just need to add the \lstinline{@Algebra} annotation
 to the definition of \lstinline{QLAlg} to get the code for generic

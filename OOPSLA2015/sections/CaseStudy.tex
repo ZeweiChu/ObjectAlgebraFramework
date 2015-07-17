@@ -3,7 +3,7 @@
 To illustrate the utility of \name we have implemented a number of
 queries and transformations in the context of QL, a DSL for
 questionnaires which has been implemented using Object Algebras
-before~\cite{gouseti14extensible}.  QL is similar \hl{to} MiniQL, except that
+before~\cite{gouseti14extensible}.  QL is similar to MiniQL, except that
 it additionally features an if-then-else construct, computed questions
 (which will appear read only), and a richer expression language.  For
 more information on the features of QL we refer
@@ -161,7 +161,7 @@ In the case of the \name queries, constructing the ``AST'' corresponds to execut
 For context-dependent transformations, however, building the ``AST'' corresponds to constructing the function to execute the transformation, hence we only measured invoking this function.
 The vanilla query implementations use the same monoid structures as in \name.
 
-The operations were executed on progressively larger QL programs (up to 140Kb). The QL programs represent questionnaires describing a binary search problem (a number guessing game) and are automatically generated, with increasing search spaces. The benchmarks were executed on a 2.6GHz MacBook Pro Intel Core i5 with 8GB memory. The JVM was run in 64bit server mode and was given 4Gb of heapspace to minimize the effect of garbage collection pauses. Each benchmark was run without measuring first,  to warm-up the JVM. The measurements presented here do not include warm-up time. 
+The operations were executed on progressively larger QL programs (up to 140Kb). The QL programs represent questionnaires describing a binary search problem (a number guessing game) and are automatically generated, with increasing search spaces. The benchmarks were executed on a 2.6GHz MacBook Pro Intel Core i5 with 8GB memory. The JVM was run in 64bit server mode and was given 4Gb of heapspace to minimize the effect of garbage collection pauses. Each benchmark was run without measuring first,  to warm-up the JVM. The measurements presented here do not include warm-up time.
 
 The comparison of the control dependencies query is shown in Figure~\ref{FIG:controlPerf}.
 The plot shows that the performance is quite comparable.
