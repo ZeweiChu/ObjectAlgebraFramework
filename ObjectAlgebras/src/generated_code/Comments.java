@@ -56,34 +56,28 @@ public interface QLAlgTransform<A0, A1, A2>
 
 	QLAlg<A0, A1, A2> qLAlg();
 
-	@Override
 	default A2 Form(java.lang.String p0,
 			java.util.List<A1> p1) {
 		return qLAlg().Form(p0, p1);
 	}
 
-	@Override
 	default A0 Geq(A0 p0, A0 p1) {
 		return qLAlg().Geq(p0, p1);
 	}
 
-	@Override
 	default A1 If(A0 p0, A1 p1) {
 		return qLAlg().If(p0, p1);
 	}
 
-	@Override
 	default A0 Lit(int p0) {
 		return qLAlg().Lit(p0);
 	}
 
-	@Override
 	default A1 Question(java.lang.String p0,
 			java.lang.String p1, java.lang.String p2) {
 		return qLAlg().Question(p0, p1, p2);
 	}
 
-	@Override
 	default A0 Var(java.lang.String p0) {
 		return qLAlg().Var(p0);
 	}
@@ -110,7 +104,6 @@ public interface G_ExpAlgQuery<A0>
 
 	Monoid<A0> mExp();
 
-	@Override
 	default A0 Add(A0 p0, A0 p1) {
 		A0 res = mExp().empty();
 		res = mExp().join(res, p0);
@@ -118,13 +111,11 @@ public interface G_ExpAlgQuery<A0>
 		return res;
 	}
 
-	@Override
 	default A0 Lit(int p0) {
 		A0 res = mExp().empty();
 		return res;
 	}
 
-	@Override
 	default A0 Var(java.lang.String p0) {
 		A0 res = mExp().empty();
 		return res;
@@ -146,18 +137,15 @@ public interface G_ExpAlgTransform<A, B0>
 		return res;
 	}
 
-	@Override
 	default Function<A, B0> Add(Function<A, B0> p0, Function<A, B0> p1) {
 		return acc -> expAlg().Add(p0.apply(acc),
 				p1.apply(acc));
 	}
 
-	@Override
 	default Function<A, B0> Lit(int p0) {
 		return acc -> expAlg().Lit(p0);
 	}
 
-	@Override
 	default Function<A, B0> Var(java.lang.String p0) {
 		return acc -> expAlg().Var(p0);
 	}
@@ -176,13 +164,11 @@ public interface G_LamAlgTransform<A, B0>
 		return res;
 	}
 
-	@Override
 	default Function<A, B0> Apply(Function<A, B0> p0, Function<A, B0> p1) {
 		return acc -> lamAlg().Apply(p0.apply(acc),
 				p1.apply(acc));
 	}
 
-	@Override
 	default Function<A, B0> Lam(java.lang.String p0, Function<A, B0> p1) {
 		return acc -> lamAlg().Lam(p0, p1.apply(acc));
 	}
