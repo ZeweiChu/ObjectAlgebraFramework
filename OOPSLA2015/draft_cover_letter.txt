@@ -1,0 +1,42 @@
+Typo, hyphenation, reference. (Fixed)
+Some figures moved.
+
+Analysing the conciseness that Shy improves in terms of number of classes and methods. (TODO)
+
+* Section 1. Introduction.
+Contributions of the paper: added a new item "Applications and examples".
+
+* Section 2. Background: Object Algebras
+Client code shown at the end of this section.
+
+* Section 3. An Overview of Shy.
+Example of the renaming updated: before we just renamed all variables with "_" suffixed;
+now we specify a variable to be renamed, and all the occurrences of it are renamed with
+a new name.
+
+* Section 4. Queries.
+At the end of 4.3: the case when empty() is invoked is added to the template.
+
+* Section 5. Generalized Queries.
+Explanation of why StatAlg doesn't extend ExpAlg.
+
+* Section 6. Transformations.
+Invocation of SubstVar shows how transformations are used.
+
+* Section 8. Desugaring Transformations.
+A new section: desugaring transformations describes how Shy is applied to implement
+compositional desugarings in a type-safe and extensible manner.
+
+* Section 9. Extensible Queries and Transformations.
+Classified into "Linear Extensibility" and "Independent Extensibility".
+The new subsection "Independent Extensibility" shows symmetric extension of the transformation.
+
+* Section 10. Shy Implementation.
+A new section briefly introducing Shy framework as a library.
+
+* Section 11. Case Study.
+Figures of performance testing updated.
+11.3: added a paragraph describing where the QL programs come from.
+
+* Section 12. Related Work.
+A new paragraph: Eliminating Boilerplate in Design Patterns, citing Hannemann & Kiczales OOPSLA' 02 paper.
