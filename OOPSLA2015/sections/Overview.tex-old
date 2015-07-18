@@ -157,7 +157,7 @@ renaming operations.
 
 \begin{figure}
 \nocaptionrule
-\lstinputlisting[linerange=7-20]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-22]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 %\vspace{-.1in}
 \caption{MiniQL renaming, implemented with  \Name.}
 \label{rename_with_oaframework}
