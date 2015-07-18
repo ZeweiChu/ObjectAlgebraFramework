@@ -18,12 +18,12 @@ The following code realizes this transformation by extending the  \lstinline{Exp
 The interface \lstinline{Desugar} exports the language \lstinline{DoubleAlg} and \lstinline{ExpAlg}, but \lstinline{expAlg()} (which is used as a factory for output expressions) has type \lstinline{ExpAlg}. Since \lstinline{ExpAlg} does not contain \lstinline{Double}, the \lstinline{Double} constructor cannot be used to construct the output. As a result, the algebra \lstinline{Desugar} transforms into is guaranteed to be without any occurrences of \lstinline{Double}.
 
 Expressions are created over the combined languages \lstinline{DoubleAlg} and \lstinline{ExpAlg}:
-\lstinputlisting[linerange=9-11]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=MAKE_DOUBLE_EXP
+\lstinputlisting[linerange=9-12]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=MAKE_DOUBLE_EXP
 
 
 To illustrate the use of the \lstinline{Desugar} algebra, here is the code to print an expression in desugared form:
 
-\lstinputlisting[linerange=16-23]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=PRINT_DESUGARED
+\lstinputlisting[linerange=17-24]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=PRINT_DESUGARED
 %\bruno{This client code is strange! The mk methods be used to build expressions only. The Desugar algebra
 %should not be inside.}
 
