@@ -9,7 +9,7 @@ structure. In this section we show how to avoid most traversal
 boilerplate code in the context of transformations using \name.
 
 
-\subsection{Transformations Object Algebra Style}\label{subsec:substvars}
+\subsection{Transformations, Object Algebra Style}\label{subsec:substvars}
 
 A simple example of a transformation algebra, using the Object
 Algebra interface \lstinline{ExpAlg}, is substituting expressions for
@@ -25,7 +25,7 @@ in Figure~\ref{substvars_without_id}.
 
 The expression to be substituted, and the variable to substitute for
 are provided by the methods \lstinline{e()} and \lstinline{x()}
-respectively. \lstinline{expAlg()} is an instance of
+respectively. The method \lstinline{expAlg()} is an instance of
 \lstinline{ExpAlg} on which the transformation is based. Since Object
 Algebras are factories, the transformation is executed immediately
 during construction of tree structures. For instance, calling \lstinline{Var("x")} on a
@@ -40,7 +40,7 @@ The following code shows how the transformation could be used:
 \lstinputlisting[linerange=16-27]{../ObjectAlgebras/src/expDemo2/ExpTest.java} % APPLY:linerange=SUBSTVAR_CLIENT
 
 The \lstinline{SubstVar} interface is instantiated with \lstinline{expAlg()} returning an instance of the \lstinline{FreeVars} algebra defined earlier (e.g., Figure~\ref{freevars_without_monoid}). The \lstinline{x()} method returns the variable to be substituted (\lstinline{"x"}). Finally, the \lstinline{e()} returns a new expression $1+y$ over the \lstinline{fv} algebra.
-When expressions are created on the \lstinline{subst} algebra, the result is the set of free variables \textit{after} the substitution has taken place. As a result, \lstinline{res} will contain only \lstinline{"y"}. 
+When expressions are created on the \lstinline{subst} algebra, the result is the set of free variables \textit{after} the substitution has taken place. As a result, \lstinline{res} will contain only \lstinline{"y"}.
 
 Note that this allows pipelining of transformations: there is no reason
 \lstinline{expAlg()} cannot return yet another transformation
@@ -49,7 +49,7 @@ algebra, for instance, a another instance of \lstinline{SubstVar} realizing a di
 
 Unfortunately, we again observe the problem of traversal-only boilerplate code: the
 \lstinline{Lit} and \lstinline{Add} methods of Figure~\ref{substvars_without_id} simply delegate to the
-base algebra \lstinline{expAlg()}, without doing any real work. 
+base algebra \lstinline{expAlg()}, without doing any real work.
 
 \subsection{Generic Traversal Code}
 

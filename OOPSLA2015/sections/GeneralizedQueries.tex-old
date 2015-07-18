@@ -98,7 +98,7 @@ sequential composition is automatic, as is the propagation of the set
 of variables through the different types of expressions.
 
 
-\begin{figure}[ht]
+\begin{figure}[t]
 \nocaptionrule
 \lstinputlisting[linerange=14-32]{../ObjectAlgebras/src/deps2/DepGraph.java} % APPLY:linerange=DEPS2
 \caption{Dependency graph with a generalized query.}

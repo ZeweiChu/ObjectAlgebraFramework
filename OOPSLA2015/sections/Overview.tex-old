@@ -9,6 +9,19 @@ and Java annotations.
 
 \subsection{Traversing Object-Oriented ASTs  }
 
+
+We start by introducing the problem of boilerplate code by considering
+a simplified variant of the QL language used in our case
+study~\cite{gouseti14extensible}, called MiniQL.  Just like QL, MiniQL
+can be used to describe interactive questionnaires.
+
+An example MiniQL program is
+shown in Figure~\ref{driver_license}.  The questionnaire first asks
+for the user's name and age, and then, if the age is greater than or
+equal to 18, asks if the user has a driver's license.  Because of the
+conditional construct, the last question will only appear when the
+user is actually eligible to have driver's license.
+
 \begin{figure}[t]
 \nocaptionrule
 \begin{lstlisting}[language=ql]
@@ -37,18 +50,6 @@ form DriverLicense {
 
     \caption{Implementing the ``used variables'' operation using traditional ASTs (left) and Object Algebras (right).}\label{LST:usedVars}
 \end{figure*}
-
-We start by introducing the problem of boilerplate code by considering
-a simplified variant of the QL language used in our case
-study~\cite{gouseti14extensible}, called MiniQL.  Just like QL, MiniQL
-can be used to describe interactive questionnaires. 
-
-An example MiniQL program is
-shown in Figure~\ref{driver_license}.  The questionnaire first asks
-for the user's name and age, and then, if the age is greater than or
-equal to 18, asks if the user has a driver's license.  Because of the
-conditional construct, the last question only will appear when the
-user is actually eligible to have driver's license.
 
 MiniQL's abstract syntax contains forms, statements (if-then and question) and expressions (only literals, variables and greater-than-or-equal).
 A traditional OO implementation is shown on the left Figure~\ref{LST:usedVars}.
@@ -111,16 +112,15 @@ argument.
 Unlike the standard OOP implementation,
 Object Algebras support adding operations without changing existing code.
 For instance, the renaming operation mentioned above could be realized
-as follows: 
+as follows:
 
 \lstinputlisting[linerange=39-55]{../ObjectAlgebras/src/example_QLAlg2/Rename.java} % APPLY:linerange=QL_TRANSFORM_ALG_SIMP
 
-Each
-constructor reconstructs a new node using an \hl{auxiliary} MiniQL algebra \lstinline{alg}.
+Each constructor reconstructs a new node using an auxiliary MiniQL algebra \lstinline{alg}.
 Almost all the method implementations reconstruct the structure with
 no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}. The other boilerplate cases are omitted for brevity; the full code can be found in
   Appendix~\ref{subsec:appendix_code_rename}. The two exceptions are the
-methods \lstinline{Question} and \lstinline{Var}, where the identifiers \hl{with the given name (\lstinline{n1}) are renamed (to \lstinline{n2}) \sout{are suffixed with ``\_''}}.
+methods \lstinline{Question} and \lstinline{Var}, where the identifiers with the given name \lstinline{from} are renamed to \lstinline{to}.
 
 Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
 In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
@@ -180,7 +180,7 @@ By implementing the
 \lstinline{QLAlgQuery} and \lstinline{QLAlgTrans} interface, only the
 methods \lstinline{Question} and \lstinline{Var} need to be
 overridden: all the other methods perform basic accumulation for
-queries and basic identity reconstruction in the case of
+queries and basic reconstruction in the case of
 transformations.  For queries the only extra thing a programmer
 has to do is to provide an instance of a monoid, which is used to
 specify how to accumulate the results during the traversal. Similarly,

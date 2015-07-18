@@ -54,7 +54,7 @@ public class TestDeBruijn {
 	void go() {
 //BEGIN_CLIENTCODE_DEBRUIJN		
 DeBruijn<String> deBruijn = new DeBruijn<String>() {
-	Printer alg = new Printer();
+	PrintExpLam alg = new PrintExpLam();
 	public ExpAlg<String> expAlg() { return alg; }
 	public LamAlg<String> lamAlg() { return alg; }
 };
@@ -90,7 +90,7 @@ println(makeLamExp(deBruijn)
 }
 
 //BEGIN_LAMALG_PRINTER
-class Printer implements ExpAlg<String>,
+class PrintExpLam implements ExpAlg<String>,
 		LamAlg<String> {
 	public String Lam(String x, String e) {
 		return "\\" + x + "." + e;

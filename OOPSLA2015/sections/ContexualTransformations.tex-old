@@ -48,8 +48,8 @@ The conversion to De Bruijn indices uses an object algebra interface
 \name automatically generates traversal code for transformation for both
 \lstinline{LamAlg} and \lstinline{ExpAlg}:
 \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform},
-respectively. For space reasons
-the generated transformation code is omitted here, but can be found
+respectively. 
+The generated transformation code  can be found
 in Appendix~\ref{subsec:appendix_code_g_explam_transform}. Using these
 interfaces, the conversion to De Bruijn indices is
   realized as shown in Figure~\ref{DeBruijn}. Note again that only the
@@ -71,7 +71,7 @@ interfaces, the conversion to De Bruijn indices is
 
 \noindent It simply generates ``$\lambda x.\lambda y.~x+y$'' as a generic lambda expression.
 By instantiating the \lstinline{DeBruijn} interface with a
-\lstinline{Printer} algebra (shown in Appendix~\ref{subsec:appendix_printer}) passed
+\lstinline{PrintExpLam} algebra (shown in Appendix~\ref{subsec:appendix_printer}) passed
 in as the base algebra, we can write the client code as follows:
 
 \lstinputlisting[linerange=56-62]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=CLIENTCODE_DEBRUIJN

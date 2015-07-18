@@ -120,7 +120,7 @@ Each constructor reconstructs a new node using an auxiliary MiniQL algebra \lsti
 Almost all the method implementations reconstruct the structure with
 no changes using the methods of \lstinline{alg}. For instance, the \lstinline{Form} method just recreates the form in the algebra \lstinline{alg}. The other boilerplate cases are omitted for brevity; the full code can be found in
   Appendix~\ref{subsec:appendix_code_rename}. The two exceptions are the
-methods \lstinline{Question} and \lstinline{Var}, where the identifiers with the given name \lstinline{n1} are renamed to \lstinline{n2}.
+methods \lstinline{Question} and \lstinline{Var}, where the identifiers with the given name \lstinline{from} are renamed to \lstinline{to}.
 
 Although the Object Algebra encoding of MiniQL solves the problem of extensibility, the traversal code still contains boilerplate code.
 In both \lstinline{UsedVars} and \lstinline{Rename}, the only interesting code
@@ -157,7 +157,7 @@ renaming operations.
 
 \begin{figure}
 \nocaptionrule
-\lstinputlisting[linerange=7-20]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
+\lstinputlisting[linerange=7-22]{../ObjectAlgebras/src/example_QLAlg3/Rename.java} % APPLY:linerange=QL_TRANSFORM_WITH_OAFRAMEWORK
 %\vspace{-.1in}
 \caption{MiniQL renaming, implemented with  \Name.}
 \label{rename_with_oaframework}

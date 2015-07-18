@@ -3,7 +3,7 @@ package example_DoubleAlg2;
 import library.Monoid;
 import query.ExpAlgQuery;
 
-public class PrettyPrint implements ExpAlgQuery<String> {
+public class PrintExp implements ExpAlgQuery<String> {
 
 	public String Var(String s) {
 		return s;
