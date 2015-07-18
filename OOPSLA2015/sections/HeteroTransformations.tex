@@ -20,6 +20,8 @@ The interface \lstinline{Desugar} exports the language \lstinline{DoubleAlg} and
 The \lstinline{Desugar} algebra can be used as follows:
 
 \lstinputlisting[linerange=8-13]{../ObjectAlgebras/src/example_DoubleAlg2/Test.java} % APPLY:linerange=MAKE_DOUBLE_EXP
+\bruno{This client code is strange! The mk methods be used to build expressions only. The Desugar algebra
+should not be inside.}
 
 \noindent The method \lstinline{makeExp} creates the expression ``\lstinline[mathescape=true]{5 + 2$\cdot$a}'' using the \lstinline{Desugar} algebra which delegates to the argument algebra \lstinline{alg}. The result is the expression \lstinline{(5 + (a + a))}.
 
