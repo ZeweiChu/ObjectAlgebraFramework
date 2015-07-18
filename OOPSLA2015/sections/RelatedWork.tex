@@ -36,17 +36,19 @@ preclude separate compilation.
 
 Strategic programming is an approach to data structure traversal,
 which originated in term
-rewriting~\cite{borovansky1996elan,visser1998core,vandenBrand:2003:TRT:941566.941568}.
-Computations are represented by simple, conditional rewrite rules, but
+rewriting. Visser et al. extended the rewriting strategies of~\cite{borovansky1996elan} with generic one-level traversal operators~\cite{Visser:1998:BPO:289423.289425} enabling a style of term rewriting where computations are represented by simple, conditional rewrite rules, but
 the application of such rules is controlled separately using the
 concept of a strategy.  Strategies can be primitive (e.g., ``fail'')
-or composed using combinators (e.g., ``try $s$ else $s'$'').  The
-strategy concept has been ported to other paradigms.
+or composed using combinators (e.g., ``try $s$ else $s'$'').  
+These and other combinators were formalized in a  core language for strategic rewriting in~\cite{visser1998core}.
+
+The
+strategy concept have since then been ported to other paradigms.
 \textsc{JJTraveler} is an OO framework for strategic
 programming~\cite{visser01visitor}.  L\"ammel et al. introduced typed
-strategy combinators in Haskell~\cite{lammel2002typed}.  The relation
+strategy combinators in Haskell~\cite{lammel2002typed}. The relation
 between strategic programming and AOOP has been explored
-in~\cite{lammel2003strategic}.
+in~\cite{lammel2003strategic}. 
 
 The key tenet of strategic programming is separation of concerns:  actual computation and traversal are specified separately.
 In \name, the traversal of a data structure is also specified separately (in a super-interface), however, it is fixed for specific styles of queries and transformations.
