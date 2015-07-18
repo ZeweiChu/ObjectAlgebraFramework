@@ -9,26 +9,29 @@ class Rename<E, S, F> implements QLAlg<E, S, F> {
 	private QLAlg<E, S, F> alg;
 	private String from, to;
 	public Rename(QLAlg<E, S, F> alg, String from, String to) {
-		this.alg = alg; this.from = from; this.to = to;
+		this.alg = alg; 
+		this.from = from; 
+		this.to = to;
 	}	
 	public F Form(String id, List<S> stmts) {
 		return alg.Form(id, stmts);
 	}
-	public S If(E cond, S then) {
-		return alg.If(cond, then);
+	public S If(E c, S t) {
+		return alg.If(c, t);
 	}
-	public S Question(String id, String lbl,
-			String type) {
-		String newN = id.equals(from) ? to : id;
-		return alg.Question(newN, lbl, type);
+	public S Question(String n, String l, String t) {
+		n = n.equals(from) ? to : n;
+		return alg.Question(n, l, t);
 	}
-	public E Lit(int x) { return alg.Lit(x); }
-	public E Var(String name) {
-		String newN = name.equals(from) ? to : name;
-		return alg.Var(newN);
+	public E Lit(int n) { 
+		return alg.Lit(n); 
 	}
-	public E GEq(E lhs, E rhs) {
-		return alg.GEq(lhs, rhs);
+	public E Var(String x) {
+		x = x.equals(from) ? to : x;
+		return alg.Var(x);
+	}
+	public E GEq(E l, E r) {
+		return alg.GEq(l, r);
 	}
 }
 //END_QL_TRANSFORM_ALG
