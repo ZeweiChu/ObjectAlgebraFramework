@@ -158,9 +158,11 @@ called the \textit{generic query algebra}.
 %% \end{figure}
 
 The \lstinline{ExpAlgQuery} interface provides an alternative way to
-define the free variables operation.  Since the result of free
-variables is a set, the monoid returned by \lstinline{m()} is an
-implementation of the \lstinline{Monoid} interface. For this case the following implementation suffices:
+define the free variables operation. Instead of directly defining the
+free variables operation, \lstinline{ExpAlgQuery} can be inherited,
+provided that the method \lstinline{m()} is implemented.
+In the case of free variables, the monoid returned by \lstinline{m()} is an
+implementation of the \lstinline{Monoid} interface for sets:
 
 \lstinputlisting[linerange=27-36]{../ObjectAlgebras/src/monoid/SetMonoid.java} % APPLY:linerange=SET_MONOID
 
@@ -244,15 +246,17 @@ mechanical and can be automatically generated.  This is precisely what
 \name does. Annotating algebra interfaces, such as \lstinline{ExpAlg}, with the annotation \lstinline{@Algebra},
 triggers automatic generation of generic query interfaces, such as \lstinline{ExpAlgQuery}.
 %\name also provides implementatations of a number of common monoids over sets, lists, and numbers.
-Figure~\ref{queryTemplate} shows the general template in \name for an algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$}.
-Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
-All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. Arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.
+The general template in \name for an
+algebra \lstinline[mathescape=true]{Alg<X$_1$, $...$, X$_n$>}, with
+constructors \lstinline[mathescape=true]{f$_1$, $...$, f$_m$} is shown next:
 
-\begin{figure}[ht]
-\nocaptionrule
 \begin{lstlisting}[mathescape=true]
 interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   Monoid<R> m();
+
+  default R f$_i$() {
+    return m().empty();
+  }
 
   default R f$_j$(R p$_1$, $...$, R p$_k$) {
     return  m().join(p$_1$, m().join(p$_2$, $...$, m().join(
@@ -261,7 +265,9 @@ interface Alg$_Q$<R> extends Alg<R,$...$,R> {
   $...$
 }
 \end{lstlisting}
-\caption{Generic template for generic queries.}
-\label{queryTemplate}
-\end{figure}
+
+Note that interface \lstinline{Alg}$_Q$ extends \lstinline{Alg} so that all type parameters are unified as type \lstinline{R}.
+All arguments to a constructor \lstinline[mathescape=true]{f$_j$} are combined with \lstinline{join} from the monoid \lstinline{m()}. Arguments with primitive types, like \lstinline{int}, \lstinline{boolean} or \lstinline{String}, are ignored by default.
+
+
 

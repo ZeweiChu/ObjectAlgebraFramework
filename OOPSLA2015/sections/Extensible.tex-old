@@ -74,14 +74,22 @@ In that case, the generated \lstinline{LamAlgTransform} would need to refine the
 
 \subsection{Independent Extensibility}
 
-Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. \lstinline{FreeVars} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent
+Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. {\small\texttt{FreeVars}} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent using multiple inheritance of interfaces with default methods. 
+
+For instance, the \lstinline{Unique} transformation for the \lstinline{LamAlg} language could also have been implemented independent of \lstinline{Unique}:
 
 \lstinputlisting[linerange=6-11]{../ObjectAlgebras/src/expDemo3/unique/UniqueLam.java} % APPLY:linerange=UNIQUE_INDEP
 
+Note that this interface declares the required dependency on \lstinline{nextInt()}.
+Both transformations are combined independently through multiple inheritance of interfaces.
+Both \lstinline{Unique} and \lstinline{UniqueLam} declare the method \lstinline{nextInt()}, but since the declarations are abstract, they are identified. Implementations of the combined interface need to provide concrete implementations for \lstinline{nextInt()}, \lstinline{expAlg()} and \lstinline{lamAlg()}:
 
-Combining both transformations independently:
+\begin{lstlisting}
+class Combine<E> implements Unique<E>,UniqueLam<E> {
+  public int nextInt() { ... }
+  public ExpAlg<E> expAlg() { ... }
+  public LamAlg<E> lamAlg() { ... }
+}
+\end{lstlisting}
 
-\lstinputlisting[linerange=9-9]{../ObjectAlgebras/src/expDemo3/unique/TestUniqueWithLambdaIndep.java} % APPLY:linerange=COMBINE_UNIQUES
-
-
-
+For queries the pattern is the same, except that only a concrete implementation of \lstinline{m()} has to be provided for the combined interface. 

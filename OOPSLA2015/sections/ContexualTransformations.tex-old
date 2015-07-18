@@ -48,8 +48,8 @@ The conversion to De Bruijn indices uses an object algebra interface
 \name automatically generates traversal code for transformation for both
 \lstinline{LamAlg} and \lstinline{ExpAlg}:
 \lstinline{G_LamAlgTransform} and \lstinline{G_ExpAlgTransform},
-respectively. For space reasons
-the generated transformation code is omitted here, but can be found
+respectively. 
+The generated transformation code  can be found
 in Appendix~\ref{subsec:appendix_code_g_explam_transform}. Using these
 interfaces, the conversion to De Bruijn indices is
   realized as shown in Figure~\ref{DeBruijn}. Note again that only the

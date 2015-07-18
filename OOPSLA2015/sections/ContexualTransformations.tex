@@ -71,7 +71,7 @@ interfaces, the conversion to De Bruijn indices is
 
 \noindent It simply generates ``$\lambda x.\lambda y.~x+y$'' as a generic lambda expression.
 By instantiating the \lstinline{DeBruijn} interface with a
-\lstinline{Printer} algebra (shown in Appendix~\ref{subsec:appendix_printer}) passed
+\lstinline{PrintExpLam} algebra (shown in Appendix~\ref{subsec:appendix_printer}) passed
 in as the base algebra, we can write the client code as follows:
 
 \lstinputlisting[linerange=56-62]{../ObjectAlgebras/src/debruijn/TestDeBruijn.java} % APPLY:linerange=CLIENTCODE_DEBRUIJN
