@@ -52,7 +52,7 @@ of Shy. This section explains what annotation processor has been used.
 > start-up or warmed-up performance?
 
 We didn't measure warmup time: the benchmarks were run first to
-warm-up; then to measure warmup-up performance. The initial outliers
+warm-up; then to measure warmed-up performance. The initial outliers
 were caused by garbage collection pauses. The current measurements
 were run with 2GB of memory to avoid GC pauses.
 
@@ -77,7 +77,7 @@ using interfaces with default methods. Using default methods allows us
 to get quite a few of of the benefits of multiple-inheritance and
 traits. Of course if we had traits we could do some things more
 elegantly. We hope that the discussion about "Independent
-Extensibility" in Section 9.2 illustrate the benefits of using
+Extensibility" in Section 9.2 illustrates the benefits of using
 interfaces with default methods.
 
 > 
@@ -92,7 +92,7 @@ provides answers to all of the questions above.
 > 
 > - Origins of strategic programming in related work is mis-represented.
 
-TODO: Tijs
+We have changed the formulation in the text. 
 
 > p5: ¡°the code in Figure 4 is much shorter¡± You write in multiple places 
 > that the code is so short, which seems to refer to its textual size. All 
@@ -101,7 +101,7 @@ TODO: Tijs
 > method definitions or perhaps more fine-grained, in terms of statements or 
 > method calls. 
 
-DONE (Mention in cover letter; refer to table 1)
+In the case-study we (Table 1) we measure the number of factory methods ("expression constructors") that had to be overridden relative to the total number of case.
 
 
 > p5/fig5: that rename is rather lame; why not a proper rename with a new name?
@@ -114,14 +114,14 @@ proper rename.
 > this point to show how such a transformation is invoked and how a transformation 
 > pipeline is constructed.
 
-(IMPROVE THIS ANSWER)
-Done: moved this to 6.1, since it is independent of Boilerplate generation.
+Section 6.1 now includes an example of how to invoke the SubsVar transformation.
+This transformation transforms into the FreeVars algebra. 
 
 > p8: ¡°To execute substitution, SubstVar should be subclassed with implementations 
 > for x(), e(), and expAlg().¡± That is a cumbersome way to construct closures; 
 > sounds rather boilerplaty; why not show such an invocation.
 
-Done! See client code in Section 6.1.
+See client code in Section 6.1.
 
 > p9/fig13: That produces a fold/bottom-up transformation. How about top-down 
 > traversals? Later in the paper you mention a desugaring, but the code for the 
@@ -181,4 +181,4 @@ automatically deforested.
 > came _five_ years later and post-dates most of the work that is described in 
 > the next paragraphs. Don¡¯t cite is as the origin of strategic programming!
 
-TODO: Tijs
+This has been fixed in the text. 
