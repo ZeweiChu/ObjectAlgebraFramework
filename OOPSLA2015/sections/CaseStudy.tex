@@ -181,5 +181,45 @@ The greater difference can be explained by the fact that creating a new structur
 
 
 
+\begin{comment}
+
+  
+\begin{tabular}{lr}\toprule
+Component  & SLOC \\\midrule
+Object Algebra interfaces & 71 \\
+Collect variables & 10 \\
+Data dependencies & 30 \\
+Control dependencies & 58 \\
+Type environment & 15 \\\midrule
+Rename variable & 27 \\
+Inline conditions & 48\\
+Desugar ``unless'' & 10 \\
+Desugar ``repeat'' & 35 \\\midrule
+\textbf{Total \Name-based operations} & 304 \\
+\textbf{AST based implementation}  & 716  \\\bottomrule
+\end{tabular}
 
 
+The performance comparison is based on a Vanilla and Shy
+implementation of control-dependency extraction and the inline
+conditions transformation. The number of source lines of code (SLOC)
+number for each are:
+
+- Vanilla: 716
+- Shy: 177
+
+The difference is 539 SLOC, or, the size of the Shy version is about
+25% of the vanilla version.
+
+The vanilla implementation (necessarily) includes the basic AST
+classes where the extraction and transformation methods are defined.
+For the Shy implementation, we’ve included the object algebra
+interfaces describing the language’s abstract syntax.
+
+
+10 + 15 + 58 + 30 + 35 + 10 + 27 + 48 = 233
+
+
+503 for control deps, type env, inline conds, rename
+todo: data deps, desugar unless, desugar repeat.
+\end{comment}
