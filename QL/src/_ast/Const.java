@@ -15,9 +15,4 @@ public abstract class Const extends Exp {
 	public Set<String> freeVars() {
 		return Collections.emptySet();
 	}
-	
-	@Override
-	public int count() {
-		return 1;
-	}
 }

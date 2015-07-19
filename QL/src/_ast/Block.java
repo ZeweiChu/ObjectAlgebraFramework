@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 import library.Pair;
 import ql_obj_alg.check.types.Type;
-import ql_obj_alg.syntax.IExpAlg;
-import ql_obj_alg.syntax.IStmtAlg;
 
 public class Block extends Stmt {
 
@@ -43,24 +41,6 @@ public class Block extends Stmt {
 	}
 
 	@Override
-	public <E, S> S recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg) {
-		List<S> ss = new ArrayList<>();
-		for (Stmt s: stats) {
-			ss.add(s.recons(expAlg, stmtAlg));
-		}
-		return stmtAlg.block(ss);
-	}
-
-	@Override
-	public int count() {
-		int count = 1;
-		for (Stmt s: stats) {
-			return count += s.count();
-		}
-		return count;
-	}
-
-	@Override
 	public Stmt flatten(Exp guard) {
 		List<Stmt> newBody = new ArrayList<>();
 		for (Stmt s: stats) {
@@ -68,4 +48,9 @@ public class Block extends Stmt {
 		}
 		return new Block(newBody);
 	}
+
+	@Override
+  public Stmt desugar() {
+		return new Block(stats.stream().map(s -> s.desugar()).collect(Collectors.toList()));
+  }
 }

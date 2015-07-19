@@ -1,6 +1,5 @@
 package _ast;
 
-import ql_obj_alg.syntax.IExpAlg;
 
 public class Leq extends BinaryExp {
 
@@ -12,11 +11,5 @@ public class Leq extends BinaryExp {
 	protected Exp make(Exp lhs, Exp rhs) {
 		return new Leq(lhs, rhs);
 	}
-	
-	@Override
-	protected <E> E recons2(IExpAlg<E> alg, E lhs, E rhs) {
-		return alg.leq(lhs, rhs);
-	}
-
 
 }

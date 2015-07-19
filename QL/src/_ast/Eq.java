@@ -1,6 +1,5 @@
 package _ast;
 
-import ql_obj_alg.syntax.IExpAlg;
 
 public class Eq extends BinaryExp {
 
@@ -13,10 +12,5 @@ public class Eq extends BinaryExp {
 		return new Eq(lhs, rhs);
 	}
 	
-	@Override
-	protected <E> E recons2(IExpAlg<E> alg, E lhs, E rhs) {
-		return alg.eq(lhs, rhs);
-	}
-
 
 }

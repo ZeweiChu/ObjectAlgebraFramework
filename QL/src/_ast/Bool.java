@@ -1,6 +1,5 @@
 package _ast;
 
-import ql_obj_alg.syntax.IExpAlg;
 
 public class Bool extends Const {
 
@@ -9,10 +8,4 @@ public class Bool extends Const {
 	public Bool(boolean b) {
 		this.value = b;
 	}
-
-	@Override
-	public <E> E recons(IExpAlg<E> alg) {
-		return alg.bool(value);
-	}
-
 }

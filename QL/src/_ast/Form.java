@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 import library.Pair;
 import ql_obj_alg.check.types.Type;
-import ql_obj_alg.syntax.IExpAlg;
-import ql_obj_alg.syntax.IFormAlg;
-import ql_obj_alg.syntax.IStmtAlg;
 
 public class Form {
 
@@ -20,6 +17,10 @@ public class Form {
 	public Form(String id, List<Stmt> statements) {
 		this.id = id;
 		this.body = statements;
+	}
+	
+	public Form desugar() {
+		return new Form(id, body.stream().map(s -> s.desugar()).collect(Collectors.toList()));
 	}
 
 	public Form rename(Map<String, String> ren) {
@@ -40,22 +41,6 @@ public class Form {
 			tenv = Stmt.typeEnvMonoid.join(tenv, s.typeEnv());
 		}
 		return tenv;
-	}
-	
-	public <E, S, F> F recons(IExpAlg<E> expAlg, IStmtAlg<E, S> stmtAlg, IFormAlg<E, S, F> formAlg) {
-		List<S> stats = new ArrayList<>();
-		for (Stmt s: body) {
-			stats.add(s.recons(expAlg, stmtAlg));
-		}
-		return formAlg.form(id, stats);
-	}
-	
-	public int count() {
-		int count = 1;
-		for (Stmt s: body) {
-			count += s.count();
-		}
-		return count;
 	}
 	
 	public Form flatten(Exp guard) {

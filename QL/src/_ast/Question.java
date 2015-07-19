@@ -30,13 +30,12 @@ public abstract class Question extends Stmt {
 	}
 	
 	@Override
-	public int count() {
-		return 1;
-	}
-	
-	@Override
 	public Stmt flatten(Exp guard) {
 		return new If(guard, this);
 	}
 	
+	@Override
+	public Stmt desugar() {
+	  return this;
+	}
 }

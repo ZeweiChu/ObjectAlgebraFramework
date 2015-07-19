@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import ql_obj_alg.syntax.IExpAlg;
 import _ast.util.Rename;
 
 public class Var extends Exp {
@@ -24,14 +23,4 @@ public class Var extends Exp {
 		return Collections.singleton(name);
 	}
 
-	@Override
-	public <E> E recons(IExpAlg<E> alg) {
-		return alg.var(name);
-	}
-
-	@Override
-	public int count() {
-		return 1;
-	}
-	
 }

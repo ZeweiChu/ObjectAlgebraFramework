@@ -1,5 +1,11 @@
+_syb/query/FreeVars.java
+_syb/query/TypeEnv.java
 _syb/query/ControlDepGraph.java
 _syb/query/ControlDepGraphUnless.java
+_syb/query/DataDepGraph.java
+_syb/trafo/DesugarRepeat.java
+_syb/trafo/DesugarUnless.java
+_syb/trafo/RenameVariable.java
 _syb/trafo/InlineConditions.java
 _syb/trafo/InlineConditionsUnless.java
 ql_obj_alg/syntax/IExpAlg.java
