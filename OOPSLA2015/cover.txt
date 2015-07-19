@@ -23,7 +23,7 @@ We added some text explaining the option not to have StatAlg extending ExpAlg.
 > p11 where did the QL programs come from?  
 
 The QL programs represent questionnaires describing binary search
-problem and were generated.  We now included this in the text.
+problem and were generated.  We have now included this in the text.
 
 
 >                           OOPSLA '15 Review #60B
@@ -52,7 +52,7 @@ of Shy. This section explains what annotation processor has been used.
 > start-up or warmed-up performance?
 
 We didn't measure warmup time: the benchmarks were run first to
-warm-up; then to measure warmed-up performance. The initial outliers
+warm-up; then a second time to measure warmed-up performance. The initial outliers
 were caused by garbage collection pauses. The current measurements
 were run with 2GB of memory to avoid GC pauses.
 
