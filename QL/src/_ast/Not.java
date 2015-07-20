@@ -20,5 +20,10 @@ public class Not extends Exp {
 	public Set<String> freeVars() {
 		return arg.freeVars();
 	}
+	
+	@Override
+	public Exp desugar(String n) {
+	  return new Not(arg.desugar(n));
+	}
 
 }

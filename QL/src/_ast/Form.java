@@ -23,6 +23,10 @@ public class Form {
 		return new Form(id, body.stream().map(s -> s.desugar()).collect(Collectors.toList()));
 	}
 
+	public Form desugar(String n) {
+		return new Form(id, body.stream().map(s -> s.desugar(n)).collect(Collectors.toList()));
+	}
+
 	public Form rename(Map<String, String> ren) {
 		List<Stmt> newBody = new ArrayList<>();
 		for (Stmt s: body) {
@@ -34,7 +38,11 @@ public class Form {
 	public Set<Pair<String,String>> controlDeps() {
 		return Stmt.depMonoid.fold(body.stream().map((x) -> x.controlDeps()).collect(Collectors.toList()));
 	}
-	
+
+	public Set<Pair<String,String>> dataDeps() {
+		return Stmt.depMonoid.fold(body.stream().map((x) -> x.dataDeps()).collect(Collectors.toList()));
+	}
+
 	public Map<String,Type> typeEnv() {
 		Map<String,Type> tenv = Stmt.typeEnvMonoid.empty(); 
 		for (Stmt s: body) {

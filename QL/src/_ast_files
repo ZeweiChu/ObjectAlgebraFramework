@@ -28,5 +28,6 @@ _ast/Stmt.java
 _ast/Str.java
 _ast/Sub.java
 _ast/Unless.java
+_ast/Repeat.java
 _ast/util/Rename.java
 _ast/Var.java

@@ -53,4 +53,14 @@ public class Block extends Stmt {
   public Stmt desugar() {
 		return new Block(stats.stream().map(s -> s.desugar()).collect(Collectors.toList()));
   }
+
+	@Override
+  public Stmt desugar(String n) {
+	  return new Block(stats.stream().map(s -> s.desugar(n)).collect(Collectors.toList()));
+  }
+
+	@Override
+  public Set<Pair<String, String>> dataDeps() {
+		return Stmt.depMonoid.fold(stats.stream().map((x) -> x.dataDeps()).collect(Collectors.toList()));
+  }
 }

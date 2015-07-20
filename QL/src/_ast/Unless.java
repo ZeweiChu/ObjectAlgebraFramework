@@ -31,4 +31,13 @@ public class Unless extends Conditional {
 	  return new If(new Not(cond), then.desugar());
   }
 
+	@Override
+  public Stmt desugar(String n) {
+	 return new Unless(cond.desugar(n), then.desugar(n));
+  }
+
+	@Override
+  public Set<Pair<String, String>> dataDeps() {
+	  return then.dataDeps();
+  }
 }

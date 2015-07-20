@@ -15,4 +15,9 @@ public abstract class Const extends Exp {
 	public Set<String> freeVars() {
 		return Collections.emptySet();
 	}
+	
+	@Override
+	public Exp desugar(String n) {
+	  return this;
+	}
 }

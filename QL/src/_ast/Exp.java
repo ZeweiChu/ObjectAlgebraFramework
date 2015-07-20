@@ -7,4 +7,5 @@ import java.util.Set;
 public abstract class Exp {
 	public abstract Exp rename(Map<String, String> ren);
 	public abstract Set<String> freeVars();
+	public abstract Exp desugar(String n);
 }

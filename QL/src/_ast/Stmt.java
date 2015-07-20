@@ -16,7 +16,9 @@ public abstract class Stmt {
 	public abstract Stmt rename(Map<String, String> ren);
 	public abstract Map<String,Type> typeEnv();
 	public abstract Set<Pair<String,String>> controlDeps();
+	public abstract Set<Pair<String,String>> dataDeps();
 	public abstract Stmt flatten(Exp guard);
 	public abstract Stmt desugar();
+	public abstract Stmt desugar(String n);
 	
 }

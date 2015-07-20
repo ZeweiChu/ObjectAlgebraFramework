@@ -20,4 +20,9 @@ public class Bracket extends Exp {
 	public Set<String> freeVars() {
 		return exp.freeVars();
 	}
+
+	@Override
+  public Exp desugar(String n) {
+	  return new Bracket(exp.desugar(n));
+  }
 }

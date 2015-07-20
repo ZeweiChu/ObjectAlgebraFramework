@@ -23,4 +23,9 @@ public class Var extends Exp {
 		return Collections.singleton(name);
 	}
 
+	@Override
+  public Exp desugar(String n) {
+	  return new Var(name + n);
+  }
+
 }

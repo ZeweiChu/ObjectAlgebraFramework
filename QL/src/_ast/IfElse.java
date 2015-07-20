@@ -56,6 +56,14 @@ public class IfElse extends Conditional {
 		return new IfElse(cond, then.desugar(), els.desugar());
   }
 	
-	
+	@Override
+  public Stmt desugar(String n) {
+		return new IfElse(cond, then.desugar(n), els.desugar(n));
+  }
+
+	@Override
+  public Set<Pair<String, String>> dataDeps() {
+	  return Stmt.depMonoid.join(then.dataDeps(), els.dataDeps());
+  }
 	
 }

@@ -33,5 +33,13 @@ public class If extends Conditional {
 	  return new If(cond, then.desugar());
   }
 	
+	@Override
+  public Stmt desugar(String n) {
+	  return new If(cond, then.desugar(n));
+  }
 
+	@Override
+  public Set<Pair<String, String>> dataDeps() {
+	  return then.dataDeps();
+  }
 }

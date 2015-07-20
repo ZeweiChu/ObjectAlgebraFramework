@@ -1,5 +1,7 @@
 package _ast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,40 +10,51 @@ import ql_obj_alg.check.types.Type;
 
 public class Repeat extends Stmt {
 
-	private int count;
+	private int times;
 	private Stmt body;
 
 	public Repeat(int n, Stmt body) {
-		this.count = n;
+		this.times = n;
 		this.body = body;
   }
 	
-	
 	@Override
-	public Stmt rename(Map<String, String> ren) {
-		return new Repeat(n, body.rename(ren));
-	}
+  public Stmt rename(Map<String, String> ren) {
+	  return new Repeat(times, body.rename(ren));
+  }
 
 	@Override
-	public Map<String, Type> typeEnv() {
-		return body.typeEnv();
-	}
+  public Map<String, Type> typeEnv() {
+	  return body.typeEnv();
+  }
 
 	@Override
-	public Set<Pair<String, String>> controlDeps() {
-		return body.controlDeps();
-	}
+  public Set<Pair<String, String>> controlDeps() {
+	  return desugar("").controlDeps();
+  }
 
 	@Override
-	public Stmt flatten(Exp guard) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  public Set<Pair<String, String>> dataDeps() {
+	  return desugar("").dataDeps();
+  }
 
 	@Override
-	public Stmt desugar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  public Stmt flatten(Exp guard) {
+	  return desugar("").flatten(guard);
+  }
+
+	@Override
+  public Stmt desugar() {
+	  return new Repeat(times, body.desugar());
+  }
+
+	@Override
+  public Stmt desugar(String n) {
+		List<Stmt> body = new ArrayList<>();
+		for (int i = 0; i < times; i++) {
+			body.add(this.body.desugar(n + "_" + i));
+		}
+		return new Block(body);
+  }
 
 }

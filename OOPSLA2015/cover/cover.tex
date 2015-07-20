@@ -193,7 +193,8 @@ provides answers to all of the questions above.
 
 \question{Origins of strategic programming in related work is mis-represented.}
 
-\hl{TODO: Tijs}
+We have changed the formulation in the text to accurately reflect the origins of strategic programming. 
+
 
 \question{p5: ¡°the code in Figure 4 is much shorter¡± You write in multiple places
 that the code is so short, which seems to refer to its textual size. All
@@ -202,7 +203,8 @@ if the conciseness would be analytically characterized in terms of number of
 method definitions or perhaps more fine-grained, in terms of statements or
 method calls.}
 
-\hl{DONE (Mention in cover letter; refer to table 1)}
+In the case-study we (Table 1) we measure the number of factory methods ("expression constructors") that had to be overridden relative to the total number of case.
+
 
 \question{p5/fig5: that rename is rather lame; why not a proper rename with a new name?}
 
@@ -214,14 +216,15 @@ immediately during construction of tree structures.¡± It would be useful at
 this point to show how such a transformation is invoked and how a transformation
 pipeline is constructed.}
 
-\hl{(IMPROVE THIS ANSWER)
-Done: moved this to 6.1, since it is independent of Boilerplate generation.}
+Section 6.1 now includes an example of how to invoke the SubsVar transformation.
+This transformation transforms into the FreeVars algebra. 
+
 
 \question{p8: ``To execute substitution, SubstVar should be subclassed with implementations
 for \lstinline{x()}, \lstinline{e()}, and \lstinline{expAlg()}.'' That is a cumbersome way to construct closures;
 sounds rather boilerplaty; why not show such an invocation.}
 
-Done! See client code in Section 6.1.
+See client code in Section 6.1.
 
 \question{p9/fig13: That produces a fold/bottom-up transformation. How about top-down
 traversals? Later in the paper you mention a desugaring, but the code for the
@@ -278,6 +281,7 @@ traversals in Haskell and Java. The extension of ASF with traversals [24]
 came five years later and post-dates most of the work that is described in
 the next paragraphs. Don¡¯t cite is as the origin of strategic programming!}
 
-\hl{TODO: Tijs}
+This has been fixed in the text. 
+
 
 \end{document}

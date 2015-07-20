@@ -26,4 +26,9 @@ public abstract class BinaryExp extends Exp {
 		set.addAll(rhs.freeVars());
 		return set;
 	}
+	
+	@Override
+	public Exp desugar(String n) {
+	 return make(lhs.desugar(n), rhs.desugar(n));
+	}
 }
