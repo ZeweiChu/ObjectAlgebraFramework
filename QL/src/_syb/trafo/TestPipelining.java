@@ -183,30 +183,30 @@ alg = new Desugar<>(new Inline<>(
 		pp.apply(new Format().bool(true)).format(0, true, w);
 		System.out.println(w);
 		
-  		DesugarBoth<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>, Function<String, Function<IFormatWithPrecedence, IFormat>>, Function<String, Function<IFormatWithPrecedence, IFormat>>> 
-  		dr = new DesugarBoth<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>,
-  				Function<String, Function<IFormatWithPrecedence, IFormat>>,
-  				Function<String, Function<IFormatWithPrecedence, IFormat>>>(
-  						new Rename<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>,
-  	  				Function<String, Function<IFormatWithPrecedence, IFormat>>,
-  	  				Function<String, Function<IFormatWithPrecedence, IFormat>>>(Collections.singletonMap("x", "y"),
-  	  						
-  	  						
-  	  						
-  	  						new Format2()));
-		
-		
-	//BEGIN_PIPELINEQL_CALL_REPEAT
-			Function<String, Function<IFormatWithPrecedence, IFormat>> pp2 
-			  = dr.form("myForm", Arrays.asList(
-				    dr.repeat(5,  
-				    	dr.unless(dr.var("x"),
-				    			dr.question("x", "X?", new TBoolean()))));
-			//END_PIPELINEQL_CALL_REPEAT
-		
-			StringWriter w2 = new StringWriter();
-			pp2.apply("").apply(new Format().bool(true)).format(0, true, w2);
-			System.out.println(w2);
+//  		DesugarBoth<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>, Function<String, Function<IFormatWithPrecedence, IFormat>>, Function<String, Function<IFormatWithPrecedence, IFormat>>> 
+//  		dr = new DesugarBoth<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>,
+//  				Function<String, Function<IFormatWithPrecedence, IFormat>>,
+//  				Function<String, Function<IFormatWithPrecedence, IFormat>>>(
+//  						new Rename<Function<String, Function<IFormatWithPrecedence, IFormatWithPrecedence>>,
+//  	  				Function<String, Function<IFormatWithPrecedence, IFormat>>,
+//  	  				Function<String, Function<IFormatWithPrecedence, IFormat>>>(Collections.singletonMap("x", "y"),
+//  	  						
+//  	  						
+//  	  						
+//  	  						new Format2()));
+//		
+//		
+//	//BEGIN_PIPELINEQL_CALL_REPEAT
+//			Function<String, Function<IFormatWithPrecedence, IFormat>> pp2 
+//			  = dr.form("myForm", Arrays.asList(
+//				    dr.repeat(5,  
+//				    	dr.unless(dr.var("x"),
+//				    			dr.question("x", "X?", new TBoolean()))));
+//			//END_PIPELINEQL_CALL_REPEAT
+//		
+//			StringWriter w2 = new StringWriter();
+//			pp2.apply("").apply(new Format().bool(true)).format(0, true, w2);
+//			System.out.println(w2);
 	
 	}
 	

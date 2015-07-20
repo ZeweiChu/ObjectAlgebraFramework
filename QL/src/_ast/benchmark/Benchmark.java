@@ -45,9 +45,9 @@ public class Benchmark  {
 		List<Object> results = new ArrayList<>();
 		for (String src: gen) {
 			Builder x = TheParser.parse(src);
-			Form ast = x.build(new ASTBuilder()); // first into AST
+			//Form ast = x.build(new ASTBuilder()); // first into AST
 			long nBefore = System.nanoTime();
-			ast.recons(alg, alg, alg); // then recons to compute
+			x.build(alg); // then recons to compute
 			long nAfter = System.nanoTime();
 			double time = (1.0 * (nAfter - nBefore)) / 1000000000.0;
 			//System.out.println(src.length() + ", " +  String.format("%f", time));

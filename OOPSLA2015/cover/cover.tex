@@ -136,7 +136,7 @@ problem and were generated.  We now included this in the text.
 Please give a rough estimate in the author response (with/without boilerplate
 that could be generated).}
 
-\hl{TODO: Tijs}
+We have added a subsection to the Case Study section detailing the difference in code size between vanilla and Shy solutions (Section 11.4). 
 
 \question{What technique was used for generating the boilerplate interfaces? Is the
 annotation processor in javax used, or what?}
@@ -150,11 +150,12 @@ start-up or warmed-up performance?}
 
 We didn't measure warmup time: the benchmarks were run first to
 warm-up; then to measure warmup-up performance. The initial outliers
-were caused by garbage collection pauses. The current measurements
-were run with 2GB of memory to avoid GC pauses.
+were probably caused by garbage collection pauses. The current measurements
+were run with 2GB of memory to mitigate this effect.
 
+This is the commandline used for running the benchmarks. 
 \begin{verbatim}
-$ java -Xmx2048M -Xms512M  -server -d64 -cp bin:lib/Library.jar:lib/ant
+$ java -Xmx4096M -Xms512M  -server -d64 -cp bin:lib/Library.jar:lib/ant
 lr-4.2.2-complete.jar:../naked-object-algebras/bin _ast.benchmark.Bench
 mark
 \end{verbatim}
