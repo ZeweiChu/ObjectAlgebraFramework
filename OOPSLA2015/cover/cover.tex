@@ -151,7 +151,7 @@ start-up or warmed-up performance?}
 We didn't measure warmup time: the benchmarks were run first to
 warm-up; then to measure warmup-up performance. The initial outliers
 were probably caused by garbage collection pauses. The current measurements
-were run with 2GB of memory to mitigate this effect.
+were run with 4GB of memory to mitigate this effect.
 
 This is the commandline used for running the benchmarks. 
 \begin{verbatim}
@@ -239,11 +239,11 @@ transformations and limitations of the approach.
 \question{For that matter, the transformation algebras represent type preserving
 transformations; how are translations (between types) expressed?}
 
-\hl{(SHOULD WE INCLUDE THIS TEXT?)
-Queries are actually an example of a ``transformation'' that changes the
-structure. It transforms from an AST into a monoid structure. The fact
-that we need to build a monoid structure as the result is expressed by
-using \lstinline{m()} as a factory.}
+Object Algebra style translations are expressed by mapping factory calls of one algebra interface to a method calls on an algebra of a different type. In this sense, the queries discussed in the paper are an example of a transformation that maps a language (say, Expressions) to a monoid over some type (a different language). 
+Another example of type translating transformation is discussed in the new section on Desugaring (Section 8). In this case a ``larger language'' is transformed in to a ``smaller language''; the extra language constructs are desugared to combinations of constructs in the smaller language.
+
+The current framework does not support arbitrary type transforming transformations, since it is not clear how to generate default implementations like in the case of the queries. For queries, the target ``language'' (monoids) is sufficiently regular to generate default implementations. So translations are possible, but they will not be structure-shy (every case needs to be provided by the programmer). 
+
 
 \question{p10: The composition of these transformations is neat! Unfortunately, it
 seems to be assymetric, if I understand things well. One would really like
