@@ -8,7 +8,7 @@ represented by a different type parameter in the algebra interface.
 In this section we present \textit{generalized queries}, where each
 such type parameter can be instantiated to different monoids.
 It turns out that, for some operations, this generalized version
-of queries is needed.
+of queries is needed.\\
 
 \begin{comment}
 \haoyuan{General template. Some redundant texts.}
@@ -36,15 +36,11 @@ interface Alg$_{GQ}$<X$_1$,$...$,X$_n$> extends Alg<X$_1$,$...$,X$_n$> {
 \end{comment}
 
 
-\subsection{Example: Data Dependencies}
-\label{subsec:depGraph}
-%\subsection{Dealing with multiple sorts}
-
-A simple example of a generalized query is the extraction of the data
+\noindent\textbf{Example: Data Dependencies.} A simple example of a generalized query is the extraction of the data
 dependencies between assignment statements and variables in simple
 imperative programs.  To express this query, the simple
 \lstinline{ExpAlg} is first extended with statements using the
-\lstinline{StatAlg} interface defined as follows:
+\lstinline{StatAlg} interface defined as follows:\\
 
 %\begin{quote}
   \lstinputlisting[linerange=6-10]{../ObjectAlgebras/src/trees/StatAlg.java} % APPLY:linerange=STATALG
@@ -53,7 +49,7 @@ imperative programs.  To express this query, the simple
 %\noindent \hl{At this point one may ask why \lstinline{StatAlg} is declared independently instead of extending \lstinline{ExpAlg}. \name supports extensible data structures, but such extensibility is not realized by declaring two Object Algebra interfaces with inheritance. Instead, they are declared separately, and so are the generated generic traversals. A behavior defined by users can then extend both traversals, since Java supports multiple inheritance for interfaces.}
 
 The \lstinline{StatAlg} interface defines  statement constructors for sequential composition
-(\lstinline{Seq}) and assignment (\lstinline{Assign}). The interface does not extend the \lstinline{ExpAlg} interface; we rely on multiple inheritance of Java interfaces to combine implementations of these interfaces later (see Figure~\ref{deps2}). 
+(\lstinline{Seq}) and assignment (\lstinline{Assign}). The interface does not extend the \lstinline{ExpAlg} interface; we rely on multiple inheritance of Java interfaces to combine implementations of these interfaces later (see Figure~\ref{deps2}).
 
 The generated
 default implementation of queries over statements is shown in

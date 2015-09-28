@@ -44,7 +44,6 @@ The following code shows how this can be done in a modular fashion:
 \noindent Note that the transformation uses the \lstinline{lamAlg()} algebra (from \lstinline{LamAlgTransform}),
 to create lambda expressions.
 
-
 \begin{figure}[t]
   \centering
   \nocaptionrule
@@ -74,7 +73,7 @@ In that case, the generated \lstinline{LamAlgTransform} would need to refine the
 
 \subsection{Independent Extensibility}
 
-Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. {\small\texttt{FreeVars}} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent using multiple inheritance of interfaces with default methods. 
+Both Figure~\ref{FIG:extensionQuery} and Figure~\ref{FIG:extensionTrafo} show extensions of queries and transformations where the extensions directly inherit from the concrete implementation of the operations (i.e. {\small\texttt{FreeVars}} and \lstinline{Unique}, respectively). It is also possible to make the extensions more independent using multiple inheritance of interfaces with default methods.
 
 For instance, the \lstinline{Unique} transformation for the \lstinline{LamAlg} language could also have been implemented independently of \lstinline{Unique}:
 
@@ -92,4 +91,4 @@ class Combine<E> implements Unique<E>,UniqueLam<E> {
 }
 \end{lstlisting}
 
-For queries the pattern is the same, except that only a concrete implementation of \lstinline{m()} has to be provided for the combined interface. 
+For queries the pattern is the same, except that only a concrete implementation of \lstinline{m()} has to be provided for the combined interface.
